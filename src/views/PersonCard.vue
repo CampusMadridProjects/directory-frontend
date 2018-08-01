@@ -1,8 +1,7 @@
 <template>
-  <v-card :hover="true">
+  <v-card :hover="true" class="box-shadow light-border custom-hover">
   <div @click="show = !show">
     
-    <v-card-media height="164px">
         <div>
           <img class="card-user-pic" :src="pic" />
         </div>
@@ -45,9 +44,6 @@
   }
 
   img.card-user-pic {
-    border-radius: 50%;
-    height: 92px;
-    width: 92px;
   }
 
   .card-user-info {
@@ -68,6 +64,21 @@
     height: 32px;
     width: 32px;
   }
+
+    .box-shadow {
+        box-shadow: none;
+    }
+    
+    .light-border {
+        border: 1px solid #f3f3f3;
+        border-radius: 8px;
+    }
+    
+    /* more spread, low contrast */
+    .custom-hover:hover {
+        box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
+    }
+    
 </style>
 
 <script>
