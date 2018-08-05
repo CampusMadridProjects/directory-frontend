@@ -3,8 +3,17 @@
     <h1>No hemos encontrado resultados :(</h1>
   </v-container>
   <v-container class="card-grid" v-else>
-    <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item" v-for="startup in filterStartup(search)" :key="startup.name">
-      <startup-card class="card-grid-item-card" :name="startup.name" :logo="startup.logo" :people="startup.employees" :bio="startup.description" :accelerator="startup.accelerator" :location="startup.location"></startup-card>
+    <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
+      v-for="startup in filterStartup(search)"
+      :key="startup.name">
+      <startup-card class="card-grid-item-card"
+        :name="startup.name"
+        :logo="startup.logo"
+        :people="startup.employees"
+        :bio="startup.description"
+        :accelerator="startup.accelerator"
+        :location="startup.location">
+      </startup-card>
     </v-flex>
   </v-container>
 </template>
@@ -29,7 +38,7 @@ a {
 .card-grid {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;  
+  flex-wrap: wrap;
 }
 
 .card-grid-item-card {
@@ -39,49 +48,29 @@ a {
 
 
 <script>
-import StartupCard from './StartupCard.vue'
-
-export default {
-  name: 'Startup',
-  props: {
-    search: { type: String, required: false}
-  },
-  data () {
-    return {
-      list: [],
-      filterStartup: filterStartup,
-      loadStartup: loadStartup
-    }
-  },
-  components: {
-    StartupCard: StartupCard
-  },
-  created: function () {
-    this.loadStartup();
-  }
-}
+import StartupCard from './StartupCard.vue';
 
 /** filterStartup
- *  Return a new array wit startups that matches with the search input passed 
- *  as param. It uses as list the component's this.list. It check in name, 
+ *  Return a new array wit startups that matches with the search input passed
+ *  as param. It uses as list the component's this.list. It check in name,
  *  description and accelerator
  *
  *  @param search {String} Search term to filter the startup list
  *  @return {Array} An array that matches with search params
  */
 function filterStartup(search) {
-  var safeSearch = search && search.toUpperCase() || '';
-  return this.list.filter(function (startup) {
-    var found = false;
-    if( (startup.name && startup.name.toUpperCase().indexOf(safeSearch) > -1)
+  const safeSearch = search && (search.toUpperCase() || '');
+  return this.list.filter((startup) => {
+    let found = false;
+    if ((startup.name && startup.name.toUpperCase().indexOf(safeSearch) > -1)
       || (startup.description && startup.description.toUpperCase().indexOf(safeSearch) > -1)
       || (startup.accelerator && startup.accelerator.toUpperCase().indexOf(safeSearch) > -1)
-      ) {
+    ) {
       found = true;
     }
 
     return found;
-  })
+  });
 }
 
 /** loadStartup
@@ -90,15 +79,35 @@ function filterStartup(search) {
  *  @return {Promise} The fetch promise.
  */
 function loadStartup() {
-  return fetch(process.env.VUE_APP_API_URL + '/' + process.env.VUE_APP_API_STARTUPS, {
-      method: 'GET',
-    }).then((res) => res.json())
-    .then( (data) => {
+  return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_STARTUPS}`, {
+    method: 'GET',
+  }).then(res => res.json())
+    .then((data) => {
       this.list = data;
     })
     .catch((err) => {
-      console.error(err)
+      console.error(err);
     });
 }
+
+export default {
+  name: 'Startup',
+  props: {
+    search: { type: String, required: false },
+  },
+  data() {
+    return {
+      list: [],
+      filterStartup,
+      loadStartup,
+    };
+  },
+  components: {
+    StartupCard,
+  },
+  created() {
+    this.loadStartup();
+  },
+};
 
 </script>
