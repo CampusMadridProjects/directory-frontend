@@ -1,8 +1,8 @@
 <template>
   <v-card :hover="true" class="box-shadow light-border custom-hover">
     <div @click="show = !show">
-      <div>
-        <img class="card-user-pic" :src="pic" />
+      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
+        <!-- <img class="card-user-pic" :src="pic" /> -->
       </div>
       <div class="headline">{{ name }}</div>
       <span class="grey--text one-line">
@@ -47,7 +47,36 @@
     flex-direction: column;
   }
 
-  img.card-user-pic {
+  .card-user-pic {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: calc(100vw - 32px);
+  }
+  /* In tablet, we have two columns */
+  @media (min-width: 600px) {
+    .card-user-pic {
+      height: calc(50vw - 32px);
+    }
+  }
+  /* In desktop, we have three columns */
+  @media (min-width: 960px) {
+    .card-user-pic {
+      height: calc(33vw - 64px);
+    }
+  }
+  /* In long-desktop, we have four columns */
+  @media (min-width: 1264px) {
+    .card-user-pic {
+      height: calc(25vw - 80px);
+    }
+  }
+
+  /* In TV, we have six columns */
+  @media (min-width: 1904px) {
+    .card-user-pic {
+      height: calc(16vw);
+    }
   }
 
   .card-user-info {
