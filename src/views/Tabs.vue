@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <v-toolbar tabs extended app dark color="primary">
+  <v-app dark>
+    <v-toolbar tabs extended app dark>
       <img src="img/logo.png" style="height: 26px;">
       <!-- Navbar title -->
       <v-toolbar-title v-text="title"></v-toolbar-title>
@@ -30,7 +30,7 @@
 
       <!-- Search navbar -->
       <div v-if="searching">
-        <v-toolbar absolute flat light color="primary">
+        <v-toolbar absolute flat dark>
           <v-btn icon @click="searching = false">
             <v-icon>arrow_back</v-icon>
           </v-btn>
@@ -90,7 +90,7 @@ export default {
   data() {
     return {
       fixed: false,
-      title: 'Campus directory',
+      title: 'Campus Directory',
       searching: false,
       tabs: null,
       search: '',
