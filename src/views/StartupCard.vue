@@ -1,5 +1,5 @@
 <template>
-  <v-card :hover="true">
+  <v-card light :hover="true">
     <div @click="show = !show">
     <v-card-media
       :height="cardHeight"
