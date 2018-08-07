@@ -90,7 +90,7 @@ export default {
   data () {
     return {
       fixed: false,
-      title: 'Campus directory',
+      title: 'Campus Directory',
       searching: false,
       tabs: null,
       search: '',
