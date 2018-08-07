@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app dark>
     <v-toolbar tabs extended app dark>
       <img src="img/logo.png" style="height: 26px;">
       <!-- Navbar title -->

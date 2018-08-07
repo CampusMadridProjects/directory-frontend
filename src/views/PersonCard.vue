@@ -1,5 +1,5 @@
 <template>
-  <v-card :hover="true" class="box-shadow light-border custom-hover">
+  <v-card light :hover="true" class="box-shadow light-border custom-hover">
   <div @click="show = !show">
     
         <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
