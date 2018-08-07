@@ -37,6 +37,12 @@
 </template>
 
 <style type="text/css">
+    
+    .v-card {
+        border-radius: 8px;
+        padding: 4px;
+    }
+    
   .v-card__media__content {
     padding: 16px 8px 8px 8px;
     text-align: center;
