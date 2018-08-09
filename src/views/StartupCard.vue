@@ -48,7 +48,7 @@
 </style>
 
 <script>
-import PersonList from './PersonList.vue'
+import PersonList from './PersonList.vue';
 
 export default {
   name: 'People',
@@ -57,14 +57,14 @@ export default {
     name: { type: String, required: true },
     people: { type: Array, required: true },
     bio: { type: String, required: true },
-    accelerator: { type: String, required: true }
+    accelerator: { type: String, required: true },
   },
   data: () => ({
     show: false,
-    cardHeight: '164px'
+    cardHeight: '164px',
   }),
   components: {
-    PersonList: PersonList
-  }
-}
-</script> 
+    PersonList,
+  },
+};
+</script>
