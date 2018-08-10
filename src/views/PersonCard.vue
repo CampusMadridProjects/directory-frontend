@@ -17,7 +17,7 @@
       <div class="card-user-info">
         <h4>
           <span v-for="(ability, index) in expertise"
-            :key="ability">{{ (index !== 0) ? ', ' + ability : ability }}>
+            :key="ability">{{ (index !== 0) ? ', ' + ability : ability }}
           </span>
         </h4>
         <span class="grey--text">{{ location }}</span>
