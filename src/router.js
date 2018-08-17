@@ -11,7 +11,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Tabs,
-      // component: Home
     },
     {
       path: '/about',

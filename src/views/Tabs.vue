@@ -82,8 +82,8 @@
 </style>
 
 <script>
-import People from './People.vue';
-import Startup from './Startup.vue';
+import People from '../components/People.vue';
+import Startup from '../components/Startup.vue';
 
 export default {
   name: 'Tabs',
