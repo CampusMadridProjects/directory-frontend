@@ -26,6 +26,10 @@
         <v-tab href="#tabs-startup">
           Startups
         </v-tab>
+
+        <v-tab href="#tabs-organizations">
+          Organizations
+        </v-tab>
       </v-tabs>
 
       <!-- Search navbar -->
@@ -41,7 +45,7 @@
             v-model="search"
             autofocus
             clearable
-            placeholder="Search for people or startups"
+            placeholder="Search for people, startups or organizations"
           ></v-text-field>
         </v-toolbar>
       </div>
@@ -55,6 +59,9 @@
         </v-tab-item>
         <v-tab-item id="tabs-startup">
           <Startup :search="search"></Startup>
+        </v-tab-item>
+        <v-tab-item id="tabs-organizations">
+          <Organizations :search="search"></Organizations>
         </v-tab-item>
       </v-tabs-items>
     </v-content>
@@ -84,6 +91,7 @@
 <script>
 import People from '../components/People.vue';
 import Startup from '../components/Startup.vue';
+import Organizations from '../components/Organizations.vue';
 
 export default {
   name: 'Tabs',
@@ -100,6 +108,7 @@ export default {
   components: {
     People,
     Startup,
+    Organizations,
   },
 };
 </script>
