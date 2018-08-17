@@ -51,6 +51,19 @@
     <v-content>
       <v-tabs-items v-model="tabs">
         <v-tab-item id="tabs-people">
+            <v-container fluid class="pa-0 chip-container">
+                <div class="text-xs-center">
+                    <v-chip>Front</v-chip>
+                    <v-chip>Back</v-chip>
+                    <v-chip>Business</v-chip>
+                    <v-chip>Design</v-chip>
+                    <v-chip>Marketing</v-chip>
+                    <v-chip>Product</v-chip>
+                    <v-chip>Founder</v-chip>
+                    <v-chip>Accelerator</v-chip>
+                    <v-chip>Mentor</v-chip>
+                </div>
+            </v-container>
           <People :search="search"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
@@ -79,6 +92,17 @@
     align-items: center;
     justify-content: center;
   }
+    
+    .v-chip {
+        /* background: dark-gray; */
+        background: #4a4f56;
+        color: rgb(178, 184, 191);
+        font-weight: 500;
+    }
+    
+    .chip-container {
+        margin-top: 32px;
+    }
 </style>
 
 <script>
