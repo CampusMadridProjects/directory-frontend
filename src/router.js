@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import CheckLocation from './views/CheckLocation.vue';
 import Tabs from './views/Tabs.vue';
 import About from './views/About.vue';
 
@@ -9,6 +10,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'location',
+      component: CheckLocation,
+    },
+    {
+      path: '/directory',
       name: 'home',
       component: Tabs,
     },
