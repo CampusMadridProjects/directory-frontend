@@ -66,6 +66,10 @@
       </v-tabs-items>
     </v-content>
 
+    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <router-view></router-view>
+    </v-dialog>
+
     <v-footer >
       <span>2018 - Made with ❤ in <a>Campus Madrid</a></span>
     </v-footer>
@@ -93,6 +97,15 @@ import People from '../components/People.vue';
 import Startup from '../components/Startup.vue';
 import Organizations from '../components/Organizations.vue';
 
+function checkChildren(name) {
+  const childrenRoutes = ['personDetail', 'startupDetail'];
+    if (childrenRoutes.indexOf(name) > -1) {
+      this.dialog = true;
+    } else {
+      this.dialog = false;
+    }
+}
+
 export default {
   name: 'Tabs',
   data() {
@@ -102,6 +115,8 @@ export default {
       searching: false,
       tabs: null,
       search: '',
+      dialog: false,
+      checkChildren,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     };
   },
@@ -110,5 +125,15 @@ export default {
     Startup,
     Organizations,
   },
+  created() {
+    console.log('LOOOOOOOOOOOOOOOOOOOOOOO');
+    console.log(this.$router.currentRoute.name);
+    this.checkChildren(this.$router.currentRoute.name);
+  },
+  watch: {
+  '$route' (to, from) {
+    this.checkChildren(to.name);
+  },
+}
 };
 </script>

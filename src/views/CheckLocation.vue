@@ -35,14 +35,14 @@
   </v-layout>
 
   <v-dialog v-model="dialog">
-      <v-card>
-        <v-card-title class="headline">Loading...</v-card-title>
+    <v-card>
+      <v-card-title class="headline">Loading...</v-card-title>
 
-        <v-card-text>
-         <loading></loading>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+      <v-card-text>
+       <loading></loading>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </v-app>
 
 </template>
