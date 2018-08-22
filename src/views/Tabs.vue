@@ -71,6 +71,7 @@
     </v-dialog>
 
     <v-footer >
+      <span>New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us here!</a></span>
       <span>2018 - Made with ❤ in <a>Campus Madrid</a></span>
     </v-footer>
   </v-app>
