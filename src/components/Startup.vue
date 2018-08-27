@@ -8,8 +8,9 @@
   <v-container class="card-grid" v-else>
     <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
       v-for="startup in filterStartup(search)"
-      :key="startup.name">
+      :key="startup._id">
       <startup-card class="card-grid-item-card"
+        :id="startup._id"
         :name="startup.name"
         :logo="startup.logo"
         :people="startup.employees"
@@ -54,6 +55,9 @@ a {
 import StartupCard from './StartupCard.vue';
 import Loading from './Loading.vue';
 
+// If you want to make data persistent throught sessions, you can use localStorage
+const storage = window.sessionStorage;
+
 /** filterStartup
  *  Return a new array wit startups that matches with the search input passed
  *  as param. It uses as list the component's this.list. It check in name,
@@ -78,17 +82,46 @@ function filterStartup(search) {
 }
 
 /** loadStartup
- *  Get the startup list from the backend. It stores in component's this.list
+ *  Get a startup list from localstorage or backend.
  *
  *  @return {Promise} The fetch promise.
  */
 function loadStartup() {
+  const localStartups = storage.getItem('startup-list');
+
+  if (localStartups === null) {
+    return this.downloadStartup();
+  }
+
+  // Try to parse JSON
+  try {
+    const parsedStartups = JSON.parse(localStartups);
+
+    this.list = parsedStartups;
+    this.loading = false;
+    
+    return Promise.resolve(parsedStartups);
+  } catch (e) {
+    // In case of error, ask the backend.
+    return this.downloadStartup();
+  }
+}
+
+/** downloadStartup
+ *  Get the startup list from the backend. It stores in component's this.list
+ *
+ *  @return {Promise} The fetch promise.
+ */
+function downloadStartup() {
   return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_STARTUPS}`, {
     method: 'GET',
   }).then(res => res.json())
     .then((data) => {
       this.loading = false;
       this.list = data;
+      storage.setItem('startup-list', JSON.stringify(data));
+
+      return data;
     })
     .catch((err) => {
       this.loading = false;
@@ -107,6 +140,7 @@ export default {
       list: [],
       filterStartup,
       loadStartup,
+      downloadStartup,
     };
   },
   components: {

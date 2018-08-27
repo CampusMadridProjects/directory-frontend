@@ -1,25 +1,15 @@
 <template>
   <v-card light :hover="true">
-    <div @click="show = !show">
-    <v-card-media
-      :height="cardHeight"
-      :src="logo"
-    ></v-card-media>
+    <div @click="$router.push({name: 'startupDetail', params: {id: id}})">
+      <v-card-media
+        :height="cardHeight"
+        :src="logo"
+      ></v-card-media>
 
-    <v-card-title primary-title>
-      <h3 class="headline mb-0">{{ name }}</h3>
-      <div class="grey--text">{{ accelerator }}</div>
-    </v-card-title>
-
-    <v-slide-y-transition>
-      <v-card-text v-show="show">
-        <v-subheader>What do they do?</v-subheader>
-        {{ bio }}
-
-        <v-subheader>Who's there?</v-subheader>
-        <person-list :people="people"></person-list>
-      </v-card-text>
-    </v-slide-y-transition>
+      <v-card-title primary-title>
+        <h3 class="headline mb-0">{{ name }}</h3>
+        <div class="grey--text">{{ accelerator }}</div>
+      </v-card-title>
     </div>
   </v-card>
 </template>
@@ -48,11 +38,12 @@
 </style>
 
 <script>
-import PersonList from './PersonList.vue';
+
 
 export default {
   name: 'People',
   props: {
+    id: { type: String, required: true },
     logo: { type: String, required: true },
     name: { type: String, required: true },
     people: { type: Array, required: true },
@@ -60,11 +51,7 @@ export default {
     accelerator: { type: String, required: true },
   },
   data: () => ({
-    show: false,
     cardHeight: '164px',
   }),
-  components: {
-    PersonList,
-  },
 };
 </script>

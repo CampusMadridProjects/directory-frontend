@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import CheckLocation from './views/CheckLocation.vue';
 import Tabs from './views/Tabs.vue';
 import PersonDetail from './views/PersonDetail.vue';
+import StartupDetail from './views/StartupDetail.vue';
 import About from './views/About.vue';
 
 
@@ -27,12 +28,11 @@ export default new Router({
           path: 'person/:id',
           component: PersonDetail
         },
-        // {
-        //   // UserPosts will be rendered inside User's <router-view>
-        //   // when /user/:id/posts is matched
-        //   path: 'startup/:id',
-        //   component: UserPosts
-        // }
+        {
+          name: 'startupDetail',
+          path: 'startup/:id',
+          component: StartupDetail
+        },
       ],
     },
     {
