@@ -1,7 +1,7 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
     <!-- <div @click="show = !show"> -->
-    <div @click="$router.push({name: 'personDetail', params: {id: '1'}})">
+    <div @click="$router.push({name: 'personDetail', params: {id: id}})">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
       </div>
       <div class="headline">{{ name }}</div>
@@ -124,6 +124,7 @@
 export default {
   name: 'People',
   props: {
+    id: { type: String, required: true },
     pic: { type: String, required: true },
     name: { type: String, required: true },
     role: { type: String, required: true },

@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-toolbar dark color="primary">
+  <v-card light class="full-size">
+    <v-toolbar dark>
       <v-btn icon dark @click="$router.back();">
         <v-icon>close</v-icon>
       </v-btn>
@@ -10,8 +10,107 @@
         <v-btn dark flat @click.native="dialog = false">Save</v-btn>
       </v-toolbar-items> -->
     </v-toolbar>
+
+    <div>
+      <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +')'}">
+      </div>
+      <div class="headline text-xs-center">{{ data.name }}</div>
+      <div class="text-xs-center">
+        <span class="grey--text one-line text-xs-center">
+          {{ data.role }} @
+          <!-- <router-link :to="{name: 'startup', params: {startupId: data.company_id}}"> -->
+            {{ data.company }}
+          <!-- </router-link> -->
+        </span>
+      </div>
+    </div>
+
+    <v-card-title primary-title>
+      <div class="card-user-info">
+        <h4>
+          <span v-for="(ability, index) in data.expertise"
+            :key="ability">{{ (index !== 0) ? ', ' + ability : ability }}
+          </span>
+        </h4>
+        <span class="grey--text">{{ data.location }}</span>
+      </div>
+    </v-card-title>
     
-    Ola k ase
+    <v-card-text>
+      {{ data.bio }}
+      <div class="person-card-social-icons">
+        <a v-if="data.twitter" :href="data.twitter" target="_blank" class="person-card-social-icon">
+          <img src="img/twitter_64.png" alt="twitter" />
+        </a>
+        <a v-if="data.linkedin" :href="data.linkedin" target="_blank" class="person-card-social-icon">
+          <img src="img/linkedin_64.png" alt="linkedin" />
+        </a>
+      </div>
+    </v-card-text>
 
   </v-card>
 </template>
+
+
+<style scoped>
+  .full-size {
+    border-radius: 0 !important;
+    border-top-left-radius: 0;
+    border-top-right-radius-radius: 0;
+  }
+</style>
+
+
+<script>
+// ToDo (@CodingCarlos):
+// A better way to manage the ID discovery
+
+// If you want to make data persistent throught sessions, you can use localStorage
+const storage = window.sessionStorage;
+
+function getStorage() {
+  let list = storage.getItem('people-list')
+  try {
+    list = JSON.parse(list);
+  } catch (e) {
+    list = [];
+  }
+
+  return list;
+}
+
+function searchPerson(list, id) {
+  for (var i = list.length - 1; i >= 0; i--) {
+    if(list[i]._id === id) {
+      return list[i];
+    }
+  }
+
+  return null;
+}
+
+function getData() {
+  const id = this.$router.currentRoute.params.id;
+  const data = getStorage();
+
+  this.id = id;
+  this.data = searchPerson(data, id);
+
+  console.log(this.data);
+}
+
+export default {
+  name: 'PersonDetail',
+  data() {
+    return {
+      loading: true,
+      id: null,
+      data: {},
+      getData,
+    };
+  },
+  created() {
+    this.getData();
+  },
+};
+</script>

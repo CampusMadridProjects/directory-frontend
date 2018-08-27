@@ -134,8 +134,6 @@ export default {
     Organizations,
   },
   created() {
-    console.log('LOOOOOOOOOOOOOOOOOOOOOOO');
-    console.log(this.$router.currentRoute.name);
     this.checkChildren(this.$router.currentRoute.name);
   },
   watch: {

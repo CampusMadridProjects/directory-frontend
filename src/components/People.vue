@@ -10,6 +10,7 @@
       v-for="person in filterPeople(search)"
       :key="person._id">
       <person-card class="card-grid-item-card"
+        :id="person._id"
         :name="person.name"
         :pic="person.pic"
         :role="person.role"
@@ -56,6 +57,9 @@ a {
 import PersonCard from './PersonCard.vue';
 import Loading from './Loading.vue';
 
+// If you want to make data persistent throught sessions, you can use localStorage
+const storage = window.sessionStorage;
+
 function inArray(array, data) {
   let found = false;
   for (let i = array.length - 1; i >= 0; i -= 1) {
@@ -93,10 +97,34 @@ function filterPeople(search) {
 }
 
 /** loadPeople
- *  Get a people list from the backend. Also, parse some possible exceptions.
+ *  Get a people list from localstorage or backend.
  */
 function loadPeople() {
-  fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
+  const localPeople = storage.getItem('people-list');
+
+  if (localPeople === null) {
+    return this.downloadPeople();
+  }
+
+  // Try to parse JSON
+  try {
+    const parsedPeople = JSON.parse(localPeople);
+
+    this.list = parsedPeople;
+    this.loading = false;
+    
+    return Promise.resolve(parsedPeople);
+  } catch (e) {
+    // In case of error, ask the backend.
+    return this.downloadPeople();
+  }
+}
+
+/** downloadPeople
+ *  Get a people list from the backend. Also, parse some possible exceptions.
+ */
+function downloadPeople() {
+  return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
     method: 'GET',
     // body:JSON.stringify({title:"a new todo"})
   }).then(res => res.json())
@@ -114,6 +142,9 @@ function loadPeople() {
       });
 
       this.list = cleanData;
+      storage.setItem('people-list', JSON.stringify(cleanData));
+
+      return cleanData;
     })
     .catch((err) => {
       this.loading = false;
@@ -133,6 +164,7 @@ export default {
       list: [],
       filterPeople,
       loadPeople,
+      downloadPeople,
     };
   },
   components: {
