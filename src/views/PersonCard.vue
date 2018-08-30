@@ -45,6 +45,7 @@
     .v-card {
         border-radius: 8px;
         padding: 4px;
+        text-align: center;
     }
     
   .v-card__media__content {
@@ -58,6 +59,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: calc(100vw - 32px);
+    margin-bottom: 12px;
   }
   /* In tablet, we have two columns */
   @media (min-width: 600px) {
