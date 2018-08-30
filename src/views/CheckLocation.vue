@@ -37,15 +37,12 @@
     </div>
   </v-layout>
 
-  <v-dialog v-model="dialog">
-    <v-card>
+  <v-dialog v-model="dialog" fullscreen>
 
-      <v-card-text>
        <loading></loading>
-      </v-card-text>
 
-      <v-card-title class="headline">Patience is a virtue</v-card-title>
-    </v-card>
+      <p class="display-1">Patience is a virtue</p>
+  
   </v-dialog>
 </v-app>
 
@@ -74,6 +71,22 @@
         border-radius: 50px;
         text-transform: none;
     }
+    
+    .v-dialog--fullscreen {
+        background: rgba(48, 48, 48, 0.96);
+        padding-top: 45vh;
+    }
+    
+    .display-1 {
+        text-align: center;
+        padding: 8px;
+    }
+    
+    .v-progress-circular {
+        height: 40px;
+        width: 40px;
+    }
+    
 </style>
 
 <script type="text/javascript">
