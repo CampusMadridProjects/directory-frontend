@@ -51,7 +51,7 @@ import PersonList from '../components/PersonList.vue';
 const storage = window.sessionStorage;
 
 function getStorage() {
-  let list = storage.getItem('startup-list')
+  let list = storage.getItem('startup-list');
   try {
     list = JSON.parse(list);
   } catch (e) {
@@ -62,8 +62,8 @@ function getStorage() {
 }
 
 function searchPerson(list, id) {
-  for (var i = list.length - 1; i >= 0; i--) {
-    if(list[i]._id === id) {
+  for (let i = list.length - 1; i >= 0; i--) {
+    if (list[i]._id === id) {
       return list[i];
     }
   }

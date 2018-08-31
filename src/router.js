@@ -26,12 +26,12 @@ export default new Router({
           // when /user/:id/profile is matched
           name: 'personDetail',
           path: 'person/:id',
-          component: PersonDetail
+          component: PersonDetail,
         },
         {
           name: 'startupDetail',
           path: 'startup/:id',
-          component: StartupDetail
+          component: StartupDetail,
         },
       ],
     },

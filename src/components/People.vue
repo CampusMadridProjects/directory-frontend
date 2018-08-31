@@ -112,7 +112,7 @@ function loadPeople() {
 
     this.list = parsedPeople;
     this.loading = false;
-    
+
     return Promise.resolve(parsedPeople);
   } catch (e) {
     // In case of error, ask the backend.

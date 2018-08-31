@@ -107,11 +107,11 @@ import Organizations from '../components/Organizations.vue';
 
 function checkChildren(name) {
   const childrenRoutes = ['personDetail', 'startupDetail'];
-    if (childrenRoutes.indexOf(name) > -1) {
-      this.dialog = true;
-    } else {
-      this.dialog = false;
-    }
+  if (childrenRoutes.indexOf(name) > -1) {
+    this.dialog = true;
+  } else {
+    this.dialog = false;
+  }
 }
 
 export default {
@@ -137,9 +137,9 @@ export default {
     this.checkChildren(this.$router.currentRoute.name);
   },
   watch: {
-  '$route' (to, from) {
-    this.checkChildren(to.name);
+    $route(to, from) {
+      this.checkChildren(to.name);
+    },
   },
-}
 };
 </script>
