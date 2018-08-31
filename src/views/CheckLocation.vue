@@ -1,13 +1,13 @@
 <template>
 <v-app class="theme--dark">
   <v-layout column justify-center v-if="disallowed">
-    
-    
     <div class="text-xs-center big-icon">
       <v-icon>location_off</v-icon>
     </div>
-    
-     <h1 class="text-xs-center welcome-text">Sorry, but you need to grant location access or be at the Campus.</h1>
+
+    <h1 class="text-xs-center welcome-text">
+      Sorry, but you need to grant location access or be at the Campus.
+    </h1>
 
     <p class="text-xs-center explain-text">
       For privacy reasons, this beta is only accesible from the Campus.<br />
@@ -20,11 +20,11 @@
   </v-layout>
 
   <v-layout column justify-center v-else>
-   
+
     <div class="text-xs-center big-icon">
       <v-icon>location_on</v-icon>
     </div>
-   
+
     <h1 class="text-xs-center welcome-text">Welcome to Campus Directory</h1>
 
     <p class="text-xs-center explain-text">
@@ -38,11 +38,10 @@
   </v-layout>
 
   <v-dialog v-model="dialog" fullscreen>
-
-       <loading></loading>
-
+    <div class="dialog-fullscreen-wrapper">
+      <loading></loading>
       <p class="display-1">Patience is a virtue</p>
-  
+    </div>
   </v-dialog>
 </v-app>
 
@@ -65,28 +64,29 @@
     margin: 8px 12vw 32px;
     font-size: 18px;
   }
-    
-    .v-btn {
-        background: #CD85E8 !important;
-        border-radius: 50px;
-        text-transform: none;
-    }
-    
-    .v-dialog--fullscreen {
-        background: rgba(48, 48, 48, 0.96);
-        padding-top: 45vh;
-    }
-    
-    .display-1 {
-        text-align: center;
-        padding: 8px;
-    }
-    
-    .v-progress-circular {
-        height: 40px;
-        width: 40px;
-    }
-    
+
+  .v-btn {
+    background: #CD85E8 !important;
+    border-radius: 50px;
+    text-transform: none;
+  }
+
+  .dialog-fullscreen-wrapper {
+    height: 100%;
+    background: rgba(48, 48, 48, 0.96);
+    padding-top: 40vh;
+  }
+
+  .display-1 {
+      text-align: center;
+      padding: 24px;
+  }
+
+  .v-progress-circular {
+      height: 40px;
+      width: 40px;
+  }
+
 </style>
 
 <script type="text/javascript">
@@ -118,12 +118,12 @@ function isLocationValid(lat, long) {
     });
 }
 
-function checkEnter(data) {
+function checkEnter() {
   const allow = storage.getItem('access_allowed');
   // const distance = storage.getItem('access_distance');
 
   if (allow === 'true') {
-    this.$router.push({name: 'home'});
+    this.$router.push({ name: 'home' });
   } else if (allow !== null) {
     this.disallowed = true;
   }
@@ -133,10 +133,10 @@ function getLocation() {
   askForLocation((data) => {
     console.log(data);
     isLocationValid(data.coords.latitude, data.coords.longitude)
-      .then((data) => {
+      .then((serverResponse) => {
         this.dialog = false;
-        storage.setItem('access_allowed', data.allow);
-        storage.setItem('access_distance', data.distance);
+        storage.setItem('access_allowed', serverResponse.allow);
+        storage.setItem('access_distance', serverResponse.distance);
 
         return this.checkEnter();
       });
