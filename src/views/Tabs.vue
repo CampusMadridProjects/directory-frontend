@@ -42,7 +42,7 @@
           <v-text-field
             hide-details
             single-line
-            v-model="search.text"
+            v-model="search"
             autofocus
             clearable
             placeholder="Search for people, startups or organizations"
@@ -63,10 +63,10 @@
           <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
-          <Startup :search="search.text"></Startup>
+          <Startup :search="search"></Startup>
         </v-tab-item>
         <v-tab-item id="tabs-organizations">
-          <Organizations :search="search.text"></Organizations>
+          <Organizations :search="search"></Organizations>
         </v-tab-item>
       </v-tabs-items>
     </v-content>
@@ -155,12 +155,10 @@ export default {
       title: 'Campus Directory',
       searching: false,
       tabs: null,
-      search: { 
-        text: '',
-      },
+      search: '',
       tagFilter: [],
       peopleTags: [
-        'Front', 'Back', 'UI', 'UX', 'Product', 'Operations', 'Bussines', 'Marketing', 'Mentor'
+        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Bussines', 'Marketing', 'Mentor'
       ],
       switchTag,
       dialog: false,
@@ -179,9 +177,6 @@ export default {
     $route(to, from) {
       this.checkChildren(to.name);
     },
-    'search.tags': {
-      deep: true,
-    }
   },
 };
 </script>

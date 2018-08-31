@@ -63,7 +63,7 @@ const storage = window.sessionStorage;
 function inArray(array, data) {
   let found = false;
   for (let i = array.length - 1; i >= 0; i -= 1) {
-    if (array[i].toUpperCase().indexOf(data) > -1) {
+    if (array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
       found = true;
     }
   }
@@ -76,12 +76,17 @@ function inArray(array, data) {
  *  any way with the term.
  *
  *  @param {string} search Search query to filter persons
+ *  @param {array} filter Filter by categories to search
  *  @return {array} An array that matches the requested search term
  */
 function filterPeople(search, filter) {
-  const safeSearch = search && search.text && (search.text.toUpperCase() || '');
+  const safeSearch = search && search && (search.toUpperCase() || '');
 
-  return this.list.filter((person) => {
+  // filter by categories
+  const filtered = filterByCategory(this.list, filter);
+
+  // Filter by search text
+  return filtered.filter((person) => {
     let found = false;
 
     // Search by text
@@ -94,10 +99,26 @@ function filterPeople(search, filter) {
       found = true;
     }
 
-    console.log('categories changed!!');
-    console.log(filter);
-
     return found;
+  });
+}
+
+/** filterByCategory
+ *
+ */
+function filterByCategory(list, categories) {
+  if(!Array.isArray(categories) || categories.length === 0) {
+    return list;
+  }
+
+  return list.filter((person) => {
+    for (var i = 0; i < categories.length; i++) {
+      if (person.expertise && inArray(person.expertise, categories[i])) {
+        return true;
+      } 
+    }
+
+    return false;
   });
 }
 
@@ -161,7 +182,7 @@ function downloadPeople() {
 export default {
   name: 'People',
   props: {
-    search: { type: Object, required: false },
+    search: { type: String, required: false },
     filter: { type: Array, required: false },
   },
   data() {
