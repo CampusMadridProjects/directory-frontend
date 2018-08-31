@@ -57,8 +57,13 @@
         <v-tab-item id="tabs-people">
             <v-container fluid class="pa-0 chip-container">
                 <div class="text-xs-center">
-                    <v-chip>Front</v-chip>
-                    <v-chip>Back</v-chip>
+                    
+                    <!-- <span>{{search.tags}}</span> -->
+                    <!-- <span>{{arr}}</span> -->
+
+                    <v-chip @click="switchTag('UI')">Front</v-chip>
+                    <v-chip @click="switchTag('Product')">Back</v-chip>
+                    
                     <v-chip>Business</v-chip>
                     <v-chip>Design</v-chip>
                     <v-chip>Marketing</v-chip>
@@ -68,7 +73,7 @@
                     <v-chip>Mentor</v-chip>
                 </div>
             </v-container>
-          <People :search="search.text"></People>
+          <People :search="search" :filter="arr"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
           <Startup :search="search.text"></Startup>
@@ -142,20 +147,56 @@ function checkChildren(name) {
   }
 }
 
+function switchTag(name) {
+
+
+  // console.log('####################');
+  // console.log(this);
+  // console.log('####################');
+
+  // console.log(this.search.tags);
+
+  // var newObj = {};
+  // newObj[name] = !this.search.tags[name];
+
+  // // this.search.tags[name] = !this.search.tags[name];
+  // var obj = Object.assign(this.search.tags, newObj)
+
+  // console.log('obj:');
+  // console.log(obj);
+
+  // this.search.tags = obj;
+
+  // console.log(this.search.tags);
+  // console.log('----------------');
+  
+
+  // Array:
+
+  const index = this.arr.indexOf(name);
+
+  if (index === -1) {
+    this.arr.push(name);
+  } else {
+    this.arr.splice(index, 1);
+  }
+
+}
+
 export default {
   name: 'Tabs',
   data() {
     return {
-      fixed: false,
       title: 'Campus Directory',
       searching: false,
       tabs: null,
       search: { 
         text: '',
       },
+      arr: [],
+      switchTag,
       dialog: false,
       checkChildren,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     };
   },
   components: {
@@ -170,6 +211,9 @@ export default {
     $route(to, from) {
       this.checkChildren(to.name);
     },
+    'search.tags': {
+      deep: true,
+    }
   },
 };
 </script>
