@@ -38,7 +38,7 @@
           <v-text-field
             hide-details
             single-line
-            v-model="search"
+            v-model="search.text"
             autofocus
             clearable
             placeholder="Search for people or startups"
@@ -64,10 +64,10 @@
                     <v-chip>Mentor</v-chip>
                 </div>
             </v-container>
-          <People :search="search"></People>
+          <People :search="search.text"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
-          <Startup :search="search"></Startup>
+          <Startup :search="search.text"></Startup>
         </v-tab-item>
       </v-tabs-items>
     </v-content>
@@ -117,7 +117,9 @@ export default {
       title: 'Campus Directory',
       searching: false,
       tabs: null,
-      search: '',
+      search: { 
+        text: '',
+      },
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     };
   },
