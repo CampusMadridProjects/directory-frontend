@@ -117,7 +117,7 @@
     }
     
     .box-shadow {
-        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
+        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04) !important;
     }
     
     .v-card {
