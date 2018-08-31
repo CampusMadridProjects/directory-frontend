@@ -57,23 +57,10 @@
         <v-tab-item id="tabs-people">
             <v-container fluid class="pa-0 chip-container">
                 <div class="text-xs-center">
-                    
-                    <!-- <span>{{search.tags}}</span> -->
-                    <!-- <span>{{arr}}</span> -->
-
-                    <v-chip @click="switchTag('UI')">Front</v-chip>
-                    <v-chip @click="switchTag('Product')">Back</v-chip>
-                    
-                    <v-chip>Business</v-chip>
-                    <v-chip>Design</v-chip>
-                    <v-chip>Marketing</v-chip>
-                    <v-chip>Product</v-chip>
-                    <v-chip>Founder</v-chip>
-                    <v-chip>Accelerator</v-chip>
-                    <v-chip>Mentor</v-chip>
+                    <v-chip :class="{ 'active': tagFilter.indexOf(tag) > -1 }" v-for="tag in peopleTags" @click="switchTag(tag)">{{ tag }}</v-chip>
                 </div>
             </v-container>
-          <People :search="search" :filter="arr"></People>
+          <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
           <Startup :search="search.text"></Startup>
@@ -120,17 +107,22 @@
     flex-direction: column;
     padding: 24px 0;
   }
-    
-    .v-chip {
-        /* background: dark-gray; */
-        background: #4a4f56;
-        color: rgb(178, 184, 191);
-        font-weight: 500;
-    }
-    
-    .chip-container {
-        margin-top: 32px;
-    }
+
+  .v-chip {
+    /* background: dark-gray; */
+    background: #4a4f56;
+    color: rgb(178, 184, 191);
+    font-weight: 500;
+  }
+
+  .v-chip.active {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .chip-container {
+    margin-top: 32px;
+  }
 </style>
 
 <script>
@@ -148,39 +140,12 @@ function checkChildren(name) {
 }
 
 function switchTag(name) {
-
-
-  // console.log('####################');
-  // console.log(this);
-  // console.log('####################');
-
-  // console.log(this.search.tags);
-
-  // var newObj = {};
-  // newObj[name] = !this.search.tags[name];
-
-  // // this.search.tags[name] = !this.search.tags[name];
-  // var obj = Object.assign(this.search.tags, newObj)
-
-  // console.log('obj:');
-  // console.log(obj);
-
-  // this.search.tags = obj;
-
-  // console.log(this.search.tags);
-  // console.log('----------------');
-  
-
-  // Array:
-
-  const index = this.arr.indexOf(name);
-
+  const index = this.tagFilter.indexOf(name);
   if (index === -1) {
-    this.arr.push(name);
+    this.tagFilter.push(name);
   } else {
-    this.arr.splice(index, 1);
+    this.tagFilter.splice(index, 1);
   }
-
 }
 
 export default {
@@ -193,7 +158,10 @@ export default {
       search: { 
         text: '',
       },
-      arr: [],
+      tagFilter: [],
+      peopleTags: [
+        'Front', 'Back', 'UI', 'UX', 'Product', 'Operations', 'Bussines', 'Marketing', 'Mentor'
+      ],
       switchTag,
       dialog: false,
       checkChildren,
