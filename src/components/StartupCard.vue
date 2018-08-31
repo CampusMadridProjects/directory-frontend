@@ -1,5 +1,5 @@
 <template>
-  <v-card light :hover="true">
+  <v-card light :hover="true" class="box-shadow light-border custom-hover">
     <div @click="$router.push({name: 'startupDetail', params: {id: id}})">
       <v-card-media
         :height="cardHeight"
@@ -34,6 +34,20 @@
     height: 92px;
     width: 92px;
   }
+    
+    .light-border {
+        border: 1px solid #f3f3f3;
+        border-radius: 8px;
+    }
+
+    /* more spread, low contrast */
+    .custom-hover:hover {
+        box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
+    }
+    
+    .box-shadow {
+        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
+    }
 
 </style>
 

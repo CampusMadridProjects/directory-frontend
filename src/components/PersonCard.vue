@@ -104,18 +104,26 @@
     width: 32px;
   }
 
-    .box-shadow {
-        box-shadow: none;
-    }
-
     .light-border {
         border: 1px solid #f3f3f3;
-        border-radius: 8px;
+        border-radius: 6px;
     }
 
     /* more spread, low contrast */
     .custom-hover:hover {
         box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
+    }
+    
+    .box-shadow {
+        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
+    }
+    
+    .v-card {
+        padding: 0px;
+    }
+    
+    .card-user-pic {
+        border-radius: 6px 6px 0px 0px;
     }
 
 </style>

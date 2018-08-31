@@ -105,10 +105,6 @@
         border-bottom: 1px solid #efefef;
     }
     
-    .v-card {
-        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
-    }
-    
 </style>
 
 <script>
