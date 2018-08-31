@@ -1,10 +1,10 @@
 <template>
   <v-card light class="full-size">
-    <v-toolbar dark>
-      <v-btn icon dark @click="$router.back();">
-        <v-icon>close</v-icon>
+    <v-toolbar>
+      <v-btn icon @click="$router.back();">
+        <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title>Person</v-toolbar-title>
+      <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
 <!--       <v-toolbar-items>
         <v-btn dark flat @click.native="dialog = false">Save</v-btn>
@@ -53,11 +53,42 @@
 
 
 <style scoped>
+
   .full-size {
     border-radius: 0 !important;
     border-top-left-radius: 0;
     border-top-right-radius-radius: 0;
   }
+    
+    .card-user-pic {
+        border-radius: 0px;
+    }
+    
+    .v-toolbar {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    
+    .v-toolbar__title {
+        width: 80%;
+        text-align: center;
+        margin: 0px;
+    }
+    
+    .headline {
+        margin-top: 12px;
+    }
+    
+    @media (min-width: 600px) {
+     
+        .card-user-pic {
+            max-width: 370px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+    }
+    
 </style>
 
 
