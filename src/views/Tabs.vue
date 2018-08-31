@@ -55,7 +55,12 @@
     <v-content>
       <v-tabs-items v-model="tabs">
         <v-tab-item id="tabs-people">
-          <People :search="search"></People>
+            <v-container fluid class="pa-0 chip-container">
+                <div class="text-xs-center">
+                    <v-chip :class="{ 'active': tagFilter.indexOf(tag) > -1 }" v-for="tag in peopleTags" @click="switchTag(tag)">{{ tag }}</v-chip>
+                </div>
+            </v-container>
+          <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
           <Startup :search="search"></Startup>
@@ -102,6 +107,22 @@
     flex-direction: column;
     padding: 24px 0;
   }
+
+  .v-chip {
+    /* background: dark-gray; */
+    background: #4a4f56;
+    color: rgb(178, 184, 191);
+    font-weight: 500;
+  }
+
+  .v-chip.active {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .chip-container {
+    margin-top: 32px;
+  }
 </style>
 
 <script>
@@ -118,18 +139,30 @@ function checkChildren(name) {
   }
 }
 
+function switchTag(name) {
+  const index = this.tagFilter.indexOf(name);
+  if (index === -1) {
+    this.tagFilter.push(name);
+  } else {
+    this.tagFilter.splice(index, 1);
+  }
+}
+
 export default {
   name: 'Tabs',
   data() {
     return {
-      fixed: false,
       title: 'Campus Directory',
       searching: false,
       tabs: null,
       search: '',
+      tagFilter: [],
+      peopleTags: [
+        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Bussines', 'Marketing', 'Mentor'
+      ],
+      switchTag,
       dialog: false,
       checkChildren,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     };
   },
   components: {
