@@ -1,6 +1,6 @@
 <template>
-  <v-app dark>
-    <v-toolbar tabs extended app dark>
+  <v-app>
+    <v-toolbar tabs extended app>
       <img src="img/logo.png" style="height: 26px;">
       <!-- Navbar title -->
       <v-toolbar-title v-text="title"></v-toolbar-title>
@@ -34,7 +34,7 @@
 
       <!-- Search navbar -->
       <div v-if="searching">
-        <v-toolbar absolute flat dark>
+        <v-toolbar absolute flat>
           <v-btn icon @click="searching = false">
             <v-icon>arrow_back</v-icon>
           </v-btn>
@@ -98,6 +98,17 @@
     flex-direction: column;
     padding: 24px 0;
   }
+    
+    .v-toolbar {
+        background-color: rgba(245, 245, 245, 0.99);
+        box-shadow: none;
+        border-bottom: 1px solid #efefef;
+    }
+    
+    .v-card {
+        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
+    }
+    
 </style>
 
 <script>
