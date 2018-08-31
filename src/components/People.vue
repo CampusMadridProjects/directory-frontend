@@ -9,7 +9,21 @@
     <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
       v-for="person in filterPeople(search)"
       :key="person._id">
-      <person-card class="card-grid-item-card"
+
+      <person-card-small class="card-grid-item-card hidden-md-and-up"
+        :id="person._id"
+        :name="person.name"
+        :pic="person.pic"
+        :role="person.role"
+        :company="person.company"
+        :expertise="person.expertise"
+        :bio="person.bio"
+        :location="person.location"
+        :twitter="person.twitter"
+        :linkedin="person.linkedin">
+      </person-card-small>
+
+      <person-card class="card-grid-item-card hidden-sm-and-down"
         :id="person._id"
         :name="person.name"
         :pic="person.pic"
@@ -21,6 +35,7 @@
         :twitter="person.twitter"
         :linkedin="person.linkedin">
       </person-card>
+
     </v-flex>
   </v-container>
 </template>
@@ -55,6 +70,7 @@ a {
 
 <script>
 import PersonCard from './PersonCard.vue';
+import PersonCardSmall from './PersonCardSmall.vue';
 import Loading from './Loading.vue';
 
 // If you want to make data persistent throught sessions, you can use localStorage
@@ -169,6 +185,7 @@ export default {
   },
   components: {
     PersonCard,
+    PersonCardSmall,
     Loading,
   },
   created() {

@@ -1,51 +1,30 @@
 <template>
-
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
-   
-<v-list-tile>
-   
-    <!-- <div @click="show = !show"> -->
-    <div @click="$router.push({name: 'personDetail', params: {id: id}})">
-      <v-list-tile-avatar :style="{backgroundImage: 'url('+ pic +')'}">
-      </v-list-tile-avatar>
-    </div>
-
-    <v-card-tile-content>
-      <v-list-tile-title>{{ name }}</v-list-tile-title>
-      <v-list-tile-sub-title>
-        {{ role }} @
-        <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
-          {{ company }}
-        <!-- </router-link> -->
-      </v-list-tile-sub-title>
-
-      <div class="card-user-info">
-        <h4>
-          <span v-for="(ability, index) in expertise"
-            :key="ability">{{ (index !== 0) ? '∙ ' + ability : ability }}
-          </span>
-        </h4>
-        <!-- <span class="grey--text">{{ location }}</span> -->
+    <v-list-tile @click="$router.push({name: 'personDetail', params: {id: id}})">
+      <div>
+        <v-list-tile-avatar :style="{backgroundImage: 'url('+ pic +')'}">
+        </v-list-tile-avatar>
       </div>
-    </v-card-tile-content>
-    
-</v-list-tile>
 
-<!--     <v-slide-y-transition>
-      <v-card-text v-show="show">
-        {{ bio }}
-        <div class="person-card-social-icons">
-          <a v-if="twitter" :href="twitter" target="_blank" class="person-card-social-icon">
-            <img src="img/twitter_64.png" alt="twitter" />
-          </a>
-          <a v-if="linkedin" :href="linkedin" target="_blank" class="person-card-social-icon">
-            <img src="img/linkedin_64.png" alt="linkedin" />
-          </a>
+      <div class="person-info">
+        <v-list-tile-title class="text-xs-left">{{ name }}</v-list-tile-title>
+        <v-list-tile-sub-title class="text-xs-left">
+          {{ role }} @
+          <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
+            {{ company }}
+          <!-- </router-link> -->
+        </v-list-tile-sub-title>
+
+        <div class="card-user-info text-xs-left">
+          <h4>
+            <span v-for="(ability, index) in expertise"
+              :key="ability">{{ (index !== 0) ? '∙ ' + ability : ability }}
+            </span>
+          </h4>
         </div>
-      </v-card-text>
-    </v-slide-y-transition> -->
+      </div>
+    </v-list-tile>
   </v-card>
-
 </template>
 
 <style type="text/css">
@@ -73,7 +52,7 @@
         font-size: 21px;
     }
     
-    v-card-tile-content {
+    .person-info {
         padding: 12px;
         max-width: 80%;
     }
