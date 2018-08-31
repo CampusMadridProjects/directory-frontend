@@ -1,6 +1,6 @@
 <template>
-  <v-app dark>
-    <v-toolbar tabs extended app dark>
+  <v-app>
+    <v-toolbar tabs extended app>
       <img src="img/logo.png" style="height: 26px;">
       <!-- Navbar title -->
       <v-toolbar-title v-text="title"></v-toolbar-title>
@@ -34,7 +34,7 @@
 
       <!-- Search navbar -->
       <div v-if="searching">
-        <v-toolbar absolute flat dark>
+        <v-toolbar absolute flat>
           <v-btn icon @click="searching = false">
             <v-icon>arrow_back</v-icon>
           </v-btn>
@@ -77,10 +77,7 @@
 
     <v-footer>
       <span>
-        New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
-      </span>
-      <span>
-        2018 - Made with ❤ in <a>Campus Madrid</a>
+        Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
       </span>
     </v-footer>
   </v-app>
@@ -107,17 +104,27 @@
     flex-direction: column;
     padding: 24px 0;
   }
-
+    
+    .v-toolbar {
+        background-color: rgba(245, 245, 245, 0.99);
+        box-shadow: none;
+        border-bottom: 1px solid #efefef;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
   .v-chip {
     /* background: dark-gray; */
-    background: #4a4f56;
-    color: rgb(178, 184, 191);
+    background: #eae8e8;
+    color: #3c3c3c;
     font-weight: 500;
   }
 
   .v-chip.active {
-    background-color: #fff;
-    color: #333;
+    background-color: #82b1ff;
+    color: #fff;
   }
   
   .chip-container {
@@ -158,7 +165,7 @@ export default {
       search: '',
       tagFilter: [],
       peopleTags: [
-        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Bussines', 'Marketing', 'Mentor'
+        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor'
       ],
       switchTag,
       dialog: false,
