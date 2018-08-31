@@ -132,7 +132,7 @@
 
 <script>
 export default {
-  name: 'People',
+  name: 'PersonCard',
   props: {
     id: { type: String, required: true },
     pic: { type: String, required: true },
