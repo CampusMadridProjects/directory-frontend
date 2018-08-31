@@ -35,7 +35,7 @@
         <span class="grey--text">{{ data.location }}</span>
       </div>
     </v-card-title>
-    
+
     <v-card-text>
       {{ data.bio }}
       <div class="person-card-social-icons">
@@ -69,7 +69,7 @@
 const storage = window.sessionStorage;
 
 function getStorage() {
-  let list = storage.getItem('people-list')
+  let list = storage.getItem('people-list');
   try {
     list = JSON.parse(list);
   } catch (e) {
@@ -80,8 +80,8 @@ function getStorage() {
 }
 
 function searchPerson(list, id) {
-  for (var i = list.length - 1; i >= 0; i--) {
-    if(list[i]._id === id) {
+  for (let i = list.length - 1; i >= 0; i--) {
+    if (list[i]._id === id) {
       return list[i];
     }
   }

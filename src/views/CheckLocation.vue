@@ -1,47 +1,47 @@
 <template>
-<v-app>
+<v-app class="theme--dark">
   <v-layout column justify-center v-if="disallowed">
-     <h1 class="text-xs-center welcome-text">mmm... Sorry, but you need to grant location access, or be near Campus</h1>
-
     <div class="text-xs-center big-icon">
       <v-icon>location_off</v-icon>
     </div>
 
+    <h1 class="text-xs-center welcome-text">
+      Sorry, but you need to grant location access or be at the Campus.
+    </h1>
+
     <p class="text-xs-center explain-text">
-      This beta is <strong>only accesible from Campus Madrid.</strong>
-      We <strong>need location permission</strong> to ensure you're at Campus.
+      For privacy reasons, this beta is only accesible from the Campus.<br />
+      Enable your location to access the Directory.
     </p>
 
     <div class="text-xs-center">
-      <v-btn large @click="getLocation(); dialog = true">Allow location and enter</v-btn>
+      <v-btn large @click="getLocation(); dialog = true">Enable location</v-btn>
     </div>
   </v-layout>
 
   <v-layout column justify-center v-else>
-    <h1 class="text-xs-center welcome-text">Welcome to Campus Directory</h1>
 
     <div class="text-xs-center big-icon">
       <v-icon>location_on</v-icon>
     </div>
 
+    <h1 class="text-xs-center welcome-text">Welcome to Campus Directory</h1>
+
     <p class="text-xs-center explain-text">
-      This beta is <strong>only accesible from Campus Madrid.</strong>
-      We <strong>need location permission</strong> to ensure you're at Campus.
+      For privacy reasons, this beta is only accesible from the Campus.<br />
+      Enable your location to access the Directory.
     </p>
 
     <div class="text-xs-center">
-      <v-btn large @click="getLocation(); dialog = true">I am at Campus</v-btn>
+      <v-btn large @click="getLocation(); dialog = true">Enable location</v-btn>
     </div>
   </v-layout>
 
-  <v-dialog v-model="dialog">
-    <v-card>
-      <v-card-title class="headline">Loading...</v-card-title>
-
-      <v-card-text>
-       <loading></loading>
-      </v-card-text>
-    </v-card>
+  <v-dialog v-model="dialog" fullscreen>
+    <div class="dialog-fullscreen-wrapper">
+      <loading></loading>
+      <p class="display-1">Patience is a virtue</p>
+    </div>
   </v-dialog>
 </v-app>
 
@@ -50,8 +50,8 @@
 <style type="text/css" scoped>
   .welcome-text {
     font-family: Roboto;
-    font-size: 24px;
-    margin: 0px 16vw 16px;
+    font-size: 40px;
+    padding: 0px 24px;
   }
 
   .big-icon i {
@@ -61,9 +61,32 @@
 
   .explain-text {
     font-family: Roboto;
-    margin: 24px 10vw 32px;
+    margin: 8px 12vw 32px;
     font-size: 18px;
   }
+
+  .v-btn {
+    background: #CD85E8 !important;
+    border-radius: 50px;
+    text-transform: none;
+  }
+
+  .dialog-fullscreen-wrapper {
+    height: 100%;
+    background: rgba(48, 48, 48, 0.96);
+    padding-top: 40vh;
+  }
+
+  .display-1 {
+      text-align: center;
+      padding: 24px;
+  }
+
+  .v-progress-circular {
+      height: 40px;
+      width: 40px;
+  }
+
 </style>
 
 <script type="text/javascript">
@@ -95,12 +118,12 @@ function isLocationValid(lat, long) {
     });
 }
 
-function checkEnter(data) {
+function checkEnter() {
   const allow = storage.getItem('access_allowed');
   // const distance = storage.getItem('access_distance');
 
   if (allow === 'true') {
-    this.$router.push({name: 'home'});
+    this.$router.push({ name: 'home' });
   } else if (allow !== null) {
     this.disallowed = true;
   }
@@ -110,10 +133,10 @@ function getLocation() {
   askForLocation((data) => {
     console.log(data);
     isLocationValid(data.coords.latitude, data.coords.longitude)
-      .then((data) => {
+      .then((serverResponse) => {
         this.dialog = false;
-        storage.setItem('access_allowed', data.allow);
-        storage.setItem('access_distance', data.distance);
+        storage.setItem('access_allowed', serverResponse.allow);
+        storage.setItem('access_distance', serverResponse.distance);
 
         return this.checkEnter();
       });
