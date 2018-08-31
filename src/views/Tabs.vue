@@ -117,14 +117,14 @@
     
   .v-chip {
     /* background: dark-gray; */
-    background: #4a4f56;
-    color: rgb(178, 184, 191);
+    background: #eae8e8;
+    color: #3c3c3c;
     font-weight: 500;
   }
 
   .v-chip.active {
-    background-color: #fff;
-    color: #333;
+    background-color: #82b1ff;
+    color: #fff;
   }
   
   .chip-container {
@@ -165,7 +165,7 @@ export default {
       search: '',
       tagFilter: [],
       peopleTags: [
-        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Bussines', 'Marketing', 'Mentor'
+        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor'
       ],
       switchTag,
       dialog: false,

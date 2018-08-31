@@ -61,6 +61,10 @@ import Loading from './Loading.vue';
 const storage = window.sessionStorage;
 
 function inArray(array, data) {
+  if (typeof data !== 'string') {
+    return false;
+  }
+
   let found = false;
   for (let i = array.length - 1; i >= 0; i -= 1) {
     if (array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
@@ -80,27 +84,11 @@ function inArray(array, data) {
  *  @return {array} An array that matches the requested search term
  */
 function filterPeople(search, filter) {
-  const safeSearch = search && search && (search.toUpperCase() || '');
-
   // filter by categories
-  const filtered = filterByCategory(this.list, filter);
+  const filteredByCategory = filterByCategory(this.list, filter);
 
   // Filter by search text
-  return filtered.filter((person) => {
-    let found = false;
-
-    // Search by text
-    if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
-      || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
-      || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
-      || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
-      || (person.expertise && inArray(person.expertise, safeSearch))
-    ) {
-      found = true;
-    }
-
-    return found;
-  });
+  return filterByText(filteredByCategory, search)
 }
 
 /** filterByCategory
@@ -119,6 +107,31 @@ function filterByCategory(list, categories) {
     }
 
     return false;
+  });
+}
+
+function filterByText(list, search) {
+  const safeSearch = search && (search.toUpperCase() || '');
+
+  console.log(safeSearch);
+  if (safeSearch === '' || !safeSearch) {
+    return list;
+  }
+  
+  return list.filter((person) => {
+    let found = false;
+
+    // Search by text
+    if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
+      || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
+      || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
+      || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
+      || (person.expertise && inArray(person.expertise, safeSearch))
+    ) {
+      found = true;
+    }
+
+    return found;
   });
 }
 
