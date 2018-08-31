@@ -26,6 +26,10 @@
         <v-tab href="#tabs-startup">
           Startups
         </v-tab>
+
+        <v-tab href="#tabs-organizations">
+          Organizations
+        </v-tab>
       </v-tabs>
 
       <!-- Search navbar -->
@@ -41,7 +45,7 @@
             v-model="search.text"
             autofocus
             clearable
-            placeholder="Search for people or startups"
+            placeholder="Search for people, startups or organizations"
           ></v-text-field>
         </v-toolbar>
       </div>
@@ -69,11 +73,23 @@
         <v-tab-item id="tabs-startup">
           <Startup :search="search.text"></Startup>
         </v-tab-item>
+        <v-tab-item id="tabs-organizations">
+          <Organizations :search="search.text"></Organizations>
+        </v-tab-item>
       </v-tabs-items>
     </v-content>
 
-    <v-footer >
-      <span>2018 - Made with ❤ in <a>Campus Madrid</a></span>
+    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+      <router-view></router-view>
+    </v-dialog>
+
+    <v-footer>
+      <span>
+        New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
+      </span>
+      <span>
+        2018 - Made with ❤ in <a>Campus Madrid</a>
+      </span>
     </v-footer>
   </v-app>
 </template>
@@ -87,10 +103,17 @@
   .v-tabs__content {
     min-height: 100%;
   }
+    
+    .v-tabs__div {
+        text-transform: none;
+    }
 
   footer {
     align-items: center;
     justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 24px 0;
   }
     
     .v-chip {
@@ -106,8 +129,18 @@
 </style>
 
 <script>
-import People from './People.vue';
-import Startup from './Startup.vue';
+import People from '../components/People.vue';
+import Startup from '../components/Startup.vue';
+import Organizations from '../components/Organizations.vue';
+
+function checkChildren(name) {
+  const childrenRoutes = ['personDetail', 'startupDetail'];
+  if (childrenRoutes.indexOf(name) > -1) {
+    this.dialog = true;
+  } else {
+    this.dialog = false;
+  }
+}
 
 export default {
   name: 'Tabs',
@@ -120,12 +153,23 @@ export default {
       search: { 
         text: '',
       },
+      dialog: false,
+      checkChildren,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     };
   },
   components: {
     People,
     Startup,
+    Organizations,
+  },
+  created() {
+    this.checkChildren(this.$router.currentRoute.name);
+  },
+  watch: {
+    $route(to, from) {
+      this.checkChildren(to.name);
+    },
   },
 };
 </script>

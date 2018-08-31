@@ -1,5 +1,8 @@
 <template>
-  <v-container v-if="filterPeople(search).length === 0">
+  <v-container v-if="loading === true">
+    <loading></loading>
+  </v-container>
+  <v-container v-else-if="filterPeople(search).length === 0">
     <h1>No hemos encontrado resultados :(</h1>
   </v-container>
   <v-container class="card-grid" v-else>
@@ -7,6 +10,7 @@
       v-for="person in filterPeople(search)"
       :key="person._id">
       <person-card class="card-grid-item-card"
+        :id="person._id"
         :name="person.name"
         :pic="person.pic"
         :role="person.role"
@@ -51,6 +55,10 @@ a {
 
 <script>
 import PersonCard from './PersonCard.vue';
+import Loading from './Loading.vue';
+
+// If you want to make data persistent throught sessions, you can use localStorage
+const storage = window.sessionStorage;
 
 function inArray(array, data) {
   let found = false;
@@ -89,14 +97,40 @@ function filterPeople(search) {
 }
 
 /** loadPeople
- *  Get a people list from the backend. Also, parse some possible exceptions.
+ *  Get a people list from localstorage or backend.
  */
 function loadPeople() {
-  fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
+  const localPeople = storage.getItem('people-list');
+
+  if (localPeople === null) {
+    return this.downloadPeople();
+  }
+
+  // Try to parse JSON
+  try {
+    const parsedPeople = JSON.parse(localPeople);
+
+    this.list = parsedPeople;
+    this.loading = false;
+
+    return Promise.resolve(parsedPeople);
+  } catch (e) {
+    // In case of error, ask the backend.
+    return this.downloadPeople();
+  }
+}
+
+/** downloadPeople
+ *  Get a people list from the backend. Also, parse some possible exceptions.
+ */
+function downloadPeople() {
+  return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
     method: 'GET',
     // body:JSON.stringify({title:"a new todo"})
   }).then(res => res.json())
     .then((data) => {
+      this.loading = false;
+
       const cleanData = data.map((item) => {
         const person = item;
 
@@ -108,8 +142,12 @@ function loadPeople() {
       });
 
       this.list = cleanData;
+      storage.setItem('people-list', JSON.stringify(cleanData));
+
+      return cleanData;
     })
     .catch((err) => {
+      this.loading = false;
       console.error(err);
     });
 }
@@ -122,13 +160,16 @@ export default {
   },
   data() {
     return {
+      loading: true,
       list: [],
       filterPeople,
       loadPeople,
+      downloadPeople,
     };
   },
   components: {
     PersonCard,
+    Loading,
   },
   created() {
     this.loadPeople();

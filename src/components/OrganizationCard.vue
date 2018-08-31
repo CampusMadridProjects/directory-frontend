@@ -8,7 +8,7 @@
 
     <v-card-title primary-title>
       <h3 class="headline mb-0">{{ name }}</h3>
-      <div class="grey--text">{{ accelerator }}</div>
+      <!-- <div class="grey--text">{{ accelerator }}</div> -->
     </v-card-title>
 
     <v-slide-y-transition>
@@ -51,13 +51,11 @@
 import PersonList from './PersonList.vue';
 
 export default {
-  name: 'People',
   props: {
     logo: { type: String, required: true },
     name: { type: String, required: true },
     people: { type: Array, required: true },
     bio: { type: String, required: true },
-    accelerator: { type: String, required: true },
   },
   data: () => ({
     show: false,

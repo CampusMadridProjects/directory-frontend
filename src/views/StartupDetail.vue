@@ -1,0 +1,101 @@
+<template>
+  <v-card light class="full-size">
+    <v-toolbar dark>
+      <v-btn icon dark @click="$router.back();">
+        <v-icon>close</v-icon>
+      </v-btn>
+      <v-toolbar-title>Startup</v-toolbar-title>
+      <v-spacer></v-spacer>
+<!--       <v-toolbar-items>
+        <v-btn dark flat @click.native="dialog = false">Save</v-btn>
+      </v-toolbar-items> -->
+    </v-toolbar>
+
+        <v-card-media
+      :src="data.logo"
+    ></v-card-media>
+
+    <v-card-title primary-title>
+      <h3 class="headline mb-0">{{ data.name }}</h3>
+      <div class="grey--text">{{ data.accelerator }}</div>
+    </v-card-title>
+
+    <v-card-text>
+      <v-subheader>What do they do?</v-subheader>
+      {{ data.bio }}
+
+      <v-subheader>Who's there?</v-subheader>
+      <person-list :people="data.employees"></person-list>
+    </v-card-text>
+
+  </v-card>
+</template>
+
+
+<style scoped>
+  .full-size {
+    border-radius: 0 !important;
+    border-top-left-radius: 0;
+    border-top-right-radius-radius: 0;
+  }
+</style>
+
+
+<script>
+// ToDo (@CodingCarlos):
+// A better way to manage the ID discovery
+
+import PersonList from '../components/PersonList.vue';
+
+// If you want to make data persistent throught sessions, you can use localStorage
+const storage = window.sessionStorage;
+
+function getStorage() {
+  let list = storage.getItem('startup-list');
+  try {
+    list = JSON.parse(list);
+  } catch (e) {
+    list = [];
+  }
+
+  return list;
+}
+
+function searchPerson(list, id) {
+  for (let i = list.length - 1; i >= 0; i--) {
+    if (list[i]._id === id) {
+      return list[i];
+    }
+  }
+
+  return null;
+}
+
+function getData() {
+  const id = this.$router.currentRoute.params.id;
+  const data = getStorage();
+
+  this.id = id;
+  this.data = searchPerson(data, id);
+
+  console.log(this.data);
+}
+
+export default {
+  name: 'StartupDetail',
+  data() {
+    return {
+      loading: true,
+      id: null,
+      data: {},
+      getData,
+    };
+  },
+  created() {
+    this.getData();
+  },
+  components: {
+    PersonList,
+  },
+};
+</script>
