@@ -90,6 +90,10 @@
   .v-tabs__content {
     min-height: 100%;
   }
+    
+    .v-tabs__div {
+        text-transform: none;
+    }
 
   footer {
     align-items: center;
