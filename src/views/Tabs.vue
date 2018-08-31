@@ -72,10 +72,7 @@
 
     <v-footer>
       <span>
-        New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
-      </span>
-      <span>
-        2018 - Made with ❤ in <a>Campus Madrid</a>
+        Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
       </span>
     </v-footer>
   </v-app>
@@ -103,6 +100,10 @@
         background-color: rgba(245, 245, 245, 0.99);
         box-shadow: none;
         border-bottom: 1px solid #efefef;
+    }
+    
+    a {
+        text-decoration: none;
     }
     
 </style>
