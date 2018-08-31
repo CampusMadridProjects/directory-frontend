@@ -1,8 +1,8 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
-    <div @click="show = !show">
+    <!-- <div @click="show = !show"> -->
+    <div @click="$router.push({name: 'personDetail', params: {id: id}})">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
-        <!-- <img class="card-user-pic" :src="pic" /> -->
       </div>
       <div class="headline">{{ name }}</div>
       <span class="grey--text one-line">
@@ -24,7 +24,7 @@
       </div>
     </v-card-title>
 
-    <v-slide-y-transition>
+<!--     <v-slide-y-transition>
       <v-card-text v-show="show">
         {{ bio }}
         <div class="person-card-social-icons">
@@ -36,18 +36,18 @@
           </a>
         </div>
       </v-card-text>
-    </v-slide-y-transition>
+    </v-slide-y-transition> -->
   </v-card>
 </template>
 
 <style type="text/css">
-    
+
     .v-card {
         border-radius: 8px;
         padding: 4px;
         text-align: center;
     }
-    
+
   .v-card__media__content {
     padding: 16px 8px 8px 8px;
     text-align: center;
@@ -126,6 +126,7 @@
 export default {
   name: 'People',
   props: {
+    id: { type: String, required: true },
     pic: { type: String, required: true },
     name: { type: String, required: true },
     role: { type: String, required: true },
