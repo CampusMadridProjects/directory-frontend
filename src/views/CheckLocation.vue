@@ -98,10 +98,14 @@ const storage = window.sessionStorage;
 function askForLocation(callback) {
   // check for Geolocation support
   if (navigator.geolocation) {
-    console.log('Geolocation is supported!');
-    navigator.geolocation.getCurrentPosition(callback);
+    navigator.geolocation.getCurrentPosition(callback, callback);
   } else {
-    console.log('Geolocation is not supported for this Browser/OS.');
+    console.error('Geolocation is not supported for this Browser/OS.');
+
+    // Track the error, and take the user out
+    this.$ga.event('onboarding', 'location_error');
+    this.dialog = false;
+    this.disallowed = true;
   }
 }
 
@@ -130,8 +134,18 @@ function checkEnter() {
 }
 
 function getLocation() {
+  this.$ga.event('onboarding', 'location_request');
   askForLocation((data) => {
-    console.log(data);
+    // In case of error...
+    if (!data || data.code) {
+      this.$ga.event('onboarding', 'location_denied');
+      this.dialog = false;
+      this.disallowed = true;
+      return false;
+    }
+
+    this.$ga.event('onboarding', 'location_granted');
+
     isLocationValid(data.coords.latitude, data.coords.longitude)
       .then((serverResponse) => {
         this.dialog = false;

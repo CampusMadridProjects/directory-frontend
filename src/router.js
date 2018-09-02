@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+
 import CheckLocation from './views/CheckLocation.vue';
 import Tabs from './views/Tabs.vue';
 import PersonDetail from './views/PersonDetail.vue';

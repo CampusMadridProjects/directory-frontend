@@ -3,7 +3,9 @@
     <template v-for="(item) in people">
       <v-list-tile
         :key="item._id"
-        avatar>
+        avatar
+        @click="goToPerson(item._id)"
+      >
         <v-list-tile-avatar>
           <img :src="item.pic">
         </v-list-tile-avatar>
@@ -17,10 +19,21 @@
 </template>
 
 <script>
+function goToPerson(id) {
+  this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
+  this.$router.push({name: 'personDetail', params: {id: id}});
+}
+
 export default {
   name: 'PersonList',
   props: {
     people: { type: Array, required: true },
+    eventCategory: { type: String, required: false },
   },
+  data() {
+    return {
+      goToPerson,
+    };
+  }
 };
 </script>

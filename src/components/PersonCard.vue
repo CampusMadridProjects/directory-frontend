@@ -1,7 +1,7 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
     <!-- <div @click="show = !show"> -->
-    <div @click="$router.push({name: 'personDetail', params: {id: id}})">
+    <div @click="goToPerson(id)">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
       </div>
       <div class="headline">{{ name }}</div>
@@ -131,6 +131,11 @@
 </style>
 
 <script>
+function goToPerson(id) {
+  this.$ga.event('directory_list', 'view_person', id);
+  this.$router.push({name: 'personDetail', params: {id: id}});
+}
+
 export default {
   name: 'PersonCard',
   props: {
@@ -147,6 +152,7 @@ export default {
   },
   data: () => ({
     show: false,
+    goToPerson,
   }),
 };
 </script>
