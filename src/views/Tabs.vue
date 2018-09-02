@@ -153,7 +153,7 @@ function switchTag(name) {
     this.$ga.event('list_people', 'filter_add', name);
   } else {
     this.tagFilter.splice(index, 1);
-    this.$ga.event('list_people', 'filter_add', name);
+    this.$ga.event('list_people', 'filter_remove', name);
   }
 }
 
