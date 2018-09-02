@@ -1,7 +1,7 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
     <!-- <div @click="show = !show"> -->
-    <div @click="$router.push({name: 'personDetail', params: {id: id}})">
+    <div @click="goToPerson(id)">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
       </div>
       <div class="headline">{{ name }}</div>
@@ -45,6 +45,7 @@
     .v-card {
         border-radius: 8px;
         padding: 4px;
+        text-align: center;
     }
 
   .v-card__media__content {
@@ -58,6 +59,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: calc(100vw - 32px);
+    margin-bottom: 12px;
   }
   /* In tablet, we have two columns */
   @media (min-width: 600px) {
@@ -115,7 +117,7 @@
     }
     
     .box-shadow {
-        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
+        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04) !important;
     }
     
     .v-card {
@@ -129,8 +131,13 @@
 </style>
 
 <script>
+function goToPerson(id) {
+  this.$ga.event('directory_list', 'view_person', id);
+  this.$router.push({name: 'personDetail', params: {id: id}});
+}
+
 export default {
-  name: 'People',
+  name: 'PersonCard',
   props: {
     id: { type: String, required: true },
     pic: { type: String, required: true },
@@ -145,6 +152,7 @@ export default {
   },
   data: () => ({
     show: false,
+    goToPerson,
   }),
 };
 </script>

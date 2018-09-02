@@ -18,9 +18,11 @@
       <div class="text-xs-center">
         <span class="grey--text one-line text-xs-center">
           {{ data.role }} @
-          <!-- <router-link :to="{name: 'startup', params: {startupId: data.company_id}}"> -->
-            {{ data.company }}
-          <!-- </router-link> -->
+          <router-link :to="{name: 'startupDetail', params: {id: data.company_id}}">
+            <span @click="$ga.event('person_detail', 'view_startup', data.company_id)">
+              {{ data.company }}
+            </span>
+          </router-link>
         </span>
       </div>
     </div>
@@ -35,14 +37,24 @@
         <span class="grey--text">{{ data.location }}</span>
       </div>
     </v-card-title>
-    
+
     <v-card-text>
       {{ data.bio }}
       <div class="person-card-social-icons">
-        <a v-if="data.twitter" :href="data.twitter" target="_blank" class="person-card-social-icon">
+        <a v-if="data.twitter"
+          :href="data.twitter"
+          target="_blank"
+          class="person-card-social-icon"
+          @click="$ga.event('person_detail', 'twitter', data._id)"
+        >
           <img src="img/twitter_64.png" alt="twitter" />
         </a>
-        <a v-if="data.linkedin" :href="data.linkedin" target="_blank" class="person-card-social-icon">
+        <a v-if="data.linkedin"
+          :href="data.linkedin"
+          target="_blank"
+          class="person-card-social-icon"
+          @click="$ga.event('person_detail', 'linkedin', data._id)"
+        >
           <img src="img/linkedin_64.png" alt="linkedin" />
         </a>
       </div>
@@ -100,7 +112,7 @@
 const storage = window.sessionStorage;
 
 function getStorage() {
-  let list = storage.getItem('people-list')
+  let list = storage.getItem('people-list');
   try {
     list = JSON.parse(list);
   } catch (e) {
@@ -111,8 +123,8 @@ function getStorage() {
 }
 
 function searchPerson(list, id) {
-  for (var i = list.length - 1; i >= 0; i--) {
-    if(list[i]._id === id) {
+  for (let i = list.length - 1; i >= 0; i--) {
+    if (list[i]._id === id) {
       return list[i];
     }
   }

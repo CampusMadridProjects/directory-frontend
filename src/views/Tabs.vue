@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
 
       <!-- Navbar actions -->
-      <v-btn icon @click="searching = true">
+      <v-btn icon @click="searchOpen()">
         <v-icon>search</v-icon>
       </v-btn>
 
@@ -19,15 +19,15 @@
         color="transparent"
       >
         <v-tabs-slider></v-tabs-slider>
-        <v-tab href="#tabs-people">
+        <v-tab href="#tabs-people" @click="tabClicked = true">
           People
         </v-tab>
 
-        <v-tab href="#tabs-startup">
+        <v-tab href="#tabs-startup" @click="tabClicked = true">
           Startups
         </v-tab>
 
-        <v-tab href="#tabs-organizations">
+        <v-tab href="#tabs-organizations" @click="tabClicked = true">
           Organizations
         </v-tab>
       </v-tabs>
@@ -35,7 +35,7 @@
       <!-- Search navbar -->
       <div v-if="searching">
         <v-toolbar absolute flat>
-          <v-btn icon @click="searching = false">
+          <v-btn icon @click="searchClose()">
             <v-icon>arrow_back</v-icon>
           </v-btn>
 
@@ -46,6 +46,8 @@
             autofocus
             clearable
             placeholder="Search for people, startups or organizations"
+            @keyup="trackSearch(search)"
+            @click:clear="searchClear()"
           ></v-text-field>
         </v-toolbar>
       </div>
@@ -55,7 +57,12 @@
     <v-content>
       <v-tabs-items v-model="tabs">
         <v-tab-item id="tabs-people">
-          <People :search="search"></People>
+            <v-container fluid class="pa-0 chip-container">
+                <div class="text-xs-center">
+                    <v-chip :class="{ 'active': tagFilter.indexOf(tag) > -1 }" v-for="tag in peopleTags" @click="switchTag(tag)">{{ tag }}</v-chip>
+                </div>
+            </v-container>
+          <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
           <Startup :search="search"></Startup>
@@ -87,6 +94,10 @@
   .v-tabs__content {
     min-height: 100%;
   }
+    
+    .v-tabs__div {
+        text-transform: none;
+    }
 
   footer {
     align-items: center;
@@ -106,6 +117,21 @@
         text-decoration: none;
     }
     
+  .v-chip {
+    /* background: dark-gray; */
+    background: #eae8e8;
+    color: #3c3c3c;
+    font-weight: 500;
+  }
+
+  .v-chip.active {
+    background-color: #82b1ff;
+    color: #fff;
+  }
+  
+  .chip-container {
+    margin-top: 32px;
+  }
 </style>
 
 <script>
@@ -115,25 +141,62 @@ import Organizations from '../components/Organizations.vue';
 
 function checkChildren(name) {
   const childrenRoutes = ['personDetail', 'startupDetail'];
-    if (childrenRoutes.indexOf(name) > -1) {
-      this.dialog = true;
-    } else {
-      this.dialog = false;
-    }
+  if (childrenRoutes.indexOf(name) > -1) {
+    this.dialog = true;
+  } else {
+    this.dialog = false;
+  }
+}
+
+function searchOpen() {
+  this.searching = true;
+  this.$ga.event('search', 'search_open');
+}
+
+function searchClose() {
+  this.searching = false;
+  this.$ga.event('search', 'search_back');
+}
+
+function searchClear() {
+  this.$ga.event('search', 'search_clear');
+}
+
+function trackSearch(search) {
+  this.$ga.event('search', 'search_type', search);
+}
+
+function switchTag(name) {
+  const index = this.tagFilter.indexOf(name);
+  if (index === -1) {
+    this.tagFilter.push(name);
+    this.$ga.event('list_people', 'filter_add', name);
+  } else {
+    this.tagFilter.splice(index, 1);
+    this.$ga.event('list_people', 'filter_remove', name);
+  }
 }
 
 export default {
   name: 'Tabs',
   data() {
     return {
-      fixed: false,
       title: 'Campus Directory',
       searching: false,
       tabs: null,
       search: '',
+      tagFilter: [],
+      peopleTags: [
+        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor'
+      ],
+      switchTag,
       dialog: false,
+      tabClicked: null,
       checkChildren,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      searchOpen,
+      searchClose,
+      searchClear,
+      trackSearch,
     };
   },
   components: {
@@ -145,9 +208,25 @@ export default {
     this.checkChildren(this.$router.currentRoute.name);
   },
   watch: {
-  '$route' (to, from) {
-    this.checkChildren(to.name);
+    $route(to, from) {
+      this.checkChildren(to.name);
+    },
+    'tabs': function (to, from) {
+      // Clean tab name
+      const tab = to.replace('tabs-', '');
+      
+      // Detect swipe or click
+      let method = 'default';
+      if (this.tabClicked === true) {
+        this.tabClicked = false;
+        method = 'click';
+      } else if (this.tabClicked === false) {
+        method = 'swipe';
+      }
+      
+      // Event emmit
+      this.$ga.event('directory_navigation', 'tab_' + tab, method);
+    },
   },
-}
 };
 </script>

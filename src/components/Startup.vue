@@ -99,7 +99,7 @@ function loadStartup() {
 
     this.list = parsedStartups;
     this.loading = false;
-    
+
     return Promise.resolve(parsedStartups);
   } catch (e) {
     // In case of error, ask the backend.

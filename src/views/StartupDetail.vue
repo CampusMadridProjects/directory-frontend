@@ -24,8 +24,27 @@
       <v-subheader>What do they do?</v-subheader>
       {{ data.bio }}
 
+      <div class="startup-card-social-icons">
+        <a v-if="data.twitter"
+          :href="data.twitter"
+          target="_blank"
+          class="startup-card-social-icon"
+          @click="$ga.event('startup_detail', 'twitter', data._id)"
+        >
+          <img src="img/twitter_64.png" alt="twitter" />
+        </a>
+        <a v-if="data.linkedin"
+          :href="data.linkedin"
+          target="_blank"
+          class="startup-card-social-icon"
+          @click="$ga.event('startup_detail', 'linkedin', data._id)"
+        >
+          <img src="img/linkedin_64.png" alt="linkedin" />
+        </a>
+      </div>
+
       <v-subheader>Who's there?</v-subheader>
-      <person-list :people="data.employees"></person-list>
+      <person-list :people="data.employees" event-category="startup_detail"></person-list>
     </v-card-text>
 
   </v-card>
@@ -51,7 +70,7 @@ import PersonList from '../components/PersonList.vue';
 const storage = window.sessionStorage;
 
 function getStorage() {
-  let list = storage.getItem('startup-list')
+  let list = storage.getItem('startup-list');
   try {
     list = JSON.parse(list);
   } catch (e) {
@@ -62,8 +81,8 @@ function getStorage() {
 }
 
 function searchPerson(list, id) {
-  for (var i = list.length - 1; i >= 0; i--) {
-    if(list[i]._id === id) {
+  for (let i = list.length - 1; i >= 0; i--) {
+    if (list[i]._id === id) {
       return list[i];
     }
   }
