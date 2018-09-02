@@ -19,15 +19,15 @@
         color="transparent"
       >
         <v-tabs-slider></v-tabs-slider>
-        <v-tab href="#tabs-people">
+        <v-tab href="#tabs-people" @click="tabClicked = true">
           People
         </v-tab>
 
-        <v-tab href="#tabs-startup">
+        <v-tab href="#tabs-startup" @click="tabClicked = true">
           Startups
         </v-tab>
 
-        <v-tab href="#tabs-organizations">
+        <v-tab href="#tabs-organizations" @click="tabClicked = true">
           Organizations
         </v-tab>
       </v-tabs>
@@ -191,6 +191,7 @@ export default {
       ],
       switchTag,
       dialog: false,
+      tabClicked: null,
       checkChildren,
       searchOpen,
       searchClose,
@@ -209,6 +210,22 @@ export default {
   watch: {
     $route(to, from) {
       this.checkChildren(to.name);
+    },
+    'tabs': function (to, from) {
+      // Clean tab name
+      const tab = to.replace('tabs-', '');
+      
+      // Detect swipe or click
+      let method = 'default';
+      if (this.tabClicked === true) {
+        this.tabClicked = false;
+        method = 'click';
+      } else if (this.tabClicked === false) {
+        method = 'swipe';
+      }
+      
+      // Event emmit
+      this.$ga.event('directory_navigation', 'tab_' + tab, method);
     },
   },
 };
