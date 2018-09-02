@@ -150,8 +150,10 @@ function switchTag(name) {
   const index = this.tagFilter.indexOf(name);
   if (index === -1) {
     this.tagFilter.push(name);
+    this.$ga.event('list_people', 'filter_add', name);
   } else {
     this.tagFilter.splice(index, 1);
+    this.$ga.event('list_people', 'filter_add', name);
   }
 }
 
