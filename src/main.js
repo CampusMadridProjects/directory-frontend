@@ -7,14 +7,9 @@ import './registerServiceWorker';
 import VueAnalytics from 'vue-analytics'
 
 Vue.use(VueAnalytics, {
-  id: 'UA-125086753-1',
+  id: process.env.ANALYTICS_TRACKING_ID,
   router,
-  // autoTracking: {
-  //   screenview: true
-  // }
 });
-
-console.log('v5');
 
 Vue.config.productionTip = false;
 

@@ -37,6 +37,9 @@ Open this `.env` file (with any text editor) and set the environmen vars. Just c
 VUE_APP_API_URL=https://your-api-url.com
 VUE_APP_API_PEOPLE=getPeople
 VUE_APP_API_STARTUPS=getStartups
+VUE_APP_API_ORGS=getOrganizations
+VUE_APP_API_LOCATION=isLocationValid
+ANALYTICS_TRACKING_ID=UA-123456789-0
 ```
 *If you use the cloud-functions based backend, your URL will be something like https://us-central1-projectID.cloudfunctions.net or similar*
 
