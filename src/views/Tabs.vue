@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
 
       <!-- Navbar actions -->
-      <v-btn icon @click="searching = true">
+      <v-btn icon @click="searchOpen()">
         <v-icon>search</v-icon>
       </v-btn>
 
@@ -35,7 +35,7 @@
       <!-- Search navbar -->
       <div v-if="searching">
         <v-toolbar absolute flat>
-          <v-btn icon @click="searching = false">
+          <v-btn icon @click="searchClose()">
             <v-icon>arrow_back</v-icon>
           </v-btn>
 
@@ -46,6 +46,8 @@
             autofocus
             clearable
             placeholder="Search for people, startups or organizations"
+            @keyup="trackSearch(search)"
+            @click:clear="searchClear()"
           ></v-text-field>
         </v-toolbar>
       </div>
@@ -146,6 +148,24 @@ function checkChildren(name) {
   }
 }
 
+function searchOpen() {
+  this.searching = true;
+  this.$ga.event('search', 'search_open');
+}
+
+function searchClose() {
+  this.searching = false;
+  this.$ga.event('search', 'search_back');
+}
+
+function searchClear() {
+  this.$ga.event('search', 'search_clear');
+}
+
+function trackSearch(search) {
+  this.$ga.event('search', 'search_type', search);
+}
+
 function switchTag(name) {
   const index = this.tagFilter.indexOf(name);
   if (index === -1) {
@@ -172,6 +192,10 @@ export default {
       switchTag,
       dialog: false,
       checkChildren,
+      searchOpen,
+      searchClose,
+      searchClear,
+      trackSearch,
     };
   },
   components: {
