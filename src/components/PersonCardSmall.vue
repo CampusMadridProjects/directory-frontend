@@ -1,6 +1,6 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
-    <v-list-tile @click="$router.push({name: 'personDetail', params: {id: id}})">
+    <v-list-tile @click="goToPerson(id)">
       <div>
         <v-list-tile-avatar :style="{backgroundImage: 'url('+ pic +')'}">
         </v-list-tile-avatar>
@@ -68,6 +68,11 @@
 </style>
 
 <script>
+function goToPerson(id) {
+  this.$ga.event('directory_list', 'view_person', id);
+  this.$router.push({name: 'personDetail', params: {id: id}});
+}
+
 export default {
   name: 'PersonCardSmall',
   props: {
@@ -84,6 +89,7 @@ export default {
   },
   data: () => ({
     show: false,
+    goToPerson,
   }),
 };
 </script>
