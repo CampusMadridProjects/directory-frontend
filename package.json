@@ -12,6 +12,7 @@
     "@babel/polyfill": "^7.0.0-beta.49",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.16",
+    "vue-analytics": "^5.16.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.19"
   },
