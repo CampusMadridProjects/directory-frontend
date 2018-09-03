@@ -132,6 +132,19 @@
   .chip-container {
     margin-top: 32px;
   }
+    
+    @media only screen and (max-width: 768px) {
+        
+        .v-chip {
+            padding: 6px;    
+        }
+        
+      .chip-container {
+        margin-top: 24px;
+      }
+    
+    }
+    
 </style>
 
 <script>
