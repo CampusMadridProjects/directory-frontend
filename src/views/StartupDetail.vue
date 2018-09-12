@@ -11,17 +11,15 @@
       </v-toolbar-items> -->
     </v-toolbar>
 
-        <v-card-media
-      :src="data.logo"
-    ></v-card-media>
+    <img :src="data.logo" class="startup-logo"></v-card-media>
 
-    <v-card-title primary-title>
+    <div class="startup-info">
       <h3 class="headline mb-0">{{ data.name }}</h3>
       <div class="grey--text">{{ data.accelerator }}</div>
-    </v-card-title>
+    </div>
 
     <v-card-text>
-      <v-subheader>What do they do?</v-subheader>
+      <v-subheader v-if="data.bio">What do they do?</v-subheader>
       {{ data.bio }}
 
       <div class="startup-card-social-icons">
@@ -43,8 +41,10 @@
         </a>
       </div>
 
-      <v-subheader>Who's there?</v-subheader>
-      <person-list :people="data.employees" event-category="startup_detail"></person-list>
+      <div class="startup-employees">
+        <v-subheader>Who's there?</v-subheader>
+        <person-list :people="data.employees" event-category="startup_detail"></person-list>
+      </div>
     </v-card-text>
 
   </v-card>
@@ -56,6 +56,24 @@
     border-radius: 0 !important;
     border-top-left-radius: 0;
     border-top-right-radius-radius: 0;
+  }
+
+  .startup-logo {
+    max-width: 370px;
+    width: 100%;
+  }
+
+  .startup-info {
+    text-align: center;
+  }
+
+  .startup-card-social-icon img {
+    width: 42px;
+  }
+
+  .startup-employees {
+    max-width: 500px;
+    margin: auto;
   }
 </style>
 
