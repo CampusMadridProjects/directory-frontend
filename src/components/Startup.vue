@@ -81,6 +81,28 @@ function filterStartup(search) {
   });
 }
 
+
+function cacheExpired(date) {
+
+  if (!date) {
+    return true;
+  }
+
+  var now = new Date();
+  var last = new Date(date);
+
+  if(last.getFullYear() < now.getFullYear()) {
+    return true;
+  } else if (last.getMonth() < now.getMonth()) {
+    return true;
+  } else if (last.getDate() + 7 < now.getDate()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
 /** loadStartup
  *  Get a startup list from localstorage or backend.
  *
@@ -88,10 +110,16 @@ function filterStartup(search) {
  */
 function loadStartup() {
   const localStartups = storage.getItem('startup-list');
+  const localStartupsTime = storage.getItem('startup-list-time');
+
+  const expired = cacheExpired(localStartupsTime);
+
+  console.log(expired);
 
   if (localStartups === null) {
     return this.downloadStartup();
-  }
+  } else if (expired)
+  // } else if (localStartupsTime && new Date() - new Date(localStartupsTime) )
 
   // Try to parse JSON
   try {
@@ -120,6 +148,7 @@ function downloadStartup() {
       this.loading = false;
       this.list = data;
       storage.setItem('startup-list', JSON.stringify(data));
+      storage.setItem('startup-list-time', new Date());
 
       return data;
     })
