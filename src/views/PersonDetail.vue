@@ -57,6 +57,14 @@
         >
           <img src="img/linkedin_64.png" alt="linkedin" />
         </a>
+        <a v-if="data.slack"
+          :href="data.slack"
+          target="_blank"
+          class="person-card-social-icon"
+          @click="$ga.event('person_detail', 'slack', data._id)"
+        >
+          <img src="img/slack_64.png" alt="slack" />
+        </a>
       </div>
     </v-card-text>
 
