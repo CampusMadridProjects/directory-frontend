@@ -146,7 +146,7 @@
         }
         
         footer span {
-            padding: 16px;
+            padding: 8px;
         }
         
     }
