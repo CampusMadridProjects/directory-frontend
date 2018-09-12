@@ -2,14 +2,35 @@
   <v-app>
     <v-toolbar tabs extended app>
       <img src="img/logo.png" style="height: 26px;">
+
+<!--        <v-text-field
+        append-icon="mic"
+        class="mx-3"
+        flat
+        label="Search"
+        prepend-inner-icon="search"
+        solo-inverted
+      ></v-text-field> -->
+      <v-text-field
+            prepend-inner-icon="search"
+            class="mx-3"
+            hide-details
+            flat
+            solo
+            v-model="search"
+            clearable
+            placeholder="Search for people, startups or organizations"
+            @keyup="trackSearch(search)"
+            @click:clear="searchClear()"
+          ></v-text-field>
       <!-- Navbar title -->
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
+      <!-- <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-spacer></v-spacer> -->
 
       <!-- Navbar actions -->
-      <v-btn icon @click="searchOpen()">
+<!--       <v-btn icon @click="searchOpen()">
         <v-icon>search</v-icon>
-      </v-btn>
+      </v-btn> -->
 
       <!-- Navbar Tabs -->
       <v-tabs
