@@ -102,6 +102,7 @@
     @media (min-width: 600px) {
      
         .card-user-pic {
+            max-height: 370px;
             max-width: 370px;
             margin-left: auto;
             margin-right: auto;
