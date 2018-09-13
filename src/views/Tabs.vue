@@ -153,6 +153,24 @@
   .chip-container {
     margin-top: 32px;
   }
+    
+    .v-toolbar {
+        background: #FFFFFF;
+    }
+    
+    .application.theme--light {
+        background: #FFFFFF;
+    }
+    
+</style>
+
+<style>
+    
+    .theme--light .v-text-field--solo .v-input__slot {
+        background: #0000000f;
+        border-radius: 50px;
+    }
+
 </style>
 
 <script>
