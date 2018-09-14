@@ -39,7 +39,7 @@
   ],
   "vue": {
     "pwa": {
-      "themeColor": "#EF44AA"
+      "themeColor": "#000000"
     }
   }
 }
