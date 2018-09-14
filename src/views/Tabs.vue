@@ -107,7 +107,7 @@
         color="primary"
 
       >
-        <v-icon>add</v-icon>
+        <v-icon>person_add</v-icon>
       </v-btn>
     </a>
 
@@ -177,6 +177,11 @@
 </style>
     
 <style>
+    
+    .v-toolbar__extension {
+        margin-bottom: -1px;
+    }
+    
     .theme--light .v-text-field--solo .v-input__slot {
         background: #0000000f;
         border-radius: 50px;
@@ -193,10 +198,6 @@
         
         .v-chip {
             padding: 6px;    
-        }
-        
-        .chip-container {
-            margin-top: 24px;
         }
       
         .v-text-field.v-text-field--solo .v-input__control {
@@ -217,6 +218,11 @@
         footer span {
             padding: 8px;
         }
+        
+        .chip-container {
+            margin-top: 24px;
+        }
+        
     }
     
 </style>
