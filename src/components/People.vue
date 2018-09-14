@@ -176,7 +176,7 @@ function cacheExpired(date) {
  */
 function loadPeople() {
   const localPeople = storage.getItem('people-list');
-  const localPeopleTime = storage.getItem('startup-list-time');
+  const localPeopleTime = storage.getItem('people-list-time');
 
   const expired = cacheExpired(localPeopleTime);
   console.log(expired)
