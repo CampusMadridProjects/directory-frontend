@@ -157,6 +157,18 @@
     margin-top: 32px;
   }
     
+/* bigger-chips-mobile */
+    @media only screen and (max-width: 768px) {
+        
+        .v-chip {
+            padding: 6px;    
+        }
+        
+      .chip-container {
+        margin-top: 24px;
+      }
+    }
+    
     /* fixes footer text clickability */
     @media (max-width: 959px) {
         
@@ -169,7 +181,6 @@
         footer span {
             padding: 8px;
         }
-        
     }
     
 </style>
