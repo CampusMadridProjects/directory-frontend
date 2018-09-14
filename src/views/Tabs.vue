@@ -132,7 +132,7 @@
   }
     
     .v-toolbar {
-        background-color: rgba(245, 245, 245, 0.99);
+        background-color: #FFF;
         box-shadow: none;
         border-bottom: 1px solid #efefef;
     }
@@ -149,7 +149,7 @@
   }
 
   .v-chip.active {
-    background-color: #82b1ff;
+    background-color: #d48ded;
     color: #fff;
   }
   
@@ -157,6 +157,21 @@
     margin-top: 32px;
   }
     
+    .application.theme--light {
+        background: #FFFFFF;
+    }
+    
+    .theme--light .v-text-field--solo .v-input__slot {
+        background: #0000000f;
+        border-radius: 50px;
+    }
+    
+    .v-text-field.v-text-field--solo .v-input__control {
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 /* bigger-chips-mobile */
     @media only screen and (max-width: 768px) {
         
@@ -167,6 +182,11 @@
       .chip-container {
         margin-top: 24px;
       }
+      
+        .v-text-field.v-text-field--solo .v-input__control {
+            min-height: 40px;
+        }
+      
     }
     
     /* fixes footer text clickability */
@@ -182,7 +202,7 @@
             padding: 8px;
         }
     }
-    
+
 </style>
 
 <script>
