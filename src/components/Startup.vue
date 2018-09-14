@@ -95,7 +95,7 @@ function cacheExpired(date) {
     return true;
   } else if (last.getMonth() < now.getMonth()) {
     return true;
-  } else if (last.getDate() + 7 < now.getDate()) {
+  } else if (last.getDate() + 1 < now.getDate()) {
     return true;
   } else {
     return false;
@@ -114,12 +114,9 @@ function loadStartup() {
 
   const expired = cacheExpired(localStartupsTime);
 
-  console.log(expired);
-
-  if (localStartups === null) {
+  if (localStartups === null || expired) {
     return this.downloadStartup();
-  } else if (expired)
-  // } else if (localStartupsTime && new Date() - new Date(localStartupsTime) )
+  }
 
   // Try to parse JSON
   try {
