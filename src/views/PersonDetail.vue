@@ -98,6 +98,10 @@
     .headline {
         margin-top: 12px;
     }
+
+    .v-btn--icon {
+      min-width: 36px;
+    }
     
     @media (min-width: 600px) {
      

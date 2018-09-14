@@ -86,6 +86,10 @@
         text-align: center;
         margin: 0px;
     }
+
+    .v-btn--icon {
+      min-width: 36px;
+    }
     
     @media (max-width: 960px) {
     
