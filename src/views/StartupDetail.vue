@@ -1,14 +1,12 @@
 <template>
   <v-card light class="full-size">
-    <v-toolbar dark>
-      <v-btn icon dark @click="$router.back();">
-        <v-icon>close</v-icon>
+    <v-toolbar>
+      <v-btn icon @click="$router.back();">
+        <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title>Startup</v-toolbar-title>
+      <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-<!--       <v-toolbar-items>
-        <v-btn dark flat @click.native="dialog = false">Save</v-btn>
-      </v-toolbar-items> -->
+        <v-btn depressed color="primary" class="custom-button">Update this startup</v-btn>
     </v-toolbar>
 
     <img :src="data.logo" class="startup-logo"></v-card-media>
@@ -75,8 +73,27 @@
     max-width: 500px;
     margin: auto;
   }
-</style>
 
+    .v-toolbar {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    
+    .v-toolbar__title {
+        width: 80%;
+        text-align: center;
+        margin: 0px;
+    }
+    
+    @media (max-width: 960px) {
+    
+        .v-toolbar__content>:first-child.v-btn--icon, .v-toolbar__extension>:first-child.v-btn--icon {
+            margin-left: 0px;
+        }
+
+    }
+    
+</style>
 
 <script>
 // ToDo (@CodingCarlos):

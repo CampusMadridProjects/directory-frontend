@@ -6,9 +6,7 @@
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-<!--       <v-toolbar-items>
-        <v-btn dark flat @click.native="dialog = false">Save</v-btn>
-      </v-toolbar-items> -->
+        <v-btn depressed color="primary" class="custom-button">Update this profile</v-btn>
     </v-toolbar>
 
     <div>
@@ -110,6 +108,24 @@
         
     }
     
+    @media (max-width: 960px) {
+    
+        .v-toolbar__content>:first-child.v-btn--icon, .v-toolbar__extension>:first-child.v-btn--icon {
+            margin-left: 0px;
+        }
+
+    }
+    
+</style>
+
+<style>
+
+    .custom-button {
+        border-radius: 50px;
+        padding: 0px 40px;
+        text-transform: none;
+    }
+
 </style>
 
 
