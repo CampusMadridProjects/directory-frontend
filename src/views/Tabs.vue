@@ -146,7 +146,7 @@
   }
 
   .v-chip.active {
-    background-color: #82b1ff;
+    background-color: #d48ded;
     color: #fff;
   }
   
