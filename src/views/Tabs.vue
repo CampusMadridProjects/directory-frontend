@@ -161,6 +161,9 @@
         background: #FFFFFF;
     }
     
+</style>
+    
+<style>
     .theme--light .v-text-field--solo .v-input__slot {
         background: #0000000f;
         border-radius: 50px;
@@ -171,7 +174,7 @@
         margin-left: auto;
         margin-right: auto;
     }
-
+    
 /* bigger-chips-mobile */
     @media only screen and (max-width: 768px) {
         
@@ -179,9 +182,9 @@
             padding: 6px;    
         }
         
-      .chip-container {
-        margin-top: 24px;
-      }
+        .chip-container {
+            margin-top: 24px;
+        }
       
         .v-text-field.v-text-field--solo .v-input__control {
             min-height: 40px;
@@ -202,7 +205,7 @@
             padding: 8px;
         }
     }
-
+    
 </style>
 
 <script>
