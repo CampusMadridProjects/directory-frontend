@@ -80,7 +80,7 @@
             Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. 
         </span>
         <span>
-            New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
+            Feedback? Something to say? <a href="mailto:hola@codingcarlos.com" target="_blank">Tell us!</a>
       </span>
     </v-footer>
   </v-app>
@@ -176,11 +176,22 @@
             height: auto !important;
             padding: 16px 0px;
             box-sizing: border-box;
+            padding-bottom: 80px !important;
         }
         
         footer span {
             padding: 8px;
         }
+    }
+
+    @media (min-width: 959px) {
+      footer {
+        flex-direction: row !important;
+      }
+      footer span {
+        display: inline-block;
+        margin: 0 2px;
+      }
     }
     
 </style>
