@@ -165,7 +165,7 @@
         }
       
         .v-text-field.v-text-field--solo .v-input__control {
-            min-height: 40px;
+            min-height: 36px;
         }
       
     }
