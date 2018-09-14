@@ -36,7 +36,7 @@
     flex-direction: column;
   }
     
-    .v-card-text {
+    .v-card__text {
         text-align: left;
     }
     
