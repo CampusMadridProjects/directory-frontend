@@ -184,7 +184,7 @@
         }
         
         .chip-container {
-            margin-top: 24px;
+            margin-top: 24px !important;
         }
         
     }

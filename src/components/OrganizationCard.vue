@@ -35,6 +35,14 @@
   .v-card__title {
     flex-direction: column;
   }
+    
+    .v-card-text {
+        text-align: left;
+    }
+    
+    .v-subheader {
+        padding: 0px;
+    }
 
   .startup-logo {
     background-position: center;
