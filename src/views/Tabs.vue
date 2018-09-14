@@ -170,6 +170,20 @@
         background: #0000000f;
         border-radius: 50px;
     }
+    
+    .v-text-field.v-text-field--solo .v-input__control {
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    @media (max-width: 800px) {
+     
+        .v-text-field.v-text-field--solo .v-input__control {
+            min-height: 40px;
+        }
+        
+    }
 
 </style>
 
