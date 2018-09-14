@@ -99,8 +99,11 @@
     </v-dialog>
 
     <v-footer>
-      <span>
-        Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
+        <span>
+            Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. 
+        </span>
+        <span>
+            New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
       </span>
     </v-footer>
   </v-app>
@@ -153,6 +156,22 @@
   .chip-container {
     margin-top: 32px;
   }
+    
+    /* fixes footer text clickability */
+    @media (max-width: 959px) {
+        
+        .v-footer {
+            height: auto !important;
+            padding: 16px 0px;
+            box-sizing: border-box;
+        }
+        
+        footer span {
+            padding: 8px;
+        }
+        
+    }
+    
 </style>
 
 <script>
