@@ -99,8 +99,11 @@
     </v-dialog>
 
     <v-footer>
-      <span>
-        Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
+        <span>
+            Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. 
+        </span>
+        <span>
+            New data? Something to update? <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">Tell us!</a>
       </span>
     </v-footer>
   </v-app>
@@ -129,7 +132,7 @@
   }
     
     .v-toolbar {
-        background-color: rgba(245, 245, 245, 0.99);
+        background-color: #FFF;
         box-shadow: none;
         border-bottom: 1px solid #efefef;
     }
@@ -154,17 +157,9 @@
     margin-top: 32px;
   }
     
-    .v-toolbar {
-        background: #FFFFFF;
-    }
-    
     .application.theme--light {
         background: #FFFFFF;
     }
-    
-</style>
-
-<style>
     
     .theme--light .v-text-field--solo .v-input__slot {
         background: #0000000f;
@@ -176,13 +171,36 @@
         margin-left: auto;
         margin-right: auto;
     }
-    
-    @media (max-width: 800px) {
-     
+
+/* bigger-chips-mobile */
+    @media only screen and (max-width: 768px) {
+        
+        .v-chip {
+            padding: 6px;    
+        }
+        
+      .chip-container {
+        margin-top: 24px;
+      }
+      
         .v-text-field.v-text-field--solo .v-input__control {
             min-height: 40px;
         }
+      
+    }
+    
+    /* fixes footer text clickability */
+    @media (max-width: 959px) {
         
+        .v-footer {
+            height: auto !important;
+            padding: 16px 0px;
+            box-sizing: border-box;
+        }
+        
+        footer span {
+            padding: 8px;
+        }
     }
 
 </style>
