@@ -18,6 +18,14 @@
   </v-list>
 </template>
 
+<style scoped>
+  .v-list__tile__avatar {
+    min-height: 0;
+    min-width: 0;
+    padding: 16px; 
+  }
+</style>
+
 <script>
 function goToPerson(id) {
   this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
