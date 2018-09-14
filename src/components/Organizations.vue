@@ -3,7 +3,7 @@
     <loading></loading>
   </v-container>
   <v-container v-else-if="filterOrganization(search).length === 0">
-    <h1>No hemos encontrado resultados :(</h1>
+    <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
   </v-container>
   <v-container class="card-grid" v-else>
     <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
