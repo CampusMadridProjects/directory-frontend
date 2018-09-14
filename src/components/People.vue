@@ -151,13 +151,37 @@ function filterByText(list, search) {
   });
 }
 
+function cacheExpired(date) {
+
+  if (!date) {
+    return true;
+  }
+
+  var now = new Date();
+  var last = new Date(date);
+
+  if(last.getFullYear() < now.getFullYear()) {
+    return true;
+  } else if (last.getMonth() < now.getMonth()) {
+    return true;
+  } else if (last.getDate() + 1 < now.getDate()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 /** loadPeople
  *  Get a people list from localstorage or backend.
  */
 function loadPeople() {
   const localPeople = storage.getItem('people-list');
+  const localPeopleTime = storage.getItem('startup-list-time');
 
-  if (localPeople === null) {
+  const expired = cacheExpired(localPeopleTime);
+  console.log(expired)
+
+  if (localPeople === null || expired) {
     return this.downloadPeople();
   }
 
@@ -198,6 +222,7 @@ function downloadPeople() {
 
       this.list = cleanData;
       storage.setItem('people-list', JSON.stringify(cleanData));
+      storage.setItem('startup-list-time', new Date());
 
       return cleanData;
     })
