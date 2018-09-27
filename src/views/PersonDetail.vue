@@ -18,11 +18,16 @@
       <div class="text-xs-center">
         <span class="grey--text one-line text-xs-center">
           {{ data.role }} @
-          <router-link :to="{name: 'startupDetail', params: {id: data.company_id}}">
-            <span @click="$ga.event('person_detail', 'view_startup', data.company_id)">
+          <span v-if="data.company_id" @click="$ga.event('person_detail', 'view_startup', data.company_id)">
+            <router-link :to="{name: 'startupDetail', params: {id: data.company_id}}">
               {{ data.company }}
-            </span>
-          </router-link>
+            </router-link>
+          </span>
+          <span v-else="data.company_id"><!-- @click="$ga.event('person_detail', 'view_org', data.company_id)"> -->
+            <!-- <router-link :to="{name: 'orgDetail', params: {id: data.company_id}}"> -->
+              {{ data.company }}
+            <!-- </router-link> -->
+          </span>
         </span>
       </div>
     </div>
@@ -167,8 +172,16 @@ function getData() {
   const id = this.$router.currentRoute.params.id;
   const data = getStorage();
 
+  const gottenData = searchPerson(data, id);
+
+  // Check organizaion or startup
+  if (gottenData.company_id.indexOf('org') > -1) {
+    gottenData.company_id = null;
+  }
+  console.log(gottenData.company_id);
+
   this.id = id;
-  this.data = searchPerson(data, id);
+  this.data = gottenData;
 
   console.log(this.data);
 }
