@@ -1,8 +1,8 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
-    <div @click="show = !show">
+    <!-- <div @click="show = !show"> -->
+    <div @click="goToPerson(id)">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
-        <!-- <img class="card-user-pic" :src="pic" /> -->
       </div>
       <div class="headline">{{ name }}</div>
       <span class="grey--text one-line">
@@ -24,7 +24,7 @@
       </div>
     </v-card-title>
 
-    <v-slide-y-transition>
+<!--     <v-slide-y-transition>
       <v-card-text v-show="show">
         {{ bio }}
         <div class="person-card-social-icons">
@@ -36,17 +36,18 @@
           </a>
         </div>
       </v-card-text>
-    </v-slide-y-transition>
+    </v-slide-y-transition> -->
   </v-card>
 </template>
 
 <style type="text/css">
-    
+
     .v-card {
         border-radius: 8px;
         padding: 4px;
+        text-align: center;
     }
-    
+
   .v-card__media__content {
     padding: 16px 8px 8px 8px;
     text-align: center;
@@ -58,6 +59,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: calc(100vw - 32px);
+    margin-bottom: 12px;
   }
   /* In tablet, we have two columns */
   @media (min-width: 600px) {
@@ -104,26 +106,40 @@
     width: 32px;
   }
 
-    .box-shadow {
-        box-shadow: none;
-    }
-
     .light-border {
         border: 1px solid #f3f3f3;
-        border-radius: 8px;
+        border-radius: 6px;
     }
 
     /* more spread, low contrast */
     .custom-hover:hover {
-        box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
+        box-shadow: 0 4px 12px 0px rgba(0,0,0,.108) !important;
+    }
+    
+    .box-shadow {
+        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04) !important;
+    }
+    
+    .v-card {
+        padding: 0px;
+    }
+    
+    .card-user-pic {
+        border-radius: 6px 6px 0px 0px;
     }
 
 </style>
 
 <script>
+function goToPerson(id) {
+  this.$ga.event('directory_list', 'view_person', id);
+  this.$router.push({name: 'personDetail', params: {id: id}});
+}
+
 export default {
-  name: 'People',
+  name: 'PersonCard',
   props: {
+    id: { type: String, required: true },
     pic: { type: String, required: true },
     name: { type: String, required: true },
     role: { type: String, required: true },
@@ -136,6 +152,7 @@ export default {
   },
   data: () => ({
     show: false,
+    goToPerson,
   }),
 };
 </script>

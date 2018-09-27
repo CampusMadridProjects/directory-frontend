@@ -1,0 +1,260 @@
+<template>
+  <v-container v-if="loading === true">
+    <loading></loading>
+  </v-container>
+  <v-container style="text-align: center;" v-else-if="filterPeople(search, filter).length === 0">
+    <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
+  </v-container>
+  <v-container class="card-grid" v-else>
+    <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
+      v-for="person in filterPeople(search, filter)"
+      :key="person._id">
+
+      <person-card-small class="card-grid-item-card hidden-md-and-up"
+        :id="person._id"
+        :name="person.name"
+        :pic="person.pic"
+        :role="person.role"
+        :company="person.company"
+        :expertise="person.expertise"
+        :bio="person.bio"
+        :location="person.location"
+        :twitter="person.twitter"
+        :linkedin="person.linkedin">
+      </person-card-small>
+
+      <person-card class="card-grid-item-card hidden-sm-and-down"
+        :id="person._id"
+        :name="person.name"
+        :pic="person.pic"
+        :role="person.role"
+        :company="person.company"
+        :expertise="person.expertise"
+        :bio="person.bio"
+        :location="person.location"
+        :twitter="person.twitter"
+        :linkedin="person.linkedin">
+      </person-card>
+
+    </v-flex>
+  </v-container>
+</template>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+
+.card-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.card-grid-item-card {
+  margin: 6px;
+}
+</style>
+
+<script>
+import PersonCard from './PersonCard.vue';
+import PersonCardSmall from './PersonCardSmall.vue';
+import Loading from './Loading.vue';
+
+// If you want to make data persistent throught sessions, you can use localStorage
+const storage = window.sessionStorage;
+
+function inArray(array, data) {
+  if (typeof data !== 'string') {
+    return false;
+  }
+
+  let found = false;
+  for (let i = array.length - 1; i >= 0; i -= 1) {
+    if (array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
+      found = true;
+    }
+  }
+
+  return found;
+}
+
+/** filterPeople
+ *  Given a search term, return an array with only the people that matches in
+ *  any way with the term.
+ *
+ *  @param {string} search Search query to filter persons
+ *  @param {array} filter Filter by categories to search
+ *  @return {array} An array that matches the requested search term
+ */
+function filterPeople(search, filter) {
+  // filter by categories
+  const filteredByCategory = filterByCategory(this.list, filter);
+
+  // Filter by search text
+  return filterByText(filteredByCategory, search)
+}
+
+/** filterByCategory
+ *
+ */
+function filterByCategory(list, categories) {
+  if(!Array.isArray(categories) || categories.length === 0) {
+    return list;
+  }
+
+  return list.filter((person) => {
+    for (var i = 0; i < categories.length; i++) {
+      if (person.expertise && inArray(person.expertise, categories[i])) {
+        return true;
+      } 
+    }
+
+    return false;
+  });
+}
+
+function filterByText(list, search) {
+  const safeSearch = search && (search.toUpperCase() || '');
+
+  console.log(safeSearch);
+  if (safeSearch === '' || !safeSearch) {
+    return list;
+  }
+  
+  return list.filter((person) => {
+    let found = false;
+
+    // Search by text
+    if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
+      || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
+      || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
+      || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
+      || (person.expertise && inArray(person.expertise, safeSearch))
+    ) {
+      found = true;
+    }
+
+    return found;
+  });
+}
+
+function cacheExpired(date) {
+
+  if (!date) {
+    return true;
+  }
+
+  var now = new Date();
+  var last = new Date(date);
+
+  if(last.getFullYear() < now.getFullYear()) {
+    return true;
+  } else if (last.getMonth() < now.getMonth()) {
+    return true;
+  } else if (last.getDate() + 1 < now.getDate()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/** loadPeople
+ *  Get a people list from localstorage or backend.
+ */
+function loadPeople() {
+  const localPeople = storage.getItem('people-list');
+  const localPeopleTime = storage.getItem('people-list-time');
+
+  const expired = cacheExpired(localPeopleTime);
+  console.log(expired)
+
+  if (localPeople === null || expired) {
+    return this.downloadPeople();
+  }
+
+  // Try to parse JSON
+  try {
+    const parsedPeople = JSON.parse(localPeople);
+
+    this.list = parsedPeople;
+    this.loading = false;
+
+    return Promise.resolve(parsedPeople);
+  } catch (e) {
+    // In case of error, ask the backend.
+    return this.downloadPeople();
+  }
+}
+
+/** downloadPeople
+ *  Get a people list from the backend. Also, parse some possible exceptions.
+ */
+function downloadPeople() {
+  return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
+    method: 'GET',
+    // body:JSON.stringify({title:"a new todo"})
+  }).then(res => res.json())
+    .then((data) => {
+      this.loading = false;
+
+      const cleanData = data.map((item) => {
+        const person = item;
+
+        if (typeof person.location === 'number') {
+          person.location = `L${person.location}`;
+        }
+
+        return person;
+      });
+
+      this.list = cleanData;
+      storage.setItem('people-list', JSON.stringify(cleanData));
+      storage.setItem('startup-list-time', new Date());
+
+      return cleanData;
+    })
+    .catch((err) => {
+      this.loading = false;
+      console.error(err);
+    });
+}
+
+
+export default {
+  name: 'People',
+  props: {
+    search: { type: String, required: false },
+    filter: { type: Array, required: false },
+  },
+  data() {
+    return {
+      loading: true,
+      list: [],
+      filterPeople,
+      loadPeople,
+      downloadPeople,
+    };
+  },
+  components: {
+    PersonCard,
+    PersonCardSmall,
+    Loading,
+  },
+  created() {
+    this.loadPeople();
+  },
+};
+</script>
