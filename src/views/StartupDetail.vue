@@ -6,12 +6,22 @@
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
-          <v-btn depressed color="primary" class="custom-button">Update this startup</v-btn>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
+          target="_blank"
+        >
+          <v-btn
+            depressed color="primary"
+            class="custom-button"
+          >
+            Update this startup
+          </v-btn>
         </a>
     </v-toolbar>
 
-    <img :src="data.logo" class="startup-logo"></v-card-media>
+    <v-card-media>
+      <img :src="data.logo" class="startup-logo">
+    </v-card-media>
 
     <div class="startup-info">
       <h3 class="headline mb-0">{{ data.name }}</h3>
