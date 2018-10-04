@@ -289,10 +289,10 @@ export default {
     this.checkChildren(this.$router.currentRoute.name);
   },
   watch: {
-    $route(to, from) {
+    $route(to) {
       this.checkChildren(to.name);
     },
-    tabs(to, from) {
+    tabs(to) {
       // Clean tab name
       const tab = to.replace('tabs-', '');
 
