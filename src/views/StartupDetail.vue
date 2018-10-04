@@ -52,52 +52,51 @@
 
 
 <style scoped>
-  .full-size {
-    border-radius: 0 !important;
-    border-top-left-radius: 0;
-    border-top-right-radius-radius: 0;
+.full-size {
+  border-radius: 0 !important;
+  border-top-left-radius: 0;
+  border-top-right-radius-radius: 0;
+}
+
+.startup-logo {
+  max-width: 370px;
+  width: 100%;
+}
+
+.startup-info {
+  text-align: center;
+}
+
+.startup-card-social-icon img {
+  width: 42px;
+}
+
+.startup-employees {
+  max-width: 500px;
+  margin: auto;
+}
+
+.v-toolbar {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.v-toolbar__title {
+  width: 80%;
+  text-align: center;
+  margin: 0px;
+}
+
+.v-btn--icon {
+  min-width: 36px;
+}
+
+@media (max-width: 960px) {
+  .v-toolbar__content>:first-child.v-btn--icon, 
+  .v-toolbar__extension>:first-child.v-btn--icon {
+    margin-left: 0px;
   }
-
-  .startup-logo {
-    max-width: 370px;
-    width: 100%;
-  }
-
-  .startup-info {
-    text-align: center;
-  }
-
-  .startup-card-social-icon img {
-    width: 42px;
-  }
-
-  .startup-employees {
-    max-width: 500px;
-    margin: auto;
-  }
-
-    .v-toolbar {
-        background-color: transparent;
-        box-shadow: none;
-    }
-
-    .v-toolbar__title {
-        width: 80%;
-        text-align: center;
-        margin: 0px;
-    }
-
-    .v-btn--icon {
-      min-width: 36px;
-    }
-
-    @media (max-width: 960px) {
-
-        .v-toolbar__content>:first-child.v-btn--icon, .v-toolbar__extension>:first-child.v-btn--icon {
-            margin-left: 0px;
-        }
-
-    }
+}
 
 </style>
 
