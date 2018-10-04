@@ -92,6 +92,12 @@
     border-radius: 0px;
 }
 
+.custom-button {
+  border-radius: 50px;
+  padding: 0px 40px;
+  text-transform: none;
+}
+
 .v-toolbar {
     background-color: transparent;
     box-shadow: none;
@@ -126,19 +132,7 @@
     margin-left: 0px;
   }
 }
-
 </style>
-
-<style>
-
-    .custom-button {
-        border-radius: 50px;
-        padding: 0px 40px;
-        text-transform: none;
-    }
-
-</style>
-
 
 <script>
 // ToDo (@CodingCarlos):
