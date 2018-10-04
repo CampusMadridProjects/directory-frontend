@@ -146,7 +146,7 @@ function getLocation() {
 
     this.$ga.event('onboarding', 'location_granted');
 
-    isLocationValid(data.coords.latitude, data.coords.longitude)
+    return isLocationValid(data.coords.latitude, data.coords.longitude)
       .then((serverResponse) => {
         this.dialog = false;
         storage.setItem('access_allowed', serverResponse.allow);
