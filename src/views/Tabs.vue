@@ -44,7 +44,7 @@
         <v-tab-item id="tabs-people">
             <v-container fluid class="pa-0 chip-container">
                 <div class="text-xs-center">
-                    <v-chip 
+                    <v-chip
                       :key="tag"
                       :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
                       v-for="tag in peopleTags"
@@ -84,13 +84,13 @@
 
     <v-footer>
         <span>
-            Made with ❤ in 
+            Made with ❤ in
             <a href="https://www.campus.co/madrid/">
               Campus Madrid
             </a>.
         </span>
         <span>
-            Feedback? Something to say? 
+            Feedback? Something to say?
             <a href="mailto:hola@codingcarlos.com" target="_blank">
               Tell us!
             </a>
