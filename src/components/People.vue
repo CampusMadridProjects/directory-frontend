@@ -100,7 +100,7 @@ function filterByCategory(list, categories) {
   }
 
   return list.filter((person) => {
-    for (let i = 0; i < categories.length; i++) {
+    for (let i = 0; i < categories.length; i += 1) {
       if (person.expertise && inArray(person.expertise, categories[i])) {
         return true;
       }
