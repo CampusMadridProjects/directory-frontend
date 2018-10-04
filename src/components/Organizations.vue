@@ -20,7 +20,7 @@
   </v-container>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 h1, h2 {
   font-weight: normal;
@@ -100,6 +100,7 @@ export default {
   props: {
     search: { type: String, required: false },
   },
+
   data() {
     return {
       loading: true,
@@ -108,13 +109,14 @@ export default {
       loadOrganization,
     };
   },
+
   components: {
     OrganizationCard,
     Loading,
   },
+
   created() {
     this.loadOrganization();
   },
 };
-
 </script>

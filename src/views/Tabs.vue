@@ -99,121 +99,111 @@
   </v-app>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-/*  .v-toolbar__title:not(:first-child) {
-    margin-left: 0;
-  }*/
-  .v-tabs__items,
-  .v-tabs__content {
-    min-height: 100%;
-  }
+.v-tabs__items,
+.v-tabs__content {
+  min-height: 100%;
+}
 
-    .v-tabs__div {
-        text-transform: none;
-    }
+.v-tabs__div {
+  text-transform: none;
+}
 
-  footer {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
-    padding: 24px 0;
-  }
+footer {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 24px 0;
+}
 
-    .v-toolbar {
-        background-color: #FFF;
-        box-shadow: none;
-        border-bottom: 1px solid #efefef;
-    }
+.v-toolbar {
+  background-color: #FFF;
+  box-shadow: none;
+  border-bottom: 1px solid #efefef;
+}
 
-    a {
-        text-decoration: none;
-    }
+a {
+  text-decoration: none;
+}
 
+.v-chip {
+  /* background: dark-gray; */
+  background: #eae8e8;
+  color: #3c3c3c;
+  font-weight: 500;
+}
+
+.v-chip.active {
+  background-color: #d48ded;
+  color: #fff;
+}
+
+.chip-container {
+  margin-top: 32px;
+}
+
+.application.theme--light {
+  background: #FFFFFF;
+}
+
+.v-toolbar__extension {
+  margin-bottom: -1px;
+}
+
+.theme--light .v-text-field--solo .v-input__slot {
+  background: #0000000f;
+  border-radius: 50px;
+}
+
+.v-text-field.v-text-field--solo .v-input__control {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* bigger-chips-mobile */
+@media only screen and (max-width: 768px) {
   .v-chip {
-    /* background: dark-gray; */
-    background: #eae8e8;
-    color: #3c3c3c;
-    font-weight: 500;
+    padding: 6px;
   }
 
-  .v-chip.active {
-    background-color: #d48ded;
-    color: #fff;
+  .v-text-field.v-text-field--solo .v-input__control {
+    min-height: 36px;
+  }
+}
+
+/* fixes footer text clickability */
+@media (max-width: 959px) {
+  .v-footer {
+    height: auto !important;
+    padding: 16px 0px;
+    box-sizing: border-box;
+    padding-bottom: 80px !important;
+  }
+
+  footer span {
+    padding: 8px;
   }
 
   .chip-container {
-    margin-top: 32px;
+    margin-top: 24px !important;
+  }
+}
+
+@media (min-width: 959px) {
+  footer {
+    flex-direction: row !important;
   }
 
-    .application.theme--light {
-        background: #FFFFFF;
-    }
-
+  footer span {
+    display: inline-block;
+    margin: 0 2px;
+  }
+}
 </style>
 
-<style>
-
-    .v-toolbar__extension {
-        margin-bottom: -1px;
-    }
-
-    .theme--light .v-text-field--solo .v-input__slot {
-        background: #0000000f;
-        border-radius: 50px;
-    }
-
-    .v-text-field.v-text-field--solo .v-input__control {
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-/* bigger-chips-mobile */
-    @media only screen and (max-width: 768px) {
-
-        .v-chip {
-            padding: 6px;
-        }
-
-        .v-text-field.v-text-field--solo .v-input__control {
-            min-height: 36px;
-        }
-
-    }
-
-    /* fixes footer text clickability */
-    @media (max-width: 959px) {
-
-        .v-footer {
-            height: auto !important;
-            padding: 16px 0px;
-            box-sizing: border-box;
-            padding-bottom: 80px !important;
-        }
-
-        footer span {
-            padding: 8px;
-        }
-
-        .chip-container {
-            margin-top: 24px !important;
-        }
-
-    }
-
-    @media (min-width: 959px) {
-      footer {
-        flex-direction: row !important;
-      }
-      footer span {
-        display: inline-block;
-        margin: 0 2px;
-      }
-    }
-
-</style>
 
 <script>
 import People from '../components/People.vue';
@@ -260,6 +250,7 @@ function switchTag(name) {
 
 export default {
   name: 'Tabs',
+
   data() {
     return {
       title: 'Campus Directory',
@@ -280,14 +271,17 @@ export default {
       trackSearch,
     };
   },
+
   components: {
     People,
     Startup,
     Organizations,
   },
+
   created() {
     this.checkChildren(this.$router.currentRoute.name);
   },
+
   watch: {
     $route(to) {
       this.checkChildren(to.name);

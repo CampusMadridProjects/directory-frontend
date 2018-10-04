@@ -48,45 +48,44 @@
 </template>
 
 <style type="text/css" scoped>
-  .welcome-text {
-    font-family: Roboto;
-    font-size: 40px;
-    padding: 0px 24px;
-  }
+.welcome-text {
+  font-family: Roboto;
+  font-size: 40px;
+  padding: 0px 24px;
+}
 
-  .big-icon i {
-    font-size: 82px;
-    margin: 12px 0;
-  }
+.big-icon i {
+  font-size: 82px;
+  margin: 12px 0;
+}
 
-  .explain-text {
-    font-family: Roboto;
-    margin: 8px 12vw 32px;
-    font-size: 18px;
-  }
+.explain-text {
+  font-family: Roboto;
+  margin: 8px 12vw 32px;
+  font-size: 18px;
+}
 
-  .v-btn {
-    background: #CD85E8 !important;
-    border-radius: 50px;
-    text-transform: none;
-  }
+.v-btn {
+  background: #CD85E8 !important;
+  border-radius: 50px;
+  text-transform: none;
+}
 
-  .dialog-fullscreen-wrapper {
-    height: 100%;
-    background: rgba(48, 48, 48, 0.96);
-    padding-top: 40vh;
-  }
+.dialog-fullscreen-wrapper {
+  height: 100%;
+  background: rgba(48, 48, 48, 0.96);
+  padding-top: 40vh;
+}
 
-  .display-1 {
-      text-align: center;
-      padding: 24px;
-  }
+.display-1 {
+  text-align: center;
+  padding: 24px;
+}
 
-  .v-progress-circular {
-      height: 40px;
-      width: 40px;
-  }
-
+.v-progress-circular {
+  height: 40px;
+  width: 40px;
+}
 </style>
 
 <script type="text/javascript">
@@ -160,6 +159,7 @@ function getLocation() {
 
 export default {
   name: 'Tabs',
+
   data() {
     return {
       disallowed: false,
@@ -168,9 +168,11 @@ export default {
       checkEnter,
     };
   },
+
   components: {
     Loading,
   },
+
   created() {
     this.checkEnter();
   },

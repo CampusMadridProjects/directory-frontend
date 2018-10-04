@@ -40,19 +40,22 @@
   </v-container>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 h1, h2 {
   font-weight: normal;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
 }
+
 a {
   color: #42b983;
 }
@@ -67,6 +70,7 @@ a {
   margin: 6px;
 }
 </style>
+
 
 <script>
 import PersonCard from './PersonCard.vue';
@@ -233,13 +237,13 @@ function downloadPeople() {
     });
 }
 
-
 export default {
   name: 'People',
   props: {
     search: { type: String, required: false },
     filter: { type: Array, required: false },
   },
+
   data() {
     return {
       loading: true,
@@ -249,11 +253,13 @@ export default {
       downloadPeople,
     };
   },
+
   components: {
     PersonCard,
     PersonCardSmall,
     Loading,
   },
+
   created() {
     this.loadPeople();
   },

@@ -89,7 +89,7 @@
 }
 
 .card-user-pic {
-    border-radius: 0px;
+  border-radius: 0px;
 }
 
 .custom-button {
@@ -99,18 +99,18 @@
 }
 
 .v-toolbar {
-    background-color: transparent;
-    box-shadow: none;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .v-toolbar__title {
-    width: 80%;
-    text-align: center;
-    margin: 0px;
+  width: 80%;
+  text-align: center;
+  margin: 0px;
 }
 
 .headline {
-    margin-top: 12px;
+  margin-top: 12px;
 }
 
 .v-btn--icon {
@@ -133,6 +133,7 @@
   }
 }
 </style>
+
 
 <script>
 // ToDo (@CodingCarlos):
@@ -182,6 +183,7 @@ function getData() {
 
 export default {
   name: 'PersonDetail',
+
   data() {
     return {
       loading: true,
@@ -190,6 +192,7 @@ export default {
       getData,
     };
   },
+
   created() {
     this.getData();
   },

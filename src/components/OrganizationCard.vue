@@ -24,50 +24,50 @@
   </v-card>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-  .v-card__media__content {
-    padding: 16px 8px 8px 8px;
-    text-align: center;
-    flex-direction: column;
-  }
+.v-card__media__content {
+  padding: 16px 8px 8px 8px;
+  text-align: center;
+  flex-direction: column;
+}
 
-  .v-card__title {
-    flex-direction: column;
-  }
+.v-card__title {
+  flex-direction: column;
+}
 
-    .v-card__text {
-        text-align: left;
-    }
+.v-card__text {
+  text-align: left;
+}
 
-    .v-subheader {
-        padding: 0px;
-    }
+.v-subheader {
+  padding: 0px;
+}
 
-  .startup-logo {
-    background-position: center;
-    background-size: cover;
-    border-radius: 50%;
-    display: inline-block;
-    height: 92px;
-    width: 92px;
-  }
+.startup-logo {
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  display: inline-block;
+  height: 92px;
+  width: 92px;
+}
 
-    .light-border {
-        border: 1px solid #f3f3f3;
-        border-radius: 8px;
-    }
+.light-border {
+  border: 1px solid #f3f3f3;
+  border-radius: 8px;
+}
 
-    /* more spread, low contrast */
-    .custom-hover:hover {
-        box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
-    }
+/* more spread, low contrast */
+.custom-hover:hover {
+  box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
+}
 
-    .box-shadow {
-        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
-    }
-
+.box-shadow {
+  box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
+}
 </style>
+
 
 <script>
 import PersonList from './PersonList.vue';
@@ -79,10 +79,12 @@ export default {
     people: { type: Array, required: true },
     bio: { type: String, required: true },
   },
+
   data: () => ({
     show: false,
     cardHeight: '164px',
   }),
+
   components: {
     PersonList,
   },

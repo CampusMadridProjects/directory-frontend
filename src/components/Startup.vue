@@ -22,7 +22,7 @@
   </v-container>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 h1, h2 {
   font-weight: normal;
@@ -81,7 +81,6 @@ function filterStartup(search) {
   });
 }
 
-
 function cacheExpired(date) {
   if (!date) {
     return true;
@@ -99,7 +98,6 @@ function cacheExpired(date) {
   }
   return false;
 }
-
 
 /** loadStartup
  *  Get a startup list from localstorage or backend.
@@ -158,6 +156,7 @@ export default {
   props: {
     search: { type: String, required: false },
   },
+
   data() {
     return {
       loading: true,
@@ -167,13 +166,14 @@ export default {
       downloadStartup,
     };
   },
+
   components: {
     StartupCard,
     Loading,
   },
+
   created() {
     this.loadStartup();
   },
 };
-
 </script>

@@ -18,13 +18,15 @@
   </v-list>
 </template>
 
+
 <style scoped>
-  .v-list__tile__avatar {
-    min-height: 0;
-    min-width: 0;
-    padding: 16px;
-  }
+.v-list__tile__avatar {
+  min-height: 0;
+  min-width: 0;
+  padding: 16px;
+}
 </style>
+
 
 <script>
 function goToPerson(id) {
@@ -38,6 +40,7 @@ export default {
     people: { type: Array, required: true },
     eventCategory: { type: String, required: false },
   },
+
   data() {
     return {
       goToPerson,
