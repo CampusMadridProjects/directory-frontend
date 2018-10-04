@@ -163,7 +163,7 @@ function searchPerson(list, id) {
 }
 
 function getData() {
-  const id = this.$router.currentRoute.params.id;
+  const { id } = this.$router.currentRoute.params;
   const data = getStorage();
 
   const gottenData = searchPerson(data, id);
