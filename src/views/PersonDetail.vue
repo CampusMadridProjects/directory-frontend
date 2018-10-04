@@ -153,7 +153,7 @@ function getStorage() {
 }
 
 function searchPerson(list, id) {
-  for (let i = list.length - 1; i >= 0; i--) {
+  for (let i = list.length - 1; i >= 0; i -= 1) {
     if (list[i]._id === id) {
       return list[i];
     }
