@@ -84,10 +84,16 @@
 
     <v-footer>
         <span>
-            Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>.
+            Made with ❤ in 
+            <a href="https://www.campus.co/madrid/">
+              Campus Madrid
+            </a>.
         </span>
         <span>
-            Feedback? Something to say? <a href="mailto:hola@codingcarlos.com" target="_blank">Tell us!</a>
+            Feedback? Something to say? 
+            <a href="mailto:hola@codingcarlos.com" target="_blank">
+              Tell us!
+            </a>
       </span>
     </v-footer>
   </v-app>
