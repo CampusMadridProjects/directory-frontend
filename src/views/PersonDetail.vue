@@ -18,8 +18,8 @@
       <div class="text-xs-center">
         <span class="grey--text one-line text-xs-center">
           {{ data.role }} @
-          <span 
-            v-if="data.company_id" 
+          <span
+            v-if="data.company_id"
             @click="$ga.event('person_detail', 'view_startup', data.company_id)"
           >
             <router-link :to="{name: 'startupDetail', params: {id: data.company_id}}">
@@ -127,7 +127,7 @@
 }
 
 @media (max-width: 960px) {
-  .v-toolbar__content>:first-child.v-btn--icon, 
+  .v-toolbar__content>:first-child.v-btn--icon,
   .v-toolbar__extension>:first-child.v-btn--icon {
     margin-left: 0px;
   }
