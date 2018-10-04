@@ -110,22 +110,9 @@ function filterByCategory(list, categories) {
   });
 }
 
-/** filterPeople
- *  Given a search term, return an array with only the people that matches in
- *  any way with the term.
+/** filterByText
  *
- *  @param {string} search Search query to filter persons
- *  @param {array} filter Filter by categories to search
- *  @return {array} An array that matches the requested search term
  */
-function filterPeople(search, filter) {
-  // filter by categories
-  const filteredByCategory = filterByCategory(this.list, filter);
-
-  // Filter by search text
-  return filterByText(filteredByCategory, search);
-}
-
 function filterByText(list, search) {
   const safeSearch = search && (search.toUpperCase() || '');
 
@@ -149,6 +136,22 @@ function filterByText(list, search) {
 
     return found;
   });
+}
+
+/** filterPeople
+ *  Given a search term, return an array with only the people that matches in
+ *  any way with the term.
+ *
+ *  @param {string} search Search query to filter persons
+ *  @param {array} filter Filter by categories to search
+ *  @return {array} An array that matches the requested search term
+ */
+function filterPeople(search, filter) {
+  // filter by categories
+  const filteredByCategory = filterByCategory(this.list, filter);
+
+  // Filter by search text
+  return filterByText(filteredByCategory, search);
 }
 
 function cacheExpired(date) {
