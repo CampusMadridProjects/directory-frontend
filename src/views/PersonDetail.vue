@@ -85,7 +85,7 @@
 .full-size {
   border-radius: 0 !important;
   border-top-left-radius: 0;
-  border-top-right-radius-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .card-user-pic {
