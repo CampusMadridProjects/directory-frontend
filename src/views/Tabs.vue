@@ -44,7 +44,14 @@
         <v-tab-item id="tabs-people">
             <v-container fluid class="pa-0 chip-container">
                 <div class="text-xs-center">
-                    <v-chip :class="{ 'active': tagFilter.indexOf(tag) > -1 }" v-for="tag in peopleTags" @click="switchTag(tag)">{{ tag }}</v-chip>
+                    <v-chip 
+                      :key="tag"
+                      :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
+                      v-for="tag in peopleTags"
+                      @click="switchTag(tag)"
+                    >
+                      {{ tag }}
+                    </v-chip>
                 </div>
             </v-container>
           <People :search="search" :filter="tagFilter"></People>
