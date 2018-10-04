@@ -18,12 +18,16 @@
       <div class="text-xs-center">
         <span class="grey--text one-line text-xs-center">
           {{ data.role }} @
-          <span v-if="data.company_id" @click="$ga.event('person_detail', 'view_startup', data.company_id)">
+          <span 
+            v-if="data.company_id" 
+            @click="$ga.event('person_detail', 'view_startup', data.company_id)"
+          >
             <router-link :to="{name: 'startupDetail', params: {id: data.company_id}}">
               {{ data.company }}
             </router-link>
           </span>
-          <span v-else="data.company_id"><!-- @click="$ga.event('person_detail', 'view_org', data.company_id)"> -->
+          <span v-else>
+          <!-- @click="$ga.event('person_detail', 'view_org', data.company_id)"> -->
             <!-- <router-link :to="{name: 'orgDetail', params: {id: data.company_id}}"> -->
               {{ data.company }}
             <!-- </router-link> -->

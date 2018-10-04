@@ -34,7 +34,7 @@
     height: 92px;
     width: 92px;
   }
-    
+
   .light-border {
       border: 1px solid #f3f3f3;
       border-radius: 8px;
@@ -44,7 +44,7 @@
   .custom-hover:hover {
       box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
   }
-    
+
   .box-shadow {
       box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04);
   }
@@ -54,7 +54,7 @@
 <script>
 function goToStartup(id) {
   this.$ga.event('directory_list', 'view_startup', id);
-  this.$router.push({name: 'startupDetail', params: {id: id}})
+  this.$router.push({ name: 'startupDetail', params: { id } });
 }
 
 export default {
