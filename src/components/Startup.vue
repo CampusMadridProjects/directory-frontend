@@ -83,23 +83,21 @@ function filterStartup(search) {
 
 
 function cacheExpired(date) {
-
   if (!date) {
     return true;
   }
 
-  var now = new Date();
-  var last = new Date(date);
+  const now = new Date();
+  const last = new Date(date);
 
-  if(last.getFullYear() < now.getFullYear()) {
+  if (last.getFullYear() < now.getFullYear()) {
     return true;
-  } else if (last.getMonth() < now.getMonth()) {
+  } if (last.getMonth() < now.getMonth()) {
     return true;
-  } else if (last.getDate() + 1 < now.getDate()) {
+  } if (last.getDate() + 1 < now.getDate()) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 

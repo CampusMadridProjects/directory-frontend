@@ -91,6 +91,25 @@ function inArray(array, data) {
   return found;
 }
 
+/** filterByCategory
+ *
+ */
+function filterByCategory(list, categories) {
+  if (!Array.isArray(categories) || categories.length === 0) {
+    return list;
+  }
+
+  return list.filter((person) => {
+    for (let i = 0; i < categories.length; i++) {
+      if (person.expertise && inArray(person.expertise, categories[i])) {
+        return true;
+      }
+    }
+
+    return false;
+  });
+}
+
 /** filterPeople
  *  Given a search term, return an array with only the people that matches in
  *  any way with the term.
@@ -104,26 +123,7 @@ function filterPeople(search, filter) {
   const filteredByCategory = filterByCategory(this.list, filter);
 
   // Filter by search text
-  return filterByText(filteredByCategory, search)
-}
-
-/** filterByCategory
- *
- */
-function filterByCategory(list, categories) {
-  if(!Array.isArray(categories) || categories.length === 0) {
-    return list;
-  }
-
-  return list.filter((person) => {
-    for (var i = 0; i < categories.length; i++) {
-      if (person.expertise && inArray(person.expertise, categories[i])) {
-        return true;
-      } 
-    }
-
-    return false;
-  });
+  return filterByText(filteredByCategory, search);
 }
 
 function filterByText(list, search) {
@@ -133,7 +133,7 @@ function filterByText(list, search) {
   if (safeSearch === '' || !safeSearch) {
     return list;
   }
-  
+
   return list.filter((person) => {
     let found = false;
 
@@ -152,23 +152,21 @@ function filterByText(list, search) {
 }
 
 function cacheExpired(date) {
-
   if (!date) {
     return true;
   }
 
-  var now = new Date();
-  var last = new Date(date);
+  const now = new Date();
+  const last = new Date(date);
 
-  if(last.getFullYear() < now.getFullYear()) {
+  if (last.getFullYear() < now.getFullYear()) {
     return true;
-  } else if (last.getMonth() < now.getMonth()) {
+  } if (last.getMonth() < now.getMonth()) {
     return true;
-  } else if (last.getDate() + 1 < now.getDate()) {
+  } if (last.getDate() + 1 < now.getDate()) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 /** loadPeople
@@ -179,7 +177,7 @@ function loadPeople() {
   const localPeopleTime = storage.getItem('people-list-time');
 
   const expired = cacheExpired(localPeopleTime);
-  console.log(expired)
+  console.log(expired);
 
   if (localPeople === null || expired) {
     return this.downloadPeople();

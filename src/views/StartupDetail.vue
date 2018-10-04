@@ -80,7 +80,7 @@
         background-color: transparent;
         box-shadow: none;
     }
-    
+
     .v-toolbar__title {
         width: 80%;
         text-align: center;
@@ -90,15 +90,15 @@
     .v-btn--icon {
       min-width: 36px;
     }
-    
+
     @media (max-width: 960px) {
-    
+
         .v-toolbar__content>:first-child.v-btn--icon, .v-toolbar__extension>:first-child.v-btn--icon {
             margin-left: 0px;
         }
 
     }
-    
+
 </style>
 
 <script>

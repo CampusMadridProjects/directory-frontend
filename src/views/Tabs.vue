@@ -77,7 +77,7 @@
 
     <v-footer>
         <span>
-            Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. 
+            Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>.
         </span>
         <span>
             Feedback? Something to say? <a href="mailto:hola@codingcarlos.com" target="_blank">Tell us!</a>
@@ -95,7 +95,7 @@
   .v-tabs__content {
     min-height: 100%;
   }
-    
+
     .v-tabs__div {
         text-transform: none;
     }
@@ -107,17 +107,17 @@
     flex-direction: column;
     padding: 24px 0;
   }
-    
+
     .v-toolbar {
         background-color: #FFF;
         box-shadow: none;
         border-bottom: 1px solid #efefef;
     }
-    
+
     a {
         text-decoration: none;
     }
-    
+
   .v-chip {
     /* background: dark-gray; */
     background: #eae8e8;
@@ -129,65 +129,65 @@
     background-color: #d48ded;
     color: #fff;
   }
-  
+
   .chip-container {
     margin-top: 32px;
   }
-    
+
     .application.theme--light {
         background: #FFFFFF;
     }
-    
+
 </style>
-    
+
 <style>
-    
+
     .v-toolbar__extension {
         margin-bottom: -1px;
     }
-    
+
     .theme--light .v-text-field--solo .v-input__slot {
         background: #0000000f;
         border-radius: 50px;
     }
-    
+
     .v-text-field.v-text-field--solo .v-input__control {
         max-width: 700px;
         margin-left: auto;
         margin-right: auto;
     }
-    
+
 /* bigger-chips-mobile */
     @media only screen and (max-width: 768px) {
-        
+
         .v-chip {
-            padding: 6px;    
+            padding: 6px;
         }
-      
+
         .v-text-field.v-text-field--solo .v-input__control {
             min-height: 36px;
         }
-      
+
     }
-    
+
     /* fixes footer text clickability */
     @media (max-width: 959px) {
-        
+
         .v-footer {
             height: auto !important;
             padding: 16px 0px;
             box-sizing: border-box;
             padding-bottom: 80px !important;
         }
-        
+
         footer span {
             padding: 8px;
         }
-        
+
         .chip-container {
             margin-top: 24px !important;
         }
-        
+
     }
 
     @media (min-width: 959px) {
@@ -199,7 +199,7 @@
         margin: 0 2px;
       }
     }
-    
+
 </style>
 
 <script>
@@ -255,7 +255,7 @@ export default {
       search: '',
       tagFilter: [],
       peopleTags: [
-        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor'
+        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
       ],
       switchTag,
       dialog: false,
@@ -279,10 +279,10 @@ export default {
     $route(to, from) {
       this.checkChildren(to.name);
     },
-    'tabs': function (to, from) {
+    tabs(to, from) {
       // Clean tab name
       const tab = to.replace('tabs-', '');
-      
+
       // Detect swipe or click
       let method = 'default';
       if (this.tabClicked === true) {
@@ -291,9 +291,9 @@ export default {
       } else if (this.tabClicked === false) {
         method = 'swipe';
       }
-      
+
       // Event emmit
-      this.$ga.event('directory_navigation', 'tab_' + tab, method);
+      this.$ga.event('directory_navigation', `tab_${tab}`, method);
     },
   },
 };

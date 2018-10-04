@@ -84,22 +84,22 @@
     border-top-left-radius: 0;
     border-top-right-radius-radius: 0;
   }
-    
+
     .card-user-pic {
         border-radius: 0px;
     }
-    
+
     .v-toolbar {
         background-color: transparent;
         box-shadow: none;
     }
-    
+
     .v-toolbar__title {
         width: 80%;
         text-align: center;
         margin: 0px;
     }
-    
+
     .headline {
         margin-top: 12px;
     }
@@ -107,26 +107,26 @@
     .v-btn--icon {
       min-width: 36px;
     }
-    
+
     @media (min-width: 600px) {
-     
+
         .card-user-pic {
             max-height: 370px;
             max-width: 370px;
             margin-left: auto;
             margin-right: auto;
         }
-        
+
     }
-    
+
     @media (max-width: 960px) {
-    
+
         .v-toolbar__content>:first-child.v-btn--icon, .v-toolbar__extension>:first-child.v-btn--icon {
             margin-left: 0px;
         }
 
     }
-    
+
 </style>
 
 <style>

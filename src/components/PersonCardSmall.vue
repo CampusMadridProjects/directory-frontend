@@ -28,7 +28,7 @@
 </template>
 
 <style type="text/css">
-    
+
     .box-shadow {
         box-shadow: none;
     }
@@ -42,21 +42,21 @@
     .custom-hover:hover {
         box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
     }
-    
+
     .v-list__tile {
         height: auto;
         padding: 8px 16px;
     }
-    
+
     .v-list__tile__title {
         font-size: 21px;
     }
-    
+
     .person-info {
         padding: 12px;
         max-width: 80%;
     }
-    
+
     .v-list__tile__action, .v-list__tile__avatar {
         min-width: 72px;
         min-height: 72px;
@@ -64,13 +64,13 @@
         background-size: cover;
         border-radius: 50px;
     }
-    
+
 </style>
 
 <script>
 function goToPerson(id) {
   this.$ga.event('directory_list', 'view_person', id);
-  this.$router.push({name: 'personDetail', params: {id: id}});
+  this.$router.push({ name: 'personDetail', params: { id } });
 }
 
 export default {

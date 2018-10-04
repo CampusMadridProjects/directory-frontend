@@ -115,15 +115,15 @@
     .custom-hover:hover {
         box-shadow: 0 4px 12px 0px rgba(0,0,0,.108) !important;
     }
-    
+
     .box-shadow {
         box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04) !important;
     }
-    
+
     .v-card {
         padding: 0px;
     }
-    
+
     .card-user-pic {
         border-radius: 6px 6px 0px 0px;
     }
@@ -133,7 +133,7 @@
 <script>
 function goToPerson(id) {
   this.$ga.event('directory_list', 'view_person', id);
-  this.$router.push({name: 'personDetail', params: {id: id}});
+  this.$router.push({ name: 'personDetail', params: { id } });
 }
 
 export default {
