@@ -152,17 +152,17 @@ function getData() {
 
 export default {
   name: 'StartupDetail',
-  data() {
-    return {
-      loading: true,
-      id: null,
-      data: {},
-      getData,
-    };
-  },
+  data: () => ({
+    loading: true,
+    id: null,
+    data: {},
+    getData,
+  }),
+
   created() {
     this.getData();
   },
+
   components: {
     PersonList,
   },

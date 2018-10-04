@@ -251,26 +251,24 @@ function switchTag(name) {
 export default {
   name: 'Tabs',
 
-  data() {
-    return {
-      title: 'Campus Directory',
-      searching: false,
-      tabs: null,
-      search: '',
-      tagFilter: [],
-      peopleTags: [
-        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
-      ],
-      switchTag,
-      dialog: false,
-      tabClicked: null,
-      checkChildren,
-      searchOpen,
-      searchClose,
-      searchClear,
-      trackSearch,
-    };
-  },
+  data: () => ({
+    title: 'Campus Directory',
+    searching: false,
+    tabs: null,
+    search: '',
+    tagFilter: [],
+    peopleTags: [
+      'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
+    ],
+    switchTag,
+    dialog: false,
+    tabClicked: null,
+    checkChildren,
+    searchOpen,
+    searchClose,
+    searchClear,
+    trackSearch,
+  }),
 
   components: {
     People,

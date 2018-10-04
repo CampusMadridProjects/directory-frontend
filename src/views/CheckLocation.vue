@@ -160,14 +160,12 @@ function getLocation() {
 export default {
   name: 'Tabs',
 
-  data() {
-    return {
-      disallowed: false,
-      dialog: false,
-      getLocation,
-      checkEnter,
-    };
-  },
+  data: () => ({
+    disallowed: false,
+    dialog: false,
+    getLocation,
+    checkEnter,
+  }),
 
   components: {
     Loading,

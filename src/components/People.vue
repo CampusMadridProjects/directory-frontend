@@ -244,15 +244,13 @@ export default {
     filter: { type: Array, required: false },
   },
 
-  data() {
-    return {
-      loading: true,
-      list: [],
-      filterPeople,
-      loadPeople,
-      downloadPeople,
-    };
-  },
+  data: () => ({
+    loading: true,
+    list: [],
+    filterPeople,
+    loadPeople,
+    downloadPeople,
+  }),
 
   components: {
     PersonCard,

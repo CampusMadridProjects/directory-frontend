@@ -41,10 +41,8 @@ export default {
     eventCategory: { type: String, required: false },
   },
 
-  data() {
-    return {
-      goToPerson,
-    };
-  },
+  data: () => ({
+    goToPerson,
+  }),
 };
 </script>

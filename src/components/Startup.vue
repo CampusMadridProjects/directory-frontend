@@ -157,15 +157,13 @@ export default {
     search: { type: String, required: false },
   },
 
-  data() {
-    return {
-      loading: true,
-      list: [],
-      filterStartup,
-      loadStartup,
-      downloadStartup,
-    };
-  },
+  data: () => ({
+    loading: true,
+    list: [],
+    filterStartup,
+    loadStartup,
+    downloadStartup,
+  }),
 
   components: {
     StartupCard,

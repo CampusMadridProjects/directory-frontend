@@ -101,14 +101,12 @@ export default {
     search: { type: String, required: false },
   },
 
-  data() {
-    return {
-      loading: true,
-      list: [],
-      filterOrganization,
-      loadOrganization,
-    };
-  },
+  data: () => ({
+    loading: true,
+    list: [],
+    filterOrganization,
+    loadOrganization,
+  }),
 
   components: {
     OrganizationCard,

@@ -184,14 +184,12 @@ function getData() {
 export default {
   name: 'PersonDetail',
 
-  data() {
-    return {
-      loading: true,
-      id: null,
-      data: {},
-      getData,
-    };
-  },
+  data: () => ({
+    loading: true,
+    id: null,
+    data: {},
+    getData,
+  }),
 
   created() {
     this.getData();
