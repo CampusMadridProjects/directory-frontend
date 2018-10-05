@@ -286,8 +286,7 @@ export default {
           /* eslint-disable no-console */
           if (choiceResult.outcome === 'dismissed') {
             console.log('User cancelled home screen install');
-          }
-          else {
+          } else {
             console.log('User added to home screen');
           }
           /* eslint-enable no-console */
@@ -295,7 +294,7 @@ export default {
           window.deferredPrompt = null;
         });
       }
-    }
+    },
   },
 
   created() {

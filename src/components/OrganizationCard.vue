@@ -80,13 +80,13 @@ export default {
     bio: { type: String, required: true },
   },
 
+  components: {
+    PersonList,
+  },
+
   data: () => ({
     show: false,
     cardHeight: '164px',
   }),
-
-  components: {
-    PersonList,
-  },
 };
 </script>

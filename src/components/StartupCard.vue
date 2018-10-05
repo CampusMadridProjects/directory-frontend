@@ -1,6 +1,6 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
-    <div @click="goToStartup(id)">
+    <div @click="this.goToStartup(id)">
       <v-card-media
         :height="cardHeight"
         :src="logo"
@@ -52,11 +52,6 @@
 
 
 <script>
-function goToStartup(id) {
-  this.$ga.event('directory_list', 'view_startup', id);
-  this.$router.push({ name: 'startupDetail', params: { id } });
-}
-
 export default {
   name: 'People',
   props: {
@@ -70,7 +65,13 @@ export default {
 
   data: () => ({
     cardHeight: '164px',
-    goToStartup,
   }),
+
+  methods: {
+    goToStartup: (id) => {
+      this.$ga.event('directory_list', 'view_startup', id);
+      this.$router.push({ name: 'startupDetail', params: { id } });
+    },
+  },
 };
 </script>
