@@ -75,7 +75,8 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    loadOrganization: () => fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_ORGS}`, {
+    loadOrganization: function() {
+      return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_ORGS}`, {
       method: 'GET',
     })
       .then(res => res.json())
@@ -86,7 +87,9 @@ export default {
       .catch((err) => {
         this.loading = false;
         console.error(err);
-      }),
+      });
+    },
+
     /** filterOrganization
      *  Return a new array wit organizations that matches with the search input passed
      *  as param. It uses as list the component's this.list. It check in name,
@@ -95,7 +98,7 @@ export default {
      *  @param search {String} Search term to filter the organization list
      *  @return {Array} An array that matches with search params
      */
-    filterOrganization: (search) => {
+    filterOrganization: function (search) {
       const safeSearch = search && (search.toUpperCase() || '');
       return this.list.filter((org) => {
         let found = false;

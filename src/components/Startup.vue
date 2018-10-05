@@ -83,7 +83,7 @@ export default {
      *  @param search {String} Search term to filter the startup list
      *  @return {Array} An array that matches with search params
      */
-    filterStartup: (search) => {
+    filterStartup: function(search) {
       const safeSearch = search && (search.toUpperCase() || '');
       return this.list.filter((startup) => {
         let found = false;
@@ -98,7 +98,7 @@ export default {
       });
     },
 
-    cacheExpired: (date) => {
+    cacheExpired: function(date) {
       if (!date) {
         return true;
       }
@@ -121,7 +121,7 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    loadStartup: () => {
+    loadStartup: function() {
       const localStartups = storage.getItem('startup-list');
       const localStartupsTime = storage.getItem('startup-list-time');
 
@@ -150,9 +150,10 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    downloadStartup: () => fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_STARTUPS}`, {
-      method: 'GET',
-    })
+    downloadStartup: function() {
+      return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_STARTUPS}`, {
+        method: 'GET',
+      })
       .then(res => res.json())
       .then((data) => {
         this.loading = false;
@@ -165,7 +166,8 @@ export default {
       .catch((err) => {
         this.loading = false;
         console.error(err);
-      }),
+      });
+    },
   },
 
   created() {
