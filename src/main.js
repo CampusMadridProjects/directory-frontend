@@ -8,6 +8,13 @@ import './registerServiceWorker';
 
 console.log(process.env);
 
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  // Stash the event so it can be triggered later.
+  window.deferredPrompt = event;
+  return false;
+});
+
 Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_ANALYTICS_TRACKING_ID,
   router,

@@ -278,6 +278,22 @@ export default {
 
   created() {
     this.checkChildren(this.$router.currentRoute.name);
+
+    if (window.deferredPrompt !== undefined) {
+      // let's show the prompt.
+      window.deferredPrompt.prompt();
+      window.deferredPrompt.userChoice.then((choiceResult) => {
+        console.log(choiceResult.outcome);
+        if (choiceResult.outcome === 'dismissed') {
+          console.log('User cancelled home screen install');
+        }
+        else {
+          console.log('User added to home screen');
+        }
+      // We no longer need the prompt. Clear it up.
+      window.deferredPrompt = null;
+      });
+    }
   },
 
   watch: {
