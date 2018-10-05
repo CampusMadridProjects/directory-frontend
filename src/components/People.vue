@@ -104,7 +104,7 @@ export default {
   }),
 
   methods: {
-    inArray: (array, data) => {
+    inArray: function(array, data) {
       if (typeof data !== 'string') {
         return false;
       }
@@ -119,7 +119,7 @@ export default {
       return found;
     },
 
-    filterByCategory: (list, categories) => {
+    filterByCategory: function (list, categories) {
       if (!Array.isArray(categories) || categories.length === 0) {
         return list;
       }
@@ -135,7 +135,7 @@ export default {
       });
     },
 
-    filterByText: (list, search) => {
+    filterByText: function(list, search) {
       const safeSearch = search && (search.toUpperCase() || '');
 
       console.log(safeSearch);
@@ -168,7 +168,7 @@ export default {
      *  @param {array} filter Filter by categories to search
      *  @return {array} An array that matches the requested search term
      */
-    filterPeople: (search, filter) => {
+    filterPeople: function(search, filter) {
       // filter by categories
       const filteredByCategory = this.filterByCategory(this.list, filter);
 
@@ -176,7 +176,7 @@ export default {
       return this.filterByText(filteredByCategory, search);
     },
 
-    cacheExpired: (date) => {
+    cacheExpired: function (date) {
       if (!date) {
         return true;
       }
@@ -198,7 +198,7 @@ export default {
     /** loadPeople
      *  Get a people list from localstorage or backend.
      */
-    loadPeople: () => {
+    loadPeople: function () {
       const localPeople = storage.getItem('people-list');
       const localPeopleTime = storage.getItem('people-list-time');
 
@@ -226,10 +226,12 @@ export default {
     /** downloadPeople
      *  Get a people list from the backend. Also, parse some possible exceptions.
      */
-    downloadPeople: () => fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
-      method: 'GET',
-      // body:JSON.stringify({title:"a new todo"})
-    }).then(res => res.json())
+    downloadPeople: function() {
+      return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
+        method: 'GET',
+        // body:JSON.stringify({title:"a new todo"})
+      })
+      .then(res => res.json())
       .then((data) => {
         this.loading = false;
 
@@ -252,7 +254,8 @@ export default {
       .catch((err) => {
         this.loading = false;
         console.error(err);
-      }),
+      });
+    },
   },
 
   created() {
