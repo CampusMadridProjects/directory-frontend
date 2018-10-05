@@ -125,7 +125,7 @@ export default {
       const localStartups = storage.getItem('startup-list');
       const localStartupsTime = storage.getItem('startup-list-time');
 
-      const expired = cacheExpired(localStartupsTime);
+      const expired = this.cacheExpired(localStartupsTime);
 
       if (localStartups === null || expired) {
         return this.downloadStartup();
@@ -150,10 +150,9 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    downloadStartup: () => {
-      return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_STARTUPS}`, {
-        method: 'GET',
-      })
+    downloadStartup: () => fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_STARTUPS}`, {
+      method: 'GET',
+    })
       .then(res => res.json())
       .then((data) => {
         this.loading = false;
@@ -166,8 +165,7 @@ export default {
       .catch((err) => {
         this.loading = false;
         console.error(err);
-      });
-    },
+      }),
   },
 
   created() {

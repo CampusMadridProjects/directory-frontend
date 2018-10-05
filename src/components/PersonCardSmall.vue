@@ -85,7 +85,6 @@ export default {
 
   data: () => ({
     show: false,
-    goToPerson,
   }),
 
   methods: {

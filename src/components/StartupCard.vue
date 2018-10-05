@@ -65,7 +65,6 @@ export default {
 
   data: () => ({
     cardHeight: '164px',
-    goToStartup,
   }),
 
   methods: {

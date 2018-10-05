@@ -87,6 +87,6 @@ export default {
   data: () => ({
     show: false,
     cardHeight: '164px',
-  })
+  }),
 };
 </script>

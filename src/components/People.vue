@@ -2,15 +2,15 @@
   <v-container v-if="loading === true">
     <loading></loading>
   </v-container>
-  <v-container 
-    style="text-align: center;" 
+  <v-container
+    style="text-align: center;"
     v-else-if="this.filterPeople(search, filter).length === 0"
   >
     <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
   </v-container>
   <v-container class="card-grid" v-else>
-    <v-flex 
-      xs12 sm6 md4 lg3 xl2 
+    <v-flex
+      xs12 sm6 md4 lg3 xl2
       class="card-grid-item"
       v-for="person in this.filterPeople(search, filter)"
       :key="person._id">
@@ -126,7 +126,7 @@ export default {
 
       return list.filter((person) => {
         for (let i = 0; i < categories.length; i += 1) {
-          if (person.expertise && inArray(person.expertise, categories[i])) {
+          if (person.expertise && this.inArray(person.expertise, categories[i])) {
             return true;
           }
         }
@@ -151,7 +151,7 @@ export default {
           || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
           || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
           || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
-          || (person.expertise && inArray(person.expertise, safeSearch))
+          || (person.expertise && this.inArray(person.expertise, safeSearch))
         ) {
           found = true;
         }
@@ -170,10 +170,10 @@ export default {
      */
     filterPeople: (search, filter) => {
       // filter by categories
-      const filteredByCategory = filterByCategory(this.list, filter);
+      const filteredByCategory = this.filterByCategory(this.list, filter);
 
       // Filter by search text
-      return filterByText(filteredByCategory, search);
+      return this.filterByText(filteredByCategory, search);
     },
 
     cacheExpired: (date) => {
@@ -202,7 +202,7 @@ export default {
       const localPeople = storage.getItem('people-list');
       const localPeopleTime = storage.getItem('people-list-time');
 
-      const expired = cacheExpired(localPeopleTime);
+      const expired = this.cacheExpired(localPeopleTime);
       console.log(expired);
 
       if (localPeople === null || expired) {
@@ -226,35 +226,33 @@ export default {
     /** downloadPeople
      *  Get a people list from the backend. Also, parse some possible exceptions.
      */
-    downloadPeople: () => {
-      return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
-        method: 'GET',
-        // body:JSON.stringify({title:"a new todo"})
-      }).then(res => res.json())
-        .then((data) => {
-          this.loading = false;
+    downloadPeople: () => fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
+      method: 'GET',
+      // body:JSON.stringify({title:"a new todo"})
+    }).then(res => res.json())
+      .then((data) => {
+        this.loading = false;
 
-          const cleanData = data.map((item) => {
-            const person = item;
+        const cleanData = data.map((item) => {
+          const person = item;
 
-            if (typeof person.location === 'number') {
-              person.location = `L${person.location}`;
-            }
+          if (typeof person.location === 'number') {
+            person.location = `L${person.location}`;
+          }
 
-            return person;
-          });
-
-          this.list = cleanData;
-          storage.setItem('people-list', JSON.stringify(cleanData));
-          storage.setItem('startup-list-time', new Date());
-
-          return cleanData;
-        })
-        .catch((err) => {
-          this.loading = false;
-          console.error(err);
+          return person;
         });
-    }
+
+        this.list = cleanData;
+        storage.setItem('people-list', JSON.stringify(cleanData));
+        storage.setItem('startup-list-time', new Date());
+
+        return cleanData;
+      })
+      .catch((err) => {
+        this.loading = false;
+        console.error(err);
+      }),
   },
 
   created() {
