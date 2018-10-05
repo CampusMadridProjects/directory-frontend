@@ -44,7 +44,14 @@
         <v-tab-item id="tabs-people">
             <v-container fluid class="pa-0 chip-container">
                 <div class="text-xs-center">
-                    <v-chip :class="{ 'active': tagFilter.indexOf(tag) > -1 }" v-for="tag in peopleTags" @click="switchTag(tag)">{{ tag }}</v-chip>
+                    <v-chip
+                      :key="tag"
+                      :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
+                      v-for="tag in peopleTags"
+                      @click="switchTag(tag)"
+                    >
+                      {{ tag }}
+                    </v-chip>
                 </div>
             </v-container>
           <People :search="search" :filter="tagFilter"></People>
@@ -77,130 +84,126 @@
 
     <v-footer>
         <span>
-            Made with ❤ in <a href="https://www.campus.co/madrid/">Campus Madrid</a>. 
+            Made with ❤ in
+            <a href="https://www.campus.co/madrid/">
+              Campus Madrid
+            </a>.
         </span>
         <span>
-            Feedback? Something to say? <a href="mailto:hola@codingcarlos.com" target="_blank">Tell us!</a>
+            Feedback? Something to say?
+            <a href="mailto:hola@codingcarlos.com" target="_blank">
+              Tell us!
+            </a>
       </span>
     </v-footer>
   </v-app>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-/*  .v-toolbar__title:not(:first-child) {
-    margin-left: 0;
-  }*/
-  .v-tabs__items,
-  .v-tabs__content {
-    min-height: 100%;
-  }
-    
-    .v-tabs__div {
-        text-transform: none;
-    }
+.v-tabs__items,
+.v-tabs__content {
+  min-height: 100%;
+}
 
-  footer {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
-    padding: 24px 0;
-  }
-    
-    .v-toolbar {
-        background-color: #FFF;
-        box-shadow: none;
-        border-bottom: 1px solid #efefef;
-    }
-    
-    a {
-        text-decoration: none;
-    }
-    
-  .v-chip {
-    /* background: dark-gray; */
-    background: #eae8e8;
-    color: #3c3c3c;
-    font-weight: 500;
-  }
+.v-tabs__div {
+  text-transform: none;
+}
 
-  .v-chip.active {
-    background-color: #d48ded;
-    color: #fff;
-  }
-  
-  .chip-container {
-    margin-top: 32px;
-  }
-    
-    .application.theme--light {
-        background: #FFFFFF;
-    }
-    
-</style>
-    
-<style>
-    
-    .v-toolbar__extension {
-        margin-bottom: -1px;
-    }
-    
-    .theme--light .v-text-field--solo .v-input__slot {
-        background: #0000000f;
-        border-radius: 50px;
-    }
-    
-    .v-text-field.v-text-field--solo .v-input__control {
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
+footer {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 24px 0;
+}
+
+.v-toolbar {
+  background-color: #FFF;
+  box-shadow: none;
+  border-bottom: 1px solid #efefef;
+}
+
+a {
+  text-decoration: none;
+}
+
+.v-chip {
+  /* background: dark-gray; */
+  background: #eae8e8;
+  color: #3c3c3c;
+  font-weight: 500;
+}
+
+.v-chip.active {
+  background-color: #d48ded;
+  color: #fff;
+}
+
+.chip-container {
+  margin-top: 32px;
+}
+
+.application.theme--light {
+  background: #FFFFFF;
+}
+
+.v-toolbar__extension {
+  margin-bottom: -1px;
+}
+
+.theme--light .v-text-field--solo .v-input__slot {
+  background: #0000000f;
+  border-radius: 50px;
+}
+
+.v-text-field.v-text-field--solo .v-input__control {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* bigger-chips-mobile */
-    @media only screen and (max-width: 768px) {
-        
-        .v-chip {
-            padding: 6px;    
-        }
-      
-        .v-text-field.v-text-field--solo .v-input__control {
-            min-height: 36px;
-        }
-      
-    }
-    
-    /* fixes footer text clickability */
-    @media (max-width: 959px) {
-        
-        .v-footer {
-            height: auto !important;
-            padding: 16px 0px;
-            box-sizing: border-box;
-            padding-bottom: 80px !important;
-        }
-        
-        footer span {
-            padding: 8px;
-        }
-        
-        .chip-container {
-            margin-top: 24px !important;
-        }
-        
-    }
+@media only screen and (max-width: 768px) {
+  .v-chip {
+    padding: 6px;
+  }
 
-    @media (min-width: 959px) {
-      footer {
-        flex-direction: row !important;
-      }
-      footer span {
-        display: inline-block;
-        margin: 0 2px;
-      }
-    }
-    
+  .v-text-field.v-text-field--solo .v-input__control {
+    min-height: 36px;
+  }
+}
+
+/* fixes footer text clickability */
+@media (max-width: 959px) {
+  .v-footer {
+    height: auto !important;
+    padding: 16px 0px;
+    box-sizing: border-box;
+    padding-bottom: 80px !important;
+  }
+
+  footer span {
+    padding: 8px;
+  }
+
+  .chip-container {
+    margin-top: 24px !important;
+  }
+}
+
+@media (min-width: 959px) {
+  footer {
+    flex-direction: row !important;
+  }
+
+  footer span {
+    display: inline-block;
+    margin: 0 2px;
+  }
+}
 </style>
+
 
 <script>
 import People from '../components/People.vue';
@@ -247,42 +250,44 @@ function switchTag(name) {
 
 export default {
   name: 'Tabs',
-  data() {
-    return {
-      title: 'Campus Directory',
-      searching: false,
-      tabs: null,
-      search: '',
-      tagFilter: [],
-      peopleTags: [
-        'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor'
-      ],
-      switchTag,
-      dialog: false,
-      tabClicked: null,
-      checkChildren,
-      searchOpen,
-      searchClose,
-      searchClear,
-      trackSearch,
-    };
-  },
+
+  data: () => ({
+    title: 'Campus Directory',
+    searching: false,
+    tabs: null,
+    search: '',
+    tagFilter: [],
+    peopleTags: [
+      'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
+    ],
+    switchTag,
+    dialog: false,
+    tabClicked: null,
+    checkChildren,
+    searchOpen,
+    searchClose,
+    searchClear,
+    trackSearch,
+  }),
+
   components: {
     People,
     Startup,
     Organizations,
   },
+
   created() {
     this.checkChildren(this.$router.currentRoute.name);
   },
+
   watch: {
-    $route(to, from) {
+    $route(to) {
       this.checkChildren(to.name);
     },
-    'tabs': function (to, from) {
+    tabs(to) {
       // Clean tab name
       const tab = to.replace('tabs-', '');
-      
+
       // Detect swipe or click
       let method = 'default';
       if (this.tabClicked === true) {
@@ -291,9 +296,9 @@ export default {
       } else if (this.tabClicked === false) {
         method = 'swipe';
       }
-      
+
       // Event emmit
-      this.$ga.event('directory_navigation', 'tab_' + tab, method);
+      this.$ga.event('directory_navigation', `tab_${tab}`, method);
     },
   },
 };

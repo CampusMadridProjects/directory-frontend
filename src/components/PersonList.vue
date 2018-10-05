@@ -18,18 +18,20 @@
   </v-list>
 </template>
 
+
 <style scoped>
-  .v-list__tile__avatar {
-    min-height: 0;
-    min-width: 0;
-    padding: 16px; 
-  }
+.v-list__tile__avatar {
+  min-height: 0;
+  min-width: 0;
+  padding: 16px;
+}
 </style>
+
 
 <script>
 function goToPerson(id) {
   this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
-  this.$router.push({name: 'personDetail', params: {id: id}});
+  this.$router.push({ name: 'personDetail', params: { id } });
 }
 
 export default {
@@ -38,10 +40,9 @@ export default {
     people: { type: Array, required: true },
     eventCategory: { type: String, required: false },
   },
-  data() {
-    return {
-      goToPerson,
-    };
-  }
+
+  data: () => ({
+    goToPerson,
+  }),
 };
 </script>

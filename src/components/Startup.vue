@@ -22,7 +22,7 @@
   </v-container>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 h1, h2 {
   font-weight: normal;
@@ -81,27 +81,23 @@ function filterStartup(search) {
   });
 }
 
-
 function cacheExpired(date) {
-
   if (!date) {
     return true;
   }
 
-  var now = new Date();
-  var last = new Date(date);
+  const now = new Date();
+  const last = new Date(date);
 
-  if(last.getFullYear() < now.getFullYear()) {
+  if (last.getFullYear() < now.getFullYear()) {
     return true;
-  } else if (last.getMonth() < now.getMonth()) {
+  } if (last.getMonth() < now.getMonth()) {
     return true;
-  } else if (last.getDate() + 1 < now.getDate()) {
+  } if (last.getDate() + 1 < now.getDate()) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
-
 
 /** loadStartup
  *  Get a startup list from localstorage or backend.
@@ -160,22 +156,22 @@ export default {
   props: {
     search: { type: String, required: false },
   },
-  data() {
-    return {
-      loading: true,
-      list: [],
-      filterStartup,
-      loadStartup,
-      downloadStartup,
-    };
-  },
+
+  data: () => ({
+    loading: true,
+    list: [],
+    filterStartup,
+    loadStartup,
+    downloadStartup,
+  }),
+
   components: {
     StartupCard,
     Loading,
   },
+
   created() {
     this.loadStartup();
   },
 };
-
 </script>

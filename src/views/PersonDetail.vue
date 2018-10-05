@@ -18,12 +18,16 @@
       <div class="text-xs-center">
         <span class="grey--text one-line text-xs-center">
           {{ data.role }} @
-          <span v-if="data.company_id" @click="$ga.event('person_detail', 'view_startup', data.company_id)">
+          <span
+            v-if="data.company_id"
+            @click="$ga.event('person_detail', 'view_startup', data.company_id)"
+          >
             <router-link :to="{name: 'startupDetail', params: {id: data.company_id}}">
               {{ data.company }}
             </router-link>
           </span>
-          <span v-else="data.company_id"><!-- @click="$ga.event('person_detail', 'view_org', data.company_id)"> -->
+          <span v-else>
+          <!-- @click="$ga.event('person_detail', 'view_org', data.company_id)"> -->
             <!-- <router-link :to="{name: 'orgDetail', params: {id: data.company_id}}"> -->
               {{ data.company }}
             <!-- </router-link> -->
@@ -78,65 +82,56 @@
 
 
 <style scoped>
+.full-size {
+  border-radius: 0 !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 
-  .full-size {
-    border-radius: 0 !important;
-    border-top-left-radius: 0;
-    border-top-right-radius-radius: 0;
+.card-user-pic {
+  border-radius: 0px;
+}
+
+.custom-button {
+  border-radius: 50px;
+  padding: 0px 40px;
+  text-transform: none;
+}
+
+.v-toolbar {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.v-toolbar__title {
+  width: 80%;
+  text-align: center;
+  margin: 0px;
+}
+
+.headline {
+  margin-top: 12px;
+}
+
+.v-btn--icon {
+  min-width: 36px;
+}
+
+@media (min-width: 600px) {
+  .card-user-pic {
+    max-height: 370px;
+    max-width: 370px;
+    margin-left: auto;
+    margin-right: auto;
   }
-    
-    .card-user-pic {
-        border-radius: 0px;
-    }
-    
-    .v-toolbar {
-        background-color: transparent;
-        box-shadow: none;
-    }
-    
-    .v-toolbar__title {
-        width: 80%;
-        text-align: center;
-        margin: 0px;
-    }
-    
-    .headline {
-        margin-top: 12px;
-    }
+}
 
-    .v-btn--icon {
-      min-width: 36px;
-    }
-    
-    @media (min-width: 600px) {
-     
-        .card-user-pic {
-            max-height: 370px;
-            max-width: 370px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-    }
-    
-    @media (max-width: 960px) {
-    
-        .v-toolbar__content>:first-child.v-btn--icon, .v-toolbar__extension>:first-child.v-btn--icon {
-            margin-left: 0px;
-        }
-
-    }
-    
-</style>
-
-<style>
-
-    .custom-button {
-        border-radius: 50px;
-        padding: 0px 40px;
-        text-transform: none;
-    }
-
+@media (max-width: 960px) {
+  .v-toolbar__content>:first-child.v-btn--icon,
+  .v-toolbar__extension>:first-child.v-btn--icon {
+    margin-left: 0px;
+  }
+}
 </style>
 
 
@@ -159,7 +154,7 @@ function getStorage() {
 }
 
 function searchPerson(list, id) {
-  for (let i = list.length - 1; i >= 0; i--) {
+  for (let i = list.length - 1; i >= 0; i -= 1) {
     if (list[i]._id === id) {
       return list[i];
     }
@@ -169,7 +164,7 @@ function searchPerson(list, id) {
 }
 
 function getData() {
-  const id = this.$router.currentRoute.params.id;
+  const { id } = this.$router.currentRoute.params;
   const data = getStorage();
 
   const gottenData = searchPerson(data, id);
@@ -188,14 +183,14 @@ function getData() {
 
 export default {
   name: 'PersonDetail',
-  data() {
-    return {
-      loading: true,
-      id: null,
-      data: {},
-      getData,
-    };
-  },
+
+  data: () => ({
+    loading: true,
+    id: null,
+    data: {},
+    getData,
+  }),
+
   created() {
     this.getData();
   },

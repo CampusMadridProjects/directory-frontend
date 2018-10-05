@@ -40,19 +40,22 @@
   </v-container>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 h1, h2 {
   font-weight: normal;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
 }
+
 a {
   color: #42b983;
 }
@@ -67,6 +70,7 @@ a {
   margin: 6px;
 }
 </style>
+
 
 <script>
 import PersonCard from './PersonCard.vue';
@@ -91,41 +95,28 @@ function inArray(array, data) {
   return found;
 }
 
-/** filterPeople
- *  Given a search term, return an array with only the people that matches in
- *  any way with the term.
- *
- *  @param {string} search Search query to filter persons
- *  @param {array} filter Filter by categories to search
- *  @return {array} An array that matches the requested search term
- */
-function filterPeople(search, filter) {
-  // filter by categories
-  const filteredByCategory = filterByCategory(this.list, filter);
-
-  // Filter by search text
-  return filterByText(filteredByCategory, search)
-}
-
 /** filterByCategory
  *
  */
 function filterByCategory(list, categories) {
-  if(!Array.isArray(categories) || categories.length === 0) {
+  if (!Array.isArray(categories) || categories.length === 0) {
     return list;
   }
 
   return list.filter((person) => {
-    for (var i = 0; i < categories.length; i++) {
+    for (let i = 0; i < categories.length; i += 1) {
       if (person.expertise && inArray(person.expertise, categories[i])) {
         return true;
-      } 
+      }
     }
 
     return false;
   });
 }
 
+/** filterByText
+ *
+ */
 function filterByText(list, search) {
   const safeSearch = search && (search.toUpperCase() || '');
 
@@ -133,7 +124,7 @@ function filterByText(list, search) {
   if (safeSearch === '' || !safeSearch) {
     return list;
   }
-  
+
   return list.filter((person) => {
     let found = false;
 
@@ -151,24 +142,38 @@ function filterByText(list, search) {
   });
 }
 
-function cacheExpired(date) {
+/** filterPeople
+ *  Given a search term, return an array with only the people that matches in
+ *  any way with the term.
+ *
+ *  @param {string} search Search query to filter persons
+ *  @param {array} filter Filter by categories to search
+ *  @return {array} An array that matches the requested search term
+ */
+function filterPeople(search, filter) {
+  // filter by categories
+  const filteredByCategory = filterByCategory(this.list, filter);
 
+  // Filter by search text
+  return filterByText(filteredByCategory, search);
+}
+
+function cacheExpired(date) {
   if (!date) {
     return true;
   }
 
-  var now = new Date();
-  var last = new Date(date);
+  const now = new Date();
+  const last = new Date(date);
 
-  if(last.getFullYear() < now.getFullYear()) {
+  if (last.getFullYear() < now.getFullYear()) {
     return true;
-  } else if (last.getMonth() < now.getMonth()) {
+  } if (last.getMonth() < now.getMonth()) {
     return true;
-  } else if (last.getDate() + 1 < now.getDate()) {
+  } if (last.getDate() + 1 < now.getDate()) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 /** loadPeople
@@ -179,7 +184,7 @@ function loadPeople() {
   const localPeopleTime = storage.getItem('people-list-time');
 
   const expired = cacheExpired(localPeopleTime);
-  console.log(expired)
+  console.log(expired);
 
   if (localPeople === null || expired) {
     return this.downloadPeople();
@@ -232,27 +237,27 @@ function downloadPeople() {
     });
 }
 
-
 export default {
   name: 'People',
   props: {
     search: { type: String, required: false },
     filter: { type: Array, required: false },
   },
-  data() {
-    return {
-      loading: true,
-      list: [],
-      filterPeople,
-      loadPeople,
-      downloadPeople,
-    };
-  },
+
+  data: () => ({
+    loading: true,
+    list: [],
+    filterPeople,
+    loadPeople,
+    downloadPeople,
+  }),
+
   components: {
     PersonCard,
     PersonCardSmall,
     Loading,
   },
+
   created() {
     this.loadPeople();
   },

@@ -6,12 +6,22 @@
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
-          <v-btn depressed color="primary" class="custom-button">Update this startup</v-btn>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
+          target="_blank"
+        >
+          <v-btn
+            depressed color="primary"
+            class="custom-button"
+          >
+            Update this startup
+          </v-btn>
         </a>
     </v-toolbar>
 
-    <img :src="data.logo" class="startup-logo"></v-card-media>
+    <v-card-media>
+      <img :src="data.logo" class="startup-logo">
+    </v-card-media>
 
     <div class="startup-info">
       <h3 class="headline mb-0">{{ data.name }}</h3>
@@ -52,53 +62,52 @@
 
 
 <style scoped>
-  .full-size {
-    border-radius: 0 !important;
-    border-top-left-radius: 0;
-    border-top-right-radius-radius: 0;
+.full-size {
+  border-radius: 0 !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.startup-logo {
+  max-width: 370px;
+  width: 100%;
+}
+
+.startup-info {
+  text-align: center;
+}
+
+.startup-card-social-icon img {
+  width: 42px;
+}
+
+.startup-employees {
+  max-width: 500px;
+  margin: auto;
+}
+
+.v-toolbar {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.v-toolbar__title {
+  width: 80%;
+  text-align: center;
+  margin: 0px;
+}
+
+.v-btn--icon {
+  min-width: 36px;
+}
+
+@media (max-width: 960px) {
+  .v-toolbar__content>:first-child.v-btn--icon,
+  .v-toolbar__extension>:first-child.v-btn--icon {
+    margin-left: 0px;
   }
+}
 
-  .startup-logo {
-    max-width: 370px;
-    width: 100%;
-  }
-
-  .startup-info {
-    text-align: center;
-  }
-
-  .startup-card-social-icon img {
-    width: 42px;
-  }
-
-  .startup-employees {
-    max-width: 500px;
-    margin: auto;
-  }
-
-    .v-toolbar {
-        background-color: transparent;
-        box-shadow: none;
-    }
-    
-    .v-toolbar__title {
-        width: 80%;
-        text-align: center;
-        margin: 0px;
-    }
-
-    .v-btn--icon {
-      min-width: 36px;
-    }
-    
-    @media (max-width: 960px) {
-    
-        .v-toolbar__content>:first-child.v-btn--icon, .v-toolbar__extension>:first-child.v-btn--icon {
-            margin-left: 0px;
-        }
-
-    }
-    
 </style>
 
 <script>
@@ -122,7 +131,7 @@ function getStorage() {
 }
 
 function searchPerson(list, id) {
-  for (let i = list.length - 1; i >= 0; i--) {
+  for (let i = list.length - 1; i >= 0; i -= 1) {
     if (list[i]._id === id) {
       return list[i];
     }
@@ -132,7 +141,7 @@ function searchPerson(list, id) {
 }
 
 function getData() {
-  const id = this.$router.currentRoute.params.id;
+  const { id } = this.$router.currentRoute.params;
   const data = getStorage();
 
   this.id = id;
@@ -143,17 +152,17 @@ function getData() {
 
 export default {
   name: 'StartupDetail',
-  data() {
-    return {
-      loading: true,
-      id: null,
-      data: {},
-      getData,
-    };
-  },
+  data: () => ({
+    loading: true,
+    id: null,
+    data: {},
+    getData,
+  }),
+
   created() {
     this.getData();
   },
+
   components: {
     PersonList,
   },

@@ -40,100 +40,103 @@
   </v-card>
 </template>
 
+
 <style type="text/css">
+.v-card {
+  border-radius: 8px;
+  padding: 4px;
+  text-align: center;
+}
 
-    .v-card {
-        border-radius: 8px;
-        padding: 4px;
-        text-align: center;
-    }
+.v-card__media__content {
+  padding: 16px 8px 8px 8px;
+  text-align: center;
+  flex-direction: column;
+}
 
-  .v-card__media__content {
-    padding: 16px 8px 8px 8px;
-    text-align: center;
-    flex-direction: column;
-  }
+.card-user-pic {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vw - 32px);
+  margin-bottom: 12px;
+}
 
+/* In tablet, we have two columns */
+@media (min-width: 600px) {
   .card-user-pic {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: calc(100vw - 32px);
-    margin-bottom: 12px;
+    height: calc(50vw - 32px);
   }
-  /* In tablet, we have two columns */
-  @media (min-width: 600px) {
-    .card-user-pic {
-      height: calc(50vw - 32px);
-    }
-  }
-  /* In desktop, we have three columns */
-  @media (min-width: 960px) {
-    .card-user-pic {
-      height: calc(33vw - 64px);
-    }
-  }
-  /* In long-desktop, we have four columns */
-  @media (min-width: 1264px) {
-    .card-user-pic {
-      height: calc(25vw - 80px);
-    }
-  }
+}
 
-  /* In TV, we have six columns */
-  @media (min-width: 1904px) {
-    .card-user-pic {
-      height: calc(16vw);
-    }
+/* In desktop, we have three columns */
+@media (min-width: 960px) {
+  .card-user-pic {
+    height: calc(33vw - 64px);
   }
+}
 
-  .card-user-info {
-    text-align: center;
-    width: 100%;
+/* In long-desktop, we have four columns */
+@media (min-width: 1264px) {
+  .card-user-pic {
+    height: calc(25vw - 80px);
   }
+}
 
-  .person-card-social-icons {
-    text-align: center;
+/* In TV, we have six columns */
+@media (min-width: 1904px) {
+  .card-user-pic {
+    height: calc(16vw);
   }
+}
 
-  .person-card-social-icon {
-    display: inline-block;
-    padding: 0 8px;
-  }
+.card-user-info {
+  text-align: center;
+  width: 100%;
+}
 
-  .person-card-social-icon img {
-    height: 32px;
-    width: 32px;
-  }
+.person-card-social-icons {
+  text-align: center;
+}
 
-    .light-border {
-        border: 1px solid #f3f3f3;
-        border-radius: 6px;
-    }
+.person-card-social-icon {
+  display: inline-block;
+  padding: 0 8px;
+}
 
-    /* more spread, low contrast */
-    .custom-hover:hover {
-        box-shadow: 0 4px 12px 0px rgba(0,0,0,.108) !important;
-    }
-    
-    .box-shadow {
-        box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04) !important;
-    }
-    
-    .v-card {
-        padding: 0px;
-    }
-    
-    .card-user-pic {
-        border-radius: 6px 6px 0px 0px;
-    }
+.person-card-social-icon img {
+  height: 32px;
+  width: 32px;
+}
 
+.light-border {
+  border: 1px solid #f3f3f3;
+  border-radius: 6px;
+}
+
+/* more spread, low contrast */
+.custom-hover:hover {
+  box-shadow: 0 4px 12px 0px rgba(0,0,0,.108) !important;
+}
+
+.box-shadow {
+  box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04) !important;
+}
+
+.v-card {
+  padding: 0px;
+}
+
+.card-user-pic {
+  border-radius: 6px 6px 0px 0px;
+}
 </style>
+
 
 <script>
 function goToPerson(id) {
   this.$ga.event('directory_list', 'view_person', id);
-  this.$router.push({name: 'personDetail', params: {id: id}});
+  this.$router.push({ name: 'personDetail', params: { id } });
 }
 
 export default {
@@ -150,6 +153,7 @@ export default {
     twitter: { type: String, required: false },
     linkedin: { type: String, required: false },
   },
+
   data: () => ({
     show: false,
     goToPerson,
