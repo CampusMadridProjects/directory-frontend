@@ -134,11 +134,6 @@
 
 
 <script>
-function goToPerson(id) {
-  this.$ga.event('directory_list', 'view_person', id);
-  this.$router.push({ name: 'personDetail', params: { id } });
-}
-
 export default {
   name: 'PersonCard',
   props: {
@@ -156,7 +151,13 @@ export default {
 
   data: () => ({
     show: false,
-    goToPerson,
   }),
+
+  methods: {
+    goToPerson: (id) => {
+      this.$ga.event('directory_list', 'view_person', id);
+      this.$router.push({ name: 'personDetail', params: { id } });
+    },
+  },
 };
 </script>

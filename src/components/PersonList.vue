@@ -4,7 +4,7 @@
       <v-list-tile
         :key="item._id"
         avatar
-        @click="goToPerson(item._id)"
+        @click="this.goToPerson(item._id)"
       >
         <v-list-tile-avatar>
           <img :src="item.pic">
@@ -29,11 +29,6 @@
 
 
 <script>
-function goToPerson(id) {
-  this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
-  this.$router.push({ name: 'personDetail', params: { id } });
-}
-
 export default {
   name: 'PersonList',
   props: {
@@ -41,8 +36,9 @@ export default {
     eventCategory: { type: String, required: false },
   },
 
-  data: () => ({
-    goToPerson,
-  }),
+  goToPerson: (id) => {
+    this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
+    this.$router.push({ name: 'personDetail', params: { id } });
+  },
 };
 </script>
