@@ -3,7 +3,7 @@
     <loading></loading>
   </v-container>
   <v-container
-    style="text-align: center;"
+    class="text-xs-center"
     v-else-if="this.filterPeople(search, filter).length === 0"
   >
     <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
@@ -247,7 +247,7 @@ export default {
 
         this.list = cleanData;
         storage.setItem('people-list', JSON.stringify(cleanData));
-        storage.setItem('startup-list-time', new Date());
+        storage.setItem('people-list-time', new Date());
 
         return cleanData;
       })

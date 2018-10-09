@@ -2,7 +2,7 @@
   <v-container v-if="loading === true">
     <loading></loading>
   </v-container>
-  <v-container v-else-if="this.filterOrganization(search).length === 0">
+  <v-container v-else-if="this.filterOrganization(search).length === 0" class="text-xs-center">
     <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
   </v-container>
   <v-container class="card-grid" v-else>
@@ -100,6 +100,10 @@ export default {
      */
     filterOrganization: function (search) {
       const safeSearch = search && (search.toUpperCase() || '');
+      if (!safeSearch) {
+        return this.list;
+      }
+      
       return this.list.filter((org) => {
         let found = false;
         if ((org.name && org.name.toUpperCase().indexOf(safeSearch) > -1)
