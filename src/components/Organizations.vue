@@ -53,6 +53,9 @@ a {
 import OrganizationCard from './OrganizationCard.vue';
 import Loading from './Loading.vue';
 
+// If you want to make data persistent throught sessions, you can use localStorage
+const storage = window.sessionStorage;
+
 export default {
   name: 'Organizations',
   props: {
@@ -75,19 +78,30 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    loadOrganization: function() {
+    loadOrganization() {
+      const token = storage.getItem('token');
+      if (!token) {
+        console.log('You shall not pass');
+        this.$router.push('/');
+        return false;
+      }
+
       return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_ORGS}`, {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then((data) => {
-        this.loading = false;
-        this.list = data;
+        method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
       })
-      .catch((err) => {
-        this.loading = false;
-        console.error(err);
-      });
+        .then(res => res.json())
+        .then((data) => {
+          this.loading = false;
+          this.list = data;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.error(err);
+        });
     },
 
     /** filterOrganization
@@ -98,12 +112,12 @@ export default {
      *  @param search {String} Search term to filter the organization list
      *  @return {Array} An array that matches with search params
      */
-    filterOrganization: function (search) {
+    filterOrganization(search) {
       const safeSearch = search && (search.toUpperCase() || '');
       if (!safeSearch) {
         return this.list;
       }
-      
+
       return this.list.filter((org) => {
         let found = false;
         if ((org.name && org.name.toUpperCase().indexOf(safeSearch) > -1)

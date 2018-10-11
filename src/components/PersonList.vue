@@ -35,10 +35,11 @@ export default {
     people: { type: Array, required: true },
     eventCategory: { type: String, required: false },
   },
-
-  goToPerson: (id) => {
-    this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
-    this.$router.push({ name: 'personDetail', params: { id } });
-  },
+  methods: {
+    goToPerson: function (id) {
+      this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
+      this.$router.push({ name: 'personDetail', params: { id } });
+    },
+  }
 };
 </script>

@@ -104,7 +104,7 @@ export default {
   }),
 
   methods: {
-    inArray: function(array, data) {
+    inArray(array, data) {
       if (typeof data !== 'string') {
         return false;
       }
@@ -119,7 +119,7 @@ export default {
       return found;
     },
 
-    filterByCategory: function (list, categories) {
+    filterByCategory(list, categories) {
       if (!Array.isArray(categories) || categories.length === 0) {
         return list;
       }
@@ -135,7 +135,7 @@ export default {
       });
     },
 
-    filterByText: function(list, search) {
+    filterByText(list, search) {
       const safeSearch = search && (search.toUpperCase() || '');
 
       console.log(safeSearch);
@@ -168,7 +168,7 @@ export default {
      *  @param {array} filter Filter by categories to search
      *  @return {array} An array that matches the requested search term
      */
-    filterPeople: function(search, filter) {
+    filterPeople(search, filter) {
       // filter by categories
       const filteredByCategory = this.filterByCategory(this.list, filter);
 
@@ -176,7 +176,7 @@ export default {
       return this.filterByText(filteredByCategory, search);
     },
 
-    cacheExpired: function (date) {
+    cacheExpired(date) {
       if (!date) {
         return true;
       }
@@ -198,7 +198,7 @@ export default {
     /** loadPeople
      *  Get a people list from localstorage or backend.
      */
-    loadPeople: function () {
+    loadPeople() {
       const localPeople = storage.getItem('people-list');
       const localPeopleTime = storage.getItem('people-list-time');
 
@@ -226,35 +226,46 @@ export default {
     /** downloadPeople
      *  Get a people list from the backend. Also, parse some possible exceptions.
      */
-    downloadPeople: function() {
+    downloadPeople() {
+      const token = storage.getItem('token');
+      if (!token) {
+        console.log('You shall not pass');
+        this.$router.push('/');
+        return false;
+      }
+
       return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
         method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
         // body:JSON.stringify({title:"a new todo"})
       })
-      .then(res => res.json())
-      .then((data) => {
-        this.loading = false;
+        .then(res => res.json())
+        .then((data) => {
+          this.loading = false;
 
-        const cleanData = data.map((item) => {
-          const person = item;
+          const cleanData = data.map((item) => {
+            const person = item;
 
-          if (typeof person.location === 'number') {
-            person.location = `L${person.location}`;
-          }
+            if (typeof person.location === 'number') {
+              person.location = `L${person.location}`;
+            }
 
-          return person;
+            return person;
+          });
+
+          this.list = cleanData;
+          storage.setItem('people-list', JSON.stringify(cleanData));
+          storage.setItem('people-list-time', new Date());
+
+          return cleanData;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.error(err);
         });
-
-        this.list = cleanData;
-        storage.setItem('people-list', JSON.stringify(cleanData));
-        storage.setItem('people-list-time', new Date());
-
-        return cleanData;
-      })
-      .catch((err) => {
-        this.loading = false;
-        console.error(err);
-      });
     },
   },
 
