@@ -83,9 +83,9 @@ export default {
      *  @param search {String} Search term to filter the startup list
      *  @return {Array} An array that matches with search params
      */
-    filterStartup: function(search) {
+    filterStartup(search) {
       const safeSearch = search && (search.toUpperCase() || '');
-      if(!safeSearch) {
+      if (!safeSearch) {
         return this.list;
       }
 
@@ -102,7 +102,7 @@ export default {
       });
     },
 
-    cacheExpired: function(date) {
+    cacheExpired(date) {
       if (!date) {
         return true;
       }
@@ -125,7 +125,7 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    loadStartup: function() {
+    loadStartup() {
       const localStartups = storage.getItem('startup-list');
       const localStartupsTime = storage.getItem('startup-list-time');
 
@@ -154,7 +154,7 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    downloadStartup: function() {
+    downloadStartup() {
       const token = storage.getItem('token');
       if (!token) {
         console.log('You shall not pass');
@@ -169,19 +169,19 @@ export default {
           'Content-Type': 'application/x-www-form-urlencoded',
         }),
       })
-      .then(res => res.json())
-      .then((data) => {
-        this.loading = false;
-        this.list = data;
-        storage.setItem('startup-list', JSON.stringify(data));
-        storage.setItem('startup-list-time', new Date());
+        .then(res => res.json())
+        .then((data) => {
+          this.loading = false;
+          this.list = data;
+          storage.setItem('startup-list', JSON.stringify(data));
+          storage.setItem('startup-list-time', new Date());
 
-        return data;
-      })
-      .catch((err) => {
-        this.loading = false;
-        console.error(err);
-      });
+          return data;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.error(err);
+        });
     },
   },
 
