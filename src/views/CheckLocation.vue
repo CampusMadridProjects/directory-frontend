@@ -151,6 +151,10 @@ function getLocation() {
         storage.setItem('access_allowed', serverResponse.allow);
         storage.setItem('access_distance', serverResponse.distance);
 
+        if (serverResponse.token) {
+          storage.setItem('token', serverResponse.token);
+        } else storage.setItem('token', 'FAKETOKENHERE');
+
         return this.checkEnter();
       });
   });
