@@ -54,7 +54,7 @@ import OrganizationCard from './OrganizationCard.vue';
 import Loading from './Loading.vue';
 
 // If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.sessionStorage;
+const storage = window.localStorage;
 
 export default {
   name: 'Organizations',
