@@ -227,8 +227,19 @@ export default {
      *  Get a people list from the backend. Also, parse some possible exceptions.
      */
     downloadPeople: function() {
+      const token = storage.getItem('token');
+      if (!token) {
+        console.log('You shall not pass');
+        this.$router.push('/');
+        return false;
+      }
+
       return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
         method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
         // body:JSON.stringify({title:"a new todo"})
       })
       .then(res => res.json())

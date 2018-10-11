@@ -155,8 +155,19 @@ export default {
      *  @return {Promise} The fetch promise.
      */
     downloadStartup: function() {
+      const token = storage.getItem('token');
+      if (!token) {
+        console.log('You shall not pass');
+        this.$router.push('/');
+        return false;
+      }
+
       return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_STARTUPS}`, {
         method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
       })
       .then(res => res.json())
       .then((data) => {
