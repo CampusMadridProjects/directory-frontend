@@ -2,7 +2,7 @@
   <v-container v-if="loading === true">
     <loading></loading>
   </v-container>
-  <v-container v-else-if="this.filterStartup(search).length === 0" class="text-xs-center">
+  <v-container v-else-if="hasStartups" class="text-xs-center">
     <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
   </v-container>
   <v-container class="card-grid" v-else>
@@ -182,6 +182,12 @@ export default {
           this.loading = false;
           console.error(err);
         });
+    },
+  },
+
+  computed: {
+    hasStartups() {
+      return this.filterStartup(this.search).length === 0;
     },
   },
 

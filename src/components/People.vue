@@ -4,7 +4,7 @@
   </v-container>
   <v-container
     class="text-xs-center"
-    v-else-if="this.filterPeople(search, filter).length === 0"
+    v-else-if="hasPeople"
   >
     <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
   </v-container>
@@ -138,7 +138,6 @@ export default {
     filterByText(list, search) {
       const safeSearch = search && (search.toUpperCase() || '');
 
-      console.log(safeSearch);
       if (safeSearch === '' || !safeSearch) {
         return list;
       }
@@ -203,7 +202,7 @@ export default {
       const localPeopleTime = storage.getItem('people-list-time');
 
       const expired = this.cacheExpired(localPeopleTime);
-      console.log(expired);
+      // console.log(expired);
 
       if (localPeople === null || expired) {
         return this.downloadPeople();
@@ -229,7 +228,7 @@ export default {
     downloadPeople() {
       const token = storage.getItem('token');
       if (!token) {
-        console.log('You shall not pass');
+        console.warn('You shall not pass');
         this.$router.push('/');
         return false;
       }
@@ -266,6 +265,12 @@ export default {
           this.loading = false;
           console.error(err);
         });
+    },
+  },
+
+  computed: {
+    hasPeople() {
+      return this.filterPeople(this.search).length === 0;
     },
   },
 

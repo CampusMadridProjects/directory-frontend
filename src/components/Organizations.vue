@@ -2,7 +2,7 @@
   <v-container v-if="loading === true">
     <loading></loading>
   </v-container>
-  <v-container v-else-if="this.filterOrganization(search).length === 0" class="text-xs-center">
+  <v-container v-else-if="hasOrganizations" class="text-xs-center">
     <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
   </v-container>
   <v-container class="card-grid" v-else>
@@ -129,6 +129,12 @@ export default {
 
         return found;
       });
+    },
+  },
+
+  computed: {
+    hasOrganizations() {
+      return this.filterOrganization(this.search).length === 0;
     },
   },
 
