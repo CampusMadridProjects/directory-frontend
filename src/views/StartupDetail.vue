@@ -20,7 +20,9 @@
     </v-toolbar>
 
     <v-card-media>
-      <img :src="data.logo" class="startup-logo">
+      <div class="text-xs-center">
+        <img :src="data.logo" class="startup-logo">
+      </div>
     </v-card-media>
 
     <div class="startup-info">
@@ -30,7 +32,7 @@
 
     <v-card-text>
       <v-subheader v-if="data.bio">What do they do?</v-subheader>
-      {{ data.bio }}
+      <div class="mb-4 mx-5">{{ data.description }}</div>
 
       <div class="startup-card-social-icons">
         <a v-if="data.twitter"
