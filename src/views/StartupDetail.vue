@@ -117,7 +117,7 @@
 import PersonList from '../components/PersonList.vue';
 
 // If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.sessionStorage;
+const storage = window.localStorage;
 
 function getStorage() {
   let list = storage.getItem('startup-list');

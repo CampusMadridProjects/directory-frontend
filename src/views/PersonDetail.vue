@@ -140,7 +140,7 @@
 // A better way to manage the ID discovery
 
 // If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.sessionStorage;
+const storage = window.localStorage;
 
 function getStorage() {
   let list = storage.getItem('people-list');
