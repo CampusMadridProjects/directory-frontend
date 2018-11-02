@@ -11,6 +11,7 @@
             solo
             v-model="search"
             clearable
+            color="#F5F5F5"
             placeholder="Search for people, startups or organizations"
             @keyup="trackSearch(search)"
             @click:clear="searchClear()"
@@ -202,6 +203,27 @@ a {
     margin: 0 2px;
   }
 }
+</style>
+
+<style>
+
+.v-toolbar__content {
+    height: 64px !important;
+}
+    
+.v-input__slot {
+    background: #F5F5F5 !important;
+    border-radius: 8px;
+}
+    
+.v-input__icon i {
+    color: #717171 !important;
+}
+    
+.v-text-field .v-input__prepend-inner {
+    padding-right: 8px;
+}
+
 </style>
 
 
