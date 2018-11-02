@@ -61,6 +61,10 @@
   height: calc(100vw - 32px);
   margin-bottom: 12px;
 }
+    
+.empty-user-pic {
+    background-image: url('/img/nopic.png');
+}
 
 /* In tablet, we have two columns */
 @media (min-width: 600px) {
