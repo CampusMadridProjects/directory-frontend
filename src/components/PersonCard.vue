@@ -154,7 +154,7 @@ export default {
   }),
 
   methods: {
-    goToPerson: function (id) {
+    goToPerson(id) {
       this.$ga.event('directory_list', 'view_person', id);
       this.$router.push({ name: 'personDetail', params: { id } });
     },

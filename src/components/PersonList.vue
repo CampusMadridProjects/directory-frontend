@@ -4,7 +4,7 @@
       <v-list-tile
         :key="item._id"
         avatar
-        @click="this.goToPerson(item._id)"
+        @click="goToPerson(item._id)"
       >
         <v-list-tile-avatar>
           <img :src="item.pic">
@@ -36,10 +36,10 @@ export default {
     eventCategory: { type: String, required: false },
   },
   methods: {
-    goToPerson: function (id) {
+    goToPerson(id) {
       this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
       this.$router.push({ name: 'personDetail', params: { id } });
     },
-  }
+  },
 };
 </script>
