@@ -86,7 +86,7 @@
         <span>
             Made with ❤ in
             <a href="https://www.campus.co/madrid/">
-              Campus Madrid
+              Google for Startups Campus
             </a>.
         </span>
         <span>
