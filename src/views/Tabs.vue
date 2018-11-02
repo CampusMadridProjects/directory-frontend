@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar tabs extended app>
-      <img src="img/logo.png" style="height: 26px;">
+      <!-- <img src="img/logo.png" style="height: 26px;"> -->
 
       <v-text-field
             prepend-inner-icon="search"
@@ -87,7 +87,7 @@
         <span>
             Made with ❤ in
             <a href="https://www.campus.co/madrid/">
-              Campus Madrid
+              Google for Startups Campus
             </a>.
         </span>
         <span>

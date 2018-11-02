@@ -7,7 +7,7 @@
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
-          <v-btn depressed color="primary" class="custom-button">Update this profile</v-btn>
+          <v-btn depressed color="primary">Update this profile</v-btn>
         </a>
     </v-toolbar>
 
@@ -80,6 +80,11 @@
   </v-card>
 </template>
 
+<style>
+  .v-btn {
+    text-transform: none;
+  }
+</style>
 
 <style scoped>
 .full-size {
@@ -90,12 +95,6 @@
 
 .card-user-pic {
   border-radius: 0px;
-}
-
-.custom-button {
-  border-radius: 50px;
-  padding: 0px 40px;
-  text-transform: none;
 }
 
 .v-toolbar {
