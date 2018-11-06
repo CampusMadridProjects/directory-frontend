@@ -12,7 +12,7 @@
     </v-toolbar>
 
     <div>
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +')'}">
+      <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}">
       </div>
       <div class="headline text-xs-center">{{ data.name }}</div>
       <div class="text-xs-center">

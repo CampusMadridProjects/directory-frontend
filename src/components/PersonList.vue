@@ -7,7 +7,7 @@
         @click="goToPerson(item._id)"
       >
         <v-list-tile-avatar>
-          <img :src="item.pic">
+          <img :src="item.pic || '/img/nopic.png'">
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title v-html="item.name"></v-list-tile-title>

@@ -2,7 +2,7 @@
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
     <!-- <div @click="show = !show"> -->
     <div @click="goToPerson(id)">
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
+      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
       </div>
       <div class="headline">{{ name }}</div>
       <span class="grey--text one-line">
@@ -60,10 +60,6 @@
   background-size: cover;
   height: calc(100vw - 32px);
   margin-bottom: 12px;
-}
-    
-.empty-user-pic {
-    background-image: url('/img/nopic.png');
 }
 
 /* In tablet, we have two columns */
