@@ -126,12 +126,12 @@ export default {
 
       return list.filter((person) => {
         for (let i = 0; i < categories.length; i += 1) {
-          if (person.expertise && this.inArray(person.expertise, categories[i])) {
-            return true;
+          if (!person.expertise || !this.inArray(person.expertise, categories[i])) {
+            return false;
           }
         }
 
-        return false;
+        return true;
       });
     },
 

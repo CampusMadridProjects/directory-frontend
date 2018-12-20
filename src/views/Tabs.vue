@@ -206,6 +206,9 @@ a {
 </style>
 
 <style>
+.no-underline {
+  text-decoration: none;
+}
 
 .v-toolbar__content {
     height: 64px !important;

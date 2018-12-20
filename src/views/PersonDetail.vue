@@ -7,7 +7,9 @@
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
-          target="_blank">
+          target="_blank"
+          class="no-underline"
+        >
           <v-btn flat color="primary">Update this profile</v-btn>
         </a>
     </v-toolbar>
