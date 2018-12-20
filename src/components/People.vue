@@ -6,7 +6,14 @@
     class="text-xs-center"
     v-else-if="hasPeople"
   >
-    <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
+    <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
+    <h1>No one found</h1>
+    <p>
+      <v-btn color="primary" class="mb-3">
+        Create {{search}}
+      </v-btn><br>
+      <i class="grey--text">The content will be manually reviewed</i>
+    </p>
   </v-container>
   <v-container class="card-grid" v-else>
     <v-flex
@@ -49,6 +56,10 @@
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+
+img.illustration {
+  max-width: 250px;
 }
 
 ul {

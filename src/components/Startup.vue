@@ -3,7 +3,14 @@
     <loading></loading>
   </v-container>
   <v-container v-else-if="hasStartups" class="text-xs-center">
-    <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
+    <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
+    <h1>Nothing found</h1>
+    <p>
+      <v-btn color="primary" class="mb-3">
+        Create {{search}}
+      </v-btn><br>
+      <i class="grey--text">The content will be manually reviewed</i>
+    </p>
   </v-container>
   <v-container class="card-grid" v-else>
     <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
@@ -26,6 +33,9 @@
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+img.illustration {
+  max-width: 250px;
 }
 ul {
   list-style-type: none;
