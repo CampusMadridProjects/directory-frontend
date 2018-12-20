@@ -11,7 +11,7 @@
           target="_blank"
         >
           <v-btn
-            depressed color="primary"
+            flat color="primary"
             class="custom-button"
           >
             Update this startup

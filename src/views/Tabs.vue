@@ -210,16 +210,16 @@ a {
 .v-toolbar__content {
     height: 64px !important;
 }
-    
+
 .v-input__slot {
     background: #F5F5F5 !important;
     border-radius: 8px;
 }
-    
+
 .v-input__icon i {
     color: #717171 !important;
 }
-    
+
 .v-text-field .v-input__prepend-inner {
     padding-right: 8px;
 }
@@ -280,7 +280,7 @@ export default {
     search: '',
     tagFilter: [],
     peopleTags: [
-      'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
+      'Tech', 'Design', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
     ],
     switchTag,
     dialog: false,

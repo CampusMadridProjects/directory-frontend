@@ -6,13 +6,16 @@
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
-          <v-btn depressed color="primary">Update this profile</v-btn>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
+          target="_blank">
+          <v-btn flat color="primary">Update this profile</v-btn>
         </a>
     </v-toolbar>
 
     <div>
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}">
+      <div class="card-user-pic"
+        :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"
+      >
       </div>
       <div class="headline text-xs-center">{{ data.name }}</div>
       <div class="text-xs-center">
@@ -49,6 +52,31 @@
 
     <v-card-text>
       {{ data.bio }}
+
+      <div class="mb-3">
+        <v-btn color="primary" large v-if="data.slack"
+          :href="data.slack"
+          target="_blank"
+          @click="$ga.event('person_detail', 'connect', data._id)"
+        >
+          Connect
+        </v-btn>
+        <v-btn color="primary" large v-else-if="data.linkedin"
+          :href="data.linkedin"
+          target="_blank"
+          @click="$ga.event('person_detail', 'connect', data._id)"
+        >
+          Connect
+        </v-btn>
+        <v-btn color="primary" large v-else-if="data.twitter"
+          :href="data.twitter"
+          target="_blank"
+          @click="$ga.event('person_detail', 'connect', data._id)"
+        >
+          Connect
+        </v-btn>
+      </div>
+
       <div class="person-card-social-icons">
         <a v-if="data.twitter"
           :href="data.twitter"
