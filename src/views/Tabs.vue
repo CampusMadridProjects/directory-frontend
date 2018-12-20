@@ -43,18 +43,20 @@
     <v-content>
       <v-tabs-items v-model="tabs">
         <v-tab-item id="tabs-people">
-            <v-container fluid class="pa-0 chip-container">
-                <div class="text-xs-center">
-                    <v-chip
-                      :key="tag"
-                      :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
-                      v-for="tag in peopleTags"
-                      @click="switchTag(tag)"
-                    >
-                      {{ tag }}
-                    </v-chip>
-                </div>
-            </v-container>
+          <v-container fluid class="pa-0 chip-container">
+            <div class="scroll-container">
+              <div class="mx-3 text-md-center chip-content">
+                  <v-chip
+                    :key="tag"
+                    :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
+                    v-for="tag in peopleTags"
+                    @click="switchTag(tag)"
+                  >
+                    {{ tag }}
+                  </v-chip>
+              </div>
+            </div>
+          </v-container>
           <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
@@ -164,6 +166,10 @@ a {
   margin-right: auto;
 }
 
+.chip-content {
+  text-align: center;
+}
+
 /* bigger-chips-mobile */
 @media only screen and (max-width: 768px) {
   .v-chip {
@@ -172,6 +178,16 @@ a {
 
   .v-text-field.v-text-field--solo .v-input__control {
     min-height: 36px;
+  }
+
+  .scroll-container {
+    width: 100%; 
+    overflow-x: scroll;
+  }
+
+  .chip-content {
+    text-align: left;
+    width: 750px;
   }
 }
 
