@@ -43,7 +43,14 @@
     <v-content>
       <v-tabs-items v-model="tabs">
         <v-tab-item id="tabs-people">
-          <v-container fluid class="pa-0 chip-container">
+          <v-container
+            fluid
+            class="pa-0 chip-container"
+            v-touch="{
+              left: () => noSwipe(),
+              right: () => noSwipe(),
+            }"
+          >
             <div class="scroll-container">
               <div class="mx-3 text-md-center chip-content">
                   <v-chip
@@ -334,6 +341,9 @@ export default {
           window.deferredPrompt = null;
         });
       }
+    },
+    noSwipe: () => {
+      event.stopPropagation();
     },
   },
 
