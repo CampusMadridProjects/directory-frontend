@@ -190,6 +190,10 @@ a {
     width: 100%; 
     overflow-x: scroll;
   }
+    .scroll-container::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
 
   .chip-content {
     text-align: left;
