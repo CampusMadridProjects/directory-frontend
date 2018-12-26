@@ -18,7 +18,7 @@ export default new Router({
       component: CheckLocation,
     },
     {
-      path: '/directory',
+      path: '/people',
       name: 'home',
       component: Tabs,
       children: [
@@ -27,12 +27,12 @@ export default new Router({
           // when /user/:id/profile is matched
           name: 'personDetail',
           path: 'person/:id',
-          component: PersonDetail,
+          components: { dialog: PersonDetail },
         },
         {
           name: 'startupDetail',
           path: 'startup/:id',
-          component: StartupDetail,
+          components: { dialog: PersonDetail },
         },
       ],
     },
