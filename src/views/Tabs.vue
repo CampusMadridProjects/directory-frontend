@@ -30,7 +30,7 @@
       >
         <div class="scroll-container">
           <div class="text-md-center chip-content px-4">
-            Filter by: 
+            <span class="mr-2">Filter by: </span>
             <v-chip
               :key="tag"
               :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
@@ -158,15 +158,20 @@ a {
 
 .v-chip {
   /* background: dark-gray; */
-  background: #eae8e8;
+  background: #FFFFFF;
+  border: 1px solid #3c3c3c;
   color: #3c3c3c;
   font-weight: 500;
 }
+  .v-chip:focus {
+    box-shadow: none;
+  }
 
-.v-chip.active {
-  background-color: #d48ded;
-  color: #fff;
-}
+  .v-chip.active {
+    background-color: #d48ded;
+    border-color: #d48ded;  
+    color: #fff;
+  }
 
 /*.chip-container {
   margin-top: 32px;
@@ -202,15 +207,17 @@ a {
   }
 
   .scroll-container {
-    width: 100%; 
     overflow-x: scroll;
+    width: 100%; 
   }
     .scroll-container::-webkit-scrollbar {
-      width: 0;
       background: transparent;
+      width: 0;
     }
 
   .chip-content {
+    display: flex;
+    align-items: center;
     text-align: left;
     width: 750px;
   }
