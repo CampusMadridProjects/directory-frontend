@@ -18,7 +18,7 @@ export default new Router({
       component: CheckLocation,
     },
     {
-      path: '/people',
+      path: '/directory',
       name: 'home',
       component: Tabs,
       children: [
