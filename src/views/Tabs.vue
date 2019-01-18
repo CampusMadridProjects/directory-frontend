@@ -12,7 +12,7 @@
         v-model="search"
         clearable
         color="#F5F5F5"
-        placeholder="Search for people, startups or organizations"
+        placeholder="Search Campus"
         @keyup="trackSearch(search)"
         @click:clear="searchClear()"
       ></v-text-field>
@@ -29,7 +29,7 @@
         }"
       >
         <div class="scroll-container">
-          <div class="text-md-center chip-content px-4">
+          <div class="text-md-center chip-content px-2">
             <span class="mr-2">Filter by: </span>
             <v-chip
               :key="tag"
@@ -77,7 +77,6 @@
       :active.sync="tabs"
       :value="true"
       fixed
-      color="white"
     >
       <v-btn
         flat
@@ -119,6 +118,12 @@
 
 
 <style scoped>
+
+.v-bottom-nav {
+    box-shadow: none;
+    border-top: 1px solid #DFE1E5;
+}
+    
 /* - Remove grey color in bottom nav when pressed */
 .v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
      background-color: transparent; 
@@ -159,7 +164,7 @@ a {
 .v-chip {
   /* background: dark-gray; */
   background: #FFFFFF;
-  border: 1px solid #3c3c3c;
+  border: 1px solid #DFE1E5;
   color: #3c3c3c;
   font-weight: 500;
 }
@@ -254,6 +259,15 @@ a {
 </style>
 
 <style>
+    
+.v-btn--active {
+    color: #d48ded !important;
+}
+    
+.v-input--is-focused .v-input__slot {
+    box-shadow: 0px 4px 24px 8px rgba(0,0,0,0.1);
+}
+
 .no-underline {
   text-decoration: none;
 }
@@ -263,8 +277,8 @@ a {
 }
 
 .v-input__slot {
-    background: #F5F5F5 !important;
-    border-radius: 8px;
+    border-radius: 50px;
+    border: 1px solid #dfe1e5;
 }
 
 .v-input__icon i {
