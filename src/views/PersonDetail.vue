@@ -202,12 +202,9 @@ function getData() {
   if (gottenData.company_id.indexOf('org') > -1) {
     gottenData.company_id = null;
   }
-  console.log(gottenData.company_id);
 
   this.id = id;
   this.data = gottenData;
-
-  console.log(this.data);
 }
 
 export default {

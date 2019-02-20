@@ -32,7 +32,7 @@ export default new Router({
         {
           name: 'startupDetail',
           path: 'startup/:id',
-          components: { dialog: PersonDetail },
+          components: { dialog: StartupDetail },
         },
       ],
     },
