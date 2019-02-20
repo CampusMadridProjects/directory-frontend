@@ -2,7 +2,7 @@
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
     <!-- <div @click="show = !show"> -->
     <div @click="goToPerson(id)">
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +')'}">
+      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
       </div>
       <div class="headline">{{ name }}</div>
       <span class="grey--text one-line">
@@ -154,7 +154,7 @@ export default {
   }),
 
   methods: {
-    goToPerson: (id) => {
+    goToPerson(id) {
       this.$ga.event('directory_list', 'view_person', id);
       this.$router.push({ name: 'personDetail', params: { id } });
     },

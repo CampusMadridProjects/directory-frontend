@@ -2,8 +2,17 @@
   <v-container v-if="loading === true">
     <loading></loading>
   </v-container>
-  <v-container v-else-if="this.filterStartup(search).length === 0" class="text-xs-center">
-    <h1>Nothing found<br />¯\_(ツ)_/¯</h1>
+  <v-container v-else-if="hasStartups" class="text-xs-center">
+    <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
+    <h1>Nothing found</h1>
+    <p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank" class="no-underline">
+        <v-btn color="primary" class="mb-3">
+          Create {{search}}...
+        </v-btn>
+      </a><br>
+      <i class="grey--text">The content will be manually reviewed</i>
+    </p>
   </v-container>
   <v-container class="card-grid" v-else>
     <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
@@ -26,6 +35,9 @@
 <style scoped>
 h1, h2 {
   font-weight: normal;
+}
+img.illustration {
+  max-width: 250px;
 }
 ul {
   list-style-type: none;
@@ -56,7 +68,7 @@ import StartupCard from './StartupCard.vue';
 import Loading from './Loading.vue';
 
 // If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.sessionStorage;
+const storage = window.localStorage;
 
 export default {
   name: 'Startup',
@@ -83,9 +95,9 @@ export default {
      *  @param search {String} Search term to filter the startup list
      *  @return {Array} An array that matches with search params
      */
-    filterStartup: function(search) {
+    filterStartup(search) {
       const safeSearch = search && (search.toUpperCase() || '');
-      if(!safeSearch) {
+      if (!safeSearch) {
         return this.list;
       }
 
@@ -102,7 +114,7 @@ export default {
       });
     },
 
-    cacheExpired: function(date) {
+    cacheExpired(date) {
       if (!date) {
         return true;
       }
@@ -125,7 +137,7 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    loadStartup: function() {
+    loadStartup() {
       const localStartups = storage.getItem('startup-list');
       const localStartupsTime = storage.getItem('startup-list-time');
 
@@ -154,23 +166,40 @@ export default {
      *
      *  @return {Promise} The fetch promise.
      */
-    downloadStartup: function() {
+    downloadStartup() {
+      const token = storage.getItem('token');
+      if (!token) {
+        console.log('You shall not pass');
+        this.$router.push('/');
+        return false;
+      }
+
       return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_STARTUPS}`, {
         method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
       })
-      .then(res => res.json())
-      .then((data) => {
-        this.loading = false;
-        this.list = data;
-        storage.setItem('startup-list', JSON.stringify(data));
-        storage.setItem('startup-list-time', new Date());
+        .then(res => res.json())
+        .then((data) => {
+          this.loading = false;
+          this.list = data;
+          storage.setItem('startup-list', JSON.stringify(data));
+          storage.setItem('startup-list-time', new Date());
 
-        return data;
-      })
-      .catch((err) => {
-        this.loading = false;
-        console.error(err);
-      });
+          return data;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.error(err);
+        });
+    },
+  },
+
+  computed: {
+    hasStartups() {
+      return this.filterStartup(this.search).length === 0;
     },
   },
 

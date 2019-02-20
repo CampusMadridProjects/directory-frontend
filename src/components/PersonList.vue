@@ -4,10 +4,10 @@
       <v-list-tile
         :key="item._id"
         avatar
-        @click="this.goToPerson(item._id)"
+        @click="goToPerson(item._id)"
       >
         <v-list-tile-avatar>
-          <img :src="item.pic">
+          <img :src="item.pic || '/img/nopic.png'">
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title v-html="item.name"></v-list-tile-title>
@@ -35,10 +35,11 @@ export default {
     people: { type: Array, required: true },
     eventCategory: { type: String, required: false },
   },
-
-  goToPerson: (id) => {
-    this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
-    this.$router.push({ name: 'personDetail', params: { id } });
+  methods: {
+    goToPerson(id) {
+      this.$ga.event((this.eventCategory || 'person_list'), 'view_person', id);
+      this.$router.push({ name: 'personDetail', params: { id } });
+    },
   },
 };
 </script>

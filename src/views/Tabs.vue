@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar tabs extended app>
-      <img src="img/logo.png" style="height: 26px;">
+      <!-- <img src="img/logo.png" style="height: 26px;"> -->
 
       <v-text-field
             prepend-inner-icon="search"
@@ -11,6 +11,7 @@
             solo
             v-model="search"
             clearable
+            color="#F5F5F5"
             placeholder="Search for people, startups or organizations"
             @keyup="trackSearch(search)"
             @click:clear="searchClear()"
@@ -42,18 +43,27 @@
     <v-content>
       <v-tabs-items v-model="tabs">
         <v-tab-item id="tabs-people">
-            <v-container fluid class="pa-0 chip-container">
-                <div class="text-xs-center">
-                    <v-chip
-                      :key="tag"
-                      :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
-                      v-for="tag in peopleTags"
-                      @click="switchTag(tag)"
-                    >
-                      {{ tag }}
-                    </v-chip>
-                </div>
-            </v-container>
+          <v-container
+            fluid
+            class="pa-0 chip-container"
+            v-touch="{
+              left: () => noSwipe(),
+              right: () => noSwipe(),
+            }"
+          >
+            <div class="scroll-container">
+              <div class="mx-3 text-md-center chip-content">
+                  <v-chip
+                    :key="tag"
+                    :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
+                    v-for="tag in peopleTags"
+                    @click="switchTag(tag)"
+                  >
+                    {{ tag }}
+                  </v-chip>
+              </div>
+            </div>
+          </v-container>
           <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
@@ -69,24 +79,23 @@
       <router-view></router-view>
     </v-dialog>
 
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
+<!--     <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
       <v-btn
         fab
         fixed
         bottom
         right
         color="primary"
-
       >
         <v-icon>person_add</v-icon>
       </v-btn>
-    </a>
+    </a> -->
 
     <v-footer>
         <span>
             Made with ❤ in
             <a href="https://www.campus.co/madrid/">
-              Campus Madrid
+              Google for Startups Campus
             </a>.
         </span>
         <span>
@@ -163,6 +172,10 @@ a {
   margin-right: auto;
 }
 
+.chip-content {
+  text-align: center;
+}
+
 /* bigger-chips-mobile */
 @media only screen and (max-width: 768px) {
   .v-chip {
@@ -171,6 +184,20 @@ a {
 
   .v-text-field.v-text-field--solo .v-input__control {
     min-height: 36px;
+  }
+
+  .scroll-container {
+    width: 100%; 
+    overflow-x: scroll;
+  }
+    .scroll-container::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+
+  .chip-content {
+    text-align: left;
+    width: 750px;
   }
 }
 
@@ -202,6 +229,30 @@ a {
     margin: 0 2px;
   }
 }
+</style>
+
+<style>
+.no-underline {
+  text-decoration: none;
+}
+
+.v-toolbar__content {
+    height: 64px !important;
+}
+
+.v-input__slot {
+    background: #F5F5F5 !important;
+    border-radius: 8px;
+}
+
+.v-input__icon i {
+    color: #717171 !important;
+}
+
+.v-text-field .v-input__prepend-inner {
+    padding-right: 8px;
+}
+
 </style>
 
 
@@ -258,7 +309,7 @@ export default {
     search: '',
     tagFilter: [],
     peopleTags: [
-      'Tech', 'UI', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
+      'Tech', 'Design', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
     ],
     switchTag,
     dialog: false,
@@ -294,6 +345,9 @@ export default {
           window.deferredPrompt = null;
         });
       }
+    },
+    noSwipe: () => {
+      event.stopPropagation();
     },
   },
 

@@ -92,7 +92,7 @@
 import Loading from '../components/Loading.vue';
 
 // If you want to make it persistent throught sessions, you can use localStorage
-const storage = window.sessionStorage;
+const storage = window.localStorage;
 
 function askForLocation(callback) {
   // check for Geolocation support
@@ -123,9 +123,10 @@ function isLocationValid(lat, long) {
 
 function checkEnter() {
   const allow = storage.getItem('access_allowed');
+  const token = storage.getItem('token');
   // const distance = storage.getItem('access_distance');
 
-  if (allow === 'true') {
+  if (allow === 'true' && token !== null) {
     this.$router.push({ name: 'home' });
   } else if (allow !== null) {
     this.disallowed = true;
@@ -150,6 +151,10 @@ function getLocation() {
         this.dialog = false;
         storage.setItem('access_allowed', serverResponse.allow);
         storage.setItem('access_distance', serverResponse.distance);
+
+        if (serverResponse.token) {
+          storage.setItem('token', serverResponse.token);
+        } else storage.setItem('token', 'FAKETOKENHERE');
 
         return this.checkEnter();
       });

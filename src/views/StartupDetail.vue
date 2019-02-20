@@ -9,9 +9,10 @@
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
           target="_blank"
+          class="no-underline"
         >
           <v-btn
-            depressed color="primary"
+            flat color="primary"
             class="custom-button"
           >
             Update this startup
@@ -20,7 +21,9 @@
     </v-toolbar>
 
     <v-card-media>
-      <img :src="data.logo" class="startup-logo">
+      <div class="text-xs-center">
+        <img :src="data.logo" class="startup-logo">
+      </div>
     </v-card-media>
 
     <div class="startup-info">
@@ -30,7 +33,7 @@
 
     <v-card-text>
       <v-subheader v-if="data.bio">What do they do?</v-subheader>
-      {{ data.bio }}
+      <div class="mb-4 mx-5">{{ data.description }}</div>
 
       <div class="startup-card-social-icons">
         <a v-if="data.twitter"
@@ -117,7 +120,7 @@
 import PersonList from '../components/PersonList.vue';
 
 // If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.sessionStorage;
+const storage = window.localStorage;
 
 function getStorage() {
   let list = storage.getItem('startup-list');
