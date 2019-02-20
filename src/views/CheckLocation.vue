@@ -124,9 +124,9 @@ function isLocationValid(lat, long) {
 function checkEnter() {
   const allow = storage.getItem('access_allowed');
   const token = storage.getItem('token');
-  const needAuth = process.env.VUE_APP_NEED_AUTH == 'true';
+  const needAuth = process.env.VUE_APP_NEED_AUTH === 'true';
 
-  if (!needAuth || (allow === 'true' && token !== null)){
+  if (!needAuth || (allow === 'true' && token !== null)) {
     this.$router.push({ name: 'home' });
   } else if (allow !== null) {
     this.disallowed = true;

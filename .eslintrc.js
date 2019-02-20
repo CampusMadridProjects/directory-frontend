@@ -1,11 +1,11 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
-  'extends': [
+  extends: [
     'plugin:vue/essential',
-    'airbnb'
+    'airbnb',
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -14,6 +14,6 @@ module.exports = {
     'eslint prefer-arrow-callback': 0,
   },
   parserOptions: {
-    parser: 'babel-eslint'
-  }
-}
+    parser: 'babel-eslint',
+  },
+};

@@ -123,10 +123,10 @@
     box-shadow: none;
     border-top: 1px solid #DFE1E5;
 }
-    
+
 /* - Remove grey color in bottom nav when pressed */
 .v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
-     background-color: transparent; 
+     background-color: transparent;
 }
 /* - Remove padding in chips*/
 .v-toolbar__content, .v-toolbar__extension {
@@ -174,7 +174,7 @@ a {
 
   .v-chip.active {
     background-color: #d48ded;
-    border-color: #d48ded;  
+    border-color: #d48ded;
     color: #fff;
   }
 
@@ -213,7 +213,7 @@ a {
 
   .scroll-container {
     overflow-x: scroll;
-    width: 100%; 
+    width: 100%;
   }
     .scroll-container::-webkit-scrollbar {
       background: transparent;
@@ -259,11 +259,11 @@ a {
 </style>
 
 <style>
-    
+
 .v-btn--active {
     color: #d48ded !important;
 }
-    
+
 .v-input--is-focused .v-input__slot {
     box-shadow: 0px 4px 24px 8px rgba(0,0,0,0.1);
 }
@@ -383,6 +383,7 @@ export default {
       }
     },
     noSwipe: () => {
+      // eslint-disable-next-line
       event.stopPropagation();
     },
   },

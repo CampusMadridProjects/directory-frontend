@@ -168,7 +168,7 @@ export default {
      */
     downloadStartup() {
       const token = storage.getItem('token');
-      const needAuth = process.env.VUE_APP_NEED_AUTH == 'true';
+      const needAuth = process.env.VUE_APP_NEED_AUTH === 'true';
 
       if (!token && needAuth) {
         console.log('You shall not pass');

@@ -28,7 +28,7 @@
 </template>
 
 <style scoped>
- 
+
 .custom-hover:hover {
     box-shadow: none !important;
     background: #f5f5f5 !important;
@@ -37,7 +37,7 @@
 </style>
 
 <style>
-    
+
 .v-card {
     box-shadow: none;
 }
