@@ -3,9 +3,9 @@
 </template>
 
 <style>
-	html, body, .application {
-		font-family: 'Google Sans'
-	}
+  html, body, .application {
+    font-family: 'Google Sans'
+  }
 </style>
 
 <script>

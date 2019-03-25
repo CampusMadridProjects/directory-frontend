@@ -1,5 +1,5 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover">
+  <v-card light :hover="true" class="light-border custom-hover">
     <v-list-tile @click="goToPerson(id)">
       <div>
         <v-list-tile-avatar :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
@@ -27,10 +27,19 @@
   </v-card>
 </template>
 
+<style scoped>
+
+.custom-hover:hover {
+    box-shadow: none !important;
+    background: #f5f5f5 !important;
+}
+
+</style>
+
 <style>
 
-.box-shadow {
-  box-shadow: none;
+.v-card {
+    box-shadow: none;
 }
 
 .light-border {

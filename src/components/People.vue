@@ -240,7 +240,9 @@ export default {
      */
     downloadPeople() {
       const token = storage.getItem('token');
-      if (!token) {
+      const needAuth = process.env.VUE_APP_NEED_AUTH === 'true';
+
+      if (!token && needAuth) {
         console.warn('You shall not pass');
         this.$router.push('/');
         return false;

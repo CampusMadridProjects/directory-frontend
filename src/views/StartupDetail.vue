@@ -133,7 +133,7 @@ function getStorage() {
   return list;
 }
 
-function searchPerson(list, id) {
+function searchStartup(list, id) {
   for (let i = list.length - 1; i >= 0; i -= 1) {
     if (list[i]._id === id) {
       return list[i];
@@ -148,9 +148,7 @@ function getData() {
   const data = getStorage();
 
   this.id = id;
-  this.data = searchPerson(data, id);
-
-  console.log(this.data);
+  this.data = searchStartup(data, id);
 }
 
 export default {

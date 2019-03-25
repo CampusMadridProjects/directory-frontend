@@ -40,6 +40,7 @@ VUE_APP_API_STARTUPS=getStartups
 VUE_APP_API_ORGS=getOrganizations
 VUE_APP_API_LOCATION=isLocationValid
 VUE_APP_ANALYTICS_TRACKING_ID=UA-123456789-0
+VUE_APP_NEED_AUTH=false
 ```
 *If you use the cloud-functions based backend, your URL will be something like https://us-central1-projectID.cloudfunctions.net or similar*
 
