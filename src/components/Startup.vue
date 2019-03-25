@@ -2,7 +2,7 @@
   <v-container v-if="loading === true">
     <loading></loading>
   </v-container>
-  <v-container v-else-if="hasStartups" class="text-xs-center">
+  <v-container v-else-if="hasStartups && hasOrganizations" class="text-xs-center">
     <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
     <h1>Nothing found</h1>
     <p>
@@ -27,6 +27,17 @@
         :accelerator="startup.accelerator"
         :location="startup.location">
       </startup-card>
+    </v-flex>
+    <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
+      v-for="org in this.filterOrganization(search)"
+      :key="org.name">
+      <organization-card class="card-grid-item-card"
+        :name="org.name"
+        :logo="org.logo"
+        :people="org.employees"
+        :bio="org.description"
+      >
+      </organization-card>
     </v-flex>
   </v-container>
 </template>
@@ -64,6 +75,7 @@ a {
 
 
 <script>
+import OrganizationCard from './OrganizationCard.vue';
 import StartupCard from './StartupCard.vue';
 import Loading from './Loading.vue';
 
@@ -79,10 +91,12 @@ export default {
   data: () => ({
     loading: true,
     list: [],
+    orgs: [],
   }),
 
   components: {
     StartupCard,
+    OrganizationCard,
     Loading,
   },
 
@@ -197,16 +211,79 @@ export default {
           console.error(err);
         });
     },
+    /** loadOrganization
+     *  Get the organization list from the backend. It stores in component's this.list
+     *
+     *  @return {Promise} The fetch promise.
+     */
+    loadOrganization() {
+      const token = storage.getItem('token');
+      const needAuth = process.env.VUE_APP_NEED_AUTH === 'true';
+
+      if (!token && needAuth) {
+        console.log('You shall not pass');
+        this.$router.push('/');
+        return false;
+      }
+
+      return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_ORGS}`, {
+        method: 'GET',
+        headers: new Headers({
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }),
+      })
+        .then(res => res.json())
+        .then((data) => {
+          this.loading = false;
+          this.orgs = data;
+        })
+        .catch((err) => {
+          this.loading = false;
+          console.error(err);
+        });
+    },
+
+    /** filterOrganization
+     *  Return a new array wit organizations that matches with the search input passed
+     *  as param. It uses as list the component's this.list. It check in name,
+     *  description and accelerator
+     *
+     *  @param search {String} Search term to filter the organization list
+     *  @return {Array} An array that matches with search params
+     */
+    filterOrganization(search) {
+      const safeSearch = search && (search.toUpperCase() || '');
+      if (!safeSearch) {
+        return this.list;
+      }
+
+      return this.orgs.filter((org) => {
+        let found = false;
+        if ((org.name && org.name.toUpperCase().indexOf(safeSearch) > -1)
+          || (org.description && org.description.toUpperCase().indexOf(safeSearch) > -1)
+          || (org.accelerator && org.accelerator.toUpperCase().indexOf(safeSearch) > -1)
+        ) {
+          found = true;
+        }
+
+        return found;
+      });
+    },
   },
 
   computed: {
     hasStartups() {
       return this.filterStartup(this.search).length === 0;
     },
+    hasOrganizations() {
+      return this.filterOrganization(this.search).length === 0;
+    },
   },
 
   created() {
     this.loadStartup();
+    this.loadOrganization();
   },
 };
 </script>
