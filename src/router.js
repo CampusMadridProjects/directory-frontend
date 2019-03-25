@@ -14,6 +14,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/directory',
+    },
+    {
+      path: '/location',
       name: 'location',
       component: CheckLocation,
     },
