@@ -1,69 +1,52 @@
 <template>
   <v-app>
-    <v-toolbar tabs extended app>
+    <v-toolbar extended app>
       <!-- <img src="img/logo.png" style="height: 26px;"> -->
 
       <v-text-field
-            prepend-inner-icon="search"
-            class="mx-3"
-            hide-details
-            flat
-            solo
-            v-model="search"
-            clearable
-            color="#F5F5F5"
-            placeholder="Search for people, startups or organizations"
-            @keyup="trackSearch(search)"
-            @click:clear="searchClear()"
-          ></v-text-field>
+        prepend-inner-icon="search"
+        class="mx-3"
+        hide-details
+        flat
+        solo
+        v-model="search"
+        clearable
+        color="#F5F5F5"
+        placeholder="Search Campus"
+        @keyup="trackSearch(search)"
+        @click:clear="searchClear()"
+      ></v-text-field>
 
-      <!-- Navbar Tabs -->
-      <v-tabs
+
+      <!-- filter chips -->
+      <v-container
         slot="extension"
-        v-model="tabs"
-        fixed-tabs
-        color="transparent"
+        fluid
+        class="px-0 ma-0 chip-container"
+        v-touch="{
+          left: () => noSwipe(),
+          right: () => noSwipe(),
+        }"
       >
-        <v-tabs-slider></v-tabs-slider>
-        <v-tab href="#tabs-people" @click="tabClicked = true">
-          People
-        </v-tab>
-
-        <v-tab href="#tabs-startup" @click="tabClicked = true">
-          Startups
-        </v-tab>
-
-        <v-tab href="#tabs-organizations" @click="tabClicked = true">
-          Organizations
-        </v-tab>
-      </v-tabs>
-
+        <div class="scroll-container">
+          <div class="text-md-center chip-content px-2">
+            <span class="mr-2">Filter by: </span>
+            <v-chip
+              :key="tag"
+              :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
+              v-for="tag in peopleTags"
+              @click="switchTag(tag)"
+            >
+              {{ tag }}
+            </v-chip>
+          </div>
+        </div>
+      </v-container>
     </v-toolbar>
 
     <v-content>
       <v-tabs-items v-model="tabs">
         <v-tab-item id="tabs-people">
-          <v-container
-            fluid
-            class="pa-0 chip-container"
-            v-touch="{
-              left: () => noSwipe(),
-              right: () => noSwipe(),
-            }"
-          >
-            <div class="scroll-container">
-              <div class="mx-3 text-md-center chip-content">
-                  <v-chip
-                    :key="tag"
-                    :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
-                    v-for="tag in peopleTags"
-                    @click="switchTag(tag)"
-                  >
-                    {{ tag }}
-                  </v-chip>
-              </div>
-            </div>
-          </v-container>
           <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
         <v-tab-item id="tabs-startup">
@@ -73,10 +56,49 @@
           <Organizations :search="search"></Organizations>
         </v-tab-item>
       </v-tabs-items>
+
+      <v-footer>
+        <span>
+          Made with ❤ in
+          <a href="https://www.campus.co/madrid/">
+            Google for Startups Campus
+          </a>.
+        </span>
+        <span>
+          Feedback? Something to say?
+          <a href="mailto:hola@codingcarlos.com" target="_blank">
+            Tell us!
+          </a>
+        </span>
+      </v-footer>
     </v-content>
 
+    <v-bottom-nav
+      :active.sync="tabs"
+      :value="true"
+      fixed
+    >
+      <v-btn
+        flat
+        value="tabs-people"
+      >
+        <span>People</span>
+        <v-icon>person</v-icon>
+      </v-btn>
+
+      <v-btn
+        text="#f00"
+        flat
+        value="tabs-startup"
+      >
+        <span>Startups</span>
+        <v-icon>group</v-icon>
+      </v-btn>
+
+    </v-bottom-nav>
+
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <router-view></router-view>
+      <router-view name="dialog"></router-view>
     </v-dialog>
 
 <!--     <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
@@ -91,25 +113,27 @@
       </v-btn>
     </a> -->
 
-    <v-footer>
-        <span>
-            Made with ❤ in
-            <a href="https://www.campus.co/madrid/">
-              Google for Startups Campus
-            </a>.
-        </span>
-        <span>
-            Feedback? Something to say?
-            <a href="mailto:hola@codingcarlos.com" target="_blank">
-              Tell us!
-            </a>
-      </span>
-    </v-footer>
   </v-app>
 </template>
 
 
 <style scoped>
+
+.v-bottom-nav {
+    box-shadow: none;
+    border-top: 1px solid #DFE1E5;
+}
+
+/* - Remove grey color in bottom nav when pressed */
+.v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
+     background-color: transparent;
+}
+/* - Remove padding in chips*/
+.v-toolbar__content, .v-toolbar__extension {
+  padding: 0;
+}
+/* --- */
+
 .v-tabs__items,
 .v-tabs__content {
   min-height: 100%;
@@ -139,20 +163,25 @@ a {
 
 .v-chip {
   /* background: dark-gray; */
-  background: #eae8e8;
+  background: #FFFFFF;
+  border: 1px solid #DFE1E5;
   color: #3c3c3c;
   font-weight: 500;
 }
+  .v-chip:focus {
+    box-shadow: none;
+  }
 
-.v-chip.active {
-  background-color: #d48ded;
-  color: #fff;
-}
+  .v-chip.active {
+    background-color: #d48ded;
+    border-color: #d48ded;
+    color: #fff;
+  }
 
-.chip-container {
+/*.chip-container {
   margin-top: 32px;
 }
-
+*/
 .application.theme--light {
   background: #FFFFFF;
 }
@@ -178,24 +207,22 @@ a {
 
 /* bigger-chips-mobile */
 @media only screen and (max-width: 768px) {
-  .v-chip {
-    padding: 6px;
-  }
-
   .v-text-field.v-text-field--solo .v-input__control {
     min-height: 36px;
   }
 
   .scroll-container {
-    width: 100%; 
     overflow-x: scroll;
+    width: 100%;
   }
     .scroll-container::-webkit-scrollbar {
-      width: 0;
       background: transparent;
+      width: 0;
     }
 
   .chip-content {
+    display: flex;
+    align-items: center;
     text-align: left;
     width: 750px;
   }
@@ -214,9 +241,9 @@ a {
     padding: 8px;
   }
 
-  .chip-container {
+/*  .chip-container {
     margin-top: 24px !important;
-  }
+  }*/
 }
 
 @media (min-width: 959px) {
@@ -232,6 +259,15 @@ a {
 </style>
 
 <style>
+
+.v-btn--active {
+    color: #d48ded !important;
+}
+
+.v-input--is-focused .v-input__slot {
+    box-shadow: 0px 4px 24px 8px rgba(0,0,0,0.1);
+}
+
 .no-underline {
   text-decoration: none;
 }
@@ -241,8 +277,8 @@ a {
 }
 
 .v-input__slot {
-    background: #F5F5F5 !important;
-    border-radius: 8px;
+    border-radius: 50px;
+    border: 1px solid #dfe1e5;
 }
 
 .v-input__icon i {
@@ -305,7 +341,7 @@ export default {
   data: () => ({
     title: 'Campus Directory',
     searching: false,
-    tabs: null,
+    tabs: 'tabs-people',
     search: '',
     tagFilter: [],
     peopleTags: [
@@ -347,6 +383,7 @@ export default {
       }
     },
     noSwipe: () => {
+      // eslint-disable-next-line
       event.stopPropagation();
     },
   },
@@ -361,6 +398,7 @@ export default {
       this.checkChildren(to.name);
     },
     tabs(to) {
+      console.log(this.tabs);
       // Clean tab name
       const tab = to.replace('tabs-', '');
 

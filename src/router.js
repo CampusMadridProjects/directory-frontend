@@ -14,6 +14,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/directory',
+    },
+    {
+      path: '/location',
       name: 'location',
       component: CheckLocation,
     },
@@ -27,12 +31,12 @@ export default new Router({
           // when /user/:id/profile is matched
           name: 'personDetail',
           path: 'person/:id',
-          component: PersonDetail,
+          components: { dialog: PersonDetail },
         },
         {
           name: 'startupDetail',
           path: 'startup/:id',
-          component: StartupDetail,
+          components: { dialog: StartupDetail },
         },
       ],
     },
