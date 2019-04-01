@@ -255,7 +255,7 @@ export default {
     filterOrganization(search) {
       const safeSearch = search && (search.toUpperCase() || '');
       if (!safeSearch) {
-        return this.list;
+        return this.orgs;
       }
 
       return this.orgs.filter((org) => {
