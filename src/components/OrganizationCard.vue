@@ -26,6 +26,11 @@
 
 
 <style scoped>
+
+>>> .v-card__media__background {
+  background-size: contain !important;
+}
+
 .v-card__media__content {
   padding: 16px 8px 8px 8px;
   text-align: center;
