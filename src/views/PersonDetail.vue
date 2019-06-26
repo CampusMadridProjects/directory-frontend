@@ -54,10 +54,9 @@
 
     <v-card-text>
       {{ data.bio }}
-
       <div class="mb-3">
         <v-btn color="primary" large v-if="data.slack"
-          :href="data.slack"
+          :href="slackUrl(data.slack)"
           target="_blank"
           @click="$ga.event('person_detail', 'connect', data._id)"
         >
@@ -97,7 +96,7 @@
           <img src="img/linkedin_64.png" alt="linkedin" />
         </a>
         <a v-if="data.slack"
-          :href="data.slack"
+          :href="slackUrl(data.slack)"
           target="_blank"
           class="person-card-social-icon"
           @click="$ga.event('person_detail', 'slack', data._id)"
@@ -216,7 +215,12 @@ export default {
     data: {},
     getData,
   }),
-
+  methods: {
+    slackUrl(id) {
+      const team = process.env.VUE_APP_SLACK_ID;
+      return `slack://user?team=${team}&id=${id}`;
+    },
+  },
   created() {
     this.getData();
   },
