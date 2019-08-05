@@ -63,9 +63,7 @@ export default {
     id: { type: String, required: true },
     logo: { type: String, required: true },
     name: { type: String, required: true },
-    people: { type: Array, required: true },
-    bio: { type: String, required: true },
-    accelerator: { type: String, required: true },
+    accelerator: { type: String, required: false },
   },
 
   data: () => ({

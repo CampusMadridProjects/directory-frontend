@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="loading === true">
+  <v-container v-if="$store.state.people.loading === true">
     <loading></loading>
   </v-container>
   <v-container
@@ -25,12 +25,12 @@
       :key="person._id">
 
       <person-card-small class="card-grid-item-card hidden-md-and-up"
-        :id="person._id"
+        :id="person.id"
         :name="person.name"
         :pic="person.pic"
-        :role="person.role"
-        :company="person.company"
-        :expertise="person.expertise"
+        :role="getJob(person).role"
+        :company="getJob(person).name"
+        :expertise="person.Tag"
         :bio="person.bio"
         :location="person.location"
         :twitter="person.twitter"
@@ -38,12 +38,12 @@
       </person-card-small>
 
       <person-card class="card-grid-item-card hidden-sm-and-down"
-        :id="person._id"
+        :id="person.id"
         :name="person.name"
         :pic="person.pic"
-        :role="person.role"
-        :company="person.company"
-        :expertise="person.expertise"
+        :role="getJob(person).role"
+        :company="getJob(person).name"
+        :expertise="person.Tag"
         :bio="person.bio"
         :location="person.location"
         :twitter="person.twitter"
@@ -182,105 +182,20 @@ export default {
      */
     filterPeople(search, filter) {
       // filter by categories
-      const filteredByCategory = this.filterByCategory(this.list, filter);
+      const filteredByCategory = this.filterByCategory(this.$store.state.people.list, filter);
 
       // Filter by search text
       return this.filterByText(filteredByCategory, search);
     },
 
-    cacheExpired(date) {
-      if (!date) {
-        return true;
+    getJob(person) {
+      let job = {};
+      if (person.Group && person.Group.length > 0) {
+        job = person.Group[0];
       }
 
-      const now = new Date();
-      const last = new Date(date);
-
-      if (last.getFullYear() < now.getFullYear()) {
-        return true;
-      } if (last.getMonth() < now.getMonth()) {
-        return true;
-      } if (last.getDate() + 1 < now.getDate()) {
-        return true;
-      }
-
-      return false;
-    },
-
-    /** loadPeople
-     *  Get a people list from localstorage or backend.
-     */
-    loadPeople() {
-      const localPeople = storage.getItem('people-list');
-      const localPeopleTime = storage.getItem('people-list-time');
-
-      const expired = this.cacheExpired(localPeopleTime);
-      // console.log(expired);
-
-      if (localPeople === null || expired) {
-        return this.downloadPeople();
-      }
-
-      // Try to parse JSON
-      try {
-        const parsedPeople = JSON.parse(localPeople);
-
-        this.list = parsedPeople;
-        this.loading = false;
-
-        return Promise.resolve(parsedPeople);
-      } catch (e) {
-        // In case of error, ask the backend.
-        return this.downloadPeople();
-      }
-    },
-
-    /** downloadPeople
-     *  Get a people list from the backend. Also, parse some possible exceptions.
-     */
-    downloadPeople() {
-      const token = storage.getItem('token');
-      const needAuth = process.env.VUE_APP_NEED_AUTH === 'true';
-
-      if (!token && needAuth) {
-        console.warn('You shall not pass');
-        this.$router.push('/');
-        return false;
-      }
-
-      return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
-        method: 'GET',
-        headers: new Headers({
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        }),
-        // body:JSON.stringify({title:"a new todo"})
-      })
-        .then(res => res.json())
-        .then((data) => {
-          this.loading = false;
-
-          const cleanData = data.map((item) => {
-            const person = item;
-
-            if (typeof person.location === 'number') {
-              person.location = `L${person.location}`;
-            }
-
-            return person;
-          });
-
-          this.list = cleanData;
-          storage.setItem('people-list', JSON.stringify(cleanData));
-          storage.setItem('people-list-time', new Date());
-
-          return cleanData;
-        })
-        .catch((err) => {
-          this.loading = false;
-          console.error(err);
-        });
-    },
+      return job;
+    }
   },
 
   computed: {
@@ -290,7 +205,7 @@ export default {
   },
 
   created() {
-    this.loadPeople();
+    this.$store.dispatch('people/getPeople');
   },
 };
 </script>

@@ -6,7 +6,8 @@
       </div>
       <div class="headline">{{ name }}</div>
       <span class="grey--text one-line">
-        {{ role }} @
+        {{ role }}
+        <span v-if="role && company">@</span>
         <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
           {{ company }}
         <!-- </router-link> -->
@@ -17,26 +18,12 @@
       <div class="card-user-info">
         <h4>
           <span v-for="(ability, index) in expertise"
-            :key="ability">{{ (index !== 0) ? ', ' + ability : ability }}
+            :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}
           </span>
         </h4>
         <span class="grey--text">{{ location }}</span>
       </div>
     </v-card-title>
-
-<!--     <v-slide-y-transition>
-      <v-card-text v-show="show">
-        {{ bio }}
-        <div class="person-card-social-icons">
-          <a v-if="twitter" :href="twitter" target="_blank" class="person-card-social-icon">
-            <img src="img/twitter_64.png" alt="twitter" />
-          </a>
-          <a v-if="linkedin" :href="linkedin" target="_blank" class="person-card-social-icon">
-            <img src="img/linkedin_64.png" alt="linkedin" />
-          </a>
-        </div>
-      </v-card-text>
-    </v-slide-y-transition> -->
   </v-card>
 </template>
 
@@ -140,9 +127,9 @@ export default {
     id: { type: String, required: true },
     pic: { type: String, required: true },
     name: { type: String, required: true },
-    role: { type: String, required: true },
-    company: { type: String, required: true },
-    expertise: { type: Array, required: true },
+    role: { type: String, required: false },
+    company: { type: String, required: false },
+    expertise: { type: Array, required: false },
     bio: { type: String, required: false },
     location: { type: String, required: false },
     twitter: { type: String, required: false },

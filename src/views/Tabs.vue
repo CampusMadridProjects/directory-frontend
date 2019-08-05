@@ -52,9 +52,6 @@
         <v-tab-item id="tabs-startup">
           <Startup :search="search"></Startup>
         </v-tab-item>
-        <v-tab-item id="tabs-organizations">
-          <Organizations :search="search"></Organizations>
-        </v-tab-item>
       </v-tabs-items>
 
       <v-footer>
@@ -295,7 +292,6 @@ a {
 <script>
 import People from '../components/People.vue';
 import Startup from '../components/Startup.vue';
-import Organizations from '../components/Organizations.vue';
 
 function checkChildren(name) {
   const childrenRoutes = ['personDetail', 'startupDetail'];
@@ -337,7 +333,10 @@ function switchTag(name) {
 
 export default {
   name: 'Tabs',
-
+  components: {
+    People,
+    Startup,
+  },
   data: () => ({
     title: 'Campus Directory',
     searching: false,
@@ -356,13 +355,6 @@ export default {
     searchClear,
     trackSearch,
   }),
-
-  components: {
-    People,
-    Startup,
-    Organizations,
-  },
-
   methods: {
     deferPrompt: () => {
       if (window.deferredPrompt !== undefined) {

@@ -9,7 +9,8 @@
       <div class="person-info">
         <v-list-tile-title class="text-xs-left">{{ name }}</v-list-tile-title>
         <v-list-tile-sub-title class="text-xs-left">
-          {{ role }} @
+          {{ role }} 
+          <span v-if="role && company">@</span>
           <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
             {{ company }}
           <!-- </router-link> -->
@@ -18,7 +19,7 @@
         <div class="card-user-info text-xs-left">
           <h4>
             <span v-for="(ability, index) in expertise"
-              :key="ability">{{ (index !== 0) ? '∙ ' + ability : ability }}
+              :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}
             </span>
           </h4>
         </div>
@@ -83,9 +84,9 @@ export default {
     id: { type: String, required: true },
     pic: { type: String, required: true },
     name: { type: String, required: true },
-    role: { type: String, required: true },
-    company: { type: String, required: true },
-    expertise: { type: Array, required: true },
+    role: { type: String, required: false },
+    company: { type: String, required: false },
+    expertise: { type: Array, required: false },
     bio: { type: String, required: false },
     location: { type: String, required: false },
     twitter: { type: String, required: false },

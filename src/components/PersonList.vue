@@ -2,7 +2,7 @@
   <v-list two-line>
     <template v-for="(item) in people">
       <v-list-tile
-        :key="item._id"
+        :key="item.id"
         avatar
         @click="goToPerson(item._id)"
       >
