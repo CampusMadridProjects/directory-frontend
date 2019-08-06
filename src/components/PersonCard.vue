@@ -1,6 +1,5 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
-    <!-- <div @click="show = !show"> -->
     <div @click="goToPerson(id)">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
       </div>
@@ -8,9 +7,8 @@
       <span class="grey--text one-line">
         {{ role }}
         <span v-if="role && company">@</span>
-        <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
-          {{ company }}
-        <!-- </router-link> -->
+        <span v-else>-</span>
+        {{ company }}
       </span>
     </div>
 
@@ -31,6 +29,10 @@
 <style type="text/css">
 .v-card {
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 12px);
+  justify-content: space-between;
   padding: 4px;
   text-align: center;
 }

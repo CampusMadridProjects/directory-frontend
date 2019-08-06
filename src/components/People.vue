@@ -95,9 +95,6 @@ import PersonCard from './PersonCard.vue';
 import PersonCardSmall from './PersonCardSmall.vue';
 import Loading from './Loading.vue';
 
-// If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.localStorage;
-
 export default {
   name: 'People',
   props: {
@@ -191,11 +188,11 @@ export default {
     getJob(person) {
       let job = {};
       if (person.Group && person.Group.length > 0) {
-        job = person.Group[0];
+        [job] = person.Group;
       }
 
       return job;
-    }
+    },
   },
 
   computed: {

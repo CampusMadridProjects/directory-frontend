@@ -64,9 +64,6 @@ a {
 import StartupCard from './StartupCard.vue';
 import Loading from './Loading.vue';
 
-// If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.localStorage;
-
 export default {
   name: 'Startup',
   props: {
@@ -113,7 +110,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('startups/getStartups')
+    this.$store.dispatch('startups/getStartups');
   },
 };
 </script>

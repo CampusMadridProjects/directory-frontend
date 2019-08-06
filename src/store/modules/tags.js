@@ -2,7 +2,7 @@ import axios from 'axios';
 import api from '@/store/helpers/api';
 
 // Inital state
-const state = {
+const initialState = {
   loading: false,
   list: [],
 };
@@ -15,24 +15,30 @@ const getters = {
 // Actions
 const actions = {
   getTags({ commit }) {
-    state.loading = true;
+    commit('loadStart');
 
     axios.get(`${api.url}/tag`)
       .then((response) => {
         commit('setTags', response.data || []);
       })
       .catch((e) => {
-        console.error('Error getting people list');
+        console.error('Error getting tag list');
         console.error(e);
       })
       .finally(() => {
-        state.loading = false;
+        commit('loadEnd');
       });
   },
 };
 
 // Mutations
 const mutations = {
+  loadStart(state) {
+    state.loading = true;
+  },
+  loadEnd(state) {
+    state.loading = false;
+  },
   setTags(state, list) {
     state.list = list;
   },
@@ -41,7 +47,7 @@ const mutations = {
 // Export store
 export default {
   namespaced: true,
-  state,
+  state: initialState,
   getters,
   actions,
   mutations,

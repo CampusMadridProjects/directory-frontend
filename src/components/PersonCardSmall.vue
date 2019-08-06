@@ -9,7 +9,7 @@
       <div class="person-info">
         <v-list-tile-title class="text-xs-left">{{ name }}</v-list-tile-title>
         <v-list-tile-sub-title class="text-xs-left">
-          {{ role }} 
+          {{ role }}
           <span v-if="role && company">@</span>
           <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
             {{ company }}
