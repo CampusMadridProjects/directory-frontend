@@ -3,6 +3,8 @@ import api from '@/store/helpers/api';
 
 // Functions
 function getById(state, id) {
+  console.log(id);
+  console.log(state.list);
   return state.list.find(item => item.id === id);
 }
 function getArrayIndexById(array, id) {

@@ -29,15 +29,15 @@
         }"
       >
         <div class="scroll-container">
-          <div class="text-md-center chip-content px-2">
+          <div class="text-md-center chip-content px-4">
             <span class="mr-2">Filter by: </span>
             <v-chip
-              :key="tag"
-              :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
-              v-for="tag in peopleTags"
-              @click="switchTag(tag)"
+              v-for="tag in $store.state.tags.list"
+              :key="tag.id"
+              :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+              @click="switchTag(tag.name)"
             >
-              {{ tag }}
+              {{ tag.name }}
             </v-chip>
           </div>
         </div>
@@ -46,10 +46,10 @@
 
     <v-content>
       <v-tabs-items v-model="tabs">
-        <v-tab-item id="tabs-people">
+        <v-tab-item value="tabs-people">
           <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
-        <v-tab-item id="tabs-startup">
+        <v-tab-item value="tabs-startup">
           <Startup :search="search"></Startup>
         </v-tab-item>
       </v-tabs-items>
@@ -126,8 +126,8 @@
      background-color: transparent;
 }
 /* - Remove padding in chips*/
-.v-toolbar__content, .v-toolbar__extension {
-  padding: 0;
+>>> .v-toolbar__extension {
+  padding: 0 !important;
 }
 /* --- */
 
@@ -159,7 +159,6 @@ a {
 }
 
 .v-chip {
-  /* background: dark-gray; */
   background: #FFFFFF;
   border: 1px solid #DFE1E5;
   color: #3c3c3c;
@@ -175,10 +174,6 @@ a {
     color: #fff;
   }
 
-/*.chip-container {
-  margin-top: 32px;
-}
-*/
 .application.theme--light {
   background: #FFFFFF;
 }
@@ -225,8 +220,8 @@ a {
   }
 }
 
-/* fixes footer text clickability */
 @media (max-width: 959px) {
+  /* Text clickability */
   .v-footer {
     height: auto !important;
     padding: 16px 0px;
@@ -237,10 +232,7 @@ a {
   footer span {
     padding: 8px;
   }
-
-/*  .chip-container {
-    margin-top: 24px !important;
-  }*/
+  /* End text clickability */
 }
 
 @media (min-width: 959px) {
@@ -320,17 +312,6 @@ function trackSearch(search) {
   this.$ga.event('search', 'search_type', search);
 }
 
-function switchTag(name) {
-  const index = this.tagFilter.indexOf(name);
-  if (index === -1) {
-    this.tagFilter.push(name);
-    this.$ga.event('list_people', 'filter_add', name);
-  } else {
-    this.tagFilter.splice(index, 1);
-    this.$ga.event('list_people', 'filter_remove', name);
-  }
-}
-
 export default {
   name: 'Tabs',
   components: {
@@ -343,19 +324,15 @@ export default {
     tabs: 'tabs-people',
     search: '',
     tagFilter: [],
-    peopleTags: [
-      'Tech', 'Design', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
-    ],
-    switchTag,
     dialog: false,
     tabClicked: null,
+  }),
+  methods: {
     checkChildren,
     searchOpen,
     searchClose,
     searchClear,
     trackSearch,
-  }),
-  methods: {
     deferPrompt: () => {
       if (window.deferredPrompt !== undefined) {
         // let's show the prompt.
@@ -378,9 +355,20 @@ export default {
       // eslint-disable-next-line
       event.stopPropagation();
     },
+    switchTag(name) {
+      const index = this.tagFilter.indexOf(name);
+      if (index === -1) {
+        this.tagFilter.push(name);
+        this.$ga.event('list_people', 'filter_add', name);
+      } else {
+        this.tagFilter.splice(index, 1);
+        this.$ga.event('list_people', 'filter_remove', name);
+      }
+    },
   },
 
   created() {
+    this.$store.dispatch('tags/getTags');
     this.checkChildren(this.$router.currentRoute.name);
     this.deferPrompt();
   },
@@ -390,7 +378,6 @@ export default {
       this.checkChildren(to.name);
     },
     tabs(to) {
-      console.log(this.tabs);
       // Clean tab name
       const tab = to.replace('tabs-', '');
 

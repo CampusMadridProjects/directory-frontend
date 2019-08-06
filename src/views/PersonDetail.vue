@@ -22,19 +22,21 @@
       <div class="headline text-xs-center">{{ data.name }}</div>
       <div class="text-xs-center">
         <span class="grey--text one-line text-xs-center">
-          {{ data.role }} @
+          {{ job.role }}
+          <span v-if="job.role && job.name">@</span>
+          <span v-else>-</span>
           <span
-            v-if="data.company_id"
-            @click="$ga.event('person_detail', 'view_startup', data.company_id)"
+            v-if="job.id"
+            @click="$ga.event('person_detail', 'view_startup', job.id)"
           >
-            <router-link :to="{name: 'startupDetail', params: {id: data.company_id}}">
-              {{ data.company }}
+            <router-link :to="{name: 'startupDetail', params: {id: job.id}}">
+              {{ job.name }}
             </router-link>
           </span>
           <span v-else>
           <!-- @click="$ga.event('person_detail', 'view_org', data.company_id)"> -->
             <!-- <router-link :to="{name: 'orgDetail', params: {id: data.company_id}}"> -->
-              {{ data.company }}
+              {{ job.name }}
             <!-- </router-link> -->
           </span>
         </span>
@@ -120,6 +122,7 @@
   border-radius: 0 !important;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  height: auto;
 }
 
 .card-user-pic {
@@ -164,65 +167,41 @@
 
 
 <script>
-// ToDo (@CodingCarlos):
-// A better way to manage the ID discovery
-
-// If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.localStorage;
-
-function getStorage() {
-  let list = storage.getItem('people-list');
-  try {
-    list = JSON.parse(list);
-  } catch (e) {
-    list = [];
-  }
-
-  return list;
-}
-
-function searchPerson(list, id) {
-  for (let i = list.length - 1; i >= 0; i -= 1) {
-    if (list[i]._id === id) {
-      return list[i];
-    }
-  }
-
-  return null;
-}
-
-function getData() {
-  const { id } = this.$router.currentRoute.params;
-  const data = getStorage();
-
-  const gottenData = searchPerson(data, id);
-
-  // Check organizaion or startup
-  if (gottenData.company_id.indexOf('org') > -1) {
-    gottenData.company_id = null;
-  }
-
-  this.id = id;
-  this.data = gottenData;
-}
-
 export default {
   name: 'PersonDetail',
-
   data: () => ({
     loading: true,
     id: null,
     data: {},
-    getData,
   }),
+  computed: {
+    job() {
+      let job = {};
+      if (this.data.Group && this.data.Group.length > 0) {
+        [job] = this.data.Group;
+      }
+
+      return job;
+    },
+  },
   methods: {
     slackUrl(id) {
       const team = process.env.VUE_APP_SLACK_ID;
       return `slack://user?team=${team}&id=${id}`;
     },
+    getData() {
+      this.data = this.$store.getters['people/getById'](this.id);
+      this.loading = false;
+    },
   },
   created() {
-    this.getData();
+    this.id = this.$router.currentRoute.params.id;
+
+    if (this.$store.state.people.list.length > -1) {
+      this.getData();
+    } else {
+      this.$store.dispatch('people/getPeople').then(this.getData);
+    }
   },
 };
 </script>

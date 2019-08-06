@@ -4,7 +4,7 @@
       <v-list-tile
         :key="item.id"
         avatar
-        @click="goToPerson(item._id)"
+        @click="goToPerson(item.id)"
       >
         <v-list-tile-avatar>
           <img :src="item.pic || '/img/nopic.png'">

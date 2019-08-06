@@ -1,10 +1,11 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
     <div @click="goToStartup(id)">
-      <v-card-media
+      <v-img
         :height="cardHeight"
         :src="logo"
-      ></v-card-media>
+        contain
+      ></v-img>
 
       <v-card-title primary-title>
         <h3 class="headline mb-0">{{ name }}</h3>

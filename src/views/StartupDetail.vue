@@ -33,10 +33,10 @@
 
     <v-card-text>
       <v-subheader v-if="data.bio">What do they do?</v-subheader>
-      <div class="mb-4 mx-5">{{ data.description }}</div>
+      <div class="mb-4 mx-5">{{ data.bio }}</div>
 
       <div class="startup-card-social-icons">
-        <a v-if="data.twitter"
+        <a v-if="data.twitter && data.twitter !== 'undefined'"
           :href="data.twitter"
           target="_blank"
           class="startup-card-social-icon"
@@ -44,7 +44,7 @@
         >
           <img src="img/twitter_64.png" alt="twitter" />
         </a>
-        <a v-if="data.linkedin"
+        <a v-if="data.linkedin && data.linkedin !== 'undefined'"
           :href="data.linkedin"
           target="_blank"
           class="startup-card-social-icon"
@@ -54,9 +54,12 @@
         </a>
       </div>
 
-      <div class="startup-employees">
+      <div
+        v-if="data.persons && data.persons.length > 0"
+        class="startup-employees"
+      >
         <v-subheader>Who's there?</v-subheader>
-        <person-list :people="data.employees" event-category="startup_detail"></person-list>
+        <person-list :people="data.persons" event-category="startup_detail"></person-list>
       </div>
     </v-card-text>
 
@@ -69,6 +72,7 @@
   border-radius: 0 !important;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  height: auto;
 }
 
 .startup-logo {
@@ -114,58 +118,33 @@
 </style>
 
 <script>
-// ToDo (@CodingCarlos):
-// A better way to manage the ID discovery
-
 import PersonList from '../components/PersonList.vue';
-
-// If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.localStorage;
-
-function getStorage() {
-  let list = storage.getItem('startup-list');
-  try {
-    list = JSON.parse(list);
-  } catch (e) {
-    list = [];
-  }
-
-  return list;
-}
-
-function searchStartup(list, id) {
-  for (let i = list.length - 1; i >= 0; i -= 1) {
-    if (list[i]._id === id) {
-      return list[i];
-    }
-  }
-
-  return null;
-}
-
-function getData() {
-  const { id } = this.$router.currentRoute.params;
-  const data = getStorage();
-
-  this.id = id;
-  this.data = searchStartup(data, id);
-}
 
 export default {
   name: 'StartupDetail',
+  components: {
+    PersonList,
+  },
   data: () => ({
     loading: true,
     id: null,
     data: {},
-    getData,
   }),
-
-  created() {
-    this.getData();
+  methods: {
+    getData() {
+      this.data = this.$store.getters['startups/getById'](this.id);
+      this.loading = false;
+      console.log(this.data);
+    },
   },
+  created() {
+    this.id = this.$router.currentRoute.params.id;
 
-  components: {
-    PersonList,
+    if (this.$store.state.people.list.length > -1) {
+      this.getData();
+    } else {
+      this.$store.dispatch('startups/getStartups').then(this.getData);
+    }
   },
 };
 </script>

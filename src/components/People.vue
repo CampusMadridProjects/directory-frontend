@@ -135,8 +135,16 @@ export default {
       }
 
       return list.filter((person) => {
+        let clearTags = [];
+        if (person.Tag) {
+          clearTags = person.Tag.map(item => item.name);
+        }
+
+        console.log(categories);
+        console.log(clearTags);
+
         for (let i = 0; i < categories.length; i += 1) {
-          if (!person.expertise || !this.inArray(person.expertise, categories[i])) {
+          if (!clearTags || !this.inArray(clearTags, categories[i])) {
             return false;
           }
         }
