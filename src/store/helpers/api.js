@@ -1,5 +1,5 @@
 function getUrl() {
-  return window.location.origin + '/api'
+  return `${window.location.origin}/api`;
 }
 
 export default {

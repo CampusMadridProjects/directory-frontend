@@ -186,8 +186,10 @@ export default {
   },
   methods: {
     slackUrl(id) {
-      const team = process.env.VUE_APP_SLACK_ID;
-      return `slack://user?team=${team}&id=${id}`;
+      const team = process.env.VUE_APP_SLACK_TEAM;
+      return `https://${team}.slack.com/team/${id}`;
+      // const team = process.env.VUE_APP_SLACK_ID;
+      // return `slack://user?team=${team}&id=${id}`;
     },
     getData() {
       this.data = this.$store.getters['people/getById'](this.id);
