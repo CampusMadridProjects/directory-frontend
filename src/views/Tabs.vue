@@ -1,11 +1,10 @@
 <template>
   <v-app>
     <v-toolbar extended app>
-       <img src="img/logo.png" style="height: 26px;"> 
+       <img src="img/logo.png" style="height: 21px;padding-right: 16px;"> 
 
       <v-text-field
         prepend-inner-icon="search"
-        class="mx-3"
         hide-details
         flat
         solo
@@ -17,6 +16,9 @@
         @click:clear="searchClear()"
       ></v-text-field>
 
+        <v-btn color="primary">
+            <v-icon left>add</v-icon>Add Profile
+        </v-btn>
 
       <!-- filter chips -->
       <v-container
@@ -56,43 +58,34 @@
           <Organizations :search="search"></Organizations>
         </v-tab-item>
       </v-tabs-items>
-
-      <v-footer>
-        <span>
-          Made with ❤ in
-          <a href="https://www.campus.co/madrid/">
-            Google for Startups Campus
-          </a>.
-        </span>
-        <span>
-          Feedback? Something to say?
-          <a href="mailto:hola@codingcarlos.com" target="_blank">
-            Tell us!
-          </a>
-        </span>
-      </v-footer>
     </v-content>
 
     <v-bottom-nav
       :active.sync="tabs"
       :value="true"
-      fixed
     >
       <v-btn
         flat
         value="tabs-people"
       >
-        <span>People</span>
+        <!-- <span>People</span> -->
         <v-icon>person</v-icon>
       </v-btn>
 
       <v-btn
-        text="#f00"
         flat
         value="tabs-startup"
       >
-        <span>Startups</span>
+        <!-- <span>Startups</span> -->
         <v-icon>group</v-icon>
+      </v-btn>
+      
+      <v-btn
+        flat
+        value="tabs-more"
+      >
+        <!-- <span>Startups</span> -->
+        <v-icon>menu</v-icon>
       </v-btn>
 
     </v-bottom-nav>
@@ -116,18 +109,19 @@
   </v-app>
 </template>
 
-<style>
-    .v-toolbar__extension {
-      height: 56px !important;
-    }
-</style>
-
 <style scoped>
+    
+.v-input__slot {
+    background: #e0e0e0;
+}
 
 .v-bottom-nav {
     box-shadow: none;
     border-top: 1px solid #DFE1E5;
 }
+    .v-bottom-nav .v-btn:hover {
+        background: transparent !important;
+    }
 
 /* - Remove grey color in bottom nav when pressed */
 .v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
@@ -159,7 +153,6 @@ footer {
 .v-toolbar {
   background-color: #FFF;
   box-shadow: none;
-  border-bottom: 1px solid #efefef;
 }
 
 a {
@@ -188,7 +181,7 @@ a {
 }
 */
 .application.theme--light {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 .v-toolbar__extension {
@@ -196,7 +189,7 @@ a {
 }
 
 .theme--light .v-text-field--solo .v-input__slot {
-  background: #0000000f;
+  background: #e0e0e0;
   border-radius: 50px;
 }
 
@@ -212,9 +205,6 @@ a {
 
 /* bigger-chips-mobile */
 @media only screen and (max-width: 768px) {
-  .v-text-field.v-text-field--solo .v-input__control {
-    min-height: 36px;
-  }
 
   .scroll-container {
     overflow-x: scroll;
@@ -235,6 +225,7 @@ a {
 
 /* fixes footer text clickability */
 @media (max-width: 959px) {
+    
   .v-footer {
     height: auto !important;
     padding: 16px 0px;
@@ -246,6 +237,14 @@ a {
     padding: 8px;
   }
 
+    .v-toolbar .v-btn {
+        display: none;
+    }
+    
+    .v-toolbar img {
+        display: none;
+    }
+    
 /*  .chip-container {
     margin-top: 24px !important;
   }*/
@@ -260,18 +259,37 @@ a {
     display: inline-block;
     margin: 0 2px;
   }
+    .v-text-field {
+        margin: 0px 16px;
+    }
 }
 </style>
 
 <style>
 
+.v-toolbar__extension {
+  height: 56px !important;
+}
+.v-btn {
+    font-size: 16px;
+    height: 45px;
+    box-shadow: none !important;
+}
+    .v-btn:hover {
+        background: #174ea6 !important;
+    }
+.v-input__slot{
+    background: #e0e0e0 !important;
+}
+    
 /* check how to add primary color */
 .v-btn--active {
     color: #4285F4 !important;
 }
 
 .v-input--is-focused .v-input__slot {
-    box-shadow: 0px 4px 24px 8px rgba(0,0,0,0.1);
+    border: 1px solid grey;
+    background: #ffffff !important;
 }
 
 .no-underline {
@@ -285,6 +303,7 @@ a {
 .v-input__slot {
     border-radius: 50px;
     border: 1px solid #dfe1e5;
+    background: #e0e0e0;
 }
 
 .v-input__icon i {
@@ -293,6 +312,35 @@ a {
 
 .v-text-field .v-input__prepend-inner {
     padding-right: 8px;
+}
+    
+@media (max-width: 959px) {
+    
+    main {
+        padding: 96px 0px 0px !important;
+    }
+    
+    .v-input__slot {
+        border-radius: 4px !important;
+        min-height: 40px;
+    }
+    
+    .v-toolbar__content, .v-toolbar__extension {
+        padding: 0px 8px;
+    }
+    
+    .v-toolbar__extension {
+        height: 32px !important;
+    }
+    
+    input {
+        color: #8E8E93 !important;
+    }
+    
+    .v-input__slot {
+        background: #f5f5f5;
+    }
+    
 }
 
 </style>
