@@ -1,7 +1,7 @@
 <template>
   <v-card light class="full-size">
     <v-toolbar>
-      <v-btn icon @click="$router.back();">
+      <v-btn fab @click="$router.replace('/directory');">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title></v-toolbar-title>

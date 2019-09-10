@@ -54,6 +54,9 @@
         <v-tab-item value="tabs-startup">
           <Startup :search="search"></Startup>
         </v-tab-item>
+        <v-tab-item value="tabs-more">
+          MAS COSAS AQUI. CREAR UN COMPONENTE.
+        </v-tab-item>
       </v-tabs-items>
     </v-content>
 
@@ -89,7 +92,7 @@
 
     </v-bottom-nav>
 
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-dialog v-model="dialog" transition="dialog-bottom-transition" persistent>
       <router-view name="dialog"></router-view>
     </v-dialog>
 
@@ -197,8 +200,26 @@ a {
   text-align: center;
 }
 
+>>> .v-dialog {
+  background: #FFFFFF;
+  border-radius: 0;
+  margin: 0;
+  height: 100%;
+  max-height: 100%;
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: 360px;
+}
+
 /* bigger-chips-mobile */
 @media only screen and (max-width: 768px) {
+
+  >>> .v-dialog {
+    width: 100%;
+  }
 
   .scroll-container {
     overflow-x: scroll;
