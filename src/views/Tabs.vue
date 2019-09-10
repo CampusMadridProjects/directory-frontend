@@ -58,8 +58,10 @@
     </v-content>
 
     <v-bottom-nav
+      class="desktop-horizontal"
       :active.sync="tabs"
       :value="true"
+      fixed
     >
       <v-btn
         flat
@@ -242,6 +244,20 @@ a {
 }
 
 @media (min-width: 959px) {
+
+  .desktop-horizontal {
+    flex-direction: column;
+    height: calc(100% - 119px) !important;
+    left: 0;
+    position: fixed;
+    top: 119px;
+    width: 56px;
+  }
+
+  >>> .v-window__container {
+    margin-left: 64px !important;
+  }
+
   footer {
     flex-direction: row !important;
   }
