@@ -260,8 +260,9 @@ a {
 
 <style>
 
+/* check how to add primary color */
 .v-btn--active {
-    color: #d48ded !important;
+    color: #4285F4 !important;
 }
 
 .v-input--is-focused .v-input__slot {
