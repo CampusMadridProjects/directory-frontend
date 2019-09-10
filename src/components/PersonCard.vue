@@ -5,8 +5,8 @@
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
       </div>
       <div class="headline">{{ name }}</div>
-      <span class="grey--text one-line">
-        {{ role }} @
+      <span class="one-line">
+        {{ role }} at
         <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
           {{ company }}
         <!-- </router-link> -->
@@ -20,7 +20,7 @@
             :key="ability">{{ (index !== 0) ? ', ' + ability : ability }}
           </span>
         </h4>
-        <span class="grey--text">{{ location }}</span>
+        <span>{{ location }}</span>
       </div>
     </v-card-title>
 
@@ -42,12 +42,31 @@
 
 
 <style type="text/css">
-.v-card {
-  border-radius: 8px;
-  padding: 4px;
-  text-align: center;
-}
-
+    .v-card {
+      border-radius: 8px;
+      padding: 4px;
+        padding-bottom: 8px !important;
+      text-align: left;
+    }
+    
+    .v-card .headline, .v-card .one-line {
+        padding: 0px 24px;
+    }
+    
+    /* is probably somewhere else */
+    .card-user-info {
+        text-align: left !important;
+    }
+    
+    .v-card__title--primary {
+        padding: 8px 24px;
+    }
+    
+    .headline {
+        font-size: 21px;
+        font-weight: bold !important;
+    }
+    
 .v-card__media__content {
   padding: 16px 8px 8px 8px;
   text-align: center;
@@ -110,17 +129,17 @@
 }
 
 .light-border {
-  border: 1px solid #f3f3f3;
+  border: 1px solid #eaeaea;
   border-radius: 6px;
 }
 
 /* more spread, low contrast */
 .custom-hover:hover {
-  box-shadow: 0 4px 12px 0px rgba(0,0,0,.108) !important;
+  box-shadow: 0 4px 8px 0px rgba(0,0,0,.10) !important;
 }
 
 .box-shadow {
-  box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04) !important;
+  box-shadow: 0px 8px 8px 2px rgba(0,0,0,0.08) !important;
 }
 
 .v-card {
