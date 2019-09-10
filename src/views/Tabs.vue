@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar extended app>
-      <!-- <img src="img/logo.png" style="height: 26px;"> -->
+       <img src="img/logo.png" style="height: 26px;"> 
 
       <v-text-field
         prepend-inner-icon="search"
@@ -12,7 +12,7 @@
         v-model="search"
         clearable
         color="#F5F5F5"
-        placeholder="Search Campus"
+        placeholder="Try RatedPower, Andrea or UX"
         @keyup="trackSearch(search)"
         @click:clear="searchClear()"
       ></v-text-field>
@@ -116,6 +116,11 @@
   </v-app>
 </template>
 
+<style>
+    .v-toolbar__extension {
+      height: 56px !important;
+    }
+</style>
 
 <style scoped>
 
@@ -173,9 +178,9 @@ a {
   }
 
   .v-chip.active {
-    background-color: #d48ded;
-    border-color: #d48ded;
-    color: #fff;
+    background-color: rgba(66, 133, 244, 0.16);
+    border-color: #4285F4;
+    color: #4285F4;
   }
 
 /*.chip-container {
