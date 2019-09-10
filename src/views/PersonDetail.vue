@@ -1,7 +1,7 @@
 <template>
   <v-card light class="full-size">
     <v-toolbar>
-      <v-btn icon @click="$router.back();">
+      <v-btn fab @click="$router.back();">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
@@ -10,7 +10,9 @@
           target="_blank"
           class="no-underline"
         >
-          <v-btn flat color="primary">Update this profile</v-btn>
+            <v-btn fab>
+              <v-icon>more</v-icon>
+            </v-btn>
         </a>
     </v-toolbar>
 
@@ -57,21 +59,21 @@
     <v-card-text>
       {{ data.bio }}
       <div class="mb-3">
-        <v-btn color="primary" large v-if="data.slack"
+        <v-btn color="primary" x-large v-if="data.slack"
           :href="slackUrl(data.slack)"
           target="_blank"
           @click="$ga.event('person_detail', 'connect', data._id)"
         >
           Connect
         </v-btn>
-        <v-btn color="primary" large v-else-if="data.linkedin"
+        <v-btn color="primary" x-large v-else-if="data.linkedin"
           :href="data.linkedin"
           target="_blank"
           @click="$ga.event('person_detail', 'connect', data._id)"
         >
           Connect
         </v-btn>
-        <v-btn color="primary" large v-else-if="data.twitter"
+        <v-btn color="primary" x-large v-else-if="data.twitter"
           :href="data.twitter"
           target="_blank"
           @click="$ga.event('person_detail', 'connect', data._id)"
@@ -162,6 +164,22 @@
   .v-toolbar__extension>:first-child.v-btn--icon {
     margin-left: 0px;
   }
+    nav {
+        margin-bottom: -64px;
+    }
+    
+    .v-toolbar .v-btn {
+        background: rgba(0, 0, 0, 0.4) !important;
+        color: white !important;
+    }
+    
+    .v-btn--floating {
+        width: 45px;
+    }
+    
+    .v-card-text .v-btn {
+        width: 100%;
+    }
 }
 </style>
 
