@@ -83,6 +83,10 @@ a {
   flex-wrap: wrap;
 }
 
+    .card-grid-item {
+        display: flex;
+    }
+    
 .card-grid-item-card {
   margin: 6px;
 }

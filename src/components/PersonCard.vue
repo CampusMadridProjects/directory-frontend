@@ -80,10 +80,10 @@
   }
 }
 
-/* In long-desktop, we have four columns */
+/* In long-desktop, we have five columns */
 @media (min-width: 1264px) {
   .card-user-pic {
-    height: calc(25vw - 80px);
+    height: calc(20vw - 80px);
   }
 }
 
