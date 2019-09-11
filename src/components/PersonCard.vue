@@ -1,15 +1,17 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover">
+  <v-card light :hover="true" class="box-shadow light-border custom-hover card-elements">
     <div @click="goToPerson(id)">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
       </div>
-      <div class="headline">{{ name }}</div>
-      <span class="one-line">
-        {{ role }}
-        <span v-if="role && company">@</span>
-        <span v-else>-</span>
-        {{ company }}
-      </span>
+      <div style="padding: 8px 24px;">
+        <div class="headline">{{ name }}</div>
+        <span class="one-line">
+          {{ role }}
+          <span v-if="role && company">@</span>
+          <span v-else>-</span>
+          {{ company }}
+        </span>
+      </div>
     </div>
 
     <v-card-title primary-title>
@@ -30,17 +32,20 @@
     .v-card {
       border-radius: 8px;
       padding: 4px;
-        padding-bottom: 8px !important;
+      padding-bottom: 8px !important;
       text-align: left;
+      width: 100%;
     }
     
-    .v-card .headline, .v-card .one-line {
-        padding: 0px 24px;
+    .card-elements {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    
-    /* is probably somewhere else */
+
     .card-user-info {
-        text-align: left !important;
+      text-align: left;
+      width: 100%;
     }
     
     .v-card__title--primary {
@@ -92,11 +97,6 @@
   .card-user-pic {
     height: calc(16vw);
   }
-}
-
-.card-user-info {
-  text-align: center;
-  width: 100%;
 }
 
 .person-card-social-icons {

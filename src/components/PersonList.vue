@@ -7,7 +7,7 @@
         @click="goToPerson(item.id)"
       >
         <v-list-tile-avatar>
-          <img :src="item.pic || '/img/nopic.png'">
+          <img :src="item.pic || '/img/nopic.png'" class="fit">
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title v-html="item.name"></v-list-tile-title>
@@ -24,6 +24,10 @@
   min-height: 0;
   min-width: 0;
   padding: 16px;
+}
+
+.fit {
+  object-fit: cover;
 }
 </style>
 

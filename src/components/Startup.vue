@@ -15,9 +15,12 @@
     </p>
   </v-container>
   <v-container class="card-grid" v-else>
-    <v-flex xs12 sm6 md4 lg3 xl2 class="card-grid-item"
+    <v-flex
+      xs12 sm6 md4 lg3 xl2
+      class="card-grid-item"
       v-for="startup in this.filterStartup(search)"
-      :key="startup._id">
+      :key="startup._id"
+    >
       <startup-card class="card-grid-item-card"
         :id="startup.id"
         :name="startup.name"
@@ -33,17 +36,21 @@
 h1, h2 {
   font-weight: normal;
 }
+
 img.illustration {
   max-width: 250px;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
 }
+
 a {
   color: #42b983;
 }
@@ -54,8 +61,26 @@ a {
   flex-wrap: wrap;
 }
 
+    .card-grid-item {
+        display: flex;
+    }
+    
 .card-grid-item-card {
   margin: 6px;
+}
+
+/* adds additional space for 1 more card in wide screens */
+@media screen and (min-width: 1264px){
+    .container {
+        max-width: 1300px;
+    }
+    .flex.lg2 {
+        flex-basis: 20%;
+        max-width: 20%;
+    }
+    .card-user-pic {
+        height: calc(20vw - 80px);
+    }
 }
 </style>
 

@@ -34,6 +34,14 @@
     <v-card-text>
       <v-subheader v-if="data.bio">What do they do?</v-subheader>
       <div class="mb-4 mx-5">{{ data.bio }}</div>
+      <a
+        v-if="data.website"
+        :href="link(data.website)"
+        target="_blank"
+        class="mb-4 mx-5"
+      >
+        {{ data.website }}
+      </a>
 
       <div class="startup-card-social-icons">
         <a v-if="data.twitter && data.twitter !== 'undefined'"
@@ -136,6 +144,13 @@ export default {
       this.loading = false;
       console.log(this.data);
     },
+    link(url) {
+      if (url.toLowerCase().indexOf('http') === -1) {
+        return `https://${url}`;
+      }
+
+      return url;
+    }
   },
   created() {
     this.id = this.$router.currentRoute.params.id;
