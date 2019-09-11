@@ -32,7 +32,7 @@
       >
         <div class="scroll-container">
           <div class="text-md-center chip-content px-4">
-            <span class="mr-2">Filter by: </span>
+            <span class="mr-2 d-sm-none d-lg-flex">Filter by: </span>
             <v-chip
               v-for="tag in $store.state.tags.list"
               :key="tag.id"
@@ -259,6 +259,11 @@ a {
         display: none;
     }
     
+    /* this native vuetify class should be hiding the element in mobile, but its not working for no reasong, so i'm adding it here for the moment */
+    .d-sm-none {
+        display: none;
+    }
+    
 /*  .chip-container {
     margin-top: 24px !important;
   }*/
@@ -268,12 +273,21 @@ a {
 
   .desktop-horizontal {
     flex-direction: column;
-    height: calc(100% - 119px) !important;
+    /* height: calc(100% - 119px) !important; */
     left: 0;
     position: fixed;
     top: 119px;
-    width: 56px;
+    width: auto;
   }
+    
+    .v-item-group.v-bottom-nav .v-btn {
+        max-height: 56px;
+    }
+    
+    /* removes borde from vertical nav */
+    .v-bottom-nav {
+        border: none;
+    }
 
   >>> .v-window__container {
     margin-left: 64px !important;
