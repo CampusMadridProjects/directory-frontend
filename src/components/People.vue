@@ -22,8 +22,8 @@
       xs12 sm6 md4 lg2 xl2
       class="card-grid-item"
       v-for="person in this.filterPeople(search, filter)"
-      :key="person._id">
-
+      :key="person._id"
+    >
       <person-card-small class="card-grid-item-card hidden-md-and-up"
         :id="person.id"
         :name="person.name"

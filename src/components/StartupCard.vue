@@ -5,6 +5,7 @@
         :height="cardHeight"
         :src="logo"
         contain
+        class="card-user-pic"
       ></v-img>
 
       <v-card-title primary-title>
