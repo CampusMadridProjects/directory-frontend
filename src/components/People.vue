@@ -19,7 +19,7 @@
   </v-container>
   <v-container class="card-grid" v-else>
     <v-flex
-      xs12 sm6 md4 lg3 xl2
+      xs12 sm6 md4 lg2 xl2
       class="card-grid-item"
       v-for="person in this.filterPeople(search, filter)"
       :key="person._id">
@@ -54,7 +54,6 @@
   </v-container>
 </template>
 
-
 <style scoped>
 h1, h2 {
   font-weight: normal;
@@ -87,8 +86,21 @@ a {
 .card-grid-item-card {
   margin: 6px;
 }
-</style>
 
+/* adds additional space for 1 more card in wide screens */
+@media screen and (min-width: 1264px){
+    .container {
+        max-width: 1300px;
+    }
+    .flex.lg2 {
+        flex-basis: 20%;
+        max-width: 20%;
+    }
+    .card-user-pic {
+        height: calc(20vw - 80px);
+    }
+}
+</style>
 
 <script>
 import PersonCard from './PersonCard.vue';
