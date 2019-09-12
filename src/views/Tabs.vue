@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar extended app>
+    <v-toolbar :extended="hasFilters" app>
        <img src="img/logo.png" style="height: 21px;padding-right: 16px;"> 
 
       <v-text-field
@@ -22,6 +22,7 @@
 
       <!-- filter chips -->
       <v-container
+        v-if="hasFilters"
         slot="extension"
         fluid
         class="px-0 ma-0 chip-container"
@@ -31,7 +32,7 @@
         }"
       >
         <div class="scroll-container">
-          <div class="text-md-center chip-content px-4">
+          <div class="text-md-center chip-content px-2">
             <span class="mr-2 d-sm-none d-lg-flex">Filter by: </span>
             <v-chip
               v-for="tag in $store.state.tags.list"
@@ -46,7 +47,7 @@
       </v-container>
     </v-toolbar>
 
-    <v-content>
+    <v-content :class="hasFilters ? '' : 'no-extended'">
       <v-tabs-items v-model="tabs">
         <v-tab-item value="tabs-people">
           <People :search="search" :filter="tagFilter"></People>
@@ -284,12 +285,17 @@ a {
     border-radius: 0px 50px 50px 0px;
 }
 
-  .desktop-horizontal {
+  >>> .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+    min-height: auto;
+  }
+
+  .desktop-horizontal[style] {
     flex-direction: column;
-    /* height: calc(100% - 119px) !important; */
+    height: calc(100% - 64px) !important; 
     left: 0;
     position: fixed;
-    top: 124px;
+    top: 64px;
+    justify-content: flex-start;
     width: 116px !important;
   }
     
@@ -305,7 +311,7 @@ a {
     }
 
   >>> .v-window__container {
-    margin-left: 56px !important;
+    margin-left: 94px !important;
   }
 
   footer {
@@ -326,6 +332,10 @@ a {
     
     .v-content {
         padding: 100px 0px 0px !important;
+    }
+
+    .v-content.no-extended {
+        padding: 64px 0px 0px !important;
     }
     
     .v-item-group.v-bottom-nav .v-btn {
@@ -461,6 +471,11 @@ export default {
     dialog: false,
     tabClicked: null,
   }),
+  computed: {
+    hasFilters() {
+      return this.tabs === 'tabs-people'
+    },
+  },
   methods: {
     checkChildren,
     searchOpen,
