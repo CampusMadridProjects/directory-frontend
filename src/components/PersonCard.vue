@@ -1,26 +1,30 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover card-elements">
+  <v-card light :hover="true" class="box-shadow light-border custom-hover card-elements ellipsis">
     <div @click="goToPerson(id)">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
       </div>
       <div style="padding: 8px 24px;">
-        <div class="headline">{{ name }}</div>
-        <span class="one-line">
-          {{ role }}
-          <span v-if="role && company">@</span>
-          <span v-else>-</span>
-          {{ company }}
-        </span>
+        <div class="headline ellipsis">{{ name }}</div>
+        <div class="ellipsis">
+            <span class="one-line">
+              {{ role }}
+              <span v-if="role && company">@</span>
+              <span v-else>-</span>
+              {{ company }}
+            </span>
+        </div>
       </div>
     </div>
 
     <v-card-title primary-title>
       <div class="card-user-info">
-        <h4>
+        <h4 class="ellipsis">
+         <v-icon size="14" class="mr-1">forum</v-icon>
           <span v-for="(ability, index) in expertise"
             :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}
           </span>
         </h4>
+        <v-icon size="14" class="mr-1">location_city</v-icon>
         <span>{{ location }}</span>
       </div>
     </v-card-title>
@@ -32,7 +36,6 @@
     .v-card {
       border-radius: 8px;
       padding: 4px;
-      padding-bottom: 8px !important;
       text-align: left;
       width: 100%;
     }
@@ -68,7 +71,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: calc(100vw - 32px);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 /* In tablet, we have two columns */
