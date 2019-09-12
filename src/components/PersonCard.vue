@@ -56,7 +56,7 @@
     }
     
     .headline {
-        font-size: 21px;
+        font-size: 21px !important;
         font-weight: bold !important;
     }
     
