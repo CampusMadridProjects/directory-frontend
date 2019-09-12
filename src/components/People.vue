@@ -111,6 +111,17 @@ import PersonCard from './PersonCard.vue';
 import PersonCardSmall from './PersonCardSmall.vue';
 import Loading from './Loading.vue';
 
+function inGroups(groups, val) {
+  for (let i = 0; i < groups.length; i += 1) {
+    const group = groups[i];
+    if (group && group.name && group.name.toUpperCase().indexOf(val.toUpperCase()) > -1) {
+      return true
+    }
+  }
+
+  return false;
+}
+
 export default {
   name: 'People',
   props: {
@@ -183,8 +194,9 @@ export default {
         if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
           || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
           || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
-          || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
-          || (person.expertise && this.inArray(person.expertise, safeSearch))
+          || (person.Group && inGroups(person.Group, safeSearch))
+          // || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
+          // || (person.expertise && this.inArray(person.expertise, safeSearch))
         ) {
           found = true;
         }
