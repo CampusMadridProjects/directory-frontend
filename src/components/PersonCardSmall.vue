@@ -16,12 +16,12 @@
           <!-- </router-link> -->
         </v-list-tile-sub-title>
 
-        <div class="card-user-info text-xs-left">
-          <h4>
+        <div class="card-user-info text-xs-left ellipsis">
+          <h5 class="ellipsis">
+           <v-icon size="14" class="mr-1">forum</v-icon>
             <span v-for="(ability, index) in expertise"
-              :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}
-            </span>
-          </h4>
+              :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
+          </h5>
         </div>
       </div>
     </v-list-tile>
@@ -29,6 +29,11 @@
 </template>
 
 <style scoped>
+    
+    .v-list__tile__title {
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
 
 .custom-hover:hover {
     box-shadow: none !important;
@@ -55,7 +60,8 @@
 
 .v-list__tile {
   height: auto;
-  padding: 8px 16px;
+    min-height: 96px;
+  padding: 0px 16px;
 }
 
 .v-list__tile__title {
