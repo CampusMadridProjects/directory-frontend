@@ -88,7 +88,9 @@ a {
     }
     
 .card-grid-item-card {
-  margin: 6px;
+    margin: 6px;
+    padding-bottom: 8px;
+    border: 1px solid #eaeaea;
 }
 
 /* adds additional space for 1 more card in wide screens */
@@ -104,6 +106,16 @@ a {
         height: calc(20vw - 80px);
     }
 }
+    
+    @media screen and (max-width: 959px) {
+        .card-grid-item-card {
+          margin: 0px;
+            border: 0px;
+        }
+        .container {
+            padding: 0px;
+        }
+    }
 </style>
 
 <script>
