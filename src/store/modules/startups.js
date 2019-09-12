@@ -31,7 +31,7 @@ const actions = {
   getStartups({ commit }) {
     commit('loadStart');
 
-    axios.get(`${api.url}/group`)
+    return axios.get(`${api.url}/group`)
       .then((response) => {
         commit('setStartups', response.data || []);
       })
