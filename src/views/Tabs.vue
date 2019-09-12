@@ -55,7 +55,7 @@
           <Startup :search="search"></Startup>
         </v-tab-item>
         <v-tab-item value="tabs-more">
-          MAS COSAS AQUI. CREAR UN COMPONENTE.
+            <More></More>
         </v-tab-item>
       </v-tabs-items>
     </v-content>
@@ -176,6 +176,14 @@ a {
     border-color: #4285F4;
     color: #4285F4;
   }
+    
+>>> .v-chip.active:focus .v-chip__content {
+    background: #e3e8fd;
+}
+
+>>> .v-chip:focus .v-chip__content {
+    background: #fff;
+}
 
 .application.theme--light {
   background: #ffffff;
@@ -270,18 +278,25 @@ a {
 }
 
 @media (min-width: 959px) {
+    
+.v-item-group.v-bottom-nav .v-btn--active {
+    background: rgba(66, 133, 244, 0.16) !important;
+    border-radius: 0px 50px 50px 0px;
+}
 
   .desktop-horizontal {
     flex-direction: column;
     /* height: calc(100% - 119px) !important; */
     left: 0;
     position: fixed;
-    top: 119px;
-    width: auto;
+    top: 124px;
+    width: 116px !important;
   }
     
     .v-item-group.v-bottom-nav .v-btn {
         max-height: 56px;
+        padding: 16px 0px;
+        border-radius: 0px 50px 50px 0px;
     }
     
     /* removes borde from vertical nav */
@@ -290,7 +305,7 @@ a {
     }
 
   >>> .v-window__container {
-    margin-left: 64px !important;
+    margin-left: 56px !important;
   }
 
   footer {
@@ -308,6 +323,23 @@ a {
 </style>
 
 <style>
+    
+    .v-content {
+        padding: 100px 0px 0px !important;
+    }
+    
+    .v-item-group.v-bottom-nav .v-btn {
+        padding: 0px;
+    }
+    
+    .v-item-group.v-bottom-nav .v-btn--active {
+        padding: 0px;
+    }
+    
+.v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+    font-size: 14px;
+    min-height: 48px;
+}
 
 .v-toolbar__extension {
   height: 56px !important;
@@ -320,9 +352,6 @@ a {
     .v-btn:hover {
         background: #174ea6 !important;
     }
-.v-input__slot{
-    background: #e0e0e0 !important;
-}
     
 /* check how to add primary color */
 .v-btn--active {
@@ -330,8 +359,8 @@ a {
 }
 
 .v-input--is-focused .v-input__slot {
-    border: 1px solid grey;
     background: #ffffff !important;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
 }
 
 .no-underline {
@@ -343,9 +372,10 @@ a {
 }
 
 .v-input__slot {
-    border-radius: 50px;
-    border: 1px solid #dfe1e5;
-    background: #e0e0e0;
+    /* border-radius: 8px !important; */
+    border-radius: 50px !important;
+    background: #f1f3f4 !important;
+    font-weight: 500;
 }
 
 .v-input__icon i {
@@ -363,12 +393,7 @@ a {
     }
     
     .v-input__slot {
-        border-radius: 4px !important;
         min-height: 40px;
-    }
-    
-    .v-toolbar__content, .v-toolbar__extension {
-        padding: 0px 8px;
     }
     
     .v-toolbar__extension {
@@ -391,6 +416,7 @@ a {
 <script>
 import People from '../components/People.vue';
 import Startup from '../components/Startup.vue';
+import More from '../components/More.vue';
 
 function checkChildren(name) {
   const childrenRoutes = ['personDetail', 'startupDetail'];
@@ -424,9 +450,10 @@ export default {
   components: {
     People,
     Startup,
+    More,
   },
   data: () => ({
-    title: 'Campus Directory',
+    title: 'GFS Directory',
     searching: false,
     tabs: 'tabs-people',
     search: '',
