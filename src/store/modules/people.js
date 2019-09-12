@@ -36,7 +36,7 @@ const actions = {
   getPeople({ commit }) {
     commit('loadStart');
 
-    axios.get(`${api.url}/person`)
+    return axios.get(`${api.url}/person`)
       .then((response) => {
         commit('setPeople', response.data || []);
       })

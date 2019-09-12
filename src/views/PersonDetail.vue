@@ -1,5 +1,5 @@
 <template>
-  <v-card light class="full-size">
+  <v-card light class="full-size" v-else>
     <v-toolbar>
       <v-btn fab @click="$router.replace('/directory');">
         <v-icon>arrow_back</v-icon>
@@ -194,7 +194,7 @@ export default {
   data: () => ({
     loading: true,
     id: null,
-    data: {},
+    data: null,
   }),
   computed: {
     job() {
@@ -214,6 +214,7 @@ export default {
       // return `slack://user?team=${team}&id=${id}`;
     },
     getData() {
+      console.log('getting data...');
       this.data = this.$store.getters['people/getById'](this.id);
       this.loading = false;
     },
@@ -221,10 +222,11 @@ export default {
   created() {
     this.id = this.$router.currentRoute.params.id;
 
-    if (this.$store.state.people.list.length > -1) {
+    if (this.$store.state.people.list.length > 0) {
       this.getData();
     } else {
-      this.$store.dispatch('people/getPeople').then(this.getData);
+      this.$store.dispatch('people/getPeople')
+        .then(this.getData);
     }
   },
 };

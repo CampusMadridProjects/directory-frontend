@@ -155,10 +155,11 @@ export default {
   created() {
     this.id = this.$router.currentRoute.params.id;
 
-    if (this.$store.state.people.list.length > -1) {
+    if (this.$store.state.people.list.length > 0) {
       this.getData();
     } else {
-      this.$store.dispatch('startups/getStartups').then(this.getData);
+      this.$store.dispatch('startups/getStartups')
+        .then(this.getData);
     }
   },
 };
