@@ -120,67 +120,71 @@
 </style>
 
 <style scoped>
-.full-size {
-  border-radius: 0 !important;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  height: auto;
-}
-
-.card-user-pic {
-  border-radius: 0px;
-}
-
-.v-toolbar {
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.v-toolbar__title {
-  width: 80%;
-  text-align: center;
-  margin: 0px;
-}
-
-.headline {
-  margin-top: 12px;
-}
-
-.v-btn--icon {
-  min-width: 36px;
-}
-
-@media (min-width: 600px) {
-  .card-user-pic {
-    max-height: 370px;
-    max-width: 370px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media (max-width: 960px) {
-  .v-toolbar__content>:first-child.v-btn--icon,
-  .v-toolbar__extension>:first-child.v-btn--icon {
-    margin-left: 0px;
-  }
-    nav {
+    .v-toolbar {
         margin-bottom: -64px;
     }
     
+    .v-toolbar__content button {
+        width: 45px;
+    }
+
+    .full-size {
+      border-radius: 0 !important;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      height: auto;
+    }
+
+    .card-user-pic {
+      border-radius: 0px;
+    }
+
+    .v-toolbar {
+      background-color: transparent;
+      box-shadow: none;
+    }
+
     .v-toolbar .v-btn {
         background: rgba(0, 0, 0, 0.4) !important;
         color: white !important;
     }
-    
-    .v-btn--floating {
-        width: 45px;
+
+    .v-toolbar__title {
+      width: 80%;
+      text-align: center;
+      margin: 0px;
     }
-    
-    .v-card-text .v-btn {
-        width: 100%;
+
+    .headline {
+      margin-top: 12px;
     }
-}
+
+    .v-btn--icon {
+      min-width: 36px;
+    }
+
+    @media (min-width: 600px) {
+      .card-user-pic {
+        max-height: 370px;
+        max-width: 370px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 960px) {
+        nav {
+            margin-bottom: -64px;
+        }
+
+        .v-btn--floating {
+            width: 45px;
+        }
+
+        .v-card-text .v-btn {
+            width: 100%;
+        }
+    }
 </style>
 
 
