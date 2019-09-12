@@ -1,102 +1,104 @@
 <template>
-<v-container>
-    <v-flex lg6>
-        <v-card flat>
-            <v-card-text>
-                <v-layout align-center mb-3>
-    <!--                <v-avatar color="grey" class="mr-3"></v-avatar>-->
-                    <strong class="title">News</strong>
-                    <v-spacer></v-spacer>
-    <!--
-                    <v-btn icon>
-                      <v-icon>mdi-account</v-icon>
-                    </v-btn>
-    -->
-                </v-layout>
-            <v-flex xs12>
-                <v-card color="purple" class="white--text">
-                    <v-layout row>
-                        <v-flex xs7>
-                        <v-card-title primary-title>
-                            <div>
-                                <div class="headline">Find who you need, also in Slack</div>
-                                <div>Ellie Goulding</div>
-                            </div>
-                        </v-card-title>
-                        </v-flex>
-                        <v-flex xs5>
-                        <v-img
-                        src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
-                        height="125px"
-                        contain
-                        ></v-img>
-                        </v-flex>
-                    </v-layout>
-                    <v-divider light></v-divider>
-                    <v-card-actions class="pa-3">
-                    Rate this album
-                    <v-spacer></v-spacer>
-                    <v-icon>star_border</v-icon>
-                    <v-icon>star_border</v-icon>
-                    <v-icon>star_border</v-icon>
-                    <v-icon>star_border</v-icon>
-                    <v-icon>star_border</v-icon>
-                    </v-card-actions>
+    <v-container>
+       <v-layout class="px-5" column grid-list-md>
+            <v-flex lg6>
+                <v-card flat>
+                    <v-card-text>
+                        <v-layout align-center mb-3>
+                    <!--                <v-avatar color="grey" class="mr-3"></v-avatar>-->
+                            <strong class="title">News</strong>
+                            <v-spacer></v-spacer>
+                    <!--
+                            <v-btn icon>
+                              <v-icon>mdi-account</v-icon>
+                            </v-btn>
+                    -->
+                        </v-layout>
+                    <v-flex xs12>
+                        <v-card>
+                            <v-layout row>
+                                <v-flex xs10>
+                                    <v-card-title primary-title>
+                                        <div>
+                                            <div class="headline">Find who you need, also in Slack</div>
+                                            <p>Just type /dir-search in any channel or conversation to start the directory bot</p>
+                                        </div>
+                                    </v-card-title>
+                                </v-flex>
+            <!--
+                                <v-flex xs2
+                                   class="pt-2">
+                                    <v-img
+                                    src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2019/01/Slack-New.jpg"
+                                    height="56px"
+                                    contain
+                                    ></v-img>
+                                </v-flex>
+            -->
+                            </v-layout>
+            <!--                <v-divider light></v-divider>-->
+                                <a href="https://gfs-madrid.slack.com">
+                                    <v-btn>Open Slack</v-btn>
+                                </a>
+                        </v-card>
+                    </v-flex>
+                    </v-card-text>
                 </v-card>
-          </v-flex>
-            </v-card-text>
-        </v-card>
-        
-        <v-card flat>
-            <v-card-text>
-                <v-layout align-center mb-3>
-                    <strong class="title">Help</strong>
-                    <v-spacer></v-spacer>
-                </v-layout>
-                <v-list>
-                  <v-list-group
-                    v-for="item in items"
-                    :key="item.title"
-                    v-model="item.active"
-                    :prepend-icon="item.action"
-                    no-action
-                  >
-                    <template v-slot:activator>
-                      <v-list-tile>
-                        <v-list-tile-content>
-                          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                        </v-list-tile-content>
-                      </v-list-tile>
-                    </template>
+            </v-flex>
+            
+            <v-flex lg6>
+                <v-card class="px-2 py-2" flat>
+                    <v-card-text>
+                        <v-layout align-center mb-3>
+                            <strong class="title">Help</strong>
+                            <v-spacer></v-spacer>
+                        </v-layout>
+                        <v-list>
+                          <v-list-group
+                            v-for="item in items"
+                            :key="item.title"
+                            v-model="item.active"
+                            :prepend-icon="item.action"
+                            no-action
+                          >
+                            <template v-slot:activator>
+                              <v-list-tile>
+                                <v-list-tile-content>
+                                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                                </v-list-tile-content>
+                              </v-list-tile>
+                            </template>
 
-                    <v-list-tile>
-                      {{item.items}}
-                    </v-list-tile>
-                  </v-list-group>
-                </v-list>
-            </v-card-text>
-        </v-card>
-        
-        <v-card flat>
-            <v-card-text>
-                <v-layout align-center mb-3>
-                    <strong class="title">About</strong>
-                    <v-spacer></v-spacer>
-                </v-layout>
+                            <v-list-tile>
+                              <div v-html="item.text"></div>
+                            </v-list-tile>
+                          </v-list-group>
+                        </v-list>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
 
-                <p>
-                    This directory is part of <strong>Community Tools</strong>, a project created by two humans to help digital professionals grow and prosper.<br /><br />
-                    If you want to share your thoughts, report a bug or just say hi, you can get in touch by <a href="mailto:hola@codingcarlos.com">clicking here</a>.<br /><br />
-                    We'll love to hear whatever's on your mind!<br /><br />
-                </p>
+            <v-flex lg6>
+                <v-card flat>
+                <v-card-text>
+                    <v-layout align-center mb-3>
+                        <strong class="title">About</strong>
+                        <v-spacer></v-spacer>
+                    </v-layout>
 
-            </v-card-text>
-        </v-card>
-        
-    </v-flex>
-</v-container>
+                    <p>
+                        This directory is part of <strong>Community Tools</strong>, a project created by two humans to help digital professionals grow and prosper.<br />
+                        If you want to share your thoughts, report a bug or just say hi, you can get in touch by <a href="mailto:hola@codingcarlos.com">clicking here</a>.<br />
+                        We'd love to hear whatever's on your mind!<br /><br />
+                    </p>
+
+                </v-card-text>
+                </v-card>
+            </v-flex>
+
+       </v-layout>
+    </v-container>
 </template>
-
 
 <style scoped>
     .title {
@@ -109,71 +111,44 @@
         padding: 16px 0px;
         padding-left: 16px
     }
-    .box-shadow {
-        box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    .v-card__text {
+        padding: 16px 0px;
     }
 </style>
 
+<style>
+    .v-list__group__header {
+        max-height: 64px !important;
+    }
+    .v-list__group__items {
+        padding-bottom: 24px;
+    }
+</style>
 
 <script>
 export default {
   name: 'More',
 };
 </script>
-
 <script>
   export default {
     data () {
       return {
         items: [
           {
-            action: 'local_activity',
-            title: 'Attractions',
-            items: 'hola que ase'
+            action: 'person',
+            title: 'Profiles',
+            text: "Profiles are added and mantained by a space manager, either Tetuan Valley, SeedRocket or Google. <br /><br /> You can manually add or update your profile or your startup info by filling <a href='https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform'>this form</a>.<br /><br />Your changes will be manually reviewd and updated as soon as possible."
           },
           {
-            action: 'restaurant',
-            title: 'Dining',
-            items: [
-              { title: 'Breakfast & brunch' },
-              { title: 'New American' },
-              { title: 'Sushi' }
-            ]
+            action: 'lock',
+            title: 'Privacy',
+            text: "Users data is securely stored in Google's infrastructure in Europe under the best standards.<br /><br /> Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
           },
           {
-            action: 'school',
-            title: 'Education',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'directions_run',
-            title: 'Family',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'healing',
-            title: 'Health',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'content_cut',
-            title: 'Office',
-            items: [
-              { title: 'List Item' }
-            ]
-          },
-          {
-            action: 'local_offer',
-            title: 'Promotions',
-            items: [
-              { title: 'List Item' }
-            ]
+            action: 'forum',
+            title: 'Slack',
+            text: "There is an official Slack channel for campus residents. You have to be invited by your space manager.<br /><br />You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation.<br /><br />Your search results will be visible <strong>only to you</strong>.",
           }
         ]
       }
