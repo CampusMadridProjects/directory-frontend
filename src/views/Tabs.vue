@@ -284,12 +284,17 @@ a {
     border-radius: 0px 50px 50px 0px;
 }
 
-  .desktop-horizontal {
+  >>> .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+    min-height: auto;
+  }
+
+  .desktop-horizontal[style] {
     flex-direction: column;
-    /* height: calc(100% - 119px) !important; */
+    height: calc(100% - 64px) !important; 
     left: 0;
     position: fixed;
-    top: 124px;
+    top: 64px;
+    justify-content: flex-start;
     width: 116px !important;
   }
     
@@ -305,7 +310,7 @@ a {
     }
 
   >>> .v-window__container {
-    margin-left: 56px !important;
+    margin-left: 94px !important;
   }
 
   footer {
