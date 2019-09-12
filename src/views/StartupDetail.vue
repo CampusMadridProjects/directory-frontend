@@ -32,7 +32,7 @@
     </div>
 
     <v-card-text>
-      <v-subheader v-if="data.bio">What do they do?</v-subheader>
+        <!--<v-subheader v-if="data.bio">What do they do?</v-subheader>-->
       <div class="mb-4 mx-5">{{ data.bio }}</div>
       <a
         v-if="data.website"
@@ -66,7 +66,7 @@
         v-if="data.persons && data.persons.length > 0"
         class="startup-employees"
       >
-        <v-subheader>Who's there?</v-subheader>
+<!--<v-subheader>Team</v-subheader>-->
         <person-list :people="data.persons" event-category="startup_detail"></person-list>
       </div>
     </v-card-text>
