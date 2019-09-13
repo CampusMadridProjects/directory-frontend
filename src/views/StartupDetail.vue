@@ -6,17 +6,13 @@
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
           target="_blank"
           class="no-underline"
         >
-          <v-btn
-            flat color="primary"
-            class="custom-button"
-          >
-            Update this startup
-          </v-btn>
+            <v-btn fab>
+              <v-icon>edit</v-icon>
+            </v-btn>
         </a>
     </v-toolbar>
 
@@ -26,19 +22,18 @@
       </div>
     </v-card-media>
 
-    <div class="startup-info">
-      <h3 class="headline mb-0">{{ data.name }}</h3>
-      <div class="grey--text">{{ data.accelerator }}</div>
+    <v-card-text class="text-xs-left" style="padding: 8px 24px;">
+           <div class="startup-info">
+      <h3 class="headline text-xs-left mb-0">{{ data.name }}</h3>
+      <div>{{ data.accelerator }}</div>
     </div>
-
-    <v-card-text>
         <!--<v-subheader v-if="data.bio">What do they do?</v-subheader>-->
-      <div class="mb-4 mx-5">{{ data.bio }}</div>
+      <div>{{ data.bio }}</div>
       <a
         v-if="data.website"
         :href="link(data.website)"
         target="_blank"
-        class="mb-4 mx-5"
+        class="d-flex py-3"
       >
         {{ data.website }}
       </a>
@@ -66,7 +61,7 @@
         v-if="data.persons && data.persons.length > 0"
         class="startup-employees"
       >
-<!--<v-subheader>Team</v-subheader>-->
+<v-subheader>Team</v-subheader>
         <person-list :people="data.persons" event-category="startup_detail"></person-list>
       </div>
     </v-card-text>
@@ -74,55 +69,77 @@
   </v-card>
 </template>
 
-
 <style scoped>
-.full-size {
-  border-radius: 0 !important;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  height: auto;
-}
+    .full-size {
+      border-radius: 0 !important;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      height: auto;
+    }
+    
+    .v-subheader {
+        padding: 0px;
+    }
+    
+    >>> .v-list__tile {
+        min-height: 72px !important;
+        padding: 0px;
+        border: 1px solid #f0f0f0;
+        border-radius: 4px;
+        margin-bottom: 8px;
+    }
 
-.startup-logo {
-  max-width: 370px;
-  width: 100%;
-}
+    .startup-logo {
+      max-width: 370px;
+      width: 100%;
+    }
 
-.startup-info {
-  text-align: center;
-}
+    .startup-info {
+      text-align: center;
+    }
 
-.startup-card-social-icon img {
-  width: 42px;
-}
+    .startup-card-social-icon img {
+      width: 42px;
+    }
 
-.startup-employees {
-  max-width: 500px;
-  margin: auto;
-}
+    .startup-employees {
+      max-width: 500px;
+      margin: auto;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 12px;
+    padding-top: 8px;
+    }
 
-.v-toolbar {
-  background-color: transparent;
-  box-shadow: none;
-}
+    .v-toolbar {
+      background-color: transparent;
+      box-shadow: none;
+        margin-bottom: -65px;
+        z-index: 1;
+    }
 
-.v-toolbar__title {
-  width: 80%;
-  text-align: center;
-  margin: 0px;
-}
+    .v-toolbar__title {
+      width: 80%;
+      text-align: center;
+      margin: 0px;
+    }
 
-.v-btn--icon {
-  min-width: 36px;
-}
+    .v-btn--icon {
+      min-width: 36px;
+    }
+    
+    .v-toolbar__content button {
+        width: 45px;
+    }
+    .v-btn:hover {
+        background: white !important;
+    }
 
-@media (max-width: 960px) {
-  .v-toolbar__content>:first-child.v-btn--icon,
-  .v-toolbar__extension>:first-child.v-btn--icon {
-    margin-left: 0px;
-  }
-}
-
+    @media (max-width: 960px) {
+      .v-toolbar__content>:first-child.v-btn--icon,
+      .v-toolbar__extension>:first-child.v-btn--icon {
+        margin-left: 0px;
+      }
+    }
 </style>
 
 <script>
