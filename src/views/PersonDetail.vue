@@ -193,6 +193,10 @@
         .v-card-text .v-btn {
             width: 100%;
         }
+        
+        .card-user-pic {
+            height: calc(66vh - 64px);
+        }
     }
 </style>
 
