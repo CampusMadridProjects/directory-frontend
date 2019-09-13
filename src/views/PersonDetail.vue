@@ -11,7 +11,7 @@
           class="no-underline"
         >
             <v-btn fab>
-              <v-icon>more</v-icon>
+              <v-icon>edit</v-icon>
             </v-btn>
         </a>
     </v-toolbar>
@@ -21,12 +21,13 @@
         :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"
       >
       </div>
-      <div class="headline text-xs-center">{{ data.name }}</div>
-      <div class="text-xs-center">
-        <span class="grey--text one-line text-xs-center">
-          {{ job.role }}
-          <span v-if="job.role && job.name">@</span>
-          <span v-else>-</span>
+      <div style="padding: 8px 24px;">
+        <div class="headline">{{ data.name }}</div>
+        <div>
+            <span class="one-line">
+              {{ job.role }}
+              <span v-if="job.role && job.name">@</span>
+              <span v-else>-</span>
           <span
             v-if="job.id"
             @click="$ga.event('person_detail', 'view_startup', job.id)"
@@ -35,24 +36,21 @@
               {{ job.name }}
             </router-link>
           </span>
-          <span v-else>
-          <!-- @click="$ga.event('person_detail', 'view_org', data.company_id)"> -->
-            <!-- <router-link :to="{name: 'orgDetail', params: {id: data.company_id}}"> -->
-              {{ job.name }}
-            <!-- </router-link> -->
-          </span>
-        </span>
+            </span>
+        </div>
       </div>
     </div>
 
     <v-card-title primary-title>
       <div class="card-user-info">
         <h4>
+         <v-icon size="14" class="mr-1">forum</v-icon>
           <span v-for="(ability, index) in data.expertise"
             :key="ability">{{ (index !== 0) ? ', ' + ability : ability }}
           </span>
         </h4>
-        <span class="grey--text">{{ data.location }}</span>
+        <v-icon size="14" class="mr-1">location_city</v-icon>
+        <span>{{ data.location }}</span>
       </div>
     </v-card-title>
 
@@ -120,6 +118,17 @@
 </style>
 
 <style scoped>
+    
+    .card-user-pic {
+        height: calc(43vw - 64px);
+        margin-bottom: 0px;
+    }
+    
+    /* makes cta full width */
+    .primary {
+        width: 96%;
+    }
+    
     .v-toolbar {
         margin-bottom: -64px;
     }
@@ -186,7 +195,6 @@
         }
     }
 </style>
-
 
 <script>
 export default {
