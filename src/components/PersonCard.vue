@@ -24,7 +24,7 @@
             :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}
           </span>
         </h4>
-        <v-icon size="14" class="mr-1">location_city</v-icon>
+        <v-icon size="14" class="mr-1">room</v-icon>
         <span>{{ location }}</span>
       </div>
     </v-card-title>
