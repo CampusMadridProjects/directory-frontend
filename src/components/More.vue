@@ -114,6 +114,14 @@
     .v-card__text {
         padding: 16px 0px;
     }
+    .px-5 {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+    .v-btn:hover {
+        background: #e0ebfe !important;
+        color: #4285f4;
+    }
 </style>
 
 <style>
@@ -138,17 +146,17 @@ export default {
           {
             action: 'person',
             title: 'Profiles',
-            text: "Profiles are added and mantained by a space manager, either Tetuan Valley, SeedRocket or Google. <br /><br /> You can manually add or update your profile or your startup info by filling <a href='https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform'>this form</a>.<br /><br />Your changes will be manually reviewd and updated as soon as possible."
+            text: "Profiles are added and mantained by a space manager, either Tetuan Valley, SeedRocket or Google. You can manually add or update your profile or your startup info by filling <a href='https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform'>this form</a>. Your changes will be manually reviewd and updated as soon as possible."
           },
           {
             action: 'lock',
             title: 'Privacy',
-            text: "Users data is securely stored in Google's infrastructure in Europe under the best standards.<br /><br /> Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
+            text: "Users data is securely stored in Google's infrastructure in Europe under the best standards. Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
           },
           {
             action: 'forum',
             title: 'Slack',
-            text: "There is an official Slack channel for campus residents. You have to be invited by your space manager.<br /><br />You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation.<br /><br />Your search results will be visible <strong>only to you</strong>.",
+            text: "There is an official Slack channel for campus residents. You have to be invited by your space manager. You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation. Your search results will be visible <strong>only to you</strong>.",
           }
         ]
       }
