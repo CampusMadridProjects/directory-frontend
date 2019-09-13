@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <v-card-title primary-title>
+    <v-card-title primary-title @click="goToPerson(id)">
       <div class="card-user-info">
         <h4 class="ellipsis">
          <v-icon size="14" class="mr-1">forum</v-icon>
