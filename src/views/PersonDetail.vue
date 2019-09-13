@@ -10,7 +10,7 @@
           target="_blank"
           class="no-underline"
         >
-            <v-btn fab>
+            <v-btn fab class="mx-0">
               <v-icon>edit</v-icon>
             </v-btn>
         </a>
