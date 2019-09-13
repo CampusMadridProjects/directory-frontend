@@ -14,7 +14,7 @@
                             </v-btn>
                     -->
                         </v-layout>
-                    <v-flex xs12>
+                    <v-flex xs12 style="border: 1px solid #e3e3e3;border-radius: 4px;padding-bottom: 8px;padding-left: 8px;">
                         <v-card>
                             <v-layout row>
                                 <v-flex xs10>
@@ -47,7 +47,7 @@
             </v-flex>
             
             <v-flex lg6>
-                <v-card class="px-2 py-2" flat>
+                <v-card flat>
                     <v-card-text>
                         <v-layout align-center mb-3>
                             <strong class="title">Help</strong>
@@ -109,7 +109,8 @@
     }
     .v-card__title {
         padding: 16px 0px;
-        padding-left: 16px
+        padding-left: 16px;
+        padding-bottom: 0px;
     }
     .v-card__text {
         padding: 16px 0px;
@@ -122,6 +123,14 @@
         background: #e0ebfe !important;
         color: #4285f4;
     }
+
+/*
+    @media screen and (max-width: 959px) {
+        nav {
+            display: none;
+        }
+    }
+*/
 </style>
 
 <style>
