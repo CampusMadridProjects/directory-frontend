@@ -113,7 +113,7 @@
     .v-toolbar {
       background-color: transparent;
       box-shadow: none;
-        margin-bottom: -65px;
+/*        margin-bottom: -64px;*/
         z-index: 1;
     }
 
