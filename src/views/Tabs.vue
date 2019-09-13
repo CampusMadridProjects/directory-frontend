@@ -422,7 +422,6 @@ a {
 
 </style>
 
-
 <script>
 import People from '../components/People.vue';
 import Startup from '../components/Startup.vue';
