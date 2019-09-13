@@ -31,8 +31,12 @@
   </v-card>
 </template>
 
-
 <style type="text/css">
+    
+    .v-icon {
+        line-height: 1.3;
+    }
+    
     .v-card {
       border-radius: 8px;
       padding: 4px;
@@ -138,7 +142,6 @@
   border-radius: 6px 6px 0px 0px;
 }
 </style>
-
 
 <script>
 export default {
