@@ -178,7 +178,7 @@ a {
 
   .v-chip.active {
     background-color: rgba(66, 133, 244, 0.16);
-    border-color: #4285F4;
+    border-color: transparent;
     color: #4285F4;
   }
     
