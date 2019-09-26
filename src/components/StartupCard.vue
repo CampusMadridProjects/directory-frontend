@@ -42,8 +42,9 @@
   width: 92px;
 }
 
+/* TD - duplicated in PersonCard */
 .light-border {
-  border: 1px solid #f3f3f3;
+  border: 1px solid #eaeaea;
   border-radius: 8px;
 }
 
