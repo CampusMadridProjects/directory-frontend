@@ -45,7 +45,6 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
-            
             <v-flex lg6>
                 <v-card flat>
                     <v-card-text>
@@ -77,7 +76,6 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
-
             <v-flex lg6>
                 <v-card flat>
                 <v-card-text>
@@ -87,15 +85,13 @@
                     </v-layout>
 
                     <p>
-                        This directory is part of <strong>Community Tools</strong>, a project created by two humans to help digital professionals grow and prosper.<br />
-                        If you want to share your thoughts, report a bug or just say hi, you can get in touch by <a href="mailto:hola@codingcarlos.com">clicking here</a>.<br />
-                        We'd love to hear whatever's on your mind!<br /><br />
+                        This directory is part of Google for Startups &amp; <a href="http://communitytools.co/">Community Tools</a>, a project created to facilitate contacts across Google for Startups Campus communities.<br />
+                        If you want to share your thoughts, report a bug or just say hi, you can get in touch by clicking <a href="directory@campus.co">here</a>. We'd love to hear whatever's on your mind!
                     </p>
 
                 </v-card-text>
                 </v-card>
             </v-flex>
-
        </v-layout>
     </v-container>
 </template>
@@ -124,15 +120,13 @@
         color: #4285f4;
     }
 
-/*
-    @media screen and (max-width: 959px) {
-        nav {
-            display: none;
+    @media screen and (min-width: 1264px) {
+        .container {
+            max-width: 720px;
         }
     }
-*/
-</style>
 
+</style>
 <style>
     .v-list__group__header {
         max-height: 64px !important;
