@@ -1,25 +1,32 @@
 <template>
   <v-app>
-    <v-toolbar extended app>
-      <!-- <img src="img/logo.png" style="height: 26px;"> -->
+    <v-toolbar :extended="hasFilters" app>
+       <img src="img/logo.png" style="height: 21px;padding-right: 16px;"> 
 
       <v-text-field
         prepend-inner-icon="search"
-        class="mx-3"
         hide-details
         flat
         solo
         v-model="search"
         clearable
         color="#F5F5F5"
-        placeholder="Search Campus"
+        placeholder="Try RatedPower, Andrea or UX"
         @keyup="trackSearch(search)"
         @click:clear="searchClear()"
       ></v-text-field>
 
+        <v-btn
+          color="primary"
+          href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
+          target="_blank"
+        >
+            <v-icon left>add</v-icon>Add Profile
+        </v-btn>
 
       <!-- filter chips -->
       <v-container
+        v-if="hasFilters"
         slot="extension"
         fluid
         class="px-0 ma-0 chip-container"
@@ -30,50 +37,36 @@
       >
         <div class="scroll-container">
           <div class="text-md-center chip-content px-2">
-            <span class="mr-2">Filter by: </span>
+            <span class="mr-2 d-sm-none d-lg-flex">Filter by: </span>
             <v-chip
-              :key="tag"
-              :class="{ 'active': tagFilter.indexOf(tag) > -1 }"
-              v-for="tag in peopleTags"
-              @click="switchTag(tag)"
+              v-for="tag in $store.state.tags.list"
+              :key="tag.id"
+              :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+              @click="switchTag(tag.name)"
             >
-              {{ tag }}
+              {{ tag.name }}
             </v-chip>
           </div>
         </div>
       </v-container>
     </v-toolbar>
 
-    <v-content>
+    <v-content :class="hasFilters ? '' : 'no-extended'">
       <v-tabs-items v-model="tabs">
-        <v-tab-item id="tabs-people">
+        <v-tab-item value="tabs-people">
           <People :search="search" :filter="tagFilter"></People>
         </v-tab-item>
-        <v-tab-item id="tabs-startup">
+        <v-tab-item value="tabs-startup">
           <Startup :search="search"></Startup>
         </v-tab-item>
-        <v-tab-item id="tabs-organizations">
-          <Organizations :search="search"></Organizations>
+        <v-tab-item value="tabs-more">
+            <More></More>
         </v-tab-item>
       </v-tabs-items>
-
-      <v-footer>
-        <span>
-          Made with ❤ in
-          <a href="https://www.campus.co/madrid/">
-            Google for Startups Campus
-          </a>.
-        </span>
-        <span>
-          Feedback? Something to say?
-          <a href="mailto:hola@codingcarlos.com" target="_blank">
-            Tell us!
-          </a>
-        </span>
-      </v-footer>
     </v-content>
 
     <v-bottom-nav
+      class="desktop-horizontal"
       :active.sync="tabs"
       :value="true"
       fixed
@@ -82,22 +75,29 @@
         flat
         value="tabs-people"
       >
-        <span>People</span>
+        <!-- <span>People</span> -->
         <v-icon>person</v-icon>
       </v-btn>
 
       <v-btn
-        text="#f00"
         flat
         value="tabs-startup"
       >
-        <span>Startups</span>
+        <!-- <span>Startups</span> -->
         <v-icon>group</v-icon>
+      </v-btn>
+      
+      <v-btn
+        flat
+        value="tabs-more"
+      >
+        <!-- <span>Startups</span> -->
+        <v-icon>menu</v-icon>
       </v-btn>
 
     </v-bottom-nav>
 
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-dialog v-model="dialog" transition="dialog-bottom-transition" persistent>
       <router-view name="dialog"></router-view>
     </v-dialog>
 
@@ -116,21 +116,27 @@
   </v-app>
 </template>
 
-
 <style scoped>
+    
+.v-input__slot {
+    background: #e0e0e0;
+}
 
 .v-bottom-nav {
     box-shadow: none;
     border-top: 1px solid #DFE1E5;
 }
+    .v-bottom-nav .v-btn:hover {
+        background: transparent !important;
+    }
 
 /* - Remove grey color in bottom nav when pressed */
 .v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
      background-color: transparent;
 }
 /* - Remove padding in chips*/
-.v-toolbar__content, .v-toolbar__extension {
-  padding: 0;
+>>> .v-toolbar__extension {
+  padding: 0 !important;
 }
 /* --- */
 
@@ -154,7 +160,6 @@ footer {
 .v-toolbar {
   background-color: #FFF;
   box-shadow: none;
-  border-bottom: 1px solid #efefef;
 }
 
 a {
@@ -162,7 +167,6 @@ a {
 }
 
 .v-chip {
-  /* background: dark-gray; */
   background: #FFFFFF;
   border: 1px solid #DFE1E5;
   color: #3c3c3c;
@@ -173,17 +177,21 @@ a {
   }
 
   .v-chip.active {
-    background-color: #d48ded;
-    border-color: #d48ded;
-    color: #fff;
+    background-color: rgba(66, 133, 244, 0.16);
+    border-color: transparent;
+    color: #4285F4;
   }
-
-/*.chip-container {
-  margin-top: 32px;
+    
+>>> .v-chip.active:focus .v-chip__content {
+    background: #e3e8fd;
 }
-*/
+
+>>> .v-chip:focus .v-chip__content {
+    background: #fff;
+}
+
 .application.theme--light {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 .v-toolbar__extension {
@@ -191,7 +199,7 @@ a {
 }
 
 .theme--light .v-text-field--solo .v-input__slot {
-  background: #0000000f;
+  background: #e0e0e0;
   border-radius: 50px;
 }
 
@@ -205,10 +213,25 @@ a {
   text-align: center;
 }
 
+>>> .v-dialog {
+  background: #FFFFFF;
+  border-radius: 0;
+  margin: 0;
+  height: 100%;
+  max-height: 100%;
+  position: fixed;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: 360px;
+}
+
 /* bigger-chips-mobile */
 @media only screen and (max-width: 768px) {
-  .v-text-field.v-text-field--solo .v-input__control {
-    min-height: 36px;
+
+  >>> .v-dialog {
+    width: 100%;
   }
 
   .scroll-container {
@@ -228,8 +251,8 @@ a {
   }
 }
 
-/* fixes footer text clickability */
 @media (max-width: 959px) {
+    
   .v-footer {
     height: auto !important;
     padding: 16px 0px;
@@ -241,12 +264,60 @@ a {
     padding: 8px;
   }
 
+    .v-toolbar .v-btn {
+        display: none;
+    }
+    
+    .v-toolbar img {
+        display: none;
+    }
+    
+    /* this native vuetify class should be hiding the element in mobile, but its not working for no reasong, so i'm adding it here for the moment */
+    .d-sm-none {
+        display: none;
+    }
+    
 /*  .chip-container {
     margin-top: 24px !important;
   }*/
 }
 
 @media (min-width: 959px) {
+    
+.v-item-group.v-bottom-nav .v-btn--active {
+    background: rgba(66, 133, 244, 0.16) !important;
+    border-radius: 0px 50px 50px 0px;
+}
+
+  >>> .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+    min-height: auto;
+  }
+
+  .desktop-horizontal[style] {
+    flex-direction: column;
+    height: calc(100% - 64px) !important; 
+    left: 0;
+    position: fixed;
+    top: 64px;
+    justify-content: flex-start;
+    width: 116px !important;
+  }
+    
+    .v-item-group.v-bottom-nav .v-btn {
+        max-height: 56px;
+        padding: 16px 0px;
+        border-radius: 0px 50px 50px 0px;
+    }
+    
+    /* removes borde from vertical nav */
+    .v-bottom-nav {
+        border: none;
+    }
+
+  >>> .v-window__container {
+    margin-left: 94px !important;
+  }
+
   footer {
     flex-direction: row !important;
   }
@@ -255,17 +326,55 @@ a {
     display: inline-block;
     margin: 0 2px;
   }
+    .v-text-field {
+        margin: 0px 16px;
+    }
 }
 </style>
 
 <style>
+    
+    .v-content {
+        padding: 100px 0px 0px !important;
+    }
 
+    .v-content.no-extended {
+        padding: 64px 0px 0px !important;
+    }
+    
+    .v-item-group.v-bottom-nav .v-btn {
+        padding: 0px;
+    }
+    
+    .v-item-group.v-bottom-nav .v-btn--active {
+        padding: 0px;
+    }
+    
+.v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+    font-size: 14px;
+    min-height: 48px;
+}
+
+.v-toolbar__extension {
+  height: 56px !important;
+}
+.v-btn {
+    font-size: 16px;
+    height: 45px;
+    box-shadow: none !important;
+}
+    .v-btn:hover {
+        background: #174ea6 !important;
+    }
+    
+/* check how to add primary color */
 .v-btn--active {
-    color: #d48ded !important;
+    color: #4285F4 !important;
 }
 
 .v-input--is-focused .v-input__slot {
-    box-shadow: 0px 4px 24px 8px rgba(0,0,0,0.1);
+    background: #ffffff !important;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
 }
 
 .no-underline {
@@ -277,8 +386,10 @@ a {
 }
 
 .v-input__slot {
-    border-radius: 50px;
-    border: 1px solid #dfe1e5;
+    /* border-radius: 8px !important; */
+    border-radius: 50px !important;
+    background: #f1f3f4 !important;
+    font-weight: 500;
 }
 
 .v-input__icon i {
@@ -288,14 +399,37 @@ a {
 .v-text-field .v-input__prepend-inner {
     padding-right: 8px;
 }
+    
+@media (max-width: 959px) {
+    
+    main {
+        padding: 96px 0px 0px !important;
+    }
+    
+    .v-input__slot {
+        min-height: 40px;
+    }
+    
+    .v-toolbar__extension {
+        height: 32px !important;
+    }
+    
+    input {
+        color: #8E8E93 !important;
+    }
+    
+    .v-input__slot {
+        background: #f5f5f5;
+    }
+    
+}
 
 </style>
-
 
 <script>
 import People from '../components/People.vue';
 import Startup from '../components/Startup.vue';
-import Organizations from '../components/Organizations.vue';
+import More from '../components/More.vue';
 
 function checkChildren(name) {
   const childrenRoutes = ['personDetail', 'startupDetail'];
@@ -324,46 +458,33 @@ function trackSearch(search) {
   this.$ga.event('search', 'search_type', search);
 }
 
-function switchTag(name) {
-  const index = this.tagFilter.indexOf(name);
-  if (index === -1) {
-    this.tagFilter.push(name);
-    this.$ga.event('list_people', 'filter_add', name);
-  } else {
-    this.tagFilter.splice(index, 1);
-    this.$ga.event('list_people', 'filter_remove', name);
-  }
-}
-
 export default {
   name: 'Tabs',
-
+  components: {
+    People,
+    Startup,
+    More,
+  },
   data: () => ({
-    title: 'Campus Directory',
+    title: 'GFS Directory',
     searching: false,
     tabs: 'tabs-people',
     search: '',
     tagFilter: [],
-    peopleTags: [
-      'Tech', 'Design', 'UX', 'Product', 'Operations', 'Business', 'Marketing', 'Mentor',
-    ],
-    switchTag,
     dialog: false,
     tabClicked: null,
+  }),
+  computed: {
+    hasFilters() {
+      return this.tabs === 'tabs-people'
+    },
+  },
+  methods: {
     checkChildren,
     searchOpen,
     searchClose,
     searchClear,
     trackSearch,
-  }),
-
-  components: {
-    People,
-    Startup,
-    Organizations,
-  },
-
-  methods: {
     deferPrompt: () => {
       if (window.deferredPrompt !== undefined) {
         // let's show the prompt.
@@ -386,9 +507,20 @@ export default {
       // eslint-disable-next-line
       event.stopPropagation();
     },
+    switchTag(name) {
+      const index = this.tagFilter.indexOf(name);
+      if (index === -1) {
+        this.tagFilter.push(name);
+        this.$ga.event('list_people', 'filter_add', name);
+      } else {
+        this.tagFilter.splice(index, 1);
+        this.$ga.event('list_people', 'filter_remove', name);
+      }
+    },
   },
 
   created() {
+    this.$store.dispatch('tags/getTags');
     this.checkChildren(this.$router.currentRoute.name);
     this.deferPrompt();
   },
@@ -398,7 +530,6 @@ export default {
       this.checkChildren(to.name);
     },
     tabs(to) {
-      console.log(this.tabs);
       // Clean tab name
       const tab = to.replace('tabs-', '');
 

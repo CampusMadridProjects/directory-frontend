@@ -1,53 +1,69 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover">
-    <!-- <div @click="show = !show"> -->
+  <v-card light :hover="true" class="box-shadow light-border custom-hover card-elements ellipsis">
     <div @click="goToPerson(id)">
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
       </div>
-      <div class="headline">{{ name }}</div>
-      <span class="grey--text one-line">
-        {{ role }} @
-        <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
-          {{ company }}
-        <!-- </router-link> -->
-      </span>
+      <div style="padding: 8px 24px;">
+        <div class="headline ellipsis">{{ name }}</div>
+        <div class="ellipsis">
+            <span class="one-line">
+              {{ role }}
+              <span v-if="role && company">@</span>
+              <span v-else>-</span>
+              {{ company }}
+            </span>
+        </div>
+      </div>
     </div>
 
-    <v-card-title primary-title>
+    <v-card-title primary-title @click="goToPerson(id)">
       <div class="card-user-info">
-        <h4>
+        <h4 class="ellipsis">
+         <v-icon size="14" class="mr-1">forum</v-icon>
           <span v-for="(ability, index) in expertise"
-            :key="ability">{{ (index !== 0) ? ', ' + ability : ability }}
+            :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}
           </span>
         </h4>
-        <span class="grey--text">{{ location }}</span>
+        <v-icon size="14" class="mr-1">room</v-icon>
+        <span>{{ location }}</span>
       </div>
     </v-card-title>
-
-<!--     <v-slide-y-transition>
-      <v-card-text v-show="show">
-        {{ bio }}
-        <div class="person-card-social-icons">
-          <a v-if="twitter" :href="twitter" target="_blank" class="person-card-social-icon">
-            <img src="img/twitter_64.png" alt="twitter" />
-          </a>
-          <a v-if="linkedin" :href="linkedin" target="_blank" class="person-card-social-icon">
-            <img src="img/linkedin_64.png" alt="linkedin" />
-          </a>
-        </div>
-      </v-card-text>
-    </v-slide-y-transition> -->
   </v-card>
 </template>
 
-
 <style type="text/css">
-.v-card {
-  border-radius: 8px;
-  padding: 4px;
-  text-align: center;
-}
+    
+    .v-icon {
+        line-height: 1.3;
+    }
+    
+    .v-card {
+      border-radius: 8px;
+      padding: 4px;
+      text-align: left;
+      width: 100%;
+    }
+    
+    .card-elements {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
+    .card-user-info {
+      text-align: left;
+      width: 100%;
+    }
+    
+    .v-card__title--primary {
+        padding: 8px 24px;
+    }
+    
+    .headline {
+        font-size: 21px !important;
+        font-weight: bold !important;
+    }
+    
 .v-card__media__content {
   padding: 16px 8px 8px 8px;
   text-align: center;
@@ -59,7 +75,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: calc(100vw - 32px);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 /* In tablet, we have two columns */
@@ -76,10 +92,10 @@
   }
 }
 
-/* In long-desktop, we have four columns */
+/* In long-desktop, we have five columns */
 @media (min-width: 1264px) {
   .card-user-pic {
-    height: calc(25vw - 80px);
+    height: calc(20vw - 80px);
   }
 }
 
@@ -88,11 +104,6 @@
   .card-user-pic {
     height: calc(16vw);
   }
-}
-
-.card-user-info {
-  text-align: center;
-  width: 100%;
 }
 
 .person-card-social-icons {
@@ -110,17 +121,17 @@
 }
 
 .light-border {
-  border: 1px solid #f3f3f3;
+  border: 1px solid #eaeaea;
   border-radius: 6px;
 }
 
 /* more spread, low contrast */
 .custom-hover:hover {
-  box-shadow: 0 4px 12px 0px rgba(0,0,0,.108) !important;
+  box-shadow: 0 4px 8px 0px rgba(0,0,0,.10) !important;
 }
 
 .box-shadow {
-  box-shadow: 0px 8px 24px 8px rgba(0,0,0,0.04) !important;
+  box-shadow: 0px 8px 8px 2px rgba(0,0,0,0.08) !important;
 }
 
 .v-card {
@@ -132,7 +143,6 @@
 }
 </style>
 
-
 <script>
 export default {
   name: 'PersonCard',
@@ -140,9 +150,9 @@ export default {
     id: { type: String, required: true },
     pic: { type: String, required: true },
     name: { type: String, required: true },
-    role: { type: String, required: true },
-    company: { type: String, required: true },
-    expertise: { type: Array, required: true },
+    role: { type: String, required: false },
+    company: { type: String, required: false },
+    expertise: { type: Array, required: false },
     bio: { type: String, required: false },
     location: { type: String, required: false },
     twitter: { type: String, required: false },

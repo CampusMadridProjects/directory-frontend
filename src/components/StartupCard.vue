@@ -1,10 +1,12 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover">
     <div @click="goToStartup(id)">
-      <v-card-media
+      <v-img
         :height="cardHeight"
         :src="logo"
-      ></v-card-media>
+        contain
+        class="card-user-pic"
+      ></v-img>
 
       <v-card-title primary-title>
         <h3 class="headline mb-0">{{ name }}</h3>
@@ -16,6 +18,11 @@
 
 
 <style scoped>
+
+>>> .v-card__media__background {
+  background-size: contain !important;
+}
+
 .v-card__media__content {
   padding: 16px 8px 8px 8px;
   text-align: center;
@@ -35,8 +42,9 @@
   width: 92px;
 }
 
+/* TD - duplicated in PersonCard */
 .light-border {
-  border: 1px solid #f3f3f3;
+  border: 1px solid #eaeaea;
   border-radius: 8px;
 }
 
@@ -58,9 +66,7 @@ export default {
     id: { type: String, required: true },
     logo: { type: String, required: true },
     name: { type: String, required: true },
-    people: { type: Array, required: true },
-    bio: { type: String, required: true },
-    accelerator: { type: String, required: true },
+    accelerator: { type: String, required: false },
   },
 
   data: () => ({

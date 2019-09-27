@@ -1,7 +1,7 @@
 <template>
-  <v-card light class="full-size">
+  <v-card light class="full-size" v-else>
     <v-toolbar>
-      <v-btn icon @click="$router.back();">
+      <v-btn fab @click="$router.replace('/directory');">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
@@ -10,7 +10,9 @@
           target="_blank"
           class="no-underline"
         >
-          <v-btn flat color="primary">Update this profile</v-btn>
+            <v-btn fab class="mx-0">
+              <v-icon>edit</v-icon>
+            </v-btn>
         </a>
     </v-toolbar>
 
@@ -19,58 +21,57 @@
         :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"
       >
       </div>
-      <div class="headline text-xs-center">{{ data.name }}</div>
-      <div class="text-xs-center">
-        <span class="grey--text one-line text-xs-center">
-          {{ data.role }} @
+      <div style="padding: 8px 24px;">
+        <div class="headline">{{ data.name }}</div>
+        <div>
+            <span class="one-line">
+              {{ job.role }}
+              <span v-if="job.role && job.name">@</span>
+              <span v-else>-</span>
           <span
-            v-if="data.company_id"
-            @click="$ga.event('person_detail', 'view_startup', data.company_id)"
+            v-if="job.id"
+            @click="$ga.event('person_detail', 'view_startup', job.id)"
           >
-            <router-link :to="{name: 'startupDetail', params: {id: data.company_id}}">
-              {{ data.company }}
+            <router-link :to="{name: 'startupDetail', params: {id: job.id}}">
+              {{ job.name }}
             </router-link>
           </span>
-          <span v-else>
-          <!-- @click="$ga.event('person_detail', 'view_org', data.company_id)"> -->
-            <!-- <router-link :to="{name: 'orgDetail', params: {id: data.company_id}}"> -->
-              {{ data.company }}
-            <!-- </router-link> -->
-          </span>
-        </span>
+            </span>
+        </div>
       </div>
     </div>
 
     <v-card-title primary-title>
       <div class="card-user-info">
         <h4>
+         <v-icon size="14" class="mr-1">forum</v-icon>
           <span v-for="(ability, index) in data.expertise"
             :key="ability">{{ (index !== 0) ? ', ' + ability : ability }}
           </span>
         </h4>
-        <span class="grey--text">{{ data.location }}</span>
+        <v-icon size="14" class="mr-1">room</v-icon>
+        <span>{{ data.location }}</span>
       </div>
     </v-card-title>
 
     <v-card-text>
       {{ data.bio }}
-
       <div class="mb-3">
-        <v-btn color="primary" large v-if="data.slack"
-          :href="data.slack"
+        <v-btn color="primary" x-large v-if="data.slack"
+          :href="slackUrl(data.slack)"
           target="_blank"
           @click="$ga.event('person_detail', 'connect', data._id)"
         >
           Connect
         </v-btn>
-        <v-btn color="primary" large v-else-if="data.linkedin"
+        <v-btn color="primary" x-large v-else-if="data.linkedin"
           :href="data.linkedin"
           target="_blank"
           @click="$ga.event('person_detail', 'connect', data._id)"
         >
           Connect
         </v-btn>
-        <v-btn color="primary" large v-else-if="data.twitter"
+        <v-btn color="primary" x-large v-else-if="data.twitter"
           :href="data.twitter"
           target="_blank"
           @click="$ga.event('person_detail', 'connect', data._id)"
@@ -97,7 +98,7 @@
           <img src="img/linkedin_64.png" alt="linkedin" />
         </a>
         <a v-if="data.slack"
-          :href="data.slack"
+          :href="slackUrl(data.slack)"
           target="_blank"
           class="person-card-social-icon"
           @click="$ga.event('person_detail', 'slack', data._id)"
@@ -117,108 +118,128 @@
 </style>
 
 <style scoped>
-.full-size {
-  border-radius: 0 !important;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
+    
+    .card-user-pic {
+        height: calc(43vw - 64px);
+        margin-bottom: 0px;
+    }
+    
+    /* makes cta full width */
+    .primary {
+        width: 96%;
+    }
+    
+    .v-toolbar {
+        margin-bottom: -64px;
+    }
+    
+    .v-toolbar__content button {
+        width: 45px;
+    }
 
-.card-user-pic {
-  border-radius: 0px;
-}
+    .full-size {
+      border-radius: 0 !important;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      height: auto;
+    }
 
-.v-toolbar {
-  background-color: transparent;
-  box-shadow: none;
-}
+    .card-user-pic {
+      border-radius: 0px;
+    }
 
-.v-toolbar__title {
-  width: 80%;
-  text-align: center;
-  margin: 0px;
-}
+    .v-toolbar {
+      background-color: transparent;
+      box-shadow: none;
+    }
 
-.headline {
-  margin-top: 12px;
-}
+    .v-toolbar .v-btn {
+        background: rgba(0, 0, 0, 0.4) !important;
+        color: white !important;
+    }
 
-.v-btn--icon {
-  min-width: 36px;
-}
+    .v-toolbar__title {
+      width: 80%;
+      text-align: center;
+      margin: 0px;
+    }
 
-@media (min-width: 600px) {
-  .card-user-pic {
-    max-height: 370px;
-    max-width: 370px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
+    .headline {
+      margin-top: 12px;
+    }
 
-@media (max-width: 960px) {
-  .v-toolbar__content>:first-child.v-btn--icon,
-  .v-toolbar__extension>:first-child.v-btn--icon {
-    margin-left: 0px;
-  }
-}
+    .v-btn--icon {
+      min-width: 36px;
+    }
+
+    @media (min-width: 600px) {
+      .card-user-pic {
+        max-height: 370px;
+        max-width: 370px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 960px) {
+        nav {
+            margin-bottom: -64px;
+        }
+
+        .v-btn--floating {
+            width: 45px;
+        }
+
+        .v-card-text .v-btn {
+            width: 100%;
+        }
+        
+        .card-user-pic {
+            height: calc(66vh - 64px);
+        }
+    }
 </style>
 
-
 <script>
-// ToDo (@CodingCarlos):
-// A better way to manage the ID discovery
-
-// If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.localStorage;
-
-function getStorage() {
-  let list = storage.getItem('people-list');
-  try {
-    list = JSON.parse(list);
-  } catch (e) {
-    list = [];
-  }
-
-  return list;
-}
-
-function searchPerson(list, id) {
-  for (let i = list.length - 1; i >= 0; i -= 1) {
-    if (list[i]._id === id) {
-      return list[i];
-    }
-  }
-
-  return null;
-}
-
-function getData() {
-  const { id } = this.$router.currentRoute.params;
-  const data = getStorage();
-
-  const gottenData = searchPerson(data, id);
-
-  // Check organizaion or startup
-  if (gottenData.company_id.indexOf('org') > -1) {
-    gottenData.company_id = null;
-  }
-
-  this.id = id;
-  this.data = gottenData;
-}
-
 export default {
   name: 'PersonDetail',
-
   data: () => ({
     loading: true,
     id: null,
-    data: {},
-    getData,
+    data: null,
   }),
+  computed: {
+    job() {
+      let job = {};
+      if (this.data.Group && this.data.Group.length > 0) {
+        [job] = this.data.Group;
+      }
 
+      return job;
+    },
+  },
+  methods: {
+    slackUrl(id) {
+      const team = process.env.VUE_APP_SLACK_TEAM;
+      return `https://${team}.slack.com/team/${id}`;
+      // const team = process.env.VUE_APP_SLACK_ID;
+      // return `slack://user?team=${team}&id=${id}`;
+    },
+    getData() {
+      console.log('getting data...');
+      this.data = this.$store.getters['people/getById'](this.id);
+      this.loading = false;
+    },
+  },
   created() {
-    this.getData();
+    this.id = this.$router.currentRoute.params.id;
+
+    if (this.$store.state.people.list.length > 0) {
+      this.getData();
+    } else {
+      this.$store.dispatch('people/getPeople')
+        .then(this.getData);
+    }
   },
 };
 </script>

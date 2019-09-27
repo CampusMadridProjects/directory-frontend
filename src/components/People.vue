@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="loading === true">
+  <v-container v-if="$store.state.people.loading === true">
     <loading></loading>
   </v-container>
   <v-container
@@ -19,18 +19,18 @@
   </v-container>
   <v-container class="card-grid" v-else>
     <v-flex
-      xs12 sm6 md4 lg3 xl2
+      xs12 sm6 md4 lg2 xl2
       class="card-grid-item"
       v-for="person in this.filterPeople(search, filter)"
-      :key="person._id">
-
+      :key="person._id"
+    >
       <person-card-small class="card-grid-item-card hidden-md-and-up"
-        :id="person._id"
+        :id="person.id"
         :name="person.name"
         :pic="person.pic"
-        :role="person.role"
-        :company="person.company"
-        :expertise="person.expertise"
+        :role="getJob(person).role"
+        :company="getJob(person).name"
+        :expertise="person.Tag"
         :bio="person.bio"
         :location="person.location"
         :twitter="person.twitter"
@@ -38,12 +38,12 @@
       </person-card-small>
 
       <person-card class="card-grid-item-card hidden-sm-and-down"
-        :id="person._id"
+        :id="person.id"
         :name="person.name"
         :pic="person.pic"
-        :role="person.role"
-        :company="person.company"
-        :expertise="person.expertise"
+        :role="getJob(person).role"
+        :company="getJob(person).name"
+        :expertise="person.Tag"
         :bio="person.bio"
         :location="person.location"
         :twitter="person.twitter"
@@ -53,7 +53,6 @@
     </v-flex>
   </v-container>
 </template>
-
 
 <style scoped>
 h1, h2 {
@@ -84,19 +83,56 @@ a {
   flex-wrap: wrap;
 }
 
+    .card-grid-item {
+        display: flex;
+    }
+    
 .card-grid-item-card {
-  margin: 6px;
+    margin: 6px;
+    padding-bottom: 8px;
+    border: 1px solid #eaeaea;
 }
-</style>
 
+/* adds additional space for 1 more card in wide screens */
+@media screen and (min-width: 1264px){
+    .container {
+        max-width: 1300px;
+    }
+    .flex.lg2 {
+        flex-basis: 20%;
+        max-width: 20%;
+    }
+    .card-user-pic {
+        height: calc(20vw - 80px);
+    }
+}
+    
+    @media screen and (max-width: 959px) {
+        .card-grid-item-card {
+          margin: 0px;
+            border: 0px;
+        }
+        .container {
+            padding: 0px;
+        }
+    }
+</style>
 
 <script>
 import PersonCard from './PersonCard.vue';
 import PersonCardSmall from './PersonCardSmall.vue';
 import Loading from './Loading.vue';
 
-// If you want to make data persistent throught sessions, you can use localStorage
-const storage = window.localStorage;
+function inGroups(groups, val) {
+  for (let i = 0; i < groups.length; i += 1) {
+    const group = groups[i];
+    if (group && group.name && group.name.toUpperCase().indexOf(val.toUpperCase()) > -1) {
+      return true
+    }
+  }
+
+  return false;
+}
 
 export default {
   name: 'People',
@@ -138,8 +174,16 @@ export default {
       }
 
       return list.filter((person) => {
+        let clearTags = [];
+        if (person.Tag) {
+          clearTags = person.Tag.map(item => item.name);
+        }
+
+        console.log(categories);
+        console.log(clearTags);
+
         for (let i = 0; i < categories.length; i += 1) {
-          if (!person.expertise || !this.inArray(person.expertise, categories[i])) {
+          if (!clearTags || !this.inArray(clearTags, categories[i])) {
             return false;
           }
         }
@@ -162,8 +206,9 @@ export default {
         if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
           || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
           || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
-          || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
-          || (person.expertise && this.inArray(person.expertise, safeSearch))
+          || (person.Group && inGroups(person.Group, safeSearch))
+          // || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
+          // || (person.expertise && this.inArray(person.expertise, safeSearch))
         ) {
           found = true;
         }
@@ -182,104 +227,19 @@ export default {
      */
     filterPeople(search, filter) {
       // filter by categories
-      const filteredByCategory = this.filterByCategory(this.list, filter);
+      const filteredByCategory = this.filterByCategory(this.$store.state.people.list, filter);
 
       // Filter by search text
       return this.filterByText(filteredByCategory, search);
     },
 
-    cacheExpired(date) {
-      if (!date) {
-        return true;
+    getJob(person) {
+      let job = {};
+      if (person.Group && person.Group.length > 0) {
+        [job] = person.Group;
       }
 
-      const now = new Date();
-      const last = new Date(date);
-
-      if (last.getFullYear() < now.getFullYear()) {
-        return true;
-      } if (last.getMonth() < now.getMonth()) {
-        return true;
-      } if (last.getDate() + 1 < now.getDate()) {
-        return true;
-      }
-
-      return false;
-    },
-
-    /** loadPeople
-     *  Get a people list from localstorage or backend.
-     */
-    loadPeople() {
-      const localPeople = storage.getItem('people-list');
-      const localPeopleTime = storage.getItem('people-list-time');
-
-      const expired = this.cacheExpired(localPeopleTime);
-      // console.log(expired);
-
-      if (localPeople === null || expired) {
-        return this.downloadPeople();
-      }
-
-      // Try to parse JSON
-      try {
-        const parsedPeople = JSON.parse(localPeople);
-
-        this.list = parsedPeople;
-        this.loading = false;
-
-        return Promise.resolve(parsedPeople);
-      } catch (e) {
-        // In case of error, ask the backend.
-        return this.downloadPeople();
-      }
-    },
-
-    /** downloadPeople
-     *  Get a people list from the backend. Also, parse some possible exceptions.
-     */
-    downloadPeople() {
-      const token = storage.getItem('token');
-      const needAuth = process.env.VUE_APP_NEED_AUTH === 'true';
-
-      if (!token && needAuth) {
-        console.warn('You shall not pass');
-        this.$router.push('/');
-        return false;
-      }
-
-      return fetch(`${process.env.VUE_APP_API_URL}/${process.env.VUE_APP_API_PEOPLE}`, {
-        method: 'GET',
-        headers: new Headers({
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-        }),
-        // body:JSON.stringify({title:"a new todo"})
-      })
-        .then(res => res.json())
-        .then((data) => {
-          this.loading = false;
-
-          const cleanData = data.map((item) => {
-            const person = item;
-
-            if (typeof person.location === 'number') {
-              person.location = `L${person.location}`;
-            }
-
-            return person;
-          });
-
-          this.list = cleanData;
-          storage.setItem('people-list', JSON.stringify(cleanData));
-          storage.setItem('people-list-time', new Date());
-
-          return cleanData;
-        })
-        .catch((err) => {
-          this.loading = false;
-          console.error(err);
-        });
+      return job;
     },
   },
 
@@ -290,7 +250,7 @@ export default {
   },
 
   created() {
-    this.loadPeople();
+    this.$store.dispatch('people/getPeople');
   },
 };
 </script>

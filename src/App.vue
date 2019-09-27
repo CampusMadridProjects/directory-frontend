@@ -4,7 +4,7 @@
 
 <style>
   html, body, .application {
-    font-family: 'Google Sans'
+    font-family: 'Google Sans';
   }
 </style>
 
