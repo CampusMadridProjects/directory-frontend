@@ -64,7 +64,7 @@ a {
     .card-grid-item {
         display: flex;
     }
-    
+
 .card-grid-item-card {
   margin: 6px;
 }

@@ -76,11 +76,11 @@
       border-top-right-radius: 0;
       height: auto;
     }
-    
+
     .v-subheader {
         padding: 0px;
     }
-    
+
     >>> .v-list__tile {
         min-height: 72px !important;
         padding: 0px;
@@ -126,7 +126,7 @@
     .v-btn--icon {
       min-width: 36px;
     }
-    
+
     .v-toolbar__content button {
         width: 45px;
     }
@@ -167,7 +167,7 @@ export default {
       }
 
       return url;
-    }
+    },
   },
   created() {
     this.id = this.$router.currentRoute.params.id;

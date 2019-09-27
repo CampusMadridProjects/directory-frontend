@@ -86,7 +86,7 @@ a {
     .card-grid-item {
         display: flex;
     }
-    
+
 .card-grid-item-card {
     margin: 6px;
     padding-bottom: 8px;
@@ -106,7 +106,7 @@ a {
         height: calc(20vw - 80px);
     }
 }
-    
+
     @media screen and (max-width: 959px) {
         .card-grid-item-card {
           margin: 0px;
@@ -127,7 +127,7 @@ function inGroups(groups, val) {
   for (let i = 0; i < groups.length; i += 1) {
     const group = groups[i];
     if (group && group.name && group.name.toUpperCase().indexOf(val.toUpperCase()) > -1) {
-      return true
+      return true;
     }
   }
 

@@ -118,21 +118,21 @@
 </style>
 
 <style scoped>
-    
+
     .card-user-pic {
         height: calc(43vw - 64px);
         margin-bottom: 0px;
     }
-    
+
     /* makes cta full width */
     .primary {
         width: 96%;
     }
-    
+
     .v-toolbar {
         margin-bottom: -64px;
     }
-    
+
     .v-toolbar__content button {
         width: 45px;
     }
@@ -193,7 +193,7 @@
         .v-card-text .v-btn {
             width: 100%;
         }
-        
+
         .card-user-pic {
             height: calc(66vh - 64px);
         }

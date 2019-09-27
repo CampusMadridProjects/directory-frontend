@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar :extended="hasFilters" app>
-       <img src="img/logo.png" style="height: 21px;padding-right: 16px;"> 
+       <img src="img/logo.png" style="height: 21px;padding-right: 16px;">
 
       <v-text-field
         prepend-inner-icon="search"
@@ -86,7 +86,7 @@
         <!-- <span>Startups</span> -->
         <v-icon>group</v-icon>
       </v-btn>
-      
+
       <v-btn
         flat
         value="tabs-more"
@@ -117,7 +117,7 @@
 </template>
 
 <style scoped>
-    
+
 .v-input__slot {
     background: #e0e0e0;
 }
@@ -181,7 +181,7 @@ a {
     border-color: transparent;
     color: #4285F4;
   }
-    
+
 >>> .v-chip.active:focus .v-chip__content {
     background: #e3e8fd;
 }
@@ -252,7 +252,7 @@ a {
 }
 
 @media (max-width: 959px) {
-    
+
   .v-footer {
     height: auto !important;
     padding: 16px 0px;
@@ -267,23 +267,23 @@ a {
     .v-toolbar .v-btn {
         display: none;
     }
-    
+
     .v-toolbar img {
         display: none;
     }
-    
+
     /* this native vuetify class should be hiding the element in mobile, but its not working for no reasong, so i'm adding it here for the moment */
     .d-sm-none {
         display: none;
     }
-    
+
 /*  .chip-container {
     margin-top: 24px !important;
   }*/
 }
 
 @media (min-width: 959px) {
-    
+
 .v-item-group.v-bottom-nav .v-btn--active {
     background: rgba(66, 133, 244, 0.16) !important;
     border-radius: 0px 50px 50px 0px;
@@ -295,20 +295,20 @@ a {
 
   .desktop-horizontal[style] {
     flex-direction: column;
-    height: calc(100% - 64px) !important; 
+    height: calc(100% - 64px) !important;
     left: 0;
     position: fixed;
     top: 64px;
     justify-content: flex-start;
     width: 116px !important;
   }
-    
+
     .v-item-group.v-bottom-nav .v-btn {
         max-height: 56px;
         padding: 16px 0px;
         border-radius: 0px 50px 50px 0px;
     }
-    
+
     /* removes borde from vertical nav */
     .v-bottom-nav {
         border: none;
@@ -333,7 +333,7 @@ a {
 </style>
 
 <style>
-    
+
     .v-content {
         padding: 100px 0px 0px !important;
     }
@@ -341,15 +341,15 @@ a {
     .v-content.no-extended {
         padding: 64px 0px 0px !important;
     }
-    
+
     .v-item-group.v-bottom-nav .v-btn {
         padding: 0px;
     }
-    
+
     .v-item-group.v-bottom-nav .v-btn--active {
         padding: 0px;
     }
-    
+
 .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
     font-size: 14px;
     min-height: 48px;
@@ -366,7 +366,7 @@ a {
     .v-btn:hover {
         background: #174ea6 !important;
     }
-    
+
 /* check how to add primary color */
 .v-btn--active {
     color: #4285F4 !important;
@@ -399,29 +399,29 @@ a {
 .v-text-field .v-input__prepend-inner {
     padding-right: 8px;
 }
-    
+
 @media (max-width: 959px) {
-    
+
     main {
         padding: 96px 0px 0px !important;
     }
-    
+
     .v-input__slot {
         min-height: 40px;
     }
-    
+
     .v-toolbar__extension {
         height: 32px !important;
     }
-    
+
     input {
         color: #8E8E93 !important;
     }
-    
+
     .v-input__slot {
         background: #f5f5f5;
     }
-    
+
 }
 
 </style>
@@ -476,7 +476,7 @@ export default {
   }),
   computed: {
     hasFilters() {
-      return this.tabs === 'tabs-people'
+      return this.tabs === 'tabs-people';
     },
   },
   methods: {

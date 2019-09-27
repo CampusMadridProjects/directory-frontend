@@ -29,7 +29,7 @@
 </template>
 
 <style scoped>
-    
+
     .v-list__tile__title {
         font-weight: bold;
         font-size: 1.4rem;

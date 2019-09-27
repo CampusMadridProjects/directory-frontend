@@ -32,18 +32,18 @@
 </template>
 
 <style type="text/css">
-    
+
     .v-icon {
         line-height: 1.3;
     }
-    
+
     .v-card {
       border-radius: 8px;
       padding: 4px;
       text-align: left;
       width: 100%;
     }
-    
+
     .card-elements {
       display: flex;
       flex-direction: column;
@@ -54,16 +54,16 @@
       text-align: left;
       width: 100%;
     }
-    
+
     .v-card__title--primary {
         padding: 8px 24px;
     }
-    
+
     .headline {
         font-size: 21px !important;
         font-weight: bold !important;
     }
-    
+
 .v-card__media__content {
   padding: 16px 8px 8px 8px;
   text-align: center;
