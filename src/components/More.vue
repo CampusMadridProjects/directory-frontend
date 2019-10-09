@@ -113,43 +113,43 @@
   padding-left: 8px;
 }
 
-    .title {
-        font-size: 2.4rem !important;
-    }
-    p {
-        font-size: 1.2rem !important;
-    }
-    .v-card__title {
-        padding: 16px 0px;
-        padding-left: 16px;
-        padding-bottom: 0px;
-    }
-    .v-card__text {
-        padding: 16px 0px;
-    }
-    .px-5 {
-        padding-left: 16px !important;
-        padding-right: 16px !important;
-    }
-    .v-btn:hover {
-        background: #e0ebfe !important;
-        color: #4285f4;
-    }
+.title {
+  font-size: 2.4rem !important;
+}
+p {
+  font-size: 1.2rem !important;
+}
+.v-card__title {
+  padding: 16px 0px;
+  padding-left: 16px;
+  padding-bottom: 0px;
+}
+.v-card__text {
+  padding: 16px 0px;
+}
+.px-5 {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+.v-btn:hover {
+  background: #e0ebfe !important;
+  color: #4285f4;
+}
 
-    @media screen and (min-width: 1264px) {
-        .container {
-            max-width: 720px;
-        }
-    }
+@media screen and (min-width: 1264px) {
+  .container {
+    max-width: 720px;
+  }
+}
 
 </style>
 <style>
-    .v-list__group__header {
-        max-height: 64px !important;
-    }
-    .v-list__group__items {
-        padding-bottom: 24px;
-    }
+  .v-list__group__header {
+    max-height: 64px !important;
+  }
+  .v-list__group__items {
+    padding-bottom: 24px;
+  }
 </style>
 
 <script>
