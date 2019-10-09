@@ -27,7 +27,7 @@
       <person-card-small class="card-grid-item-card hidden-md-and-up"
         :id="person.id"
         :name="person.name"
-        :pic="person.pic"
+        :pic="person.pic || ''"
         :role="getJob(person).role"
         :company="getJob(person).name"
         :expertise="person.Tag"
@@ -40,7 +40,7 @@
       <person-card class="card-grid-item-card hidden-sm-and-down"
         :id="person.id"
         :name="person.name"
-        :pic="person.pic"
+        :pic="person.pic || ''"
         :role="getJob(person).role"
         :company="getJob(person).name"
         :expertise="person.Tag"
@@ -179,8 +179,8 @@ export default {
           clearTags = person.Tag.map(item => item.name);
         }
 
-        console.log(categories);
-        console.log(clearTags);
+        // console.log(categories);
+        // console.log(clearTags);
 
         for (let i = 0; i < categories.length; i += 1) {
           if (!clearTags || !this.inArray(clearTags, categories[i])) {

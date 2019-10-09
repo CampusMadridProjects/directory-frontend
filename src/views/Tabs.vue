@@ -272,14 +272,13 @@ a {
         display: none;
     }
 
-    /* this native vuetify class should be hiding the element in mobile, but its not working for no reasong, so i'm adding it here for the moment */
+    /* ToDo @CodingCarlos:
+      this native vuetify class should be hiding the element in mobile, but its not working for
+      no reasong, so i'm adding it here for the moment
+    */
     .d-sm-none {
         display: none;
     }
-
-/*  .chip-container {
-    margin-top: 24px !important;
-  }*/
 }
 
 @media (min-width: 959px) {
@@ -374,7 +373,9 @@ a {
 
 .v-input--is-focused .v-input__slot {
     background: #ffffff !important;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),
+                0 2px 2px 0 rgba(0,0,0,0.14),
+                0 1px 5px 0 rgba(0,0,0,0.12);
 }
 
 .no-underline {

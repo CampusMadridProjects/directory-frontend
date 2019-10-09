@@ -1,102 +1,118 @@
 <template>
-    <v-container>
-       <v-layout class="px-5" column grid-list-md>
-            <v-flex lg6>
-                <v-card flat>
-                    <v-card-text>
-                        <v-layout align-center mb-3>
-                    <!--                <v-avatar color="grey" class="mr-3"></v-avatar>-->
-                            <strong class="title">News</strong>
-                            <v-spacer></v-spacer>
-                    <!--
-                            <v-btn icon>
-                              <v-icon>mdi-account</v-icon>
-                            </v-btn>
-                    -->
-                        </v-layout>
-                    <v-flex xs12 style="border: 1px solid #e3e3e3;border-radius: 4px;padding-bottom: 8px;padding-left: 8px;">
-                        <v-card>
-                            <v-layout row>
-                                <v-flex xs10>
-                                    <v-card-title primary-title>
-                                        <div>
-                                            <div class="headline">Find who you need, also in Slack</div>
-                                            <p>Just type /dir-search in any channel or conversation to start the directory bot</p>
-                                        </div>
-                                    </v-card-title>
-                                </v-flex>
-            <!--
-                                <v-flex xs2
-                                   class="pt-2">
-                                    <v-img
-                                    src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2019/01/Slack-New.jpg"
-                                    height="56px"
-                                    contain
-                                    ></v-img>
-                                </v-flex>
-            -->
-                            </v-layout>
-            <!--                <v-divider light></v-divider>-->
-                                <a href="https://gfs-madrid.slack.com">
-                                    <v-btn>Open Slack</v-btn>
-                                </a>
-                        </v-card>
-                    </v-flex>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-            <v-flex lg6>
-                <v-card flat>
-                    <v-card-text>
-                        <v-layout align-center mb-3>
-                            <strong class="title">Help</strong>
-                            <v-spacer></v-spacer>
-                        </v-layout>
-                        <v-list>
-                          <v-list-group
-                            v-for="item in items"
-                            :key="item.title"
-                            v-model="item.active"
-                            :prepend-icon="item.action"
-                            no-action
-                          >
-                            <template v-slot:activator>
-                              <v-list-tile>
-                                <v-list-tile-content>
-                                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                                </v-list-tile-content>
-                              </v-list-tile>
-                            </template>
+  <v-container>
+    <v-layout class="px-5" column grid-list-md>
+      <v-flex lg6>
+        <v-card flat>
+          <v-card-text>
+            <v-layout align-center mb-3>
+              <!-- <v-avatar color="grey" class="mr-3"></v-avatar> -->
+              <strong class="title">News</strong>
+              <v-spacer></v-spacer>
 
-                            <v-list-tile>
-                              <div v-html="item.text"></div>
-                            </v-list-tile>
-                          </v-list-group>
-                        </v-list>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-            <v-flex lg6>
-                <v-card flat>
-                <v-card-text>
-                    <v-layout align-center mb-3>
-                        <strong class="title">About</strong>
-                        <v-spacer></v-spacer>
-                    </v-layout>
+              <v-btn icon>
+                <v-icon>mdi-account</v-icon>
+              </v-btn>
 
-                    <p>
-                        This directory is part of Google for Startups &amp; <a href="http://communitytools.co/">Community Tools</a>, a project created to facilitate contacts across Google for Startups Campus communities.<br />
-                        If you want to share your thoughts, report a bug or just say hi, you can get in touch by clicking <a href="directory@campus.co">here</a>. We'd love to hear whatever's on your mind!
-                    </p>
+            </v-layout>
+            <v-flex
+              xs12
+              class="bordered-card"
+            >
+              <v-card>
+                <v-layout row>
+                  <v-flex xs10>
+                    <v-card-title primary-title>
+                      <div>
+                        <div class="headline">Find who you need, also in Slack</div>
+                        <p>
+                          Just type /dir-search in any channel or conversation to start the
+                          directory bot
+                        </p>
+                      </div>
+                    </v-card-title>
+                  </v-flex>
 
-                </v-card-text>
-                </v-card>
+                  <!-- <v-flex xs2
+                     class="pt-2">
+                      <v-img
+                        src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2019/01/Slack-New.jpg"
+                        height="56px"
+                        contain
+                      ></v-img>
+                  </v-flex> -->
+                </v-layout>
+                <!-- <v-divider light></v-divider> -->
+                <a href="https://gfs-madrid.slack.com">
+                  <v-btn>Open Slack</v-btn>
+                </a>
+              </v-card>
             </v-flex>
-       </v-layout>
-    </v-container>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex lg6>
+        <v-card flat>
+            <v-card-text>
+                <v-layout align-center mb-3>
+                    <strong class="title">Help</strong>
+                    <v-spacer></v-spacer>
+                </v-layout>
+                <v-list>
+                  <v-list-group
+                    v-for="item in items"
+                    :key="item.title"
+                    v-model="item.active"
+                    :prepend-icon="item.action"
+                    no-action
+                  >
+                    <template v-slot:activator>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </template>
+
+                    <v-list-tile>
+                      <div v-html="item.text"></div>
+                    </v-list-tile>
+                  </v-list-group>
+                </v-list>
+            </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex lg6>
+        <v-card flat>
+          <v-card-text>
+              <v-layout align-center mb-3>
+                <strong class="title">About</strong>
+                <v-spacer></v-spacer>
+              </v-layout>
+
+              <p>
+                This directory is part of Google for Startups &amp;
+                <a href="http://communitytools.co/">Community Tools</a>, a project created to
+                facilitate contacts across Google for Startups Campus communities.<br />
+                If you want to share your thoughts, report a bug or just say hi, you can get in
+                touch by clicking <a href="directory@campus.co">here</a>. We'd love to hear
+                whatever's on your mind!
+              </p>
+
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <style scoped>
+.bordered-card {
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+}
+
     .title {
         font-size: 2.4rem !important;
     }
