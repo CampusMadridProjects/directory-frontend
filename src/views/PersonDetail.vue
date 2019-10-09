@@ -6,7 +6,7 @@
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
+        <a :href="'/admin/#/suggest-person-public/'+ id"
           target="_blank"
           class="no-underline"
         >

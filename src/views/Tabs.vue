@@ -18,7 +18,7 @@
 
         <v-btn
           color="primary"
-          href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
+          href="/admin/#/suggest-public"
           target="_blank"
         >
             <v-icon left>add</v-icon>Add Profile
