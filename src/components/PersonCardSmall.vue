@@ -7,7 +7,7 @@
       </div>
 
       <div class="person-info">
-        <v-list-tile-title class="text-xs-left">{{ name }}</v-list-tile-title>
+        <v-list-tile-title class="text-xs-left">{{ name }} {{ surname }}</v-list-tile-title>
         <v-list-tile-sub-title class="text-xs-left">
           {{ role }}
           <span v-if="role && company">@</span>
@@ -90,6 +90,7 @@ export default {
     id: { type: String, required: true },
     pic: { type: String, required: true },
     name: { type: String, required: true },
+    surname: { type: String, required: false, default: '' },
     role: { type: String, required: false },
     company: { type: String, required: false },
     expertise: { type: Array, required: false },

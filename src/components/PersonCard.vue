@@ -4,7 +4,7 @@
       <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
       </div>
       <div style="padding: 8px 24px;">
-        <div class="headline ellipsis">{{ name }}</div>
+        <div class="headline ellipsis">{{ name }} {{ surname }}</div>
         <div class="ellipsis">
             <span class="one-line">
               {{ role }}
@@ -150,6 +150,7 @@ export default {
     id: { type: String, required: true },
     pic: { type: String, required: true },
     name: { type: String, required: true },
+    surname: { type: String, required: false, default: '' },
     role: { type: String, required: false },
     company: { type: String, required: false },
     expertise: { type: Array, required: false },

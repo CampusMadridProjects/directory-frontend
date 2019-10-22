@@ -27,7 +27,7 @@
         >
         </div>
         <div style="padding: 8px 24px;">
-          <div class="headline">{{ data.name }}</div>
+          <div class="headline">{{ data.name }} {{ data.surname }}</div>
           <div>
               <span class="one-line">
                 {{ job.role }}
