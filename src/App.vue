@@ -12,5 +12,8 @@
 
 export default {
   name: 'App',
+  async beforeCreate() {
+    await this.$store.dispatch('settings/getConfig');
+  },
 };
 </script>

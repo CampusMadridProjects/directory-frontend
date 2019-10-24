@@ -7,10 +7,9 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 
-console.log(process.env);
-
 window.addEventListener('beforeinstallprompt', (event) => {
-  event.preventDefault();
+  // Commented, becouse we will enable this in the future
+  // event.preventDefault();
   // Stash the event so it can be triggered later.
   window.deferredPrompt = event;
   return false;

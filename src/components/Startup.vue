@@ -6,7 +6,7 @@
     <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
     <h1>Nothing found</h1>
     <p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank" class="no-underline">
+      <a href="/admin/#/suggest-startup-public/" target="_blank" class="no-underline">
         <v-btn color="primary" class="mb-3">
           Create {{search}}...
         </v-btn>

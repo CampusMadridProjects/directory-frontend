@@ -227,16 +227,15 @@ export default {
 
       return job;
     },
+    slackTeam() {
+      return this.$store.getters['settings/slackWorkspace'] || '';
+    },
   },
   methods: {
     slackUrl(id) {
-      const team = process.env.VUE_APP_SLACK_TEAM;
-      return `https://${team}.slack.com/team/${id}`;
-      // const team = process.env.VUE_APP_SLACK_ID;
-      // return `slack://user?team=${team}&id=${id}`;
+      return `https://${this.slackTeam}.slack.com/team/${id}`;
     },
     getData() {
-      // console.log('getting data...');
       this.data = this.$store.getters['people/getById'](this.id);
       if (this.data != null) {
         this.loading = false;

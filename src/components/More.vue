@@ -42,7 +42,7 @@
                   </v-flex> -->
                 </v-layout>
                 <!-- <v-divider light></v-divider> -->
-                <a href="https://gfs-madrid.slack.com">
+                <a :href="'https://' + slackTeam + '.slack.com'">
                   <v-btn>Open Slack</v-btn>
                 </a>
               </v-card>
@@ -81,7 +81,7 @@
             </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex lg6>
+      <v-flex lg6 class="mb-5">
         <v-card flat>
           <v-card-text>
               <v-layout align-center mb-3>
@@ -91,11 +91,11 @@
 
               <p>
                 This directory is part of Google for Startups &amp;
-                <a href="http://communitytools.co/">Community Tools</a>, a project created to
-                facilitate contacts across Google for Startups Campus communities.<br />
+                <a href="http://communitytools.co/" target="blank">Community Tools</a>, a project
+                created to facilitate contacts across Google for Startups Campus communities.<br />
                 If you want to share your thoughts, report a bug or just say hi, you can get in
-                touch by clicking <a href="directory@campus.co">here</a>. We'd love to hear
-                whatever's on your mind!
+                touch by clicking <a href="mailto:directory@campus.co" target="blank">here</a>.
+                We'd love to hear whatever's on your mind!
               </p>
 
           </v-card-text>
@@ -158,27 +158,31 @@ export default {
 };
 </script>
 <script>
-  export default {
-    data () {
-      return {
-        items: [
-          {
-            action: 'person',
-            title: 'Profiles',
-            text: "Profiles are added and mantained by a space manager, either Tetuan Valley, SeedRocket or Google. You can manually add or update your profile or your startup info by filling <a href='https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform'>this form</a>. Your changes will be manually reviewd and updated as soon as possible."
-          },
-          {
-            action: 'lock',
-            title: 'Privacy',
-            text: "Users data is securely stored in Google's infrastructure in Europe under the best standards. Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
-          },
-          {
-            action: 'forum',
-            title: 'Slack',
-            text: "There is an official Slack channel for campus residents. You have to be invited by your space manager. You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation. Your search results will be visible <strong>only to you</strong>.",
-          }
-        ]
-      }
-    }
-  }
+export default {
+  name: 'More',
+  data: () => ({
+    items: [
+      {
+        action: 'person',
+        title: 'Profiles',
+        text: "Profiles are added and mantained by a space manager, either Tetuan Valley, SeedRocket or Google. You can manually add or update your profile or your startup info by filling <a href='https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform'>this form</a>. Your changes will be manually reviewd and updated as soon as possible."
+      },
+      {
+        action: 'lock',
+        title: 'Privacy',
+        text: "Users data is securely stored in Google's infrastructure in Europe under the best standards. Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
+      },
+      {
+        action: 'forum',
+        title: 'Slack',
+        text: "There is an official Slack channel for campus residents. You have to be invited by your space manager. You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation. Your search results will be visible <strong>only to you</strong>.",
+      },
+    ],
+  }),
+  computed: {
+    slackTeam() {
+      return this.$store.getters['settings/slackWorkspace'] || '';
+    },
+  },
+};
 </script>

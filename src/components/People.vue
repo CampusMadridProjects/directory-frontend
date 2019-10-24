@@ -9,7 +9,7 @@
     <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
     <h1>No one found</h1>
     <p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank" class="no-underline">
+      <a href="/admin/#/suggest-person-public/" target="_blank" class="no-underline">
         <v-btn color="primary" class="mb-3">
           Create {{search}}...
         </v-btn>
@@ -17,12 +17,12 @@
       <i class="grey--text">The content will be manually reviewed</i>
     </p>
   </v-container>
-  <v-container class="card-grid" v-else>
+  <v-container class="card-grid mb-5 pb-3" v-else>
     <v-flex
       xs12 sm6 md4 lg2 xl2
-      class="card-grid-item"
       v-for="person in this.filterPeople(search, filter)"
       :key="person._id"
+      class="card-grid-item"
     >
       <person-card-small class="card-grid-item-card hidden-md-and-up"
         :id="person.id"
