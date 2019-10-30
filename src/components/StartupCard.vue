@@ -33,6 +33,10 @@
   flex-direction: column;
 }
 
+.headline {
+  text-align: center;
+}
+
 .startup-logo {
   background-position: center;
   background-size: cover;

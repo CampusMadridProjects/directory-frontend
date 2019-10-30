@@ -54,7 +54,11 @@ const mutations = {
     state.loading = false;
   },
   setStartups(state, list) {
-    state.list = list;
+    // state.list = list;
+    state.list = [
+      ...list.filter(item => (item.logo && item.logo != 'undefined')),
+      ...list.filter(item => (!item.logo || item.logo == '' || item.logo == 'undefined')),
+    ];
   },
   updateStartup(state, startup) {
     const index = getIndexById(state, startup.id);

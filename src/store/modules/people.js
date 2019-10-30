@@ -57,7 +57,17 @@ const mutations = {
     state.loading = false;
   },
   setPeople(state, list) {
-    state.list = list;
+    // state.list = list.sort(item => {
+    //   if (!item.pic || item.pic == '' || item.pic == 'undefined') {
+    //     return 1;
+    //   }
+    //   return -1;
+    // });
+    state.list = [
+      // ...list.filter(item => { return (item.pic && item.pic != 'undefined') }),
+      ...list.filter(item => (item.pic && item.pic != 'undefined')),
+      ...list.filter(item => (!item.pic || item.pic == '' || item.pic == 'undefined')),
+    ]
   },
   updatePerson(state, person) {
     const index = getIndexById(state, person.id);

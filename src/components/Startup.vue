@@ -14,7 +14,7 @@
       <i class="grey--text">The content will be manually reviewed</i>
     </p>
   </v-container>
-  <v-container class="card-grid" v-else>
+  <v-container class="card-grid pb-5 mb-3" v-else>
     <v-flex
       xs12 sm6 md4 lg3 xl2
       class="card-grid-item"
