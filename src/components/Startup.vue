@@ -93,6 +93,7 @@ export default {
   name: 'Startup',
   props: {
     search: { type: String, required: false },
+    filter: { type: Array, required: false, default: () => [], },
   },
   components: {
     StartupCard,
@@ -100,6 +101,20 @@ export default {
   },
 
   methods: {
+    inArray(array, data) {
+      if (typeof data !== 'string') {
+        return false;
+      }
+
+      let found = false;
+      for (let i = array.length - 1; i >= 0; i -= 1) {
+        if (array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
+          found = true;
+        }
+      }
+
+      return found;
+    },
     /** filterStartup
      *  Return a new array wit startups that matches with the search input passed
      *  as param. It uses as list the component's this.list. It check in name,
@@ -109,12 +124,18 @@ export default {
      *  @return {Array} An array that matches with search params
      */
     filterStartup(search) {
+      let list = this.$store.state.startups.list;
+      list = this.filterByCategory(list, this.filter)
+      return this.filterByText(list, search);
+    },
+
+    filterByText(list, search) {
       const safeSearch = search && (search.toUpperCase() || '');
       if (!safeSearch) {
-        return this.$store.state.startups.list;
+        return list;
       }
 
-      return this.$store.state.startups.list.filter((startup) => {
+      return list.filter((startup) => {
         let found = false;
         if ((startup.name && startup.name.toUpperCase().indexOf(safeSearch) > -1)
           || (startup.description && startup.description.toUpperCase().indexOf(safeSearch) > -1)
@@ -124,6 +145,27 @@ export default {
         }
 
         return found;
+      });
+    },
+
+    filterByCategory(list, categories) {
+      if (!Array.isArray(categories) || categories.length === 0) {
+        return list;
+      }
+
+      return list.filter((startup) => {
+        let clearTags = [];
+        if (startup.Tag) {
+          clearTags = startup.Tag.map(item => item.name);
+        }
+
+        for (let i = 0; i < categories.length; i += 1) {
+          if (!clearTags || !this.inArray(clearTags, categories[i])) {
+            return false;
+          }
+        }
+
+        return true;
       });
     },
   },

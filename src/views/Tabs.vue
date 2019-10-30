@@ -39,7 +39,7 @@
           <div class="text-md-center chip-content px-2">
             <span class="mr-2 d-sm-none d-lg-flex">Filter by: </span>
             <v-chip
-              v-for="tag in $store.state.tags.list"
+              v-for="tag in tagList"
               :key="tag.id"
               :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
               @click="switchTag(tag.name)"
@@ -54,10 +54,10 @@
     <v-content :class="hasFilters ? '' : 'no-extended'">
       <v-tabs-items v-model="tabs">
         <v-tab-item value="tabs-people">
-          <People :search="search" :filter="tagFilter"></People>
+          <People :search="search" :filter="tagTabFilter"></People>
         </v-tab-item>
-        <v-tab-item value="tabs-startup">
-          <Startup :search="search"></Startup>
+        <v-tab-item value="tabs-startups">
+          <Startup :search="search" :filter="tagTabFilter"></Startup>
         </v-tab-item>
         <v-tab-item value="tabs-more">
             <More></More>
@@ -81,7 +81,7 @@
 
       <v-btn
         flat
-        value="tabs-startup"
+        value="tabs-startups"
       >
         <!-- <span>Startups</span> -->
         <v-icon>group</v-icon>
@@ -476,8 +476,20 @@ export default {
     tabClicked: null,
   }),
   computed: {
+    tagTab() {
+      return this.tabs.replace('tabs-', '');
+    },
+    tagList() {
+      let tags = this.$store.getters['tags/getByTarget'](this.tagTab) || [];
+      return tags;
+    },
     hasFilters() {
-      return this.tabs === 'tabs-people';
+      let hasFilters = this.tagList.length > 0;
+      return hasFilters;
+    },
+    tagTabFilter() {
+      let tags = this.tagList.map(item => item.name);
+      return this.tagFilter.filter(item => tags.indexOf(item) > -1);
     },
   },
   methods: {
