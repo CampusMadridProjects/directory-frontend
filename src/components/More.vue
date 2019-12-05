@@ -165,7 +165,7 @@ export default {
       {
         action: 'person',
         title: 'Profiles',
-        text: "Profiles are added and mantained by a space manager, either Tetuan Valley, SeedRocket or Google. You can manually add or update your profile or your startup info by filling <a href='https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform'>this form</a>. Your changes will be manually reviewd and updated as soon as possible."
+        text: "Profiles are added and mantained by a space manager, either Tetuan Valley, SeedRocket or Google. You can manually add or update your profile or your startup info by filling <a href='/admin/#/suggest-public'>this form</a>. Your changes will be manually reviewd and updated as soon as possible."
       },
       {
         action: 'lock',
