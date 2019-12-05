@@ -37,7 +37,9 @@
       >
         <div class="scroll-container">
           <div class="text-md-center chip-content px-2">
-            <span class="mr-2 d-sm-none d-lg-flex">Filter by: </span>
+            <span class="mr-2 d-sm-none d-lg-flex">
+              Filter by:
+            </span>
             <v-chip
               v-for="tag in tagList"
               :key="tag.id"
@@ -46,6 +48,7 @@
             >
               {{ tag.name }}
             </v-chip>
+            <span class="chip-spacer"></span>
           </div>
         </div>
       </v-container>
@@ -190,6 +193,14 @@ a {
     background: #fff;
 }
 
+.chip-content > span {
+  white-space: nowrap;
+}
+
+.chip-spacer {
+  padding: 12px;
+}
+
 .application.theme--light {
   background: #ffffff;
 }
@@ -209,9 +220,27 @@ a {
   margin-right: auto;
 }
 
-.chip-content {
+/*.chip-content {
   text-align: center;
-}
+}*/
+  .scroll-container {
+    overflow-x: scroll;
+    width: calc(100% - 116px);
+    margin-top: 16px;
+    margin-left: 116px;
+    padding-left: 36px;
+  }
+    .scroll-container::-webkit-scrollbar {
+      background: transparent;
+      width: 0;
+    }
+
+  .chip-content {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin: auto;
+  }
 
 >>> .v-dialog {
   background: #FFFFFF;
@@ -235,19 +264,8 @@ a {
   }
 
   .scroll-container {
-    overflow-x: scroll;
+    margin: 0;
     width: 100%;
-  }
-    .scroll-container::-webkit-scrollbar {
-      background: transparent;
-      width: 0;
-    }
-
-  .chip-content {
-    display: flex;
-    align-items: center;
-    text-align: left;
-    width: 750px;
   }
 }
 

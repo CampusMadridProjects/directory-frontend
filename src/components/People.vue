@@ -156,7 +156,7 @@ export default {
 
   methods: {
     inArray(array, data) {
-      if (typeof data !== 'string') {
+      if (typeof data !== 'string' || !Array.isArray(array)) {
         return false;
       }
 
@@ -165,6 +165,23 @@ export default {
         if (array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
           found = true;
         }
+      }
+
+      return found;
+    },
+
+    inTags(array, data) {
+      let terms = data.split(' ');
+      let found = this.inArray(array, data);
+
+      let occurences = 0;
+      for (var i = 0; i < terms.length; i++) {
+        if (this.inArray(array, terms[i])) {
+          occurences++;
+        }
+      }
+      if (occurences > 0 && occurences === terms.length) {
+        found = true;
       }
 
       return found;
@@ -195,7 +212,7 @@ export default {
     },
 
     filterByText(list, search) {
-      const safeSearch = search && (search.toUpperCase() || '');
+      const safeSearch = search && (search.toUpperCase().trim() || '');
 
       if (safeSearch === '' || !safeSearch) {
         return list;
@@ -203,6 +220,7 @@ export default {
 
       return list.filter((person) => {
         let found = false;
+        let expertise = person.Tag && person.Tag.map(tag => tag.name);
 
         // Search by text
         if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
@@ -211,6 +229,7 @@ export default {
           || (person.Group && inGroups(person.Group, safeSearch))
           // || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
           // || (person.expertise && this.inArray(person.expertise, safeSearch))
+          || (expertise && this.inTags(expertise, safeSearch))
         ) {
           found = true;
         }

@@ -11,7 +11,6 @@ const initialState = {
 const getters = {
   getById: state => id => state.list.find(item => item.id === id),
   getByTarget: state => target => {
-    console.log(target);
     return state.list.filter(item => (item.for && item.for.indexOf(target) > -1));
   }
 };
