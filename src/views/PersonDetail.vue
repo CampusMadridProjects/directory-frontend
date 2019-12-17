@@ -62,6 +62,14 @@
       <v-card-text>
         {{ data.bio }}
         <div class="mb-3">
+          <v-btn color="primary" x-large v-if="connect.show"
+            :href="connect.url"
+            target="_blank"
+            @click="$ga.event('person_detail', 'connect', data._id)"
+          >
+            Connect via {{connect.media}}
+          </v-btn>
+<!-- 
           <v-btn color="primary" x-large v-if="data.slack"
             :href="slackUrl(data.slack)"
             target="_blank"
@@ -82,10 +90,18 @@
             @click="$ga.event('person_detail', 'connect', data._id)"
           >
             Connect
-          </v-btn>
+          </v-btn> -->
         </div>
 
         <div class="person-card-social-icons">
+          <a v-if="data.instagram"
+            :href="data.instagram"
+            target="_blank"
+            class="person-card-social-icon"
+            @click="$ga.event('person_detail', 'instagram', data._id)"
+          >
+            <img src="img/instagram_64.png" alt="instagram" />
+          </a>
           <a v-if="data.twitter"
             :href="data.twitter"
             target="_blank"
@@ -124,85 +140,85 @@
 </style>
 
 <style scoped>
-.card-user-pic {
-  height: calc(43vw - 64px);
-  margin-bottom: 0px;
-}
-
-/* makes cta full width */
-.primary {
-  width: 96%;
-}
-
-.v-toolbar {
-  margin-bottom: -64px;
-}
-
-.v-toolbar__content button {
-  width: 45px;
-}
-
-.full-size {
-  border-radius: 0 !important;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  height: auto;
-}
-
-.card-user-pic {
-  border-radius: 0px;
-}
-
-.v-toolbar {
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.v-toolbar .v-btn {
-  background: rgba(0, 0, 0, 0.4) !important;
-  color: white !important;
-}
-
-.v-toolbar__title {
-  width: 80%;
-  text-align: center;
-  margin: 0px;
-}
-
-.headline {
-  margin-top: 12px;
-}
-
-.v-btn--icon {
-  min-width: 36px;
-}
-
-@media (min-width: 600px) {
   .card-user-pic {
-    max-height: 370px;
-    max-width: 370px;
-    margin-left: auto;
-    margin-right: auto;
+    height: calc(43vw - 64px);
+    margin-bottom: 0px;
   }
-}
 
-@media (max-width: 960px) {
-  nav {
+  /* makes cta full width */
+  .primary {
+    width: 96%;
+  }
+
+  .v-toolbar {
     margin-bottom: -64px;
   }
 
-  .v-btn--floating {
+  .v-toolbar__content button {
     width: 45px;
   }
 
-  .v-card-text .v-btn {
-    width: 100%;
+  .full-size {
+    border-radius: 0 !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: auto;
   }
 
   .card-user-pic {
-    height: calc(66vh - 64px);
+    border-radius: 0px;
   }
-}
+
+  .v-toolbar {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .v-toolbar .v-btn {
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: white !important;
+  }
+
+  .v-toolbar__title {
+    width: 80%;
+    text-align: center;
+    margin: 0px;
+  }
+
+  .headline {
+    margin-top: 12px;
+  }
+
+  .v-btn--icon {
+    min-width: 36px;
+  }
+
+  @media (min-width: 600px) {
+    .card-user-pic {
+      max-height: 370px;
+      max-width: 370px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 960px) {
+    nav {
+      margin-bottom: -64px;
+    }
+
+    .v-btn--floating {
+      width: 45px;
+    }
+
+    .v-card-text .v-btn {
+      width: 100%;
+    }
+
+    .card-user-pic {
+      height: calc(66vh - 64px);
+    }
+  }
 </style>
 
 <script>
@@ -230,6 +246,31 @@ export default {
     slackTeam() {
       return this.$store.getters['settings/slackWorkspace'] || '';
     },
+    connect() {
+      let connectData = {
+        show: true,
+        media: '',
+        url: '',
+      };
+
+      if (this.data.slack) {
+        connectData.media = 'Slack';
+        connectData.url = this.slackUrl(this.data.slack);
+      } else if (this.data.linkedin) {
+        connectData.media = 'Linkedin';
+        connectData.url = this.data.linkedin;
+      } else if (this.data.twitter) {
+        connectData.media = 'Twitter';
+        connectData.url = this.data.twitter;
+      } else if (this.data.instagram) {
+        connectData.media = 'Instagram';
+        connectData.url = this.data.instagram;
+      } else {
+        connectData.show = false;
+      }
+
+      return connectData;
+    }
   },
   methods: {
     slackUrl(id) {
