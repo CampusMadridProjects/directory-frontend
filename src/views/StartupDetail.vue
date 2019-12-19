@@ -38,6 +38,11 @@
         {{ data.website }}
       </a>
 
+      <div v-if="data.location">
+        <v-icon size="14" class="mr-1">room</v-icon>
+        <span>{{ data.location }}</span>
+      </div>
+
       <div class="startup-card-social-icons">
         <a v-if="data.twitter && data.twitter !== 'undefined'"
           :href="data.twitter"
