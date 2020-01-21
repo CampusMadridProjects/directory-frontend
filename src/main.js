@@ -1,11 +1,13 @@
 import '@babel/polyfill';
 import Vue from 'vue';
 import VueAnalytics from 'vue-analytics';
+import head from 'vue-head';
 import './plugins/vuetify';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
+import config from './config.js';
 
 window.addEventListener('beforeinstallprompt', (event) => {
   // Commented, becouse we will enable this in the future
@@ -15,10 +17,15 @@ window.addEventListener('beforeinstallprompt', (event) => {
   return false;
 });
 
-Vue.use(VueAnalytics, {
-  id: process.env.VUE_APP_ANALYTICS_TRACKING_ID,
-  router,
-});
+Vue.use(head);
+
+config()
+  .then(conf => {
+    Vue.use(VueAnalytics, {
+      id: conf.analyticsID,
+      router,
+    });
+  });
 
 Vue.config.productionTip = false;
 

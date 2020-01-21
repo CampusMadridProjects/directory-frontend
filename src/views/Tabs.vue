@@ -56,13 +56,22 @@
 
     <v-content :class="hasFilters ? '' : 'no-extended'">
       <v-tabs-items v-model="tabs">
-        <v-tab-item value="tabs-people">
+        <v-tab-item
+          v-if="config.showPeople !== false"
+          value="tabs-people"
+        >
           <People :search="search" :filter="tagTabFilter"></People>
         </v-tab-item>
-        <v-tab-item value="tabs-startups">
+        <v-tab-item
+          v-if="config.showStartups !== false"
+          value="tabs-startups"
+        >
           <Startup :search="search" :filter="tagTabFilter"></Startup>
         </v-tab-item>
-        <v-tab-item value="tabs-more">
+        <v-tab-item
+          v-if="config.showMore !== false"
+          value="tabs-more"
+        >
             <More></More>
         </v-tab-item>
       </v-tabs-items>
@@ -75,6 +84,7 @@
       fixed
     >
       <v-btn
+        v-if="config.showPeople !== false"
         flat
         value="tabs-people"
       >
@@ -83,6 +93,7 @@
       </v-btn>
 
       <v-btn
+        v-if="config.showStartups !== false"
         flat
         value="tabs-startups"
       >
@@ -91,6 +102,7 @@
       </v-btn>
 
       <v-btn
+        v-if="config.showMore !== false"
         flat
         value="tabs-more"
       >
@@ -484,6 +496,13 @@ export default {
     Startup,
     More,
   },
+  head: {
+    title() {
+      return {
+        inner: 'Directory',
+      };
+    },
+  },
   data: () => ({
     title: 'GFS Directory',
     searching: false,
@@ -494,6 +513,9 @@ export default {
     tabClicked: null,
   }),
   computed: {
+    config() {
+      return this.$store.state.config.config;
+    },
     tagTab() {
       return this.tabs.replace('tabs-', '');
     },
