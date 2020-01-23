@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar :extended="hasFilters" app>
-       <img src="img/logo.png" style="height: 21px;padding-right: 16px;">
+      <img :src="logo" class="logo" :title="title">
 
       <v-text-field
         prepend-inner-icon="search"
@@ -11,7 +11,7 @@
         v-model="search"
         clearable
         color="#F5F5F5"
-        placeholder="Try RatedPower, Andrea or UX"
+        :placeholder="searchPlaceholder"
         @keyup="trackSearch(search)"
         @click:clear="searchClear()"
       ></v-text-field>
@@ -132,6 +132,11 @@
 </template>
 
 <style scoped>
+.logo {
+  width: 115px;
+  height: 21px;
+  padding-right: 16px;
+}
 
 .v-input__slot {
     background: #e0e0e0;
@@ -504,7 +509,6 @@ export default {
     },
   },
   data: () => ({
-    title: 'GFS Directory',
     searching: false,
     tabs: 'tabs-people',
     search: '',
@@ -530,6 +534,15 @@ export default {
     tagTabFilter() {
       let tags = this.tagList.map(item => item.name);
       return this.tagFilter.filter(item => tags.indexOf(item) > -1);
+    },
+    title() {
+      return this.config.title || 'Directory';
+    },
+    logo() {
+      return this.config.logo || 'img/logo.png';
+    },
+    searchPlaceholder() {
+      return this.config.searchPlaceholder || 'Try RatedPower, Andrea or UX';
     },
   },
   methods: {
