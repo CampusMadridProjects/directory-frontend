@@ -30,12 +30,12 @@
 
 <style scoped>
 
-    .v-list__tile__title {
+  .v-list__tile__title {
         font-weight: bold;
         font-size: 1.4rem;
     }
 
-.custom-hover:hover {
+  .custom-hover:hover {
     box-shadow: none !important;
     background: #f5f5f5 !important;
 }
@@ -81,7 +81,6 @@
   border-radius: 50px;
 }
 </style>
-
 
 <script>
 export default {
