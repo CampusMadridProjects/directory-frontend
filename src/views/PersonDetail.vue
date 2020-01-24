@@ -1,66 +1,88 @@
 <template>
+
   <v-card light class="full-size">
+
+    <!-- Actions -->
     <v-toolbar>
       <v-btn fab @click="$router.replace('/directory');">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-        <a :href="'/admin/#/suggest-person-public/'+ id"
-          target="_blank"
-          class="no-underline"
-        >
-            <v-btn fab class="mx-0">
-              <v-icon>edit</v-icon>
-            </v-btn>
-        </a>
+      <a :href="'/admin/#/suggest-person-public/'+ id"
+        target="_blank"
+        class="no-underline"
+      >
+        <v-btn fab class="mx-0">
+          <v-icon>edit</v-icon>
+        </v-btn>
+      </a>
     </v-toolbar>
-
+    <!-- /Actions -->
+    
+    <!-- Loading -->
     <div v-if="loading" class="mt-5 pt-5">
       <loading></loading>
     </div>
+    <!-- /Loading -->
 
     <div v-else>
+      <!-- User picture, name, job title and bio -->
       <div>
-        <div class="card-user-pic"
-          :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"
-        >
-        </div>
+        <!-- User picture -->
+        <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"></div>
+        <!-- /User picture -->
+        <!-- Profile info container -->
         <div style="padding: 8px 24px;">
+          <!-- Name and surname -->
           <div class="headline">{{ data.name }} {{ data.surname }}</div>
+          <!-- /Name and surname -->
+          <!-- Job title and company -->
           <div>
-              <span class="one-line">
-                {{ job.role }}
-                <span v-if="job.role && job.name">@</span>
-                <span v-else>-</span>
-            <span
+            <span class="one-line job">
+              {{ job.role }}
+              <span v-if="job.role && job.name">@</span>
+              <!-- No company
+              <span v-else>-</span>
+              /No company -->
+              <!-- Company name -->
+              <span
               v-if="job.id"
-              @click="$ga.event('person_detail', 'view_startup', job.id)"
-            >
-              <router-link :to="{name: 'startupDetail', params: {id: job.id}}">
+              @click="$ga.event('person_detail', 'view_startup', job.id)">
+                <router-link :to="{name: 'startupDetail', params: {id: job.id}}">
                 {{ job.name }}
-              </router-link>
-            </span>
+                </router-link>
               </span>
+              <!-- /Company name -->
+            </span>
           </div>
+          <!-- /Job title and company -->
+          <!-- Bio -->
+          {{ data.bio }}
+          <span class="bio">Entrepreneur with more than 2.500 years of experience dedicated to help everyone build stuff in less than 5 years</span>
+          <!-- /Bio -->
         </div>
+        <!-- /Profile info container -->
       </div>
+      <!-- /User picture, name, job title and bio -->
 
       <v-card-title primary-title>
+        <!-- User info -->
         <div class="card-user-info">
+          <!-- Tags and location -->
           <h4>
-           <v-icon size="14" class="mr-1">forum</v-icon>
-            <span v-for="(ability, index) in data.Tag"
-              :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}
-            </span>
+            <v-icon size="14" class="mr-1">forum</v-icon>
+            <span v-for="(ability, index) in data.Tag" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
           </h4>
           <v-icon size="14" class="mr-1">room</v-icon>
           <span>{{ data.location }}</span>
+          <!-- Tags and location -->
         </div>
+        <!-- /User info -->
       </v-card-title>
-
+      
+      <!-- Connect options -->
       <v-card-text>
-        {{ data.bio }}
         <div class="mb-3">
           <v-btn color="primary" x-large v-if="connect.show"
             :href="connect.url"
@@ -69,7 +91,7 @@
           >
             Connect via {{connect.media}}
           </v-btn>
-<!-- 
+          <!-- 
           <v-btn color="primary" x-large v-if="data.slack"
             :href="slackUrl(data.slack)"
             target="_blank"
@@ -128,14 +150,20 @@
           </a>
         </div>
       </v-card-text>
+      <!-- /Connect options -->
     </div>
 
   </v-card>
+
 </template>
 
 <style>
   .v-btn {
     text-transform: none;
+  }
+  .job {
+    display: block;
+    margin-bottom: 8px;
   }
 </style>
 
