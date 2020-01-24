@@ -57,46 +57,46 @@
 </template>
 
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
+  h1, h2 {
+    font-weight: normal;
+  }
 
-img.illustration {
-  max-width: 250px;
-}
+  img.illustration {
+    max-width: 250px;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
 
-a {
-  color: #42b983;
-}
+  a {
+    color: #42b983;
+  }
 
-.card-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
+  .card-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
   .card-grid-item {
-        display: flex;
-    }
+    display: flex;
+  }
 
-.card-grid-item-card {
-  margin: 6px;
-  padding-bottom: 8px;
-  border: 1px solid #eaeaea;
-}
+  .card-grid-item-card {
+    margin: 6px;
+    padding-bottom: 8px;
+    border: 1px solid #eaeaea;
+  }
 
-/* adds additional space for 1 more card in wide screens */
-@media screen and (min-width: 1264px){
+  /* adds additional space for 1 more card in wide screens */
+  @media screen and (min-width: 1264px){
     .container {
         max-width: 1300px;
     }
@@ -107,17 +107,18 @@ a {
     .card-user-pic {
         height: calc(20vw - 80px);
     }
-}
+  }
 
-    @media screen and (max-width: 959px) {
-        .card-grid-item-card {
-          margin: 0px;
-            border: 0px;
-        }
-        .container {
-            padding: 0px;
-        }
+  @media screen and (max-width: 959px) {
+    .card-grid-item-card {
+      margin: 0px;
+      border: 0px;
+      padding-bottom: 0px;
     }
+    .container {
+      padding: 0px;
+    }
+  }
 </style>
 
 <script>
