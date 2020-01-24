@@ -85,14 +85,14 @@ a {
   flex-wrap: wrap;
 }
 
-    .card-grid-item {
+  .card-grid-item {
         display: flex;
     }
 
 .card-grid-item-card {
-    margin: 6px;
-    padding-bottom: 8px;
-    border: 1px solid #eaeaea;
+  margin: 6px;
+  padding-bottom: 8px;
+  border: 1px solid #eaeaea;
 }
 
 /* adds additional space for 1 more card in wide screens */
