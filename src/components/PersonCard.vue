@@ -9,23 +9,24 @@
             <span class="one-line">
               {{ role }}
               <span v-if="role && company">@</span>
-              <span v-else>-</span>
+              <!-- <span v-else>-</span> -->
               {{ company }}
             </span>
         </div>
       </div>
     </div>
-
     <v-card-title primary-title @click="goToPerson(id)">
       <div class="card-user-info">
-        <h4 class="ellipsis">
+        <h4 class="ellipsis" v-if="expertise">
          <v-icon size="14" class="mr-1">forum</v-icon>
           <span v-for="(ability, index) in expertise"
-            :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}
+            :key="ability.id">{{ (index !== 0) ?', ' + ability.name : ability.name }}
           </span>
         </h4>
-        <v-icon size="14" class="mr-1">room</v-icon>
-        <span>{{ location }}</span>
+        <div>
+          <v-icon size="14" class="mr-1">room</v-icon>
+          <span >{{ location || 'Community' }}</span>
+        </div>
       </div>
     </v-card-title>
   </v-card>
@@ -60,7 +61,6 @@
     }
 
     .headline {
-        font-size: 21px !important;
         font-weight: bold !important;
     }
 
@@ -75,7 +75,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: calc(100vw - 32px);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 /* In tablet, we have two columns */
@@ -106,20 +106,6 @@
   }
 }
 
-.person-card-social-icons {
-  text-align: center;
-}
-
-.person-card-social-icon {
-  display: inline-block;
-  padding: 0 8px;
-}
-
-.person-card-social-icon img {
-  height: 32px;
-  width: 32px;
-}
-
 .light-border {
   border: 1px solid #eaeaea;
   border-radius: 6px;
@@ -141,6 +127,12 @@
 .card-user-pic {
   border-radius: 6px 6px 0px 0px;
 }
+</style>
+
+<style scoped>
+  .headline {
+    font-size: 21px !important;
+  }
 </style>
 
 <script>
