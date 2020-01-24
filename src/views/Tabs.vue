@@ -16,13 +16,13 @@
         @click:clear="searchClear()"
       ></v-text-field>
 
-        <v-btn
-          color="primary"
-          href="/admin/#/suggest-public"
-          target="_blank"
-        >
-            <v-icon left>add</v-icon>Add Profile
-        </v-btn>
+      <v-btn
+        color="primary"
+        href="/admin/#/suggest-public"
+        target="_blank"
+      >
+        <v-icon left>add</v-icon>Add Profile
+      </v-btn>
 
       <!-- filter chips -->
       <v-container
@@ -36,7 +36,7 @@
         }"
       >
         <div class="scroll-container">
-          <div class="text-md-center chip-content px-2">
+          <div class="text-md-center chip-content">
             <span class="mr-2 d-sm-none d-lg-flex">
               Filter by:
             </span>
@@ -88,7 +88,7 @@
         flat
         value="tabs-people"
       >
-        <!-- <span>People</span> -->
+        <span>People</span>
         <v-icon>person</v-icon>
       </v-btn>
 
@@ -97,7 +97,7 @@
         flat
         value="tabs-startups"
       >
-        <!-- <span>Startups</span> -->
+        <span>Teams</span>
         <v-icon>group</v-icon>
       </v-btn>
 
@@ -106,7 +106,7 @@
         flat
         value="tabs-more"
       >
-        <!-- <span>Startups</span> -->
+        <span>More</span>
         <v-icon>menu</v-icon>
       </v-btn>
 
@@ -132,333 +132,348 @@
 </template>
 
 <style scoped>
-.logo {
-  width: 115px;
-  height: 21px;
-  padding-right: 16px;
-}
-
-.v-input__slot {
-    background: #e0e0e0;
-}
-
-.v-bottom-nav {
-    box-shadow: none;
-    border-top: 1px solid #DFE1E5;
-}
-    .v-bottom-nav .v-btn:hover {
-        background: transparent !important;
-    }
-
-/* - Remove grey color in bottom nav when pressed */
-.v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
-     background-color: transparent;
-}
-/* - Remove padding in chips*/
->>> .v-toolbar__extension {
-  padding: 0 !important;
-}
-/* --- */
-
-.v-tabs__items,
-.v-tabs__content {
-  min-height: 100%;
-}
-
-.v-tabs__div {
-  text-transform: none;
-}
-
-footer {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  padding: 24px 0;
-}
-
-.v-toolbar {
-  background-color: #FFF;
-  box-shadow: none;
-}
-
-a {
-  text-decoration: none;
-}
-
-.v-chip {
-  background: #FFFFFF;
-  border: 1px solid #DFE1E5;
-  color: #3c3c3c;
-  font-weight: 500;
-}
-  .v-chip:focus {
-    box-shadow: none;
+  
+  /* removes padding from tab icon */
+  .v-item-group.v-bottom-nav .v-btn .v-btn__content i.v-icon {
+    margin-bottom: 0px;
+    margin-top: -6px;
+  }
+  
+  /**/
+  .v-item-group.v-bottom-nav .v-btn .v-btn__content span {
+    font-weight: bold;
+  }
+  
+  .v-icon {
+    margin-bottom: 0px;
+  }
+  
+  .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+    font-weight: bold;
+  }
+  
+  .v-item-group.v-bottom-nav .v-btn .v-btn__content span {
+    font-size: 14px;
+  }
+  
+  .logo {
+    width: 115px;
+    height: 21px;
+    padding-right: 16px;
   }
 
-  .v-chip.active {
-    background-color: rgba(66, 133, 244, 0.16);
-    border-color: transparent;
-    color: #4285F4;
+  .v-input__slot {
+      background: #e0e0e0;
   }
 
->>> .v-chip.active:focus .v-chip__content {
-    background: #e3e8fd;
-}
-
->>> .v-chip:focus .v-chip__content {
-    background: #fff;
-}
-
-.chip-content > span {
-  white-space: nowrap;
-}
-
-.chip-spacer {
-  padding: 12px;
-}
-
-.application.theme--light {
-  background: #ffffff;
-}
-
-.v-toolbar__extension {
-  margin-bottom: -1px;
-}
-
-.theme--light .v-text-field--solo .v-input__slot {
-  background: #e0e0e0;
-  border-radius: 50px;
-}
-
-.v-text-field.v-text-field--solo .v-input__control {
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/*.chip-content {
-  text-align: center;
-}*/
-  .scroll-container {
-    overflow-x: scroll;
-    width: calc(100% - 116px);
-    margin-top: 16px;
-    margin-left: 116px;
-    padding-left: 36px;
+  .v-bottom-nav {
+      box-shadow: none;
+      border-top: 1px solid #DFE1E5;
   }
-    .scroll-container::-webkit-scrollbar {
-      background: transparent;
-      width: 0;
-    }
+      .v-bottom-nav .v-btn:hover {
+          background: transparent !important;
+      }
 
-  .chip-content {
-    display: flex;
-    align-items: center;
-    text-align: left;
-    margin: auto;
+  /* - Remove grey color in bottom nav when pressed */
+  .v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
+       background-color: transparent;
+  }
+  /* - Remove padding in chips*/
+  >>> .v-toolbar__extension {
+    padding: 0 !important;
+  }
+  /* --- */
+
+  .v-tabs__items,
+  .v-tabs__content {
+    min-height: 100%;
   }
 
->>> .v-dialog {
-  background: #FFFFFF;
-  border-radius: 0;
-  margin: 0;
-  height: 100%;
-  max-height: 100%;
-  position: fixed;
-  overflow-y: auto;
-  top: 0;
-  right: 0;
-  left: auto;
-  width: 360px;
-}
-
-/* bigger-chips-mobile */
-@media only screen and (max-width: 768px) {
-
-  >>> .v-dialog {
-    width: 100%;
-  }
-
-  .scroll-container {
-    margin: 0;
-    width: 100%;
-  }
-}
-
-@media (max-width: 959px) {
-
-  .v-footer {
-    height: auto !important;
-    padding: 16px 0px;
-    box-sizing: border-box;
-    padding-bottom: 80px !important;
-  }
-
-  footer span {
-    padding: 8px;
-  }
-
-    .v-toolbar .v-btn {
-        display: none;
-    }
-
-    .v-toolbar img {
-        display: none;
-    }
-
-    /* ToDo @CodingCarlos:
-      this native vuetify class should be hiding the element in mobile, but its not working for
-      no reasong, so i'm adding it here for the moment
-    */
-    .d-sm-none {
-        display: none;
-    }
-}
-
-@media (min-width: 959px) {
-
-.v-item-group.v-bottom-nav .v-btn--active {
-    background: rgba(66, 133, 244, 0.16) !important;
-    border-radius: 0px 50px 50px 0px;
-}
-
-  >>> .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
-    min-height: auto;
-  }
-
-  .desktop-horizontal[style] {
-    flex-direction: column;
-    height: calc(100% - 64px) !important;
-    left: 0;
-    position: fixed;
-    top: 64px;
-    justify-content: flex-start;
-    width: 116px !important;
-  }
-
-    .v-item-group.v-bottom-nav .v-btn {
-        max-height: 56px;
-        padding: 16px 0px;
-        border-radius: 0px 50px 50px 0px;
-    }
-
-    /* removes borde from vertical nav */
-    .v-bottom-nav {
-        border: none;
-    }
-
-  >>> .v-window__container {
-    margin-left: 94px !important;
+  .v-tabs__div {
+    text-transform: none;
   }
 
   footer {
-    flex-direction: row !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 24px 0;
   }
 
-  footer span {
-    display: inline-block;
-    margin: 0 2px;
+  .v-toolbar {
+    background-color: #FFFFFF;
+    box-shadow: none;
   }
-    .v-text-field {
-        margin: 0px 16px;
+
+  a {
+    text-decoration: none;
+  }
+
+  .v-chip {
+    background: #FFFFFF;
+    border: 1px solid #DFE1E5;
+    color: #3c3c3c;
+    font-weight: 500;
+  }
+    .v-chip:focus {
+      box-shadow: none;
     }
-}
+
+    .v-chip.active {
+      background-color: rgba(66, 133, 244, 0.16);
+      border-color: transparent;
+      color: #4285F4;
+    }
+
+  >>> .v-chip.active:focus .v-chip__content {
+      background: #e3e8fd;
+  }
+
+  >>> .v-chip:focus .v-chip__content {
+      background: #fff;
+  }
+
+  .chip-content > span {
+    white-space: nowrap;
+  }
+
+  .chip-spacer {
+    padding: 12px;
+  }
+
+  .application.theme--light {
+    background: #ffffff;
+  }
+
+  .theme--light .v-text-field--solo .v-input__slot {
+    background: #e0e0e0;
+    border-radius: 50px;
+  }
+
+  .v-text-field.v-text-field--solo .v-input__control {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /*.chip-content {
+    text-align: center;
+  }*/
+    .scroll-container {
+      overflow-x: scroll;
+      width: calc(100% - 116px);
+      margin-left: 116px;
+      padding-left: 36px;
+    }
+      .scroll-container::-webkit-scrollbar {
+        background: transparent;
+        width: 0;
+      }
+
+    .chip-content {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      margin: auto;
+    }
+
+  >>> .v-dialog {
+    background: #FFFFFF;
+    border-radius: 0;
+    margin: 0;
+    height: 100%;
+    max-height: 100%;
+    position: fixed;
+    overflow-y: auto;
+    top: 0;
+    right: 0;
+    left: auto;
+    width: 360px;
+  }
+
+  /* bigger-chips-mobile */
+  @media only screen and (max-width: 768px) {
+
+    >>> .v-dialog {
+      width: 100%;
+    }
+
+    .scroll-container {
+      margin: 0;
+      width: 100%;
+      padding-left: 12px;
+    }
+  }
+
+  @media (max-width: 959px) {
+
+    .v-footer {
+      height: auto !important;
+      padding: 16px 0px;
+      box-sizing: border-box;
+      padding-bottom: 80px !important;
+    }
+
+    footer span {
+      padding: 8px;
+    }
+
+      .v-toolbar .v-btn {
+          display: none;
+      }
+
+      .v-toolbar img {
+          display: none;
+      }
+
+      /* ToDo @CodingCarlos:
+        this native vuetify class should be hiding the element in mobile, but its not working for
+        no reasong, so i'm adding it here for the moment
+      */
+      .d-sm-none {
+          display: none;
+      }
+  }
+
+  @media (min-width: 959px) {
+
+  .v-item-group.v-bottom-nav .v-btn--active {
+      background: rgba(66, 133, 244, 0.16) !important;
+      border-radius: 0px 50px 50px 0px;
+  }
+
+    >>> .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+      min-height: auto;
+    }
+
+    .desktop-horizontal[style] {
+      flex-direction: column;
+      height: calc(100% - 64px) !important;
+      left: 0;
+      position: fixed;
+      top: 64px;
+      justify-content: flex-start;
+      width: 116px !important;
+    }
+
+      .v-item-group.v-bottom-nav .v-btn {
+          max-height: 56px;
+          padding: 16px 0px;
+          border-radius: 0px 50px 50px 0px;
+      }
+
+      /* removes borde from vertical nav */
+      .v-bottom-nav {
+          border: none;
+      }
+
+    >>> .v-window__container {
+      margin-left: 94px !important;
+    }
+
+    footer {
+      flex-direction: row !important;
+    }
+
+    footer span {
+      display: inline-block;
+      margin: 0 2px;
+    }
+      .v-text-field {
+          margin: 0px 16px;
+      }
+  }
 </style>
 
 <style>
+  
+  .v-toolbar__extension {
+    height: 56px !important;
+  }
 
-    .v-content {
-        padding: 100px 0px 0px !important;
-    }
+  .v-content {
+      padding: 100px 0px 0px !important;
+  }
 
-    .v-content.no-extended {
-        padding: 64px 0px 0px !important;
-    }
+  .v-content.no-extended {
+      padding: 64px 0px 0px !important;
+  }
 
-    .v-item-group.v-bottom-nav .v-btn {
-        padding: 0px;
-    }
+  .v-item-group.v-bottom-nav .v-btn {
+      padding: 0px;
+  }
 
-    .v-item-group.v-bottom-nav .v-btn--active {
-        padding: 0px;
-    }
+  .v-item-group.v-bottom-nav .v-btn--active {
+      padding: 0px;
+  }
 
-.v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
-    font-size: 14px;
-    min-height: 48px;
-}
+  .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
+      font-size: 14px;
+      min-height: 48px;
+  }
 
-.v-toolbar__extension {
-  height: 56px !important;
-}
-.v-btn {
-    font-size: 16px;
-    height: 45px;
-    box-shadow: none !important;
-}
-    .v-btn:hover {
-        background: #174ea6 !important;
-    }
+  .v-btn {
+      font-size: 16px;
+      height: 45px;
+      box-shadow: none !important;
+  }
+      .v-btn:hover {
+          background: #174ea6 !important;
+      }
 
-/* check how to add primary color */
-.v-btn--active {
-    color: #4285F4 !important;
-}
+  /* check how to add primary color */
+  .v-btn--active {
+      color: #4285F4 !important;
+  }
 
-.v-input--is-focused .v-input__slot {
-    background: #ffffff !important;
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),
-                0 2px 2px 0 rgba(0,0,0,0.14),
-                0 1px 5px 0 rgba(0,0,0,0.12);
-}
+  .v-input--is-focused .v-input__slot {
+      background: #ffffff !important;
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),
+                  0 2px 2px 0 rgba(0,0,0,0.14),
+                  0 1px 5px 0 rgba(0,0,0,0.12);
+  }
 
-.no-underline {
-  text-decoration: none;
-}
+  .no-underline {
+    text-decoration: none;
+  }
 
-.v-toolbar__content {
-    height: 64px !important;
-}
+  .v-toolbar__content {
+    height: 56px !important;
+    align-content: center;
+    margin: 8px 0px;
+  }
 
-.v-input__slot {
-    /* border-radius: 8px !important; */
-    border-radius: 50px !important;
-    background: #f1f3f4 !important;
-    font-weight: 500;
-}
+  .v-input__slot {
+      /* border-radius: 8px !important; */
+      border-radius: 50px !important;
+      background: #f1f3f4 !important;
+      font-weight: 500;
+  }
 
-.v-input__icon i {
-    color: #717171 !important;
-}
+  .v-input__icon i {
+      color: #717171 !important;
+  }
 
-.v-text-field .v-input__prepend-inner {
-    padding-right: 8px;
-}
+  .v-text-field .v-input__prepend-inner {
+      padding-right: 8px;
+  }
 
-@media (max-width: 959px) {
+  @media (max-width: 959px) {
 
-    main {
-        padding: 96px 0px 0px !important;
-    }
+      main {
+          padding: 96px 0px 0px !important;
+      }
 
-    .v-input__slot {
-        min-height: 40px;
-    }
+      input {
+          color: #8E8E93 !important;
+      }
 
-    .v-toolbar__extension {
-        height: 32px !important;
-    }
+      .v-input__slot {
+          background: #f5f5f5;
+      }
 
-    input {
-        color: #8E8E93 !important;
-    }
-
-    .v-input__slot {
-        background: #f5f5f5;
-    }
-
-}
+  }
 
 </style>
 
