@@ -58,8 +58,7 @@
           </div>
           <!-- /Job title and company -->
           <!-- Bio -->
-          {{ data.bio }}
-          <span class="bio">Entrepreneur with more than 2.500 years of experience dedicated to help everyone build stuff in less than 5 years</span>
+          <span class="bio">{{ data.bio }}</span>
           <!-- /Bio -->
         </div>
         <!-- /Profile info container -->
@@ -102,7 +101,7 @@
         <!-- /User info -->
       </v-card-title>
       <!-- /Needs help with -->
-      <!-- Connect options -->
+      <!-- CTA -->
       <div class="px-3 my-2 bottom-cta">
           <v-btn color="primary" x-large v-if="connect.show"
             :href="connect.url"
@@ -134,6 +133,8 @@
             Connect
           </v-btn> -->
         </div>
+      <!-- /CTA -->
+      <!-- Social profiles -->
       <div class="px-4 my-3">
         <h4>Social profiles</h4>
         <div class="person-card-social-icons">
@@ -175,7 +176,7 @@
           </a>
         </div>
       </div>
-      <!-- /Connect options -->
+      <!-- /Social profiles -->
     </div>
 
   </v-card>
@@ -249,6 +250,7 @@
     /* */
     .headline {
       font-size: 2rem !important;
+      margin-top: 12px !important;
     }
     .job {
       font-size: 1.4rem;
