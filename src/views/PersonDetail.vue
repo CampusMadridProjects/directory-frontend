@@ -318,10 +318,11 @@
     background-color: transparent;
     box-shadow: none;
   }
-
+  
+  /* adds shadow to detail toolbar icons */
   .v-toolbar .v-btn {
-    background: rgba(0, 0, 0, 0.4) !important;
-    color: white !important;
+    background: white !important;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2) !important;
   }
 
   .v-toolbar__title {
