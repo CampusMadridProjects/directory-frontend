@@ -26,144 +26,206 @@
     </div>
     <!-- /Loading -->
 
-    <v-card-media>
-      <div class="text-xs-center">
-        <img :src="data.logo" class="startup-logo">
-      </div>
-    </v-card-media>
-
-    <v-card-text class="text-xs-left" style="padding: 8px 24px;">
-      <div class="startup-info">
-        <h3 class="headline text-xs-left mb-0">{{ data.name }}</h3>
-        <div>{{ data.accelerator }}</div>
-      </div>
-        <!--<v-subheader v-if="data.bio">What do they do?</v-subheader>-->
-      <div>{{ data.bio }}</div>
-      <a
-        v-if="data.website"
-        :href="link(data.website)"
-        target="_blank"
-        class="d-flex py-3"
-      >
-        {{ data.website }}
-      </a>
-
-      <div v-if="data.location">
-        <v-icon size="14" class="mr-1">room</v-icon>
-        <span>{{ data.location }}</span>
-      </div>
-
-      <div class="startup-card-social-icons">
-        <a v-if="data.twitter && data.twitter !== 'undefined'"
-          :href="data.twitter"
+    <!-- Content -->
+    <div>
+      <!-- Startup logo -->
+      <v-card-media>
+        <div class="text-xs-center">
+          <img :src="data.logo" class="startup-logo">
+        </div>
+      </v-card-media>
+      <!-- /Startup logo -->
+      <!-- Startup info -->
+      <v-card-text class="text-xs-left" style="padding: 8px 24px;">
+        <!-- Name and program -->
+        <div class="startup-info">
+          <h3 class="headline text-xs-left mb-0">{{ data.name }}</h3>
+          <div>{{ data.accelerator }}</div>
+        </div>
+        <!-- /Name and program -->
+        <!-- Bio -->
+        <span v-if="data.bio">{{ data.bio }}</span>
+        <!-- /Bio -->
+        <!-- Website -->
+        <a
+          v-if="data.website"
+          :href="link(data.website)"
           target="_blank"
-          class="startup-card-social-icon"
-          @click="$ga.event('startup_detail', 'twitter', data._id)"
+          class="d-flex py-3"
         >
-          <img src="img/twitter_64.png" alt="twitter" />
+          {{ data.website }}
         </a>
-        <a v-if="data.linkedin && data.linkedin !== 'undefined'"
-          :href="data.linkedin"
-          target="_blank"
-          class="startup-card-social-icon"
-          @click="$ga.event('startup_detail', 'linkedin', data._id)"
-        >
-          <img src="img/linkedin_64.png" alt="linkedin" />
-        </a>
-      </div>
+        <!-- /Website -->
+        <!-- Location -->
+        <div v-if="data.location">
+          <v-icon size="14" class="mr-1">room</v-icon>
+          <span>{{ data.location }}</span>
+        </div>
+        <!-- /Location -->
 
-      <div
-        v-if="data.persons && data.persons.length > 0"
-        class="startup-employees"
-      >
-        <v-subheader>Team</v-subheader>
-        <person-list :people="data.persons" event-category="startup_detail"></person-list>
-      </div>
-    </v-card-text>
+        <!-- Social profiles -->
+        <div class="my-3">
+          <h4>Social profiles</h4>
+          <div class="person-card-social-icons">
+            <a v-if="data.instagram"
+              :href="data.instagram"
+              target="_blank"
+              class="person-card-social-icon"
+              @click="$ga.event('person_detail', 'instagram', data._id)"
+            >
+              <img src="img/instagram_64.png" alt="instagram" />
+              <span>Instagram</span>
+            </a>
+            <a v-if="data.twitter"
+              :href="data.twitter"
+              target="_blank"
+              class="person-card-social-icon"
+              @click="$ga.event('person_detail', 'twitter', data._id)"
+            >
+              <img src="img/twitter_64.png" alt="twitter" />
+              <span>Twitter</span>
+            </a>
+            <a v-if="data.linkedin"
+              :href="data.linkedin"
+              target="_blank"
+              class="person-card-social-icon"
+              @click="$ga.event('person_detail', 'linkedin', data._id)"
+            >
+              <img src="img/linkedin_64.png" alt="linkedin" />
+              <span>LinkedIn</span>
+            </a>
+            <a v-if="data.slack"
+              :href="slackUrl(data.slack)"
+              target="_blank"
+              class="person-card-social-icon"
+              @click="$ga.event('person_detail', 'slack', data._id)"
+            >
+              <img src="img/slack_64.png" alt="slack" />
+              <span>Slack</span>
+            </a>
+          </div>
+        </div>
+        <!-- /Social profiles -->
+        
+        <!-- /Employees -->
+        <div
+          v-if="data.persons && data.persons.length > 0"
+          class="startup-employees"
+        >
+          <h4>Team</h4>
+          <person-list :people="data.persons" event-category="startup_detail"></person-list>
+        </div>
+        <!-- /Employees -->
+      </v-card-text>
+      <!-- /Startup info -->
+    </div>
+    <!-- /Content -->
 
   </v-card>
 
 </template>
 
 <style scoped>
-    .full-size {
-      border-radius: 0 !important;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      height: auto;
-    }
+  
+  /* styles for the detail view | repeated in person detail */
+  .full-size {
+    border-radius: 0 !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: auto;
+  }
+  
+  .v-subheader {
+      padding: 0px;
+  }
 
-    .v-subheader {
-        padding: 0px;
-    }
+  >>> .v-list__tile {
+      min-height: 72px !important;
+      padding: 0px;
+      border: 1px solid #f0f0f0;
+      border-radius: 4px;
+      margin-bottom: 8px;
+  }
 
-    >>> .v-list__tile {
-        min-height: 72px !important;
-        padding: 0px;
-        border: 1px solid #f0f0f0;
-        border-radius: 4px;
-        margin-bottom: 8px;
-    }
+  .v-btn:hover {
+      background: white !important;
+  }
+  
+  .v-btn--icon {
+    min-width: 36px;
+  }
 
-    .startup-logo {
-      max-width: 370px;
-      width: 100%;
-    }
+  
+  /*** TOOLBAR ***/
+  
+  .v-toolbar {
+    background-color: transparent;
+    box-shadow: none;
+    margin-bottom: -64px;
+    z-index: 1;
+    position: fixed;
+    width: 360px;
+  }
+  
+  /* adds shadow to detail toolbar icons */
+  .v-toolbar .v-btn {
+    background: white !important;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2) !important;
+  }
 
-    .startup-info {
-      text-align: center;
-    }
+  .v-toolbar__title {
+    width: 80%;
+    text-align: center;
+    margin: 0px;
+  }
 
-    .startup-card-social-icon img {
-      width: 42px;
-    }
+  .v-toolbar__content button {
+      width: 45px;
+  }
+  
+  /*** /TOOLBAR ***/
+  
+  /*** STARTUP STYLES ***/
 
-    .startup-employees {
-      max-width: 500px;
-      margin: auto;
+  .startup-logo {
+    width: 100%;
+  }
+
+  .startup-info {
+    text-align: center;
+  }
+
+  .startup-card-social-icon img {
+    width: 42px;
+  }
+
+  .startup-employees {
+    max-width: 500px;
+    margin: auto;
     border-top: 1px solid #f0f0f0;
     margin-top: 12px;
     padding-top: 8px;
-    }
-  
-    /* adds shadow to detail toolbar icons */
-    .v-toolbar .v-btn {
-      background: white !important;
-      box-shadow: 0 2px 4px -1px rgba(0,0,0,.2) !important;
-    }
+  }
 
+  /*** /STARTUP STYLES ***/
+
+  @media screen and (max-width: 768px) {
+    .bottom-cta {
+      width: 100%;
+    }
     .v-toolbar {
-      background-color: transparent;
-      box-shadow: none;
-      margin-bottom: -64px;
-      z-index: 1;
+      width: 100% !important;
+    }
+  }
+
+  @media (max-width: 960px) {
+
+    .v-toolbar__content>:first-child.v-btn--icon,
+    .v-toolbar__extension>:first-child.v-btn--icon {
+      margin-left: 0px;
     }
 
-    .v-toolbar__title {
-      width: 80%;
-      text-align: center;
-      margin: 0px;
-    }
-
-    .v-btn--icon {
-      min-width: 36px;
-    }
-
-    .v-toolbar__content button {
-        width: 45px;
-    }
-    .v-btn:hover {
-        background: white !important;
-    }
-
-    @media (max-width: 960px) {
-      
-      .v-toolbar__content>:first-child.v-btn--icon,
-      .v-toolbar__extension>:first-child.v-btn--icon {
-        margin-left: 0px;
-      }
-      
-    }
+  }
 </style>
 
 <script>
