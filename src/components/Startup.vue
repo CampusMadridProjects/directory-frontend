@@ -31,59 +31,66 @@
   </v-container>
 </template>
 
-
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
 
-img.illustration {
-  max-width: 250px;
-}
+  h1, h2 {
+    font-weight: normal;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  img.illustration {
+    max-width: 250px;
+  }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-a {
-  color: #42b983;
-}
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
 
-.card-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
+  a {
+    color: #42b983;
+  }
 
-    .card-grid-item {
-        display: flex;
-    }
+  .card-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 
-.card-grid-item-card {
-  margin: 6px;
-}
+  .card-grid-item {
+    display: flex;
+  }
 
-/* adds additional space for 1 more card in wide screens */
-@media screen and (min-width: 1264px){
+  .card-grid-item-card {
+    margin: 6px;
+  }
+
+  @media screen and (max-width: 996px) {
+    /* changes container padding */
     .container {
-        max-width: 1300px;
+      padding: 8px;
     }
-    .flex.lg2 {
+  }
+
+  /* adds additional space for 1 more card in wide screens */
+  @media screen and (min-width: 1264px){
+      .container {
+        max-width: 1300px;
+      }
+      .flex.lg2 {
         flex-basis: 20%;
         max-width: 20%;
-    }
-    .card-user-pic {
+      }
+      .card-user-pic {
         height: calc(20vw - 80px);
-    }
-}
-</style>
+      }
+  }
 
+</style>
 
 <script>
 import StartupCard from './StartupCard.vue';
