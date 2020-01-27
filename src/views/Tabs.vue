@@ -57,6 +57,12 @@
     <v-content :class="hasFilters ? '' : 'no-extended'">
       <v-tabs-items v-model="tabs">
         <v-tab-item
+          v-if="config.showHome !== false"
+          value="tabs-home"
+        >
+          <Home></Home>
+        </v-tab-item>
+        <v-tab-item
           v-if="config.showPeople !== false"
           value="tabs-people"
         >
@@ -83,6 +89,15 @@
       :value="true"
       fixed
     >
+      <v-btn
+        v-if="config.showHome !== false"
+        flat
+        value="tabs-home"
+      >
+        <span>News</span>
+        <v-icon>home</v-icon>
+      </v-btn>
+
       <v-btn
         v-if="config.showPeople !== false"
         flat
@@ -496,6 +511,7 @@
 </style>
 
 <script>
+import Home from '../components/Home.vue';
 import People from '../components/People.vue';
 import Startup from '../components/Startup.vue';
 import More from '../components/More.vue';
@@ -530,6 +546,7 @@ function trackSearch(search) {
 export default {
   name: 'Tabs',
   components: {
+    Home,
     People,
     Startup,
     More,
