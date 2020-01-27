@@ -157,9 +157,9 @@
   }
   
   .logo {
-    width: 115px;
+    /* width: 115px; */
     height: 21px;
-    padding-right: 16px;
+    margin-right: 8px;
   }
 
   .v-input__slot {
@@ -352,15 +352,16 @@
       height: calc(100% - 64px) !important;
       left: 0;
       position: fixed;
-      top: 64px;
+      top: 72px;
       justify-content: flex-start;
-      width: 116px !important;
+      width: 96px !important;
+      margin: 0px 24px;
     }
 
       .v-item-group.v-bottom-nav .v-btn {
-          max-height: 56px;
+          max-height: 72px;
           padding: 16px 0px;
-          border-radius: 0px 50px 50px 0px;
+          border-radius: 8px;
       }
 
       /* removes borde from vertical nav */
@@ -369,7 +370,7 @@
       }
 
     >>> .v-window__container {
-      margin-left: 94px !important;
+      margin-left: 96px !important;
     }
 
     footer {
