@@ -149,9 +149,13 @@
   }
 
   @media screen and (min-width: 1264px) {
+  
+    /* improves readability of content */
     .container {
-      max-width: 720px;
+      /* max-width: 720px !important; */
+      padding: 0px 8%;
     }
+
   }
 
 </style>
