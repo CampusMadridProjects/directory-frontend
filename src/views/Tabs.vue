@@ -369,10 +369,6 @@
           border: none;
       }
 
-    >>> .v-window__container {
-      margin-left: 96px !important;
-    }
-
     footer {
       flex-direction: row !important;
     }
@@ -385,6 +381,23 @@
           margin: 0px 16px;
       }
   }
+  
+  @media (min-width: 1024px) {
+    >>> .v-window__container {
+      margin-left: 96px !important;
+    }
+  }
+    
+  /* adapts user pic to smaller desktop screens */
+  @media (min-width: 959px) and (max-width: 1263px) {
+    >>> .card-user-pic {
+      height: calc(26vw - 64px);
+    }
+    >>> .v-window__container {
+      margin-left: 116px !important;
+    }
+  }
+  
 </style>
 
 <style>
