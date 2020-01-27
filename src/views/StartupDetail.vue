@@ -1,20 +1,30 @@
 <template>
+
   <v-card light class="full-size">
+    
+    <!-- Actions -->
     <v-toolbar>
       <v-btn fab @click="$router.replace('/directory');">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
       <v-spacer></v-spacer>
-        <a :href="'/admin/#/suggest-startup-public/'+ id"
-          target="_blank"
-          class="no-underline"
-        >
-            <v-btn fab class="mx-0">
-              <v-icon>edit</v-icon>
-            </v-btn>
-        </a>
+      <a :href="'/admin/#/suggest-startup-public/'+ id"
+        target="_blank"
+        class="no-underline"
+      >
+        <v-btn fab class="mx-0">
+          <v-icon>edit</v-icon>
+        </v-btn>
+      </a>
     </v-toolbar>
+    <!-- /Actions -->
+    
+    <!-- Loading -->
+    <div v-if="loading" class="mt-5 pt-5">
+      <loading></loading>
+    </div>
+    <!-- /Loading -->
 
     <v-card-media>
       <div class="text-xs-center">
@@ -23,10 +33,10 @@
     </v-card-media>
 
     <v-card-text class="text-xs-left" style="padding: 8px 24px;">
-           <div class="startup-info">
-      <h3 class="headline text-xs-left mb-0">{{ data.name }}</h3>
-      <div>{{ data.accelerator }}</div>
-    </div>
+      <div class="startup-info">
+        <h3 class="headline text-xs-left mb-0">{{ data.name }}</h3>
+        <div>{{ data.accelerator }}</div>
+      </div>
         <!--<v-subheader v-if="data.bio">What do they do?</v-subheader>-->
       <div>{{ data.bio }}</div>
       <a
@@ -66,12 +76,13 @@
         v-if="data.persons && data.persons.length > 0"
         class="startup-employees"
       >
-<v-subheader>Team</v-subheader>
+        <v-subheader>Team</v-subheader>
         <person-list :people="data.persons" event-category="startup_detail"></person-list>
       </div>
     </v-card-text>
 
   </v-card>
+
 </template>
 
 <style scoped>
@@ -114,12 +125,18 @@
     margin-top: 12px;
     padding-top: 8px;
     }
+  
+    /* adds shadow to detail toolbar icons */
+    .v-toolbar .v-btn {
+      background: white !important;
+      box-shadow: 0 2px 4px -1px rgba(0,0,0,.2) !important;
+    }
 
     .v-toolbar {
       background-color: transparent;
       box-shadow: none;
-/*        margin-bottom: -64px;*/
-        z-index: 1;
+      margin-bottom: -64px;
+      z-index: 1;
     }
 
     .v-toolbar__title {
@@ -140,10 +157,12 @@
     }
 
     @media (max-width: 960px) {
+      
       .v-toolbar__content>:first-child.v-btn--icon,
       .v-toolbar__extension>:first-child.v-btn--icon {
         margin-left: 0px;
       }
+      
     }
 </style>
 
