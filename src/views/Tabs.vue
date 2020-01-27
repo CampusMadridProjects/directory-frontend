@@ -394,7 +394,7 @@
   }
 
   .v-content {
-      padding: 100px 0px 0px !important;
+    padding: 100px 0px 0px !important;
   }
 
   .v-content.no-extended {
@@ -462,17 +462,21 @@
 
   @media (max-width: 959px) {
 
-      main {
-          padding: 96px 0px 0px !important;
-      }
+    main {
+      padding: 96px 0px 0px !important;
+    }
 
-      input {
-          color: #8E8E93 !important;
-      }
+    input {
+      color: #8E8E93 !important;
+    }
 
-      .v-input__slot {
-          background: #f5f5f5;
-      }
+    .v-input__slot {
+      background: #f5f5f5;
+    }
+    
+    .v-content {
+      padding: 124px 0px 0px !important;
+    }
 
   }
 
