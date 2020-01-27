@@ -199,7 +199,7 @@
     position: fixed;
     width: 360px;
   }
-  .v-toolbar__content {
+  .full-size .v-toolbar__content {
     padding: 0 16px;
   }
   /* removes underline from links */
