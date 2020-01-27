@@ -25,9 +25,10 @@
       <loading></loading>
     </div>
     <!-- /Loading -->
-
+    
+    <!-- Content -->
     <div v-else>
-      <!-- User picture, name, job title and bio -->
+      <!-- User description -->
       <div>
         <!-- User picture -->
         <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"></div>
@@ -35,7 +36,9 @@
         <!-- Profile info container -->
         <div style="padding: 8px 24px;">
           <!-- Name and surname -->
-          <div class="headline">{{ data.name }} {{ data.surname }}</div>
+          <div class="headline">
+            {{ data.name }} {{ data.surname }}
+          </div>
           <!-- /Name and surname -->
           <!-- Job title and company -->
           <div>
@@ -63,7 +66,7 @@
         </div>
         <!-- /Profile info container -->
       </div>
-      <!-- /User picture, name, job title and bio -->
+      <!-- /User description -->
       <!-- Location -->
       <v-card-title primary-title>
         <!-- User info -->
@@ -178,6 +181,7 @@
       </div>
       <!-- /Social profiles -->
     </div>
+    <!-- /Content -->
 
   </v-card>
 
@@ -199,6 +203,7 @@
     position: fixed;
     width: 360px;
   }
+  /* reduces toolbar padding */
   .full-size .v-toolbar__content {
     padding: 0 16px;
   }
@@ -206,8 +211,7 @@
   a  {
     text-decoration: none;
   }
-  
-  /*  */
+
   .person-card-social-icons {
     display: flex;
     flex-direction: column-reverse;
@@ -234,24 +238,26 @@
     border-radius: 50px;
   }
 
-
   @media screen and (max-width: 768px) {
+    /* changes contact button size in small screens */
     .bottom-cta {
       width: 100%;
     }
+    /* changes detail toolbar size in small screens */
     .v-toolbar {
       width: 100% !important;
     }
-    /* makes profile CTA bigger */
+    /* makes profile CTA taller */
     .bottom-cta .v-btn {
       height: 56px;
       font-size: 1.4rem;
     }
-    /* */
-    .headline {
+    /* makes name bigger in full size view */
+    .full-size .headline {
       font-size: 2rem !important;
       margin-top: 12px !important;
     }
+    /* makes job title bigger in full size view */
     .job {
       font-size: 1.4rem;
     }
@@ -260,14 +266,14 @@
 
 <style scoped>
   
-  .v-toolbar {
-    position: fixed;
-    width: 360px;
-  }
-  
+  /* styles for the detail view | repeated in startup detail */
   .full-size {
+    border-radius: 0 !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: auto;
     padding-bottom: 20%;
-  }
+  } /* startup detail doesn't have padding bottom because it doesn't have a fixed CTA */
   
   .v-card__title--primary {
     padding: 4px 24px;
@@ -276,47 +282,33 @@
   .location {
     margin-bottom: 8px;
   }
-  
-  .card-user-info {
-    text-align: left;
-    width: 100%;
-    background: #fafafa;
-    padding: 8px;
-    border-radius: 4px;
-  }
-  
-  .card-user-pic {
-    height: calc(43vw - 64px);
-    margin-bottom: 0px;
-  }
 
-  /* makes cta full width */
+  /* makes bottom CTA full width */
   .primary {
     width: 96%;
   }
 
+  .headline {
+    margin-top: 8px;
+  }
+
+  .v-btn--icon {
+    min-width: 36px;
+  }
+  
+  /*** TOOLBAR ***/
+  
+  /* pulls content under toolbar and removes bg color and shadow */
   .v-toolbar {
     margin-bottom: -64px;
-  }
-
-  .v-toolbar__content button {
-    width: 45px;
-  }
-
-  .full-size {
-    border-radius: 0 !important;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    height: auto;
-  }
-
-  .card-user-pic {
-    border-radius: 0px;
-  }
-
-  .v-toolbar {
     background-color: transparent;
     box-shadow: none;
+    position: fixed;
+    width: 360px;
+  }
+  
+  .v-toolbar__content button {
+    width: 45px;
   }
   
   /* adds shadow to detail toolbar icons */
@@ -330,17 +322,30 @@
     text-align: center;
     margin: 0px;
   }
-
-  .headline {
-    margin-top: 8px;
+  
+  /*** /TOOLBAR ***/
+  
+  /*** USER STYLES ***/
+  
+  .card-user-info {
+    text-align: left;
+    width: 100%;
+    background: #fafafa;
+    padding: 8px;
+    border-radius: 4px;
   }
-
-  .v-btn--icon {
-    min-width: 36px;
+  
+  .card-user-pic {
+    height: calc(43vw - 64px);
+    margin-bottom: 0px;
+    border-radius: 0px;
   }
+  
+  /*** /USER STYLES ***/
 
   @media (min-width: 600px) {
-    .card-user-pic {
+    /* prevents user/startup pic to break layout in mid-size screens */
+    .card-user-pic, .startup-logo {
       max-height: 370px;
       max-width: 370px;
       margin-left: auto;
@@ -349,9 +354,6 @@
   }
 
   @media (max-width: 960px) {
-    nav {
-      margin-bottom: -64px;
-    }
 
     .v-btn--floating {
       width: 45px;
