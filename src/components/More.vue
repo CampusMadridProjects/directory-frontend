@@ -140,6 +140,13 @@
   .container {
     padding: 0px 16px 16px;
   }
+  
+  @media screen and (max-width: 996px) {
+    /* changes container padding */
+    .container {
+      padding: 0px 8px;
+    }
+  }
 
   @media screen and (min-width: 1264px) {
     .container {
