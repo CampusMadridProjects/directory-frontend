@@ -19,7 +19,7 @@
   </v-container>
   <v-container class="card-grid mb-5 pb-3" v-else>
     <v-flex
-      xs12 sm6 md4 lg2 xl2
+      xs12 sm6 md3 lg2 xl2
       v-for="person in this.filterPeople(search, filter)"
       :key="person._id"
       class="card-grid-item"
