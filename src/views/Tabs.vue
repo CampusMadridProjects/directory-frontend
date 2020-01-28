@@ -14,6 +14,7 @@
         :placeholder="searchPlaceholder"
         @keyup="trackSearch(search)"
         @click:clear="searchClear()"
+        @click="goToSearchMenu"
       ></v-text-field>
 
       <v-btn
@@ -560,7 +561,7 @@ export default {
   },
   data: () => ({
     searching: false,
-    tabs: 'tabs-people',
+    tabs: 'tabs-home',
     search: '',
     tagFilter: [],
     dialog: false,
@@ -580,6 +581,12 @@ export default {
     hasFilters() {
       let hasFilters = this.tagList.length > 0;
       return hasFilters;
+    },
+    hasSearch() {
+      const searchTabs = ['people', 'startups'];
+      const tab = this.tagTab || '';
+      const hasSearch = (searchTabs.indexOf(tab) > -1);
+      return hasSearch;
     },
     tagTabFilter() {
       let tags = this.tagList.map(item => item.name);
@@ -631,6 +638,12 @@ export default {
       } else {
         this.tagFilter.splice(index, 1);
         this.$ga.event('list_people', 'filter_remove', name);
+      }
+    },
+
+    goToSearchMenu() {
+      if(!this.hasSearch) {
+        this.tabs = 'tabs-people';
       }
     },
   },
