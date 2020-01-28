@@ -10,7 +10,7 @@
 
       <v-card-title primary-title>
         <h3 class="headline mb-0">{{ name }}</h3>
-        <div class="grey--text">This is a dummy text</div>
+        <div class="grey--text text-xs-center">{{ bio }}</div>
       </v-card-title>
     </div>
   </v-card>
@@ -78,6 +78,7 @@ export default {
     logo: { type: String, required: true },
     name: { type: String, required: true },
     accelerator: { type: String, required: false },
+    bio: { type: String, required: false },
   },
 
   data: () => ({

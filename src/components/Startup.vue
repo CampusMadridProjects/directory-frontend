@@ -26,6 +26,7 @@
         :name="startup.name"
         :logo="startup.logo"
         :accelerator="startup.accelerator"
+        :bio="startup.bio"
       ></startup-card>
     </v-flex>
   </v-container>
