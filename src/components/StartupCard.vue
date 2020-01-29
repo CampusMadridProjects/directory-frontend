@@ -1,5 +1,5 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover">
+  <v-card light :hover="true" class="box-shadow light-border custom-hover ellipsis">
     <div @click="goToStartup(id)">
       <v-img
         :height="cardHeight"
@@ -8,10 +8,12 @@
         class="card-user-pic"
       ></v-img>
 
-      <v-card-title primary-title>
-        <h3 class="headline mb-0">{{ name }}</h3>
-        <div class="grey--text text-xs-center">{{ bio }}</div>
-      </v-card-title>
+      <div style="padding: 8px 24px; padding-bottom: 24px;">
+        <div class="headline ellipsis">
+          {{ name }}
+        </div>
+        <div class="text-xs-center ellipsis">{{ bio }}</div>
+      </div>
     </div>
   </v-card>
 </template>
