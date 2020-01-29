@@ -31,7 +31,7 @@
         :pic="person.pic || ''"
         :role="getJob(person).role"
         :company="getJob(person).name"
-        :expertise="person.Tag"
+        :expertise="typeTags(person.Tag, 'HAS_SKILL')"
         :bio="person.bio"
         :location="person.location"
         :twitter="person.twitter"
@@ -45,7 +45,7 @@
         :pic="person.pic || ''"
         :role="getJob(person).role"
         :company="getJob(person).name"
-        :expertise="person.Tag"
+        :expertise="typeTags(person.Tag, 'HAS_SKILL')"
         :bio="person.bio"
         :location="person.location"
         :twitter="person.twitter"
@@ -262,6 +262,20 @@ export default {
       }
 
       return job;
+    },
+
+    typeTags(list, type) {
+      if (!list) return [];
+
+      return list.filter(tag => {
+        const tagTypes = tag.relations ? tag.relations.map(type => type.toUpperCase()) : [];
+
+        if (tagTypes.indexOf(type) > -1) {
+          return true;
+        }
+
+        return false;
+      });
     },
   },
 

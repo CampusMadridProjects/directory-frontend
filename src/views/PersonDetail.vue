@@ -78,13 +78,13 @@
       </v-card-title>
       <!-- /Location -->
       <!-- Knows about -->
-      <v-card-title primary-title>
+      <v-card-title primary-title v-if="skills.length">
         <!-- User info -->
         <div class="card-user-info">
           <!-- Tags and location -->
           <span>Knows about</span>
           <h4>
-            <span v-for="(ability, index) in data.Tag" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
+            <span v-for="(ability, index) in skills" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
           </h4>
           <!-- Tags and location -->
         </div>
@@ -92,12 +92,12 @@
       </v-card-title>
       <!-- /Knows about -->
       <!-- Needs help with -->
-      <v-card-title primary-title>
+      <v-card-title primary-title v-if="interests.length">
         <!-- User info -->
         <div class="card-user-info">
           <span>Needs help with</span>
           <h4>
-            <span v-for="(ability, index) in data.Tag" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
+            <span v-for="(ability, index) in interests" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
           </h4>
           <!-- Tags and location -->
         </div>
@@ -391,6 +391,12 @@ export default {
 
       return job;
     },
+    skills() {
+      return this.typeTags('HAS_SKILL');
+    },
+    interests() {
+      return this.typeTags('HAS_INTEREST');
+    },
     slackTeam() {
       return this.$store.getters['settings/slackWorkspace'] || '';
     },
@@ -429,6 +435,19 @@ export default {
       if (this.data != null) {
         this.loading = false;
       }
+    },
+    typeTags(type) {
+      if (!this.data.Tag) return [];
+
+      return this.data.Tag.filter(tag => {
+        const tagTypes = tag.relations ? tag.relations.map(type => type.toUpperCase()) : [];
+
+        if (tagTypes.indexOf(type) > -1) {
+          return true;
+        }
+
+        return false;
+      });
     },
   },
   created() {
