@@ -28,13 +28,12 @@
     
     <!-- Content -->
     <div v-else>
-      <!-- User description -->
-      <div>
-        <!-- User picture -->
-        <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"></div>
-        <!-- /User picture -->
-        <!-- Profile info container -->
-        <div style="padding: 8px 24px;">
+      <!-- User picture -->
+      <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"></div>
+      <!-- /User picture -->
+      <!-- Profile info container -->
+      <div class="text-xs-left">
+        <div class="container-1">
           <!-- Name and surname -->
           <div class="headline">
             {{ data.name }} {{ data.surname }}
@@ -64,122 +63,106 @@
           <span class="bio">{{ data.bio }}</span>
           <!-- /Bio -->
         </div>
-        <!-- /Profile info container -->
+        <!-- Location -->
+        <v-card-title v-if="data.location" primary-title>
+          <div class="location">
+            <v-icon size="14" class="mr-1">room</v-icon>
+            <span>{{ data.location }}</span>
+          </div>
+        </v-card-title>
+        <!-- /Location -->
+        <!-- Membership dates -->
+        <v-card-title primary-title>
+          <div class="location">
+            <v-icon size="14" class="mr-1">calendar_today</v-icon>
+            <span>Member from 10/2020 to 10/2021</span>
+          </div>
+        </v-card-title>
+        <!-- /Membership dates -->
+        <div class="my-3">
+          <!-- Knows about -->
+          <v-card-title primary-title v-if="skills.length">
+            <!-- User info -->
+            <div class="card-user-info">
+              <!-- Tags and location -->
+              <span>Knows about</span>
+              <h4>
+                <span v-for="(ability, index) in skills" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
+              </h4>
+              <!-- Tags and location -->
+            </div>
+            <!-- /User info -->
+          </v-card-title>
+          <!-- /Knows about -->
+          <!-- Needs help with -->
+          <v-card-title primary-title v-if="interests.length">
+            <!-- User info -->
+            <div class="card-user-info">
+              <span>Needs help with</span>
+              <h4>
+                <span v-for="(ability, index) in interests" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
+              </h4>
+              <!-- Tags and location -->
+            </div>
+            <!-- /User info -->
+          </v-card-title>
+          <!-- /Needs help with -->
+        </div>
+        <!-- CTA -->
+        <div class="px-3 my-2 bottom-cta">
+            <v-btn color="primary" x-large v-if="connect.show"
+              :href="connect.url"
+              target="_blank"
+              @click="$ga.event('person_detail', 'connect', data._id)"
+            >
+              Connect via {{connect.media}}
+            </v-btn>
+          </div>
+        <!-- /CTA -->
+        <!-- Social profiles -->
+        <div class="px-4 my-3">
+          <h4>Social profiles</h4>
+          <div class="person-card-social-icons">
+            <a v-if="data.instagram"
+              :href="data.instagram"
+              target="_blank"
+              class="person-card-social-icon"
+              @click="$ga.event('person_detail', 'instagram', data._id)"
+            >
+              <img src="img/instagram_64.png" alt="instagram" />
+              <span>Instagram</span>
+            </a>
+            <a v-if="data.twitter"
+              :href="data.twitter"
+              target="_blank"
+              class="person-card-social-icon"
+              @click="$ga.event('person_detail', 'twitter', data._id)"
+            >
+              <img src="img/twitter_64.png" alt="twitter" />
+              <span>Twitter</span>
+            </a>
+            <a v-if="data.linkedin"
+              :href="data.linkedin"
+              target="_blank"
+              class="person-card-social-icon"
+              @click="$ga.event('person_detail', 'linkedin', data._id)"
+            >
+              <img src="img/linkedin_64.png" alt="linkedin" />
+              <span>LinkedIn</span>
+            </a>
+            <a v-if="data.slack"
+              :href="slackUrl(data.slack)"
+              target="_blank"
+              class="person-card-social-icon"
+              @click="$ga.event('person_detail', 'slack', data._id)"
+            >
+              <img src="img/slack_64.png" alt="slack" />
+              <span>Slack</span>
+            </a>
+          </div>
+        </div>
+        <!-- /Social profiles -->
       </div>
-      <!-- /User description -->
-      <!-- Location -->
-      <v-card-title primary-title>
-        <!-- User info -->
-        <div class="location" v-if="data.location">
-          <v-icon size="14" class="mr-1">room</v-icon>
-          <span>{{ data.location }}</span>
-        </div>
-        <!-- /User info -->
-      </v-card-title>
-      <!-- /Location -->
-      <!-- Knows about -->
-      <v-card-title primary-title v-if="skills.length">
-        <!-- User info -->
-        <div class="card-user-info">
-          <!-- Tags and location -->
-          <span>Knows about</span>
-          <h4>
-            <span v-for="(ability, index) in skills" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
-          </h4>
-          <!-- Tags and location -->
-        </div>
-        <!-- /User info -->
-      </v-card-title>
-      <!-- /Knows about -->
-      <!-- Needs help with -->
-      <v-card-title primary-title v-if="interests.length">
-        <!-- User info -->
-        <div class="card-user-info">
-          <span>Needs help with</span>
-          <h4>
-            <span v-for="(ability, index) in interests" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
-          </h4>
-          <!-- Tags and location -->
-        </div>
-        <!-- /User info -->
-      </v-card-title>
-      <!-- /Needs help with -->
-      <!-- CTA -->
-      <div class="px-3 my-2 bottom-cta">
-          <v-btn color="primary" x-large v-if="connect.show"
-            :href="connect.url"
-            target="_blank"
-            @click="$ga.event('person_detail', 'connect', data._id)"
-          >
-            Connect via {{connect.media}}
-          </v-btn>
-          <!-- 
-          <v-btn color="primary" x-large v-if="data.slack"
-            :href="slackUrl(data.slack)"
-            target="_blank"
-            @click="$ga.event('person_detail', 'connect', data._id)"
-          >
-            Connect
-          </v-btn>
-          <v-btn color="primary" x-large v-else-if="data.linkedin"
-            :href="data.linkedin"
-            target="_blank"
-            @click="$ga.event('person_detail', 'connect', data._id)"
-          >
-            Connect
-          </v-btn>
-          <v-btn color="primary" x-large v-else-if="data.twitter"
-            :href="data.twitter"
-            target="_blank"
-            @click="$ga.event('person_detail', 'connect', data._id)"
-          >
-            Connect
-          </v-btn> -->
-        </div>
-      <!-- /CTA -->
-      <!-- Social profiles -->
-      <div class="px-4 my-3">
-        <h4>Social profiles</h4>
-        <div class="person-card-social-icons">
-          <a v-if="data.instagram"
-            :href="data.instagram"
-            target="_blank"
-            class="person-card-social-icon"
-            @click="$ga.event('person_detail', 'instagram', data._id)"
-          >
-            <img src="img/instagram_64.png" alt="instagram" />
-            <span>Instagram</span>
-          </a>
-          <a v-if="data.twitter"
-            :href="data.twitter"
-            target="_blank"
-            class="person-card-social-icon"
-            @click="$ga.event('person_detail', 'twitter', data._id)"
-          >
-            <img src="img/twitter_64.png" alt="twitter" />
-            <span>Twitter</span>
-          </a>
-          <a v-if="data.linkedin"
-            :href="data.linkedin"
-            target="_blank"
-            class="person-card-social-icon"
-            @click="$ga.event('person_detail', 'linkedin', data._id)"
-          >
-            <img src="img/linkedin_64.png" alt="linkedin" />
-            <span>LinkedIn</span>
-          </a>
-          <a v-if="data.slack"
-            :href="slackUrl(data.slack)"
-            target="_blank"
-            class="person-card-social-icon"
-            @click="$ga.event('person_detail', 'slack', data._id)"
-          >
-            <img src="img/slack_64.png" alt="slack" />
-            <span>Slack</span>
-          </a>
-        </div>
-      </div>
-      <!-- /Social profiles -->
     </div>
     <!-- /Content -->
 
@@ -188,6 +171,25 @@
 </template>
 
 <style>
+  
+  /* fix | decreases padding of location and join date */
+  .full-size .v-card__title--primary {
+    padding: 4px 24px;
+  }
+  
+  /* fix | adds padding to name, job title and bio */
+  .container-1 {
+    padding: 0px 24px;
+    margin-bottom: 8px;
+  }
+  
+  .v-card-text {
+    padding: 0px;
+  }
+  /* fix | adds hover to social options */
+  .person-card-social-icon:hover {
+    background: #f0f0f0;
+  }
   /* */
   .v-btn {
     text-transform: none;
@@ -255,7 +257,6 @@
     /* makes name bigger in full size view */
     .full-size .headline {
       font-size: 2rem !important;
-      margin-top: 12px !important;
     }
     /* makes job title bigger in full size view */
     .job {
@@ -274,14 +275,6 @@
     height: auto;
     padding-bottom: 20%;
   } /* startup detail doesn't have padding bottom because it doesn't have a fixed CTA */
-  
-  .v-card__title--primary {
-    padding: 4px 24px;
-  }
-  
-  .location {
-    margin-bottom: 8px;
-  }
 
   /* makes bottom CTA full width */
   .primary {
@@ -289,7 +282,7 @@
   }
 
   .headline {
-    margin-top: 8px;
+    margin-top: 16px;
   }
 
   .v-btn--icon {
