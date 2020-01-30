@@ -121,7 +121,7 @@
           </div>
         <!-- /CTA -->
         <!-- Social profiles -->
-        <div class="px-4 my-3">
+        <div class="px-4 my-3" v-if="hasConnections">
           <h4>Social profiles</h4>
           <div class="person-card-social-icons">
             <a v-if="data.instagram"
@@ -434,7 +434,17 @@ export default {
       }
 
       return connectData;
-    }
+    },
+    hasConnections() {
+      if (!this.data.linkedin
+        && !this.data.twitter
+        && !this.data.instagram
+        && !this.data.slack) {
+        return false;
+      }
+
+      return true;
+    },
   },
   methods: {
     slackUrl(id) {
