@@ -36,35 +36,47 @@
       </v-card-media>
       <!-- /Startup logo -->
       <!-- Startup info -->
-      <v-card-text class="text-xs-left" style="padding: 8px 24px;">
-        <!-- Name and program -->
-        <div class="startup-info">
-          <h3 class="headline text-xs-left mb-0">{{ data.name }}</h3>
-          <div>{{ data.accelerator }}</div>
+      <div class="text-xs-left">
+        <div class="container-1">
+          <!-- Name and program -->
+          <div class="startup-info">
+            <h3 class="headline text-xs-left mb-0">{{ data.name }}</h3>
+            <div>{{ data.accelerator }}</div>
+          </div>
+          <!-- /Name and program -->
+          <!-- Bio -->
+          <span v-if="data.bio">{{ data.bio }}</span>
+          <!-- /Bio -->
+          <!-- Website -->
+          <a
+            v-if="data.website"
+            :href="link(data.website)"
+            target="_blank"
+            class="d-flex pt-2"
+          >
+            {{ data.website }}
+          </a>
+          <!-- /Website -->
         </div>
-        <!-- /Name and program -->
-        <!-- Bio -->
-        <span v-if="data.bio">{{ data.bio }}</span>
-        <!-- /Bio -->
-        <!-- Website -->
-        <a
-          v-if="data.website"
-          :href="link(data.website)"
-          target="_blank"
-          class="d-flex py-3"
-        >
-          {{ data.website }}
-        </a>
-        <!-- /Website -->
+      </div>
         <!-- Location -->
-        <div v-if="data.location">
-          <v-icon size="14" class="mr-1">room</v-icon>
-          <span>{{ data.location }}</span>
-        </div>
+        <v-card-title v-if="data.location" primary-title>
+          <div class="location">
+            <v-icon size="14" class="mr-1">room</v-icon>
+            <span>{{ data.location }}</span>
+          </div>
+        </v-card-title>
         <!-- /Location -->
-
+        <!-- Membership dates -->
+        <v-card-title primary-title>
+          <div class="location">
+            <v-icon size="14" class="mr-1">calendar_today</v-icon>
+            <span>Member from 10/2020 to 10/2021</span>
+          </div>
+        </v-card-title>
+        <!-- /Membership dates -->
         <!-- Social profiles -->
-        <div class="my-3">
+        <div class="px-4 my-3">
           <h4>Social profiles</h4>
           <div class="person-card-social-icons">
             <a v-if="data.instagram"
@@ -106,19 +118,18 @@
           </div>
         </div>
         <!-- /Social profiles -->
-        
         <!-- /Employees -->
         <div
           v-if="data.persons && data.persons.length > 0"
-          class="startup-employees"
+          class="startup-employees px-4 my-2"
         >
           <h4>Team</h4>
           <person-list :people="data.persons" event-category="startup_detail"></person-list>
         </div>
         <!-- /Employees -->
-      </v-card-text>
+      </div>
       <!-- /Startup info -->
-    </div>
+
     <!-- /Content -->
 
   </v-card>
@@ -155,7 +166,7 @@
     min-width: 36px;
   }
 
-  
+
   /*** TOOLBAR ***/
   
   .v-toolbar {
@@ -202,7 +213,7 @@
   .startup-employees {
     max-width: 500px;
     margin: auto;
-    border-top: 1px solid #f0f0f0;
+    /* border-top: 1px solid #f0f0f0; */
     margin-top: 12px;
     padding-top: 8px;
   }

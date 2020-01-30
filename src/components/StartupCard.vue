@@ -1,5 +1,5 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover">
+  <v-card light :hover="true" class="box-shadow light-border custom-hover ellipsis">
     <div @click="goToStartup(id)">
       <v-img
         :height="cardHeight"
@@ -8,10 +8,12 @@
         class="card-user-pic"
       ></v-img>
 
-      <v-card-title primary-title>
-        <h3 class="headline mb-0">{{ name }}</h3>
-        <div class="grey--text">This is a dummy text</div>
-      </v-card-title>
+      <div style="padding: 8px 24px; padding-bottom: 24px;">
+        <div class="headline ellipsis">
+          {{ name }}
+        </div>
+        <div class="text-xs-center ellipsis">{{ bio }}</div>
+      </div>
     </div>
   </v-card>
 </template>
@@ -78,6 +80,7 @@ export default {
     logo: { type: String, required: true },
     name: { type: String, required: true },
     accelerator: { type: String, required: false },
+    bio: { type: String, required: false },
   },
 
   data: () => ({
