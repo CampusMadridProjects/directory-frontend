@@ -458,10 +458,7 @@
   }
 
   .v-input--is-focused .v-input__slot {
-      background: #ffffff !important;
-      box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),
-                  0 2px 2px 0 rgba(0,0,0,0.14),
-                  0 1px 5px 0 rgba(0,0,0,0.12);
+    background: #ffffff !important;
   }
 
   .no-underline {
@@ -475,10 +472,11 @@
   }
 
   .v-input__slot {
-      /* border-radius: 8px !important; */
-      border-radius: 50px !important;
-      background: #f1f3f4 !important;
-      font-weight: 500;
+    /* border-radius: 8px !important; */
+    border-radius: 50px !important;
+    background: #f1f3f4 !important;
+    font-weight: 500;
+    border: 2px solid #f1f3f4;
   }
 
   .v-input__icon i {
