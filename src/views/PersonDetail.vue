@@ -72,10 +72,11 @@
         </v-card-title>
         <!-- /Location -->
         <!-- Membership dates -->
-        <v-card-title primary-title>
+        <v-card-title primary-title v-if="memberSince">
           <div class="location">
             <v-icon size="14" class="mr-1">calendar_today</v-icon>
-            <span>Member from 10/2020 to 10/2021</span>
+            <span>Member from {{ memberSince }}</span>
+            <span v-if="memberUntil"> to {{ memberUntil }}</span>
           </div>
         </v-card-title>
         <!-- /Membership dates -->
@@ -389,6 +390,22 @@ export default {
     },
     interests() {
       return this.typeTags('HAS_INTEREST');
+    },
+    memberSince() {
+      if (!this.data.memberSince) {
+        return null;
+      }
+
+      let date = new Date(this.data.memberSince);
+      return `${date.getMonth()}/${date.getFullYear()}`;
+    },
+    memberUntil() {
+      if (!this.data.memberUntil) {
+        return null;
+      }
+
+      let date = new Date(this.data.memberUntil);
+      return `${date.getMonth()}/${date.getFullYear()}`;
     },
     slackTeam() {
       return this.$store.getters['settings/slackWorkspace'] || '';
