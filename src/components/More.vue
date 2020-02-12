@@ -6,7 +6,7 @@
           <v-card-text>
             <v-layout align-center mb-3>
               <!-- <v-avatar color="grey" class="mr-3"></v-avatar> -->
-              <strong class="title">News</strong>
+              <strong class="title">Tips</strong>
               <v-spacer></v-spacer>
 
               <v-btn icon>
