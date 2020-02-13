@@ -68,12 +68,12 @@
         </v-card-title>
         <!-- /Location -->
         <!-- Membership dates -->
-        <v-card-title primary-title>
+        <!-- <v-card-title primary-title>
           <div class="location">
             <v-icon size="14" class="mr-1">calendar_today</v-icon>
             <span>Member from 10/2020 to 10/2021</span>
           </div>
-        </v-card-title>
+        </v-card-title> -->
         <!-- /Membership dates -->
         <!-- Social profiles -->
         <div class="px-4 my-3">
