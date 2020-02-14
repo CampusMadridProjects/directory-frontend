@@ -11,6 +11,7 @@
         v-model="search"
         clearable
         color="#F5F5F5"
+        class="search-box"
         :placeholder="searchPlaceholder"
         @keyup="trackSearch(search)"
         @click:clear="searchClear()"
@@ -131,18 +132,6 @@
     <v-dialog v-model="dialog" transition="dialog-bottom-transition" persistent>
       <router-view name="dialog"></router-view>
     </v-dialog>
-
-    <!-- <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
-      <v-btn
-        fab
-        fixed
-        bottom
-        right
-        color="primary"
-      >
-        <v-icon>person_add</v-icon>
-      </v-btn>
-    </a> -->
 
   </v-app>
 </template>
@@ -308,6 +297,24 @@
     width: 360px;
   }
 
+
+
+  .search-box >>> .v-input__slot {
+    /* border-radius: 8px !important; */
+    border-radius: 50px !important;
+    background: #f1f3f4 !important;
+    font-weight: 500;
+    border: 2px solid #f1f3f4;
+  }
+
+  .search-box >>> .v-input__icon i {
+      color: #717171 !important;
+  }
+
+  .search-box >>> .v-text-field .v-input__prepend-inner {
+      padding-right: 8px;
+  }
+
   /* bigger-chips-mobile */
   @media only screen and (max-width: 768px) {
 
@@ -349,6 +356,14 @@
       */
       .d-sm-none {
           display: none;
+      }
+
+      .search-box >>> input {
+        color: #8E8E93 !important;
+      }
+
+      .search-box >>> .v-input__slot {
+        background: #f5f5f5;
       }
   }
 
@@ -448,7 +463,7 @@
       height: 45px;
       box-shadow: none !important;
   }
-      .v-btn:hover {
+      .v-btn.primary:hover {
           background: #174ea6 !important;
       }
 
@@ -471,8 +486,7 @@
     margin: 8px 0px;
   }
 
-  .v-input__slot {
-    /* border-radius: 8px !important; */
+  /*.v-input__slot {
     border-radius: 50px !important;
     background: #f1f3f4 !important;
     font-weight: 500;
@@ -485,7 +499,7 @@
 
   .v-text-field .v-input__prepend-inner {
       padding-right: 8px;
-  }
+  }*/
 
   @media (max-width: 959px) {
 
@@ -493,13 +507,13 @@
       padding: 96px 0px 0px !important;
     }
 
-    input {
+    /*input {
       color: #8E8E93 !important;
     }
 
     .v-input__slot {
       background: #f5f5f5;
-    }
+    }*/
     
     .v-content {
       padding: 124px 0px 0px !important;

@@ -29,7 +29,7 @@
     <!-- Content -->
     <div v-else>
       <!-- User picture -->
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"></div>
+      <div class="card-user-pic" :style="{ backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)' }"></div>
       <!-- /User picture -->
       <!-- Profile info container -->
       <div class="text-xs-left">
@@ -51,7 +51,7 @@
               <span
               v-if="job.id"
               @click="$ga.event('person_detail', 'view_startup', job.id)">
-                <router-link :to="{name: 'startupDetail', params: {id: job.id}}">
+                <router-link :to="{ name: 'startupDetail', params: { id: job.id } }">
                 {{ job.name }}
                 </router-link>
               </span>
@@ -110,15 +110,23 @@
           <!-- /Needs help with -->
         </div>
         <!-- CTA -->
-        <div class="px-3 my-2 bottom-cta">
-            <v-btn color="primary" x-large v-if="connect.show"
-              :href="connect.url"
-              target="_blank"
-              @click="$ga.event('person_detail', 'connect', data._id)"
-            >
-              Connect via {{connect.media}}
-            </v-btn>
-          </div>
+        <div
+          v-if="config.emailConnect === true"
+          class="px-3 my-2 bottom-cta"
+          style="height: 64px"
+        >
+          <send-mail />
+        </div>
+        <div v-else class="px-3 my-2 bottom-cta">
+          <v-btn color="primary" x-large v-if="connect.show"
+            :href="connect.url"
+            target="_blank"
+            @click="$ga.event('person_detail', 'connect', data._id)"
+          >
+            Connect via {{ connect.media }}
+          </v-btn>
+        </div>
+
         <!-- /CTA -->
         <!-- Social profiles -->
         <div class="px-4 my-3" v-if="hasConnections">
@@ -278,7 +286,7 @@
   } /* startup detail doesn't have padding bottom because it doesn't have a fixed CTA */
 
   /* makes bottom CTA full width */
-  .primary {
+  .bottom-cta >>> .v-btn {
     width: 96%;
   }
 
@@ -365,11 +373,13 @@
 
 <script>
 import Loading from '@/components/Loading.vue';
+import SendMail from '@/components/SendMail.vue';
 
 export default {
   name: 'PersonDetail',
   components: {
     Loading,
+    SendMail,
   },
   data: () => ({
     loading: true,
@@ -377,6 +387,7 @@ export default {
     data: null,
   }),
   computed: {
+    
     job() {
       let job = {};
       if (this.data.Group && this.data.Group.length > 0) {
