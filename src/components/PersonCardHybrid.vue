@@ -35,19 +35,10 @@
     margin: 6px;
     padding-bottom: 8px;
     border: 1px solid #eaeaea;
-      /*max-width: 200px;*/
   }
 
   /* adds additional space for 1 more card in wide screens */
   @media screen and (min-width: 1264px){
-/*    .container {
-        max-width: 1300px;
-    }*/
-    /*.flex.lg2 {
-        flex-basis: 20%;
-        max-width: 20%;
-    }*/
-
     >>> .card-user-pic {
         height: calc(20vw - 80px);
     }

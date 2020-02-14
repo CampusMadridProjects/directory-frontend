@@ -70,11 +70,6 @@
     font-size: 2.4rem !important;
   }
   
-  /* */
-  .v-card {
-    /* border: 1px solid #eaeaea; */
-  }
-  
   /**/
   .v-card__title--primary {
     padding: 8px 0px;

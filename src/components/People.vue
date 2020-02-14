@@ -24,6 +24,7 @@
       :key="person._id"
       class="card-grid-item"
     >
+      <!-- <person-card-hybrid :person="person" /> -->
       <person-card-small class="card-grid-item-card hidden-md-and-up"
         :id="person.id"
         :name="person.name"
@@ -98,14 +99,14 @@
 
   /* adds additional space for 1 more card in wide screens */
   @media screen and (min-width: 1264px){
-    .container {
+    >>> .container {
         max-width: 1300px;
     }
-    .flex.lg2 {
+    >>> .flex.lg2 {
         flex-basis: 20%;
         max-width: 20%;
     }
-    .card-user-pic {
+    >>> .card-user-pic {
         height: calc(20vw - 80px);
     }
   }
@@ -124,6 +125,7 @@
 </style>
 
 <script>
+import PersonCardHybrid from './PersonCardHybrid.vue';
 import PersonCard from './PersonCard.vue';
 import PersonCardSmall from './PersonCardSmall.vue';
 import Loading from './Loading.vue';
@@ -147,6 +149,7 @@ export default {
   },
 
   components: {
+    PersonCardHybrid,
     PersonCard,
     PersonCardSmall,
     Loading,
