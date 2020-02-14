@@ -23,9 +23,9 @@
             :key="ability.id">{{ (index !== 0) ?', ' + ability.name : ability.name }}
           </span>
         </h4>
-        <div>
+        <div v-if="config.hasLocation">
           <v-icon size="14" class="mr-1">room</v-icon>
-          <span >{{ location || 'Community' }}</span>
+          <span>{{ location || 'Community' }}</span>
         </div>
       </div>
     </v-card-title>
@@ -155,6 +155,12 @@ export default {
   data: () => ({
     show: false,
   }),
+  
+  computed: {
+    config() {
+      return this.$store.state.config.config;
+    },
+  },
 
   methods: {
     goToPerson(id) {

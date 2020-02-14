@@ -1,7 +1,8 @@
 <template>
   <v-container>
     <v-layout class="px-5" column grid-list-md>
-      <v-flex lg6>
+      <v-flex lg6 
+        v-if="config.slack">
         <v-card flat>
           <v-card-text>
             <v-layout align-center mb-3>
@@ -197,6 +198,9 @@ export default {
     ],
   }),
   computed: {
+    config() {
+      return this.$store.state.config.config;
+    },
     slackTeam() {
       return this.$store.getters['settings/slackWorkspace'] || '';
     },

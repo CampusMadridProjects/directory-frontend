@@ -64,7 +64,7 @@
           <!-- /Bio -->
         </div>
         <!-- Location -->
-        <v-card-title v-if="data.location" primary-title>
+        <v-card-title v-if="config.hasLocation && data.location" primary-title>
           <div class="location">
             <v-icon size="14" class="mr-1">room</v-icon>
             <span>{{ data.location }}</span>
@@ -72,7 +72,7 @@
         </v-card-title>
         <!-- /Location -->
         <!-- Membership dates -->
-        <v-card-title primary-title v-if="memberSince">
+        <v-card-title primary-title v-if="config.hasMembership && memberSince">
           <div class="location">
             <v-icon size="14" class="mr-1">calendar_today</v-icon>
             <span>Member from {{ memberSince }}</span>
@@ -109,6 +109,7 @@
           </v-card-title>
           <!-- /Needs help with -->
         </div>
+
         <!-- CTA -->
         <div
           v-if="config.emailConnect === true"
@@ -132,7 +133,7 @@
         <div class="px-4 my-3" v-if="hasConnections">
           <h4>Social profiles</h4>
           <div class="person-card-social-icons">
-            <a v-if="data.instagram"
+            <a v-if="config.hasInstagram === true && data.instagram"
               :href="data.instagram"
               target="_blank"
               class="person-card-social-icon"
@@ -141,7 +142,7 @@
               <img src="img/instagram_64.png" alt="instagram" />
               <span>Instagram</span>
             </a>
-            <a v-if="data.twitter"
+            <a v-if="config.hasTwitter === true && data.twitter"
               :href="data.twitter"
               target="_blank"
               class="person-card-social-icon"
@@ -150,7 +151,7 @@
               <img src="img/twitter_64.png" alt="twitter" />
               <span>Twitter</span>
             </a>
-            <a v-if="data.linkedin"
+            <a v-if="config.hasLinkedin === true && data.linkedin"
               :href="data.linkedin"
               target="_blank"
               class="person-card-social-icon"
@@ -159,7 +160,7 @@
               <img src="img/linkedin_64.png" alt="linkedin" />
               <span>LinkedIn</span>
             </a>
-            <a v-if="data.slack"
+            <a v-if="slackActive && data.slack"
               :href="slackUrl(data.slack)"
               target="_blank"
               class="person-card-social-icon"
@@ -387,7 +388,9 @@ export default {
     data: null,
   }),
   computed: {
-    
+    config() {
+      return this.$store.state.config.config;
+    },
     job() {
       let job = {};
       if (this.data.Group && this.data.Group.length > 0) {
@@ -418,6 +421,12 @@ export default {
       let date = new Date(this.data.memberUntil);
       return `${date.getMonth()}/${date.getFullYear()}`;
     },
+    slackActive() {
+      if (this.config.slack) {
+        return true;
+      }
+      return false;
+    },
     slackTeam() {
       return this.$store.getters['settings/slackWorkspace'] || '';
     },
@@ -447,7 +456,12 @@ export default {
       return connectData;
     },
     hasConnections() {
-      if (!this.data.linkedin
+      if (!this.config.hasLinkedin
+        && !this.config.hasTwitter
+        && !this.config.hasInstagram
+        && !this.slackActive) {
+        return false;
+      } else if (!this.data.linkedin
         && !this.data.twitter
         && !this.data.instagram
         && !this.data.slack) {

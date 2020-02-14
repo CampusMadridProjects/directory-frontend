@@ -105,7 +105,7 @@
         flat
         value="tabs-people"
       >
-        <span>People</span>
+        <span>{{ config.peopleText || 'People' }}</span>
         <v-icon>person</v-icon>
       </v-btn>
 
@@ -114,7 +114,7 @@
         flat
         value="tabs-startups"
       >
-        <span>Teams</span>
+        <span>{{ config.startupsText || 'Teams' }}</span>
         <v-icon>group</v-icon>
       </v-btn>
 
@@ -123,7 +123,7 @@
         flat
         value="tabs-more"
       >
-        <span>More</span>
+        <span>{{ config.moreText || 'More' }}</span>
         <v-icon>menu</v-icon>
       </v-btn>
 
