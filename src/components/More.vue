@@ -59,10 +59,30 @@
                     <v-spacer></v-spacer>
                 </v-layout>
                 <v-list>
+                  <!-- Dynamic FAQ -->
+                  <v-list-group
+                    v-for="item in faq"
+                    :key="item.question"
+                    :prepend-icon="item.icon || 'help'"
+                    no-action
+                  >
+                    <template v-slot:activator>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ item.question }}</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </template>
+
+                    <v-list-tile>
+                      <div v-html="item.answer"></div>
+                    </v-list-tile>
+                  </v-list-group>
+
+                  <!-- Directory -->
                   <v-list-group
                     v-for="item in items"
                     :key="item.title"
-                    v-model="item.active"
                     :prepend-icon="item.action"
                     no-action
                   >
@@ -76,6 +96,27 @@
 
                     <v-list-tile>
                       <div v-html="item.text"></div>
+                    </v-list-tile>
+                  </v-list-group>
+
+                  <!-- Slack -->
+                  <v-list-group
+                    v-if="config.slack"
+                    prepend-icon="forum"
+                    no-action
+                  >
+                    <template v-slot:activator>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>Slack</v-list-tile-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </template>
+
+                    <v-list-tile>
+                      <div>
+                        There is an official Slack channel for campus residents. You have to be invited by your space manager. You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation. Your search results will be visible <strong>only to you</strong>.
+                      </div>
                     </v-list-tile>
                   </v-list-group>
                 </v-list>
@@ -190,20 +231,22 @@ export default {
         title: 'Privacy',
         text: "Users data is securely stored in Google's infrastructure in Europe under the best standards. Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
       },
-      {
-        action: 'forum',
-        title: 'Slack',
-        text: "There is an official Slack channel for campus residents. You have to be invited by your space manager. You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation. Your search results will be visible <strong>only to you</strong>.",
-      },
     ],
   }),
   computed: {
     config() {
       return this.$store.state.config.config;
     },
+    faq() {
+      return this.$store.state.faq.list || [];
+    },
     slackTeam() {
       return this.$store.getters['settings/slackWorkspace'] || '';
     },
   },
+
+  beforeCreate() {
+    this.$store.dispatch('faq/get');
+  }
 };
 </script>
