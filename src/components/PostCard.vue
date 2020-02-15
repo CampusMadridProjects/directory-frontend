@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-img src="https://www.elreferente.es/source/bnext.jpg"
+    <v-img
+      v-if="pic"
+      :src="pic"
       aspect-ratio="1.9"
     ></v-img>
 
