@@ -116,7 +116,7 @@
           class="px-3 my-2 bottom-cta"
           style="height: 64px"
         >
-          <send-mail />
+          <send-mail :id="data.id" />
         </div>
         <div v-else class="px-3 my-2 bottom-cta">
           <v-btn color="primary" x-large v-if="connect.show"

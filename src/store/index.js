@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import config from './modules/config';
 import faq from './modules/faq';
+import mail from './modules/mail';
 import news from './modules/news';
 import people from './modules/people';
 import settings from './modules/settings';
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   modules: {
     config,
     faq,
+    mail,
     news,
     people,
     settings,
