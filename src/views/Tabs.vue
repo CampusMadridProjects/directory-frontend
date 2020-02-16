@@ -43,6 +43,13 @@
               Filter by:
             </span>
             <v-chip
+              @click="allFilters = !allFilters"
+            >
+              <v-icon size="14" class="px-1">apps</v-icon>
+              <span v-if="tagFilter.length === 0">All filters</span>
+              <span v-else>Active filters ({{ tagFilter.length }})</span>
+            </v-chip>
+            <v-chip
               v-for="tag in tagList"
               :key="tag.id"
               :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
@@ -55,6 +62,23 @@
         </div>
       </v-container>
     </v-toolbar>
+
+    <div v-if="allFilters" class="all-filters">
+      <p class="px-2 pt-1">
+        Browse all the filters
+      </p>
+      <v-btn flat icon class="close-filters" @click="allFilters = false">
+        <v-icon>close</v-icon>
+      </v-btn>
+      <v-chip
+        v-for="tag in tagList"
+        :key="tag.id"
+        :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+        @click="switchTag(tag.name)"
+      >
+        {{ tag.name }}
+      </v-chip>
+    </div>
 
     <v-content :class="hasFilters ? '' : 'no-extended'">
       <v-tabs-items v-model="tabs">
@@ -197,6 +221,26 @@
   .v-tabs__div {
     text-transform: none;
   }
+
+  .all-filters {
+    background: white;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    left: 16px;
+    max-height: 320px;
+    overflow: auto;
+    padding: 8px 12px;
+    position: fixed;
+    top: 117px;
+    width: calc(100% - 32px);
+    z-index: 2;
+  }
+
+    .close-filters {
+      position: fixed;
+      top: 110px;
+      right: 12px;
+    }
 
   footer {
     align-items: center;
@@ -400,6 +444,11 @@
           border: none;
       }
 
+      .all-filters {
+        left: 146px;
+        width: calc(100% - 154px);
+      }
+
     footer {
       flex-direction: row !important;
     }
@@ -576,6 +625,7 @@ export default {
     tabs: 'tabs-home',
     search: '',
     tagFilter: [],
+    allFilters: false,
     dialog: false,
     tabClicked: null,
   }),
