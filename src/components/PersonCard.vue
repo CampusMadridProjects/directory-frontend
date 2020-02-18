@@ -1,7 +1,7 @@
 <template>
   <v-card light :hover="true" class="box-shadow light-border custom-hover card-elements ellipsis">
     <div @click="goToPerson(id)">
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
+      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
       </div>
       <div style="padding: 8px 24px;">
         <div class="headline ellipsis">{{ name }} {{ surname }}</div>

@@ -29,7 +29,7 @@
     <!-- Content -->
     <div v-else>
       <!-- User picture -->
-      <div class="card-user-pic" :style="{ backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)' }"></div>
+      <div class="card-user-pic" :style="{ backgroundImage: 'url('+ data.pic +'), url(img/nopic.png)' }"></div>
       <!-- /User picture -->
       <!-- Profile info container -->
       <div class="text-xs-left">
