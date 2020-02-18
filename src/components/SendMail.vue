@@ -9,7 +9,7 @@
         dark
         v-on="on"
       >
-        Connevt via email
+        Connect via email
       </v-btn>
     </template>
 
@@ -78,10 +78,10 @@
     <v-snackbar
       v-model="snackbar"
       color="success"
-      :timeout="3000"
+      :timeout="2000"
     >
       Email sent!
-      <v-btn
+  <!--     <v-btn
         color="success"
         flat
         dark
@@ -89,7 +89,7 @@
       >
         Close
       </v-btn>
-    </v-snackbar>
+ -->    </v-snackbar>
   </div>
 </template>
 
@@ -115,7 +115,7 @@ export default {
   },
   
   data: () => ({
-    dialog: false,
+    dialog: true,
     name: '',
     email: '',
     message: '',
