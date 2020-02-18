@@ -1,4 +1,5 @@
 <template>
+  <div>
   <v-dialog
     v-model="dialog"
   >
@@ -8,7 +9,7 @@
         dark
         v-on="on"
       >
-        Send Mail
+        Connevt via email
       </v-btn>
     </template>
 
@@ -74,6 +75,22 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+    <v-snackbar
+      v-model="snackbar"
+      color="success"
+      :timeout="3000"
+    >
+      Email sent!
+      <v-btn
+        color="success"
+        flat
+        dark
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+  </div>
 </template>
 
 <style scoped>
@@ -103,6 +120,7 @@ export default {
     email: '',
     message: '',
     showErrors: false,
+    snackbar: false,
   }),
 
   computed: {
@@ -154,6 +172,7 @@ export default {
           message,
         })
         .finally(() => {
+          this.snackbar = true;
           this.dialog = false;
         });
     }

@@ -11,6 +11,7 @@ const initialState = {
 // Getters
 const getters = {
   slackWorkspace(state) {
+    if (!state.slack) return '';
     return state.slack.slackWorkspace || '';
   },
 };

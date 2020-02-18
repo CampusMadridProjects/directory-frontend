@@ -714,6 +714,9 @@ export default {
     this.$store.dispatch('tags/getTags');
     this.checkChildren(this.$router.currentRoute.name);
     this.deferPrompt();
+    if (this.config.showHome !== true) {
+      this.tabs = 'tabs-people';
+    }
   },
 
   watch: {

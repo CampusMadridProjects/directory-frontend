@@ -162,7 +162,7 @@ export default {
 
   methods: {
     inArray(array, data) {
-      if (typeof data !== 'string' || !Array.isArray(array)) {
+      if (!data || typeof data !== 'string' || !Array.isArray(array)) {
         return false;
       }
 
