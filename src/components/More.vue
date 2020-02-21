@@ -79,7 +79,7 @@
                     </v-list-tile>
                   </v-list-group>
 
-                  <!-- Directory -->
+                  <!-- Directory standard faq -->
                   <v-list-group
                     v-for="item in items"
                     :key="item.title"
@@ -115,7 +115,12 @@
 
                     <v-list-tile>
                       <div>
-                        There is an official Slack channel for campus residents. You have to be invited by your space manager. You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation. Your search results will be visible <strong>only to you</strong>.
+                        There is an official Slack channel for this community. You have to be invited by your space manager. You can browse the directory by typing <code>/dir-search</code> in any Slack channel or conversation. Your search results will be visible <strong>only to you</strong>.
+                        <p class="pt-3">
+                          <a :href="'https://' + slackTeam + '.slack.com'">
+                            <v-btn>Open Slack</v-btn>
+                          </a>
+                        </p>
                       </div>
                     </v-list-tile>
                   </v-list-group>
@@ -224,7 +229,7 @@ export default {
       {
         action: 'person',
         title: 'Profiles',
-        text: "Profiles are added and mantained by a space manager, either Tetuan Valley, SeedRocket or Google. You can manually add or update your profile or your startup info by filling <a href='/admin/#/suggest-public'>this form</a>. Your changes will be manually reviewd and updated as soon as possible."
+        text: "Profiles are mantained by a space manager. You can manually add or update your profile or your startup info by filling <a href='/admin/#/suggest-public'>this form</a>. Your changes will be manually reviewd and updated as soon as possible."
       },
       {
         action: 'lock',
