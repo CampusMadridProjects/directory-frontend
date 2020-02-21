@@ -5,6 +5,7 @@ import api from '@/store/helpers/api';
 // Inital state
 const initialState = {
   loading: false,
+  loaded: false,
   config: {
     showPeople: false,
     showStartups: false,
@@ -60,6 +61,7 @@ const mutations = {
   },
   setConfig(state, data) {
     state.config = data;
+    state.loaded = true;
   },
 };
 

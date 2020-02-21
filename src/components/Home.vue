@@ -9,9 +9,9 @@
         <v-flex xs12 sm7 offset-sm2>
           <!-- News -->
           <h1>
-          It's happening
+            {{ newsHeading }}
           </h1>
-          <p>News from the community</p>
+          <p>{{ newsSubheading }}</p>
           
           <PostCard
             v-for="post in newsList"
@@ -35,7 +35,7 @@
 
           <!-- New members -->
           <h1>
-          New members
+            New members
           </h1>
           <p>Go and share some coffee</p>
 
@@ -101,6 +101,15 @@ export default {
     membersShown: 6
   }),
   computed: {
+    config() { 
+      return this.$store.state.config.config || {};
+    },
+    newsHeading() {
+      return this.config.newsHeading || 'It\'s happening';
+    },
+    newsSubheading() {
+      return this.config.newsSubheading || 'News from the community';
+    },
     newsList() {
       return this.$store.state.news.list.slice(0, this.newsShown);
     },

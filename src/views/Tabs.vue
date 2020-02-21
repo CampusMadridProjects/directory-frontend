@@ -708,15 +708,23 @@ export default {
         this.tabs = 'tabs-people';
       }
     },
+
+    checkInitialTab() {
+      if (this.$store.state.config.loaded === true) {
+        if (this.config.showHome === false) {
+          this.tabs = 'tabs-people';
+        }
+      } else {
+        return setTimeout(this.checkInitialTab, 200);
+      }
+    }
   },
 
   created() {
     this.$store.dispatch('tags/getTags');
     this.checkChildren(this.$router.currentRoute.name);
     this.deferPrompt();
-    if (this.config.showHome !== true) {
-      this.tabs = 'tabs-people';
-    }
+    this.checkInitialTab();
   },
 
   watch: {
