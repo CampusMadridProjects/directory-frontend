@@ -115,7 +115,7 @@ export default {
   },
   
   data: () => ({
-    dialog: true,
+    dialog: false,
     name: '',
     email: '',
     message: '',
