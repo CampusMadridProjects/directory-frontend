@@ -62,6 +62,24 @@
           <!-- Bio -->
           <span class="bio">{{ data.bio }}</span>
           <!-- /Bio -->
+          <!-- CTA -->
+          <div
+            v-if="config.emailConnect === true"
+            class="pa-0 my-2 bottom-cta"
+            style="height: 64px"
+          >
+            <send-mail :id="data.id" />
+          </div>
+          <div v-else class="pa-0 my-2 bottom-cta">
+            <v-btn color="primary" x-large v-if="connect.show"
+              :href="connect.url"
+              target="_blank"
+              @click="$ga.event('person_detail', 'connect', data._id)"
+            >
+              Connect via {{ connect.media }}
+            </v-btn>
+          </div>
+          <!-- /CTA -->
         </div>
         <!-- Location -->
         <v-card-title v-if="config.hasLocation && data.location" primary-title>
@@ -109,26 +127,6 @@
           </v-card-title>
           <!-- /Needs help with -->
         </div>
-
-        <!-- CTA -->
-        <div
-          v-if="config.emailConnect === true"
-          class="px-3 my-2 bottom-cta"
-          style="height: 64px"
-        >
-          <send-mail :id="data.id" />
-        </div>
-        <div v-else class="px-3 my-2 bottom-cta">
-          <v-btn color="primary" x-large v-if="connect.show"
-            :href="connect.url"
-            target="_blank"
-            @click="$ga.event('person_detail', 'connect', data._id)"
-          >
-            Connect via {{ connect.media }}
-          </v-btn>
-        </div>
-
-        <!-- /CTA -->
         <!-- Social profiles -->
         <div class="px-4 my-3" v-if="hasConnections">
           <h4>Social profiles</h4>
@@ -211,9 +209,14 @@
   }
   /* fixes connect bottom position */
   .bottom-cta {
+    /*
     bottom: 0px;
     position: fixed;
-    width: 360px;
+    */
+    width: 100%;
+  }
+  .bottom-cta a {
+    margin: 8px 0px;
   }
   /* reduces toolbar padding */
   .full-size .v-toolbar__content {
@@ -260,10 +263,12 @@
       width: 100% !important;
     }
     /* makes profile CTA taller */
+    /*
     .bottom-cta .v-btn {
       height: 56px;
       font-size: 1.4rem;
     }
+    */
     /* makes name bigger in full size view */
     .full-size .headline {
       font-size: 2rem !important;
@@ -288,7 +293,7 @@
 
   /* makes bottom CTA full width */
   .bottom-cta >>> .v-btn {
-    width: 96%;
+    width: 100%;
   }
 
   .headline {
