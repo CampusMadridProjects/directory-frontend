@@ -6,6 +6,7 @@
   html, body, .application {
     font-family: 'Google Sans';
   }
+
   /* sets card container size for screen sizes between ipad and desktop */
   @media only screen and (min-width: 960px) and (max-width: 1263px) {
     .container {
