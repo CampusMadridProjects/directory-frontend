@@ -1,22 +1,29 @@
 <template>
+  <!-- Loading -->
   <v-container v-if="$store.state.people.loading === true">
     <loading></loading>
   </v-container>
+  <!-- /Loading -->
+  <!-- Nothing found -->
   <v-container
     class="text-xs-center"
     v-else-if="hasPeople"
   >
-    <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
+    <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration">
+    <br>
     <h1>No one found</h1>
     <p>
       <a href="/admin/#/suggest-person-public/" target="_blank" class="no-underline">
         <v-btn color="primary" class="mb-3">
           Create {{search}}...
         </v-btn>
-      </a><br>
+      </a>
+      <br>
       <i class="grey--text">The content will be manually reviewed</i>
     </p>
   </v-container>
+  <!-- /Nothing found -->
+  <!-- Container -->
   <v-container class="card-grid mb-5 pb-3" v-else>
     <v-flex
       xs12 sm6 md3 lg2 xl2
@@ -54,10 +61,30 @@
       </person-card>
 
     </v-flex>
+    <!-- FAB -->
+    <a href="/admin/#/suggest-person-public/" target="_blank" class="no-underline">
+      <v-btn
+        class="hidden-md-and-up"
+        fab
+        fixed
+        bottom
+        right
+        color="primary"
+      >
+        <v-icon>person_add</v-icon>
+      </v-btn>
+    </a>
+    <!-- /FAB -->
   </v-container>
+  <!-- /Content -->
 </template>
 
 <style scoped>
+
+  /* aligns FAB | duplicated in Startup.vue */
+  .v-btn--bottom {
+    bottom: 64px;
+  }
 
   h1, h2 {
     font-weight: normal;
@@ -125,173 +152,170 @@
 </style>
 
 <script>
-import PersonCardHybrid from './PersonCardHybrid.vue';
-import PersonCard from './PersonCard.vue';
-import PersonCardSmall from './PersonCardSmall.vue';
-import Loading from './Loading.vue';
+  import PersonCardHybrid from './PersonCardHybrid.vue';
+  import PersonCard from './PersonCard.vue';
+  import PersonCardSmall from './PersonCardSmall.vue';
+  import Loading from './Loading.vue';
 
-function inGroups(groups, val) {
-  for (let i = 0; i < groups.length; i += 1) {
-    const group = groups[i];
-    if (group && group.name && group.name.toUpperCase().indexOf(val.toUpperCase()) > -1) {
-      return true;
+  function inGroups(groups, val) {
+    for (let i = 0; i < groups.length; i += 1) {
+      const group = groups[i];
+      if (group && group.name && group.name.toUpperCase().indexOf(val.toUpperCase()) > -1) {
+        return true;
+      }
     }
+
+    return false;
   }
 
-  return false;
-}
-
-export default {
-  name: 'People',
-  props: {
-    search: { type: String, required: false },
-    filter: { type: Array, required: false },
-  },
-
-  components: {
-    PersonCardHybrid,
-    PersonCard,
-    PersonCardSmall,
-    Loading,
-  },
-
-  data: () => ({
-    loading: true,
-    list: [],
-  }),
-
-  methods: {
-    inArray(array, data) {
-      if (!data || typeof data !== 'string' || !Array.isArray(array)) {
-        return false;
-      }
-
-      let found = false;
-      for (let i = array.length - 1; i >= 0; i -= 1) {
-        if (array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
-          found = true;
-        }
-      }
-
-      return found;
+  export default {
+    name: 'People',
+    props: {
+      search: { type: String, required: false },
+      filter: { type: Array, required: false },
     },
 
-    inTags(array, data) {
-      let terms = data.split(' ');
-      let found = this.inArray(array, data);
-
-      let occurences = 0;
-      for (var i = 0; i < terms.length; i++) {
-        if (this.inArray(array, terms[i])) {
-          occurences++;
-        }
-      }
-      if (occurences > 0 && occurences === terms.length) {
-        found = true;
-      }
-
-      return found;
+    components: {
+      PersonCardHybrid,
+      PersonCard,
+      PersonCardSmall,
+      Loading,
     },
 
-    filterByCategory(list, categories) {
-      if (!Array.isArray(categories) || categories.length === 0) {
-        return list;
-      }
+    data: () => ({
+      loading: true,
+      list: [],
+    }),
 
-      return list.filter((person) => {
-        let clearTags = [];
-        if (person.Tag) {
-          clearTags = person.Tag.map(item => item.name);
+    methods: {
+      inArray(array, data) {
+        if (!data || typeof data !== 'string' || !Array.isArray(array)) {
+          return false;
         }
 
-        // console.log(categories);
-        // console.log(clearTags);
-
-        for (let i = 0; i < categories.length; i += 1) {
-          if (!clearTags || !this.inArray(clearTags, categories[i])) {
-            return false;
+        let found = false;
+        for (let i = array.length - 1; i >= 0; i -= 1) {
+          if (array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
+            found = true;
           }
         }
 
-        return true;
-      });
-    },
+        return found;
+      },
 
-    filterByText(list, search) {
-      const safeSearch = search && (search.toUpperCase().trim() || '');
+      inTags(array, data) {
+        let terms = data.split(' ');
+        let found = this.inArray(array, data);
 
-      if (safeSearch === '' || !safeSearch) {
-        return list;
-      }
-
-      return list.filter((person) => {
-        let found = false;
-        let expertise = person.Tag && person.Tag.map(tag => tag.name);
-
-        // Search by text
-        if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
-          || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
-          || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
-          || (person.Group && inGroups(person.Group, safeSearch))
-          // || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
-          // || (person.expertise && this.inArray(person.expertise, safeSearch))
-          || (expertise && this.inTags(expertise, safeSearch))
-        ) {
+        let occurences = 0;
+        for (var i = 0; i < terms.length; i++) {
+          if (this.inArray(array, terms[i])) {
+            occurences++;
+          }
+        }
+        if (occurences > 0 && occurences === terms.length) {
           found = true;
         }
 
         return found;
-      });
-    },
+      },
 
-    /** filterPeople
-     *  Given a search term, return an array with only the people that matches in
-     *  any way with the term.
-     *
-     *  @param {string} search Search query to filter persons
-     *  @param {array} filter Filter by categories to search
-     *  @return {array} An array that matches the requested search term
-     */
-    filterPeople(search, filter) {
-      // filter by categories
-      const filteredByCategory = this.filterByCategory(this.$store.state.people.list, filter);
-
-      // Filter by search text
-      return this.filterByText(filteredByCategory, search);
-    },
-
-    getJob(person) {
-      let job = {};
-      if (person.Group && person.Group.length > 0) {
-        [job] = person.Group;
-      }
-
-      return job;
-    },
-
-    typeTags(list, type) {
-      if (!list) return [];
-
-      return list.filter(tag => {
-        const tagTypes = tag.relations ? tag.relations.map(type => type.toUpperCase()) : [];
-
-        if (tagTypes.indexOf(type) > -1) {
-          return true;
+      filterByCategory(list, categories) {
+        if (!Array.isArray(categories) || categories.length === 0) {
+          return list;
         }
 
-        return false;
-      });
-    },
-  },
+        return list.filter((person) => {
+          let clearTags = [];
+          if (person.Tag) {
+            clearTags = person.Tag.map(item => item.name);
+          }
 
-  computed: {
-    hasPeople() {
-      return this.filterPeople(this.search).length === 0;
-    },
-  },
+          // console.log(categories);
+          // console.log(clearTags);
 
-  created() {
-    this.$store.dispatch('people/getPeople');
-  },
-};
+          for (let i = 0; i < categories.length; i += 1) {
+            if (!clearTags || !this.inArray(clearTags, categories[i])) {
+              return false;
+            }
+          }
+          return true;
+        });
+      },
+
+      filterByText(list, search) {
+        const safeSearch = search && (search.toUpperCase().trim() || '');
+
+        if (safeSearch === '' || !safeSearch) {
+          return list;
+        }
+
+        return list.filter((person) => {
+          let found = false;
+          let expertise = person.Tag && person.Tag.map(tag => tag.name);
+
+          // Search by text
+          if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
+            || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
+            || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
+            || (person.Group && inGroups(person.Group, safeSearch))
+            // || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)
+            // || (person.expertise && this.inArray(person.expertise, safeSearch))
+            || (expertise && this.inTags(expertise, safeSearch))
+          ) {
+            found = true;
+          }
+
+          return found;
+        });
+      },
+
+      /** filterPeople
+       *  Given a search term, return an array with only the people that matches in
+       *  any way with the term.
+       *
+       *  @param {string} search Search query to filter persons
+       *  @param {array} filter Filter by categories to search
+       *  @return {array} An array that matches the requested search term
+       */
+      filterPeople(search, filter) {
+        // filter by categories
+        const filteredByCategory = this.filterByCategory(this.$store.state.people.list, filter);
+
+        // Filter by search text
+        return this.filterByText(filteredByCategory, search);
+      },
+
+      getJob(person) {
+        let job = {};
+        if (person.Group && person.Group.length > 0) {
+          [job] = person.Group;
+        }
+
+        return job;
+      },
+
+      typeTags(list, type) {
+        if (!list) return [];
+
+        return list.filter(tag => {
+          const tagTypes = tag.relations ? tag.relations.map(type => type.toUpperCase()) : [];
+
+          if (tagTypes.indexOf(type) > -1) {
+            return true;
+          }
+
+          return false;
+        });
+      },
+    },
+    computed: {
+      hasPeople() {
+        return this.filterPeople(this.search).length === 0;
+      },
+    },
+    created() {
+      this.$store.dispatch('people/getPeople');
+    },
+  };
 </script>
