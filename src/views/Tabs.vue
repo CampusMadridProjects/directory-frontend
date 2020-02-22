@@ -19,6 +19,7 @@
       ></v-text-field>
 
       <v-btn
+        large
         color="primary"
         href="/admin/#/suggest-public"
         target="_blank"
@@ -63,6 +64,7 @@
       </v-container>
     </v-toolbar>
 
+    <!-- Open filters -->
     <div v-if="allFilters" class="all-filters">
       <p class="px-2 pt-1">
         Browse all the filters
@@ -79,6 +81,7 @@
         {{ tag.name }}
       </v-chip>
     </div>
+    <!-- /Open filters -->
 
     <v-content :class="hasFilters ? '' : 'no-extended'">
       <v-tabs-items v-model="tabs">
@@ -161,30 +164,40 @@
 </template>
 
 <style scoped>
-  
+
+  /* changes default padding for large button */
+  .v-btn--large {
+    padding: 0 16px;
+  }
+
+  /* changes default margin for left icon */
+  .v-icon--left {
+    margin-right: 8px;
+  }
+
   /* removes padding from tab icon */
   .v-item-group.v-bottom-nav .v-btn .v-btn__content i.v-icon {
     margin-bottom: 0px;
     margin-top: -6px;
   }
-  
+
   /**/
   .v-item-group.v-bottom-nav .v-btn .v-btn__content span {
     font-weight: bold;
   }
-  
+
   .v-icon {
     margin-bottom: 0px;
   }
-  
+
   .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
     font-weight: bold;
   }
-  
+
   .v-item-group.v-bottom-nav .v-btn .v-btn__content span {
     font-size: 14px;
   }
-  
+
   .logo {
     /* width: 115px; */
     height: 21px;
@@ -461,13 +474,13 @@
           margin: 0px 16px;
       }
   }
-  
+
   @media (min-width: 1024px) {
     >>> .v-window__container {
       margin-left: 96px !important;
     }
   }
-    
+
   /* adapts user pic to smaller desktop screens */
   @media (min-width: 959px) and (max-width: 1263px) {
     >>> .card-user-pic {
@@ -477,11 +490,11 @@
       margin-left: 116px !important;
     }
   }
-  
+
 </style>
 
 <style>
-  
+
   .v-toolbar__extension {
     height: 56px !important;
   }
@@ -509,7 +522,6 @@
 
   .v-btn {
       font-size: 16px;
-      height: 45px;
       box-shadow: none !important;
   }
       .v-btn.primary:hover {
@@ -563,7 +575,7 @@
     .v-input__slot {
       background: #f5f5f5;
     }*/
-    
+
     .v-content {
       padding: 124px 0px 0px !important;
     }
@@ -573,180 +585,179 @@
 </style>
 
 <script>
-import Home from '../components/Home.vue';
-import People from '../components/People.vue';
-import Startup from '../components/Startup.vue';
-import More from '../components/More.vue';
+  import Home from '../components/Home.vue';
+  import People from '../components/People.vue';
+  import Startup from '../components/Startup.vue';
+  import More from '../components/More.vue';
 
-function checkChildren(name) {
-  const childrenRoutes = ['personDetail', 'startupDetail'];
-  if (childrenRoutes.indexOf(name) > -1) {
-    this.dialog = true;
-  } else {
-    this.dialog = false;
+  function checkChildren(name) {
+    const childrenRoutes = ['personDetail', 'startupDetail'];
+    if (childrenRoutes.indexOf(name) > -1) {
+      this.dialog = true;
+    } else {
+      this.dialog = false;
+    }
   }
-}
 
-function searchOpen() {
-  this.searching = true;
-  this.$ga.event('search', 'search_open');
-}
+  function searchOpen() {
+    this.searching = true;
+    this.$ga.event('search', 'search_open');
+  }
 
-function searchClose() {
-  this.searching = false;
-  this.$ga.event('search', 'search_back');
-}
+  function searchClose() {
+    this.searching = false;
+    this.$ga.event('search', 'search_back');
+  }
 
-function searchClear() {
-  this.$ga.event('search', 'search_clear');
-}
+  function searchClear() {
+    this.$ga.event('search', 'search_clear');
+  }
 
-function trackSearch(search) {
-  this.$ga.event('search', 'search_type', search);
-}
+  function trackSearch(search) {
+    this.$ga.event('search', 'search_type', search);
+  }
 
-export default {
-  name: 'Tabs',
-  components: {
-    Home,
-    People,
-    Startup,
-    More,
-  },
-  head: {
-    title() {
-      return {
-        inner: 'Directory',
-      };
+  export default {
+    name: 'Tabs',
+    components: {
+      Home,
+      People,
+      Startup,
+      More,
     },
-  },
-  data: () => ({
-    searching: false,
-    tabs: 'tabs-home',
-    search: '',
-    tagFilter: [],
-    allFilters: false,
-    dialog: false,
-    tabClicked: null,
-  }),
-  computed: {
-    config() {
-      return this.$store.state.config.config;
+    head: {
+      title() {
+        return {
+          inner: 'Directory',
+        };
+      },
     },
-    tagTab() {
-      return this.tabs.replace('tabs-', '');
+    data: () => ({
+      searching: false,
+      tabs: 'tabs-home',
+      search: '',
+      tagFilter: [],
+      allFilters: false,
+      dialog: false,
+      tabClicked: null,
+    }),
+    computed: {
+      config() {
+        return this.$store.state.config.config;
+      },
+      tagTab() {
+        return this.tabs.replace('tabs-', '');
+      },
+      tagList() {
+        let tags = this.$store.getters['tags/getByTarget'](this.tagTab) || [];
+        return tags;
+      },
+      hasFilters() {
+        let hasFilters = this.tagList.length > 0;
+        return hasFilters;
+      },
+      hasSearch() {
+        const searchTabs = ['people', 'startups'];
+        const tab = this.tagTab || '';
+        const hasSearch = (searchTabs.indexOf(tab) > -1);
+        return hasSearch;
+      },
+      tagTabFilter() {
+        let tags = this.tagList.map(item => item.name);
+        return this.tagFilter.filter(item => tags.indexOf(item) > -1);
+      },
+      title() {
+        return this.config.title || 'Directory';
+      },
+      logo() {
+        return this.config.logo || 'img/logo.png';
+      },
+      searchPlaceholder() {
+        return this.config.searchPlaceholder || 'Try RatedPower, Andrea or UX';
+      },
     },
-    tagList() {
-      let tags = this.$store.getters['tags/getByTarget'](this.tagTab) || [];
-      return tags;
-    },
-    hasFilters() {
-      let hasFilters = this.tagList.length > 0;
-      return hasFilters;
-    },
-    hasSearch() {
-      const searchTabs = ['people', 'startups'];
-      const tab = this.tagTab || '';
-      const hasSearch = (searchTabs.indexOf(tab) > -1);
-      return hasSearch;
-    },
-    tagTabFilter() {
-      let tags = this.tagList.map(item => item.name);
-      return this.tagFilter.filter(item => tags.indexOf(item) > -1);
-    },
-    title() {
-      return this.config.title || 'Directory';
-    },
-    logo() {
-      return this.config.logo || 'img/logo.png';
-    },
-    searchPlaceholder() {
-      return this.config.searchPlaceholder || 'Try RatedPower, Andrea or UX';
-    },
-  },
-  methods: {
-    checkChildren,
-    searchOpen,
-    searchClose,
-    searchClear,
-    trackSearch,
-    deferPrompt: () => {
-      if (window.deferredPrompt !== undefined) {
-        // let's show the prompt.
-        window.deferredPrompt.prompt();
-        window.deferredPrompt.userChoice.then((choiceResult) => {
-          console.log(choiceResult.outcome);
-          /* eslint-disable no-console */
-          if (choiceResult.outcome === 'dismissed') {
-            console.log('User cancelled home screen install');
-          } else {
-            console.log('User added to home screen');
-          }
-          /* eslint-enable no-console */
-          // We no longer need the prompt. Clear it up.
-          window.deferredPrompt = null;
-        });
-      }
-    },
-    noSwipe: () => {
-      // eslint-disable-next-line
-      event.stopPropagation();
-    },
-    switchTag(name) {
-      const index = this.tagFilter.indexOf(name);
-      if (index === -1) {
-        this.tagFilter.push(name);
-        this.$ga.event('list_people', 'filter_add', name);
-      } else {
-        this.tagFilter.splice(index, 1);
-        this.$ga.event('list_people', 'filter_remove', name);
-      }
-    },
+    methods: {
+      checkChildren,
+      searchOpen,
+      searchClose,
+      searchClear,
+      trackSearch,
+      deferPrompt: () => {
+        if (window.deferredPrompt !== undefined) {
+          // let's show the prompt.
+          window.deferredPrompt.prompt();
+          window.deferredPrompt.userChoice.then((choiceResult) => {
+            console.log(choiceResult.outcome);
+            /* eslint-disable no-console */
+            if (choiceResult.outcome === 'dismissed') {
+              console.log('User cancelled home screen install');
+            } else {
+              console.log('User added to home screen');
+            }
+            /* eslint-enable no-console */
+            // We no longer need the prompt. Clear it up.
+            window.deferredPrompt = null;
+          });
+        }
+      },
+      noSwipe: () => {
+        // eslint-disable-next-line
+        event.stopPropagation();
+      },
+      switchTag(name) {
+        const index = this.tagFilter.indexOf(name);
+        if (index === -1) {
+          this.tagFilter.push(name);
+          this.$ga.event('list_people', 'filter_add', name);
+        } else {
+          this.tagFilter.splice(index, 1);
+          this.$ga.event('list_people', 'filter_remove', name);
+        }
+      },
 
-    goToSearchMenu() {
-      if(!this.hasSearch) {
-        this.tabs = 'tabs-people';
-      }
-    },
-
-    checkInitialTab() {
-      if (this.$store.state.config.loaded === true) {
-        if (this.config.showHome === false) {
+      goToSearchMenu() {
+        if(!this.hasSearch) {
           this.tabs = 'tabs-people';
         }
-      } else {
-        return setTimeout(this.checkInitialTab, 200);
+      },
+
+      checkInitialTab() {
+        if (this.$store.state.config.loaded === true) {
+          if (this.config.showHome === false) {
+            this.tabs = 'tabs-people';
+          }
+        } else {
+          return setTimeout(this.checkInitialTab, 200);
+        }
       }
-    }
-  },
-
-  created() {
-    this.$store.dispatch('tags/getTags');
-    this.checkChildren(this.$router.currentRoute.name);
-    this.deferPrompt();
-    this.checkInitialTab();
-  },
-
-  watch: {
-    $route(to) {
-      this.checkChildren(to.name);
     },
-    tabs(to) {
-      // Clean tab name
-      const tab = to.replace('tabs-', '');
 
-      // Detect swipe or click
-      let method = 'default';
-      if (this.tabClicked === true) {
-        this.tabClicked = false;
-        method = 'click';
-      } else if (this.tabClicked === false) {
-        method = 'swipe';
-      }
-
-      // Event emmit
-      this.$ga.event('directory_navigation', `tab_${tab}`, method);
+    created() {
+      this.$store.dispatch('tags/getTags');
+      this.checkChildren(this.$router.currentRoute.name);
+      this.deferPrompt();
+      this.checkInitialTab();
     },
-  },
-};
+
+    watch: {
+      $route(to) {
+        this.checkChildren(to.name);
+      },
+      tabs(to) {
+        // Clean tab name
+        const tab = to.replace('tabs-', '');
+
+        // Detect swipe or click
+        let method = 'default';
+        if (this.tabClicked === true) {
+          this.tabClicked = false;
+          method = 'click';
+        } else if (this.tabClicked === false) {
+          method = 'swipe';
+        }
+        // Event emmit
+        this.$ga.event('directory_navigation', `tab_${tab}`, method);
+      },
+    },
+  };
 </script>
