@@ -3,7 +3,6 @@
     <v-img
       v-if="pic"
       :src="pic"
-      aspect-ratio="1.9"
     ></v-img>
 
     <v-card-title primary-title class="px-0">
