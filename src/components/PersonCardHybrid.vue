@@ -1,6 +1,6 @@
 <template>
   <v-flex>
-    <person-card-small class="card-grid-item-card hidden-md-and-up"
+    <!-- <person-card-small class="card-grid-item-card hidden-md-and-up"
       :id="person.id"
       :name="person.name"
       :surname="person.surnname"
@@ -12,9 +12,8 @@
       :location="person.location"
       :twitter="person.twitter"
       :linkedin="person.linkedin">
-    </person-card-small>
-
-    <person-card class="card-grid-item-card hidden-sm-and-down"
+    </person-card-small> -->
+    <person-card class="card-grid-item-card"
       :id="person.id"
       :name="person.name"
       :surname="person.surname"
@@ -31,27 +30,13 @@
 </template>
 
 <style type="text/css">
+
   .card-grid-item-card {
     margin: 6px;
     padding-bottom: 8px;
     border: 1px solid #eaeaea;
   }
 
-  /* adds additional space for 1 more card in wide screens */
-  @media screen and (min-width: 1264px){
-    >>> .card-user-pic {
-        height: calc(20vw - 80px);
-    }
-  }
-
-  @media screen and (max-width: 959px) {
-    .card-grid-item-card {
-      margin: 0px;
-      border: 0px;
-      padding-bottom: 0px;
-      max-width: auto;
-    }
-  }
 </style>
 
 <script>
@@ -60,10 +45,10 @@ import PersonCardSmall from '@/components/PersonCardSmall.vue';
 
 export default {
   components: {
-    PersonCard, 
-    PersonCardSmall, 
+    PersonCard,
+    PersonCardSmall,
   },
-  
+
   props: {
     person: {
       type: Object,
