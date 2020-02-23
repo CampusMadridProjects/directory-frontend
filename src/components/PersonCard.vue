@@ -1,8 +1,8 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover card-elements ellipsis">
+  <v-card light :hover="true" class="light-border custom-hover card-elements ellipsis">
     <div @click="goToPerson(id)">
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
-      </div>
+      <v-responsive class="card-user-pic" :aspect-ratio="1/1" :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
+      </v-responsive>
       <div style="padding: 8px 24px;">
         <div class="headline ellipsis">{{ name }} {{ surname }}</div>
         <div class="ellipsis">
@@ -74,7 +74,6 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(100vw - 32px);
   margin-bottom: 4px;
 }
 
@@ -155,7 +154,7 @@ export default {
   data: () => ({
     show: false,
   }),
-  
+
   computed: {
     config() {
       return this.$store.state.config.config;
