@@ -4,28 +4,28 @@
 
     <!-- Actions -->
     <v-toolbar>
-      <v-btn fab @click="$router.replace('/directory');">
+      <v-btn fab small @click="$router.replace('/directory');">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title></v-toolbar-title>
+      <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
       <a :href="'/admin/#/suggest-person-public/'+ id"
         target="_blank"
         class="no-underline"
       >
-        <v-btn fab class="mx-0">
+        <v-btn fab small class="ma-0">
           <v-icon>edit</v-icon>
         </v-btn>
       </a>
     </v-toolbar>
     <!-- /Actions -->
-    
+
     <!-- Loading -->
     <div v-if="loading" class="mt-5 pt-5">
       <loading></loading>
     </div>
     <!-- /Loading -->
-    
+
     <!-- Content -->
     <div v-else>
       <!-- User picture -->
@@ -65,7 +65,7 @@
           <!-- CTA -->
           <div
             v-if="config.emailConnect === true"
-            class="pa-0 my-2 bottom-cta"
+            class="pa-0 my-2 bottom-cta elevation-0"
             style="height: 64px"
           >
             <send-mail :id="data.id" />
@@ -75,6 +75,7 @@
               :href="connect.url"
               target="_blank"
               @click="$ga.event('person_detail', 'connect', data._id)"
+              class="elevation-0"
             >
               Connect via {{ connect.media }}
             </v-btn>
@@ -179,18 +180,18 @@
 </template>
 
 <style>
-  
+
   /* fix | decreases padding of location and join date */
   .full-size .v-card__title--primary {
     padding: 4px 24px;
   }
-  
+
   /* fix | adds padding to name, job title and bio */
   .container-1 {
     padding: 0px 24px;
-    margin-bottom: 8px;
+    margin-top: 8px;
   }
-  
+
   .v-card-text {
     padding: 0px;
   }
@@ -232,7 +233,7 @@
     flex-direction: column-reverse;
     justify-content: space-between;
   }
-  
+
   .person-card-social-icon {
     display: inline-block;
     padding: 0 8px;
@@ -281,7 +282,7 @@
 </style>
 
 <style scoped>
-  
+
   /* styles for the detail view | repeated in startup detail */
   .full-size {
     border-radius: 0 !important;
@@ -303,9 +304,9 @@
   .v-btn--icon {
     min-width: 36px;
   }
-  
+
   /*** TOOLBAR ***/
-  
+
   /* pulls content under toolbar and removes bg color and shadow */
   .v-toolbar {
     margin-bottom: -64px;
@@ -314,11 +315,7 @@
     position: fixed;
     width: 360px;
   }
-  
-  .v-toolbar__content button {
-    width: 45px;
-  }
-  
+
   /* adds shadow to detail toolbar icons */
   .v-toolbar .v-btn {
     background: white !important;
@@ -330,11 +327,11 @@
     text-align: center;
     margin: 0px;
   }
-  
+
   /*** /TOOLBAR ***/
-  
+
   /*** USER STYLES ***/
-  
+
   .card-user-info {
     text-align: left;
     width: 100%;
@@ -342,13 +339,13 @@
     padding: 8px;
     border-radius: 4px;
   }
-  
+
   .card-user-pic {
     height: calc(43vw - 64px);
     margin-bottom: 0px;
     border-radius: 0px;
   }
-  
+
   /*** /USER STYLES ***/
 
   @media (min-width: 600px) {
@@ -362,10 +359,6 @@
   }
 
   @media (max-width: 960px) {
-
-    .v-btn--floating {
-      width: 45px;
-    }
 
     .v-card-text .v-btn {
       width: 100%;
