@@ -1,25 +1,25 @@
 <template>
 
   <v-card light class="full-size">
-    
+
     <!-- Actions -->
     <v-toolbar>
-      <v-btn fab @click="$router.replace('/directory');">
+      <v-btn fab small @click="$router.replace('/directory');">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title></v-toolbar-title>
+      <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
       <a :href="'/admin/#/suggest-startup-public/'+ id"
         target="_blank"
         class="no-underline"
       >
-        <v-btn fab class="mx-0">
+        <v-btn fab small class="mx-0">
           <v-icon>edit</v-icon>
         </v-btn>
       </a>
     </v-toolbar>
     <!-- /Actions -->
-    
+
     <!-- Loading -->
     <div v-if="loading" class="mt-5 pt-5">
       <loading></loading>
@@ -137,7 +137,7 @@
 </template>
 
 <style scoped>
-  
+
   /* styles for the detail view | repeated in person detail */
   .full-size {
     border-radius: 0 !important;
@@ -145,7 +145,7 @@
     border-top-right-radius: 0;
     height: auto;
   }
-  
+
   .v-subheader {
       padding: 0px;
   }
@@ -161,14 +161,14 @@
   .v-btn:hover {
       background: white !important;
   }
-  
+
   .v-btn--icon {
     min-width: 36px;
   }
 
 
   /*** TOOLBAR ***/
-  
+
   .v-toolbar {
     background-color: transparent;
     box-shadow: none;
@@ -177,7 +177,7 @@
     position: fixed;
     width: 360px;
   }
-  
+
   /* adds shadow to detail toolbar icons */
   .v-toolbar .v-btn {
     background: white !important;
@@ -190,12 +190,8 @@
     margin: 0px;
   }
 
-  .v-toolbar__content button {
-      width: 45px;
-  }
-  
   /*** /TOOLBAR ***/
-  
+
   /*** STARTUP STYLES ***/
 
   .startup-logo {
