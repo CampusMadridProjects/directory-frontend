@@ -18,6 +18,9 @@
 
             <!-- Remove this placeholder -->
             <div data-v-0bbe568e="" class="mb-4 v-card v-sheet theme--light">
+              <!-- <v-img
+                src="https://storage.googleapis.com/gfs-directory/pic/x/0/x0273eLtnBnOLLWTyh99P.png"
+              ></v-img> -->
               <v-img
                 src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
               ></v-img>
