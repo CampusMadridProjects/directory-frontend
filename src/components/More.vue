@@ -1,9 +1,9 @@
 <template>
-  <v-container>
-    <v-layout class="px-5" column grid-list-md>
-      <v-flex lg6 
+  <v-container fluid grid-list-lg>
+    <v-layout row wrap>
+      <v-flex xs12 sm10 offset-sm1 md8 offset-md2 lg6 offset-lg3
         v-if="config.slack">
-        <v-card flat>
+        <v-card flat class="pb-4">
           <v-card-text>
             <v-layout align-center mb-3>
               <!-- <v-avatar color="grey" class="mr-3"></v-avatar> -->
@@ -50,9 +50,7 @@
             </v-flex>
           </v-card-text>
         </v-card>
-      </v-flex>
-      <v-flex lg6>
-        <v-card flat>
+        <v-card flat class="pb-4">
             <v-card-text>
                 <v-layout align-center mb-3>
                     <strong class="title">Help</strong>
@@ -127,9 +125,7 @@
                 </v-list>
             </v-card-text>
         </v-card>
-      </v-flex>
-      <v-flex lg6 class="mb-5">
-        <v-card flat>
+        <v-card flat class="pb-4">
           <v-card-text>
               <v-layout align-center mb-3>
                 <strong class="title">About</strong>
@@ -163,9 +159,11 @@
   .title {
     font-size: 2.4rem !important;
   }
+
   p {
     font-size: 1.2rem !important;
   }
+
   .v-card__title {
     padding: 16px 0px;
     padding-left: 16px;
@@ -174,35 +172,9 @@
   .v-card__text {
     padding: 16px 0px;
   }
-  .px-5 {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
   .v-btn:hover {
     background: #e0ebfe !important;
     color: #4285f4;
-  }
-
-  /* adjust container padding */
-  .container {
-    padding: 0px 16px 16px;
-  }
-
-  @media screen and (max-width: 996px) {
-    /* changes container padding */
-    .container {
-      padding: 0px 8px;
-    }
-  }
-
-  @media screen and (min-width: 1264px) {
-
-    /* improves readability of content */
-    .container {
-      /* max-width: 720px !important; */
-      padding: 0px 8%;
-    }
-
   }
 
 </style>
