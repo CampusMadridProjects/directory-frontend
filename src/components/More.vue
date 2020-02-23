@@ -182,12 +182,12 @@
     background: #e0ebfe !important;
     color: #4285f4;
   }
-  
+
   /* adjust container padding */
   .container {
     padding: 0px 16px 16px;
   }
-  
+
   @media screen and (max-width: 996px) {
     /* changes container padding */
     .container {
@@ -196,7 +196,7 @@
   }
 
   @media screen and (min-width: 1264px) {
-  
+
     /* improves readability of content */
     .container {
       /* max-width: 720px !important; */
