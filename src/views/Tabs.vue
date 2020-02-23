@@ -23,6 +23,7 @@
         color="primary"
         href="/admin/#/suggest-public"
         target="_blank"
+        class="elevation-0"
       >
         <v-icon left>add</v-icon>Add Profile
       </v-btn>
@@ -522,7 +523,6 @@
 
   .v-btn {
       font-size: 16px;
-      box-shadow: none !important;
   }
       .v-btn.primary:hover {
           background: #174ea6 !important;
