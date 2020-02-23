@@ -6,48 +6,74 @@
     >
       <v-layout row wrap pb-5>
 
-        <v-flex xs12 sm7 offset-sm2>
+        <v-flex xs12 sm12 md8 offset-md2 lg6 offset-lg3>
           <!-- News -->
-          <h1>
-            {{ newsHeading }}
-          </h1>
-          <p>{{ newsSubheading }}</p>
-          
-          <PostCard
-            v-for="post in newsList"
-            :key="post.id"
-            :heading="post.heading"
-            :text="post.text"
-            :pic="post.pic"
-            class="mb-4"
-          />
+          <div>
+            <div>
+              <h1>
+                {{ newsHeading }}
+              </h1>
+              <p>{{ newsSubheading }}</p>
+            </div>
 
-          <div
-            v-if="moreNews"
-            class="text-xs-center mb-4"
-            @click="newsShown += 2"
-          >
-            <v-btn color="info" outline large>
-              See more
-            </v-btn>
+            <!-- Remove this placeholder -->
+            <div data-v-0bbe568e="" class="mb-4 v-card v-sheet theme--light">
+              <v-img
+                src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
+              ></v-img>
+              <div class="v-card__title px-0 v-card__title--primary">
+                <div class="pt-2">
+                  <h2 class="mb-0">Join the founder community directory launch event this Tuesday @ 2:30!</h2>
+                  <div>
+                    <p>&nbsp;Founders who sign up will enter a<strong>&nbsp;raffle to win a trip to Campus London!&nbsp;</strong></p>
+                    <p>Join our launch  to find out more.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Remove this placeholder -->
+
+            <PostCard
+              v-for="post in newsList"
+              :key="post.id"
+              :heading="post.heading"
+              :text="post.text"
+              :pic="post.pic"
+              class="mb-4"
+            />
+
+            <div
+              v-if="moreNews"
+              class="text-xs-center mb-4"
+              @click="newsShown += 2"
+            >
+              <v-btn color="info" outline large>
+                See more
+              </v-btn>
+            </div>
           </div>
           <!-- /News -->
 
           <!-- New members -->
-          <h1>
-            New members
-          </h1>
-          <p>Go and share some coffee</p>
+          <div>
+            <div>
+              <h1>
+                New members
+              </h1>
+              <p>Go and share some coffee</p>
+            </div>
 
-          <div class="card-grid mb-5 pb-3">
-            <v-flex
-              xs12 sm6 md6 lg4 xl4
-              v-for="person in newMemebers"
-              class="card-grid-item"
-            >
-              <person-card-hybrid :person="person" />
-            </v-flex>
+            <div class="card-grid pb-3">
+              <v-flex
+                xs12 sm6 md6 lg4 xl4
+                v-for="person in newMemebers"
+                class="card-grid-item"
+              >
+                <person-card-hybrid :person="person" class="pa-0" />
+              </v-flex>
+            </div>
           </div>
+          <!-- /New members -->
 
           <!-- <div class="text-xs-center mb-4">
             <v-btn color="info" outline large>See more</v-btn>
@@ -58,18 +84,18 @@
       </v-layout>
     </v-container>
     <!-- <v-container class="card-grid mb-5 pb-3">
-          
-       
+
     </v-container> -->
   </div>
 </template>
 
 <style scoped>
+
   /* */
   .title {
     font-size: 2.4rem !important;
   }
-  
+
   /**/
   .v-card__title--primary {
     padding: 8px 0px;
@@ -84,46 +110,46 @@
   .card-grid-item {
     display: flex;
   }
-  
+
 </style>
 
 <script>
-import PostCard from '@/components/PostCard.vue';
-import PersonCardHybrid from '@/components/PersonCardHybrid.vue';
+  import PostCard from '@/components/PostCard.vue';
+  import PersonCardHybrid from '@/components/PersonCardHybrid.vue';
 
-export default {
-  components: {
-    PostCard, 
-    PersonCardHybrid,
-  },
-  data: () => ({
-    newsShown: 2,
-    membersShown: 6
-  }),
-  computed: {
-    config() { 
-      return this.$store.state.config.config || {};
+  export default {
+    components: {
+      PostCard,
+      PersonCardHybrid,
     },
-    newsHeading() {
-      return this.config.newsHeading || 'It\'s happening';
-    },
-    newsSubheading() {
-      return this.config.newsSubheading || 'News from the community';
-    },
-    newsList() {
-      return this.$store.state.news.list.slice(0, this.newsShown);
-    },
-    moreNews() {
-      return (this.newsShown < this.$store.state.news.list.length)
-    },
+    data: () => ({
+      newsShown: 2,
+      membersShown: 6
+    }),
+    computed: {
+      config() {
+        return this.$store.state.config.config || {};
+      },
+      newsHeading() {
+        return this.config.newsHeading || 'It\'s happening';
+      },
+      newsSubheading() {
+        return this.config.newsSubheading || 'News from the community';
+      },
+      newsList() {
+        return this.$store.state.news.list.slice(0, this.newsShown);
+      },
+      moreNews() {
+        return (this.newsShown < this.$store.state.news.list.length)
+      },
 
-    newMemebers() {
-      return this.$store.state.people.list.slice(0, this.membersShown);
+      newMemebers() {
+        return this.$store.state.people.list.slice(0, this.membersShown);
+      },
     },
-  },
-  beforeMount() {
-    this.$store.dispatch('news/get');
-  },
-}
+    beforeMount() {
+      this.$store.dispatch('news/get');
+    },
+  }
 
 </script>
