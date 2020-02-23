@@ -1,5 +1,5 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover ellipsis">
+  <v-card light :hover="true" class="light-border custom-hover ellipsis">
     <div @click="goToStartup(id)">
       <v-img
         :height="cardHeight"
@@ -19,11 +19,11 @@
 </template>
 
 <style scoped>
-  
+
   .card-user-pic {
     margin-bottom: 0px;
   }
-  
+
   .v-card__title--primary {
     padding: 8px 16px 24px;
   }
