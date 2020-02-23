@@ -124,7 +124,7 @@
         flat
         value="tabs-home"
       >
-        <span>News</span>
+        <span>Home</span>
         <v-icon>home</v-icon>
       </v-btn>
 
