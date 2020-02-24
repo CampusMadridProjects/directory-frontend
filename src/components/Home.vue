@@ -16,26 +16,6 @@
               <p>{{ newsSubheading }}</p>
             </div>
 
-            <!-- Remove this placeholder -->
-            <div data-v-0bbe568e="" class="mb-4 v-card v-sheet theme--light">
-              <!-- <v-img
-                src="https://storage.googleapis.com/gfs-directory/pic/x/0/x0273eLtnBnOLLWTyh99P.png"
-              ></v-img> -->
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
-              ></v-img>
-              <div class="v-card__title px-0 v-card__title--primary">
-                <div class="pt-2">
-                  <h2 class="mb-0">Join the founder community directory launch event this Tuesday @ 2:30!</h2>
-                  <div>
-                    <p>&nbsp;Founders who sign up will enter a<strong>&nbsp;raffle to win a trip to Campus London!&nbsp;</strong></p>
-                    <p>Join our launch  to find out more.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /Remove this placeholder -->
-
             <PostCard
               v-for="post in newsList"
               :key="post.id"
