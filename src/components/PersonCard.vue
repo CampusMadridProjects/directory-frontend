@@ -14,14 +14,23 @@
               <span v-if="role && company">@</span>
               <!-- <span v-else>-</span> -->
               {{ company }}
+              &nbsp;
             </span>
         </div>
       </div>
     </div>
     <v-card-title primary-title @click="goToPerson(id)">
       <div class="card-user-info">
-        <h4 class="ellipsis" v-if="expertise">
-         <v-icon size="14" class="mr-1">forum</v-icon>
+        <h4 class="ellipsis">
+          <v-icon
+            v-if="expertise.length > 0"
+            size="14"
+            class="mr-1"
+          >
+            forum
+          </v-icon>
+          <span v-else>&nbsp;</span>
+          
           <span v-for="(ability, index) in expertise"
             :key="ability.id">{{ (index !== 0) ?', ' + ability.name : ability.name }}
           </span>
