@@ -4,29 +4,18 @@ import api from '@/store/helpers/api';
 // Inital state
 const initialState = {
   loading: false,
-  modules: [],
-  slack: {},
 };
 
-// Getters
-const getters = {
-  slackWorkspace(state) {
-    if (!state.slack) return '';
-    return state.slack.slackWorkspace || '';
-  },
-};
+const getters = {};
 
 // Actions
 const actions = {
-  getConfig({ commit }) {
+  send({ commit }, emailData) {
     commit('loadStart');
 
-    return axios.get(`${api.url}/config`)
-      .then((response) => {
-        commit('setConfig', response.data || []);
-      })
+    return axios.post(`${api.url}/email/connect`, emailData)
       .catch((e) => {
-        console.error('Error getting config info');
+        console.error('Error connecting though email');
         console.error(e);
       })
       .finally(() => {
@@ -42,10 +31,6 @@ const mutations = {
   },
   loadEnd(state) {
     state.loading = false;
-  },
-  setConfig(state, config) {
-    state.modules = config.modules;
-    state.slack = config.slack;
   },
 };
 

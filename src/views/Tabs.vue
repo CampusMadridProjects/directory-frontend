@@ -11,15 +11,19 @@
         v-model="search"
         clearable
         color="#F5F5F5"
+        class="search-box"
         :placeholder="searchPlaceholder"
         @keyup="trackSearch(search)"
         @click:clear="searchClear()"
+        @click="goToSearchMenu"
       ></v-text-field>
 
       <v-btn
+        large
         color="primary"
         href="/admin/#/suggest-public"
         target="_blank"
+        class="elevation-0"
       >
         <v-icon left>add</v-icon>Add Profile
       </v-btn>
@@ -41,6 +45,13 @@
               Filter by:
             </span>
             <v-chip
+              @click="allFilters = !allFilters"
+            >
+              <v-icon size="14" class="px-1">apps</v-icon>
+              <span v-if="tagFilter.length === 0">All filters</span>
+              <span v-else>Active filters ({{ tagFilter.length }})</span>
+            </v-chip>
+            <v-chip
               v-for="tag in tagList"
               :key="tag.id"
               :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
@@ -54,8 +65,33 @@
       </v-container>
     </v-toolbar>
 
+    <!-- Open filters -->
+    <div v-if="allFilters" class="all-filters">
+      <p class="px-2 pt-1">
+        Browse all the filters
+      </p>
+      <v-btn flat icon class="close-filters" @click="allFilters = false">
+        <v-icon>close</v-icon>
+      </v-btn>
+      <v-chip
+        v-for="tag in tagList"
+        :key="tag.id"
+        :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+        @click="switchTag(tag.name)"
+      >
+        {{ tag.name }}
+      </v-chip>
+    </div>
+    <!-- /Open filters -->
+
     <v-content :class="hasFilters ? '' : 'no-extended'">
       <v-tabs-items v-model="tabs">
+        <v-tab-item
+          v-if="config.showHome !== false"
+          value="tabs-home"
+        >
+          <Home></Home>
+        </v-tab-item>
         <v-tab-item
           v-if="config.showPeople !== false"
           value="tabs-people"
@@ -83,6 +119,15 @@
       :value="true"
       fixed
     >
+      <v-btn
+        v-if="config.showHome !== false"
+        flat
+        value="tabs-home"
+      >
+        <span>Home</span>
+        <v-icon>home</v-icon>
+      </v-btn>
+
       <v-btn
         v-if="config.showPeople !== false"
         flat
@@ -116,46 +161,44 @@
       <router-view name="dialog"></router-view>
     </v-dialog>
 
-<!--     <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform" target="_blank">
-      <v-btn
-        fab
-        fixed
-        bottom
-        right
-        color="primary"
-      >
-        <v-icon>person_add</v-icon>
-      </v-btn>
-    </a> -->
-
   </v-app>
 </template>
 
 <style scoped>
-  
+
+  /* changes default padding for large button */
+  .v-btn--large {
+    padding: 0 16px;
+  }
+
+  /* changes default margin for left icon */
+  .v-icon--left {
+    margin-right: 8px;
+  }
+
   /* removes padding from tab icon */
   .v-item-group.v-bottom-nav .v-btn .v-btn__content i.v-icon {
     margin-bottom: 0px;
     margin-top: -6px;
   }
-  
+
   /**/
   .v-item-group.v-bottom-nav .v-btn .v-btn__content span {
     font-weight: bold;
   }
-  
+
   .v-icon {
     margin-bottom: 0px;
   }
-  
+
   .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
     font-weight: bold;
   }
-  
+
   .v-item-group.v-bottom-nav .v-btn .v-btn__content span {
     font-size: 14px;
   }
-  
+
   .logo {
     /* width: 115px; */
     height: 21px;
@@ -192,6 +235,26 @@
   .v-tabs__div {
     text-transform: none;
   }
+
+  .all-filters {
+    background: white;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    left: 16px;
+    max-height: 320px;
+    overflow: auto;
+    padding: 8px 12px;
+    position: fixed;
+    top: 117px;
+    width: calc(100% - 32px);
+    z-index: 2;
+  }
+
+    .close-filters {
+      position: fixed;
+      top: 110px;
+      right: 12px;
+    }
 
   footer {
     align-items: center;
@@ -292,6 +355,24 @@
     width: 360px;
   }
 
+
+
+  .search-box >>> .v-input__slot {
+    /* border-radius: 8px !important; */
+    border-radius: 50px !important;
+    background: #f1f3f4 !important;
+    font-weight: 500;
+    border: 2px solid #f1f3f4;
+  }
+
+  .search-box >>> .v-input__icon i {
+      color: #717171 !important;
+  }
+
+  .search-box >>> .v-text-field .v-input__prepend-inner {
+      padding-right: 8px;
+  }
+
   /* bigger-chips-mobile */
   @media only screen and (max-width: 768px) {
 
@@ -334,6 +415,14 @@
       .d-sm-none {
           display: none;
       }
+
+      .search-box >>> input {
+        color: #8E8E93 !important;
+      }
+
+      .search-box >>> .v-input__slot {
+        background: #f5f5f5;
+      }
   }
 
   @media (min-width: 959px) {
@@ -369,6 +458,11 @@
           border: none;
       }
 
+      .all-filters {
+        left: 146px;
+        width: calc(100% - 154px);
+      }
+
     footer {
       flex-direction: row !important;
     }
@@ -381,13 +475,13 @@
           margin: 0px 16px;
       }
   }
-  
+
   @media (min-width: 1024px) {
     >>> .v-window__container {
-      margin-left: 96px !important;
+      margin-left: 116px !important;
     }
   }
-    
+
   /* adapts user pic to smaller desktop screens */
   @media (min-width: 959px) and (max-width: 1263px) {
     >>> .card-user-pic {
@@ -397,11 +491,11 @@
       margin-left: 116px !important;
     }
   }
-  
+
 </style>
 
 <style>
-  
+
   .v-toolbar__extension {
     height: 56px !important;
   }
@@ -411,7 +505,7 @@
   }
 
   .v-content.no-extended {
-      padding: 64px 0px 0px !important;
+      padding: 56px 0px 0px !important;
   }
 
   .v-item-group.v-bottom-nav .v-btn {
@@ -429,10 +523,8 @@
 
   .v-btn {
       font-size: 16px;
-      height: 45px;
-      box-shadow: none !important;
   }
-      .v-btn:hover {
+      .v-btn.primary:hover {
           background: #174ea6 !important;
       }
 
@@ -442,10 +534,7 @@
   }
 
   .v-input--is-focused .v-input__slot {
-      background: #ffffff !important;
-      box-shadow: 0 3px 1px -2px rgba(0,0,0,0.2),
-                  0 2px 2px 0 rgba(0,0,0,0.14),
-                  0 1px 5px 0 rgba(0,0,0,0.12);
+    background: #ffffff !important;
   }
 
   .no-underline {
@@ -458,11 +547,11 @@
     margin: 8px 0px;
   }
 
-  .v-input__slot {
-      /* border-radius: 8px !important; */
-      border-radius: 50px !important;
-      background: #f1f3f4 !important;
-      font-weight: 500;
+  /*.v-input__slot {
+    border-radius: 50px !important;
+    background: #f1f3f4 !important;
+    font-weight: 500;
+    border: 2px solid #f1f3f4;
   }
 
   .v-input__icon i {
@@ -471,7 +560,7 @@
 
   .v-text-field .v-input__prepend-inner {
       padding-right: 8px;
-  }
+  }*/
 
   @media (max-width: 959px) {
 
@@ -479,14 +568,14 @@
       padding: 96px 0px 0px !important;
     }
 
-    input {
+    /*input {
       color: #8E8E93 !important;
     }
 
     .v-input__slot {
       background: #f5f5f5;
-    }
-    
+    }*/
+
     .v-content {
       padding: 124px 0px 0px !important;
     }
@@ -496,154 +585,179 @@
 </style>
 
 <script>
-import People from '../components/People.vue';
-import Startup from '../components/Startup.vue';
-import More from '../components/More.vue';
+  import Home from '../components/Home.vue';
+  import People from '../components/People.vue';
+  import Startup from '../components/Startup.vue';
+  import More from '../components/More.vue';
 
-function checkChildren(name) {
-  const childrenRoutes = ['personDetail', 'startupDetail'];
-  if (childrenRoutes.indexOf(name) > -1) {
-    this.dialog = true;
-  } else {
-    this.dialog = false;
+  function checkChildren(name) {
+    const childrenRoutes = ['personDetail', 'startupDetail'];
+    if (childrenRoutes.indexOf(name) > -1) {
+      this.dialog = true;
+    } else {
+      this.dialog = false;
+    }
   }
-}
 
-function searchOpen() {
-  this.searching = true;
-  this.$ga.event('search', 'search_open');
-}
+  function searchOpen() {
+    this.searching = true;
+    this.$ga.event('search', 'search_open');
+  }
 
-function searchClose() {
-  this.searching = false;
-  this.$ga.event('search', 'search_back');
-}
+  function searchClose() {
+    this.searching = false;
+    this.$ga.event('search', 'search_back');
+  }
 
-function searchClear() {
-  this.$ga.event('search', 'search_clear');
-}
+  function searchClear() {
+    this.$ga.event('search', 'search_clear');
+  }
 
-function trackSearch(search) {
-  this.$ga.event('search', 'search_type', search);
-}
+  function trackSearch(search) {
+    this.$ga.event('search', 'search_type', search);
+  }
 
-export default {
-  name: 'Tabs',
-  components: {
-    People,
-    Startup,
-    More,
-  },
-  head: {
-    title() {
-      return {
-        inner: 'Directory',
-      };
+  export default {
+    name: 'Tabs',
+    components: {
+      Home,
+      People,
+      Startup,
+      More,
     },
-  },
-  data: () => ({
-    searching: false,
-    tabs: 'tabs-people',
-    search: '',
-    tagFilter: [],
-    dialog: false,
-    tabClicked: null,
-  }),
-  computed: {
-    config() {
-      return this.$store.state.config.config;
+    head: {
+      title() {
+        return {
+          inner: 'Directory',
+        };
+      },
     },
-    tagTab() {
-      return this.tabs.replace('tabs-', '');
+    data: () => ({
+      searching: false,
+      tabs: 'tabs-home',
+      search: '',
+      tagFilter: [],
+      allFilters: false,
+      dialog: false,
+      tabClicked: null,
+    }),
+    computed: {
+      config() {
+        return this.$store.state.config.config;
+      },
+      tagTab() {
+        return this.tabs.replace('tabs-', '');
+      },
+      tagList() {
+        let tags = this.$store.getters['tags/getByTarget'](this.tagTab) || [];
+        return tags;
+      },
+      hasFilters() {
+        let hasFilters = this.tagList.length > 0;
+        return hasFilters;
+      },
+      hasSearch() {
+        const searchTabs = ['people', 'startups'];
+        const tab = this.tagTab || '';
+        const hasSearch = (searchTabs.indexOf(tab) > -1);
+        return hasSearch;
+      },
+      tagTabFilter() {
+        let tags = this.tagList.map(item => item.name);
+        return this.tagFilter.filter(item => tags.indexOf(item) > -1);
+      },
+      title() {
+        return this.config.title || 'Directory';
+      },
+      logo() {
+        return this.config.logo || 'img/logo.png';
+      },
+      searchPlaceholder() {
+        return this.config.searchPlaceholder || 'Try RatedPower, Andrea or UX';
+      },
     },
-    tagList() {
-      let tags = this.$store.getters['tags/getByTarget'](this.tagTab) || [];
-      return tags;
-    },
-    hasFilters() {
-      let hasFilters = this.tagList.length > 0;
-      return hasFilters;
-    },
-    tagTabFilter() {
-      let tags = this.tagList.map(item => item.name);
-      return this.tagFilter.filter(item => tags.indexOf(item) > -1);
-    },
-    title() {
-      return this.config.title || 'Directory';
-    },
-    logo() {
-      return this.config.logo || 'img/logo.png';
-    },
-    searchPlaceholder() {
-      return this.config.searchPlaceholder || 'Try RatedPower, Andrea or UX';
-    },
-  },
-  methods: {
-    checkChildren,
-    searchOpen,
-    searchClose,
-    searchClear,
-    trackSearch,
-    deferPrompt: () => {
-      if (window.deferredPrompt !== undefined) {
-        // let's show the prompt.
-        window.deferredPrompt.prompt();
-        window.deferredPrompt.userChoice.then((choiceResult) => {
-          console.log(choiceResult.outcome);
-          /* eslint-disable no-console */
-          if (choiceResult.outcome === 'dismissed') {
-            console.log('User cancelled home screen install');
-          } else {
-            console.log('User added to home screen');
+    methods: {
+      checkChildren,
+      searchOpen,
+      searchClose,
+      searchClear,
+      trackSearch,
+      deferPrompt: () => {
+        if (window.deferredPrompt !== undefined) {
+          // let's show the prompt.
+          window.deferredPrompt.prompt();
+          window.deferredPrompt.userChoice.then((choiceResult) => {
+            console.log(choiceResult.outcome);
+            /* eslint-disable no-console */
+            if (choiceResult.outcome === 'dismissed') {
+              console.log('User cancelled home screen install');
+            } else {
+              console.log('User added to home screen');
+            }
+            /* eslint-enable no-console */
+            // We no longer need the prompt. Clear it up.
+            window.deferredPrompt = null;
+          });
+        }
+      },
+      noSwipe: () => {
+        // eslint-disable-next-line
+        event.stopPropagation();
+      },
+      switchTag(name) {
+        const index = this.tagFilter.indexOf(name);
+        if (index === -1) {
+          this.tagFilter.push(name);
+          this.$ga.event('list_people', 'filter_add', name);
+        } else {
+          this.tagFilter.splice(index, 1);
+          this.$ga.event('list_people', 'filter_remove', name);
+        }
+      },
+
+      goToSearchMenu() {
+        if(!this.hasSearch) {
+          this.tabs = 'tabs-people';
+        }
+      },
+
+      checkInitialTab() {
+        if (this.$store.state.config.loaded === true) {
+          if (this.config.showHome === false) {
+            this.tabs = 'tabs-people';
           }
-          /* eslint-enable no-console */
-          // We no longer need the prompt. Clear it up.
-          window.deferredPrompt = null;
-        });
+        } else {
+          return setTimeout(this.checkInitialTab, 200);
+        }
       }
     },
-    noSwipe: () => {
-      // eslint-disable-next-line
-      event.stopPropagation();
-    },
-    switchTag(name) {
-      const index = this.tagFilter.indexOf(name);
-      if (index === -1) {
-        this.tagFilter.push(name);
-        this.$ga.event('list_people', 'filter_add', name);
-      } else {
-        this.tagFilter.splice(index, 1);
-        this.$ga.event('list_people', 'filter_remove', name);
-      }
-    },
-  },
 
-  created() {
-    this.$store.dispatch('tags/getTags');
-    this.checkChildren(this.$router.currentRoute.name);
-    this.deferPrompt();
-  },
-
-  watch: {
-    $route(to) {
-      this.checkChildren(to.name);
+    created() {
+      this.$store.dispatch('tags/getTags');
+      this.checkChildren(this.$router.currentRoute.name);
+      this.deferPrompt();
+      this.checkInitialTab();
     },
-    tabs(to) {
-      // Clean tab name
-      const tab = to.replace('tabs-', '');
 
-      // Detect swipe or click
-      let method = 'default';
-      if (this.tabClicked === true) {
-        this.tabClicked = false;
-        method = 'click';
-      } else if (this.tabClicked === false) {
-        method = 'swipe';
-      }
+    watch: {
+      $route(to) {
+        this.checkChildren(to.name);
+      },
+      tabs(to) {
+        // Clean tab name
+        const tab = to.replace('tabs-', '');
 
-      // Event emmit
-      this.$ga.event('directory_navigation', `tab_${tab}`, method);
+        // Detect swipe or click
+        let method = 'default';
+        if (this.tabClicked === true) {
+          this.tabClicked = false;
+          method = 'click';
+        } else if (this.tabClicked === false) {
+          method = 'swipe';
+        }
+        // Event emmit
+        this.$ga.event('directory_navigation', `tab_${tab}`, method);
+      },
     },
-  },
-};
+  };
 </script>

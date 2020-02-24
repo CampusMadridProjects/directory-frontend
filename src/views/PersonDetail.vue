@@ -4,32 +4,40 @@
 
     <!-- Actions -->
     <v-toolbar>
-      <v-btn fab @click="$router.replace('/directory');">
+      <v-btn fab small @click="$router.replace('/directory');" class="elevation-2">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title></v-toolbar-title>
+      <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
       <a :href="'/admin/#/suggest-person-public/'+ id"
         target="_blank"
         class="no-underline"
       >
-        <v-btn fab class="mx-0">
+        <v-btn fab small class="ma-0 elevation-2">
           <v-icon>edit</v-icon>
         </v-btn>
       </a>
     </v-toolbar>
     <!-- /Actions -->
-    
+
     <!-- Loading -->
     <div v-if="loading" class="mt-5 pt-5">
       <loading></loading>
     </div>
     <!-- /Loading -->
-    
+
     <!-- Content -->
     <div v-else>
       <!-- User picture -->
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ data.pic +'), url(/img/nopic.png)'}"></div>
+      <v-card-media>
+        <div class="text-xs-center">
+          <v-img
+            :src="data.pic || 'img/nopic.png'"
+            class="startup-logo"
+            aspect-ratio="1"
+          />
+        </div>
+      </v-card-media>
       <!-- /User picture -->
       <!-- Profile info container -->
       <div class="text-xs-left">
@@ -51,7 +59,7 @@
               <span
               v-if="job.id"
               @click="$ga.event('person_detail', 'view_startup', job.id)">
-                <router-link :to="{name: 'startupDetail', params: {id: job.id}}">
+                <router-link :to="{ name: 'startupDetail', params: { id: job.id } }">
                 {{ job.name }}
                 </router-link>
               </span>
@@ -62,6 +70,21 @@
           <!-- Bio -->
           <span class="bio">{{ data.bio }}</span>
           <!-- /Bio -->
+          <!-- CTA -->
+          <div v-else class="pa-0 my-2 bottom-cta" v-if="config.emailConnect === true">
+            <send-mail :id="data.id" />
+          </div>
+          <div v-else class="pa-0 my-2 bottom-cta">
+            <v-btn color="primary" x-large v-if="connect.show"
+              :href="connect.url"
+              target="_blank"
+              @click="$ga.event('person_detail', 'connect', data._id)"
+              class="elevation-0"
+            >
+              Connect via {{ connect.media }}
+            </v-btn>
+          </div>
+          <!-- /CTA -->
         </div>
         <!-- Location -->
         <v-card-title v-if="config.hasLocation && data.location" primary-title>
@@ -109,17 +132,6 @@
           </v-card-title>
           <!-- /Needs help with -->
         </div>
-        <!-- CTA -->
-        <div class="px-3 my-2 bottom-cta">
-          <v-btn color="primary" x-large v-if="connect.show"
-            :href="connect.url"
-            target="_blank"
-            @click="$ga.event('person_detail', 'connect', data._id)"
-          >
-            Connect via {{connect.media}}
-          </v-btn>
-        </div>
-        <!-- /CTA -->
         <!-- Social profiles -->
         <div class="px-4 my-3" v-if="hasConnections">
           <h4>Social profiles</h4>
@@ -172,18 +184,23 @@
 </template>
 
 <style>
-  
+
+  /* prov fix */
+  .full-size .v-toolbar {
+    z-index: 2;
+  }
+
   /* fix | decreases padding of location and join date */
   .full-size .v-card__title--primary {
     padding: 4px 24px;
   }
-  
+
   /* fix | adds padding to name, job title and bio */
   .container-1 {
     padding: 0px 24px;
-    margin-bottom: 8px;
+    margin-top: 16px;
   }
-  
+
   .v-card-text {
     padding: 0px;
   }
@@ -202,9 +219,14 @@
   }
   /* fixes connect bottom position */
   .bottom-cta {
+    /*
     bottom: 0px;
     position: fixed;
-    width: 360px;
+    */
+    width: 100%;
+  }
+  .bottom-cta a {
+    margin: 8px 0px;
   }
   /* reduces toolbar padding */
   .full-size .v-toolbar__content {
@@ -220,7 +242,7 @@
     flex-direction: column-reverse;
     justify-content: space-between;
   }
-  
+
   .person-card-social-icon {
     display: inline-block;
     padding: 0 8px;
@@ -251,10 +273,12 @@
       width: 100% !important;
     }
     /* makes profile CTA taller */
+    /*
     .bottom-cta .v-btn {
       height: 56px;
       font-size: 1.4rem;
     }
+    */
     /* makes name bigger in full size view */
     .full-size .headline {
       font-size: 2rem !important;
@@ -267,7 +291,12 @@
 </style>
 
 <style scoped>
-  
+
+  /* makes toolbar icons bigger */
+  .v-toolbar .v-btn--floating.v-btn--small .v-icon {
+      font-size: x-large;
+  }
+
   /* styles for the detail view | repeated in startup detail */
   .full-size {
     border-radius: 0 !important;
@@ -278,8 +307,8 @@
   } /* startup detail doesn't have padding bottom because it doesn't have a fixed CTA */
 
   /* makes bottom CTA full width */
-  .primary {
-    width: 96%;
+  .bottom-cta >>> .v-btn {
+    width: 100%;
   }
 
   .headline {
@@ -289,9 +318,9 @@
   .v-btn--icon {
     min-width: 36px;
   }
-  
+
   /*** TOOLBAR ***/
-  
+
   /* pulls content under toolbar and removes bg color and shadow */
   .v-toolbar {
     margin-bottom: -64px;
@@ -300,15 +329,10 @@
     position: fixed;
     width: 360px;
   }
-  
-  .v-toolbar__content button {
-    width: 45px;
-  }
-  
+
   /* adds shadow to detail toolbar icons */
   .v-toolbar .v-btn {
     background: white !important;
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2) !important;
   }
 
   .v-toolbar__title {
@@ -316,11 +340,11 @@
     text-align: center;
     margin: 0px;
   }
-  
+
   /*** /TOOLBAR ***/
-  
+
   /*** USER STYLES ***/
-  
+
   .card-user-info {
     text-align: left;
     width: 100%;
@@ -328,13 +352,12 @@
     padding: 8px;
     border-radius: 4px;
   }
-  
+
   .card-user-pic {
-    height: calc(43vw - 64px);
     margin-bottom: 0px;
     border-radius: 0px;
   }
-  
+
   /*** /USER STYLES ***/
 
   @media (min-width: 600px) {
@@ -349,10 +372,6 @@
 
   @media (max-width: 960px) {
 
-    .v-btn--floating {
-      width: 45px;
-    }
-
     .v-card-text .v-btn {
       width: 100%;
     }
@@ -361,138 +380,141 @@
       height: calc(56vh - 64px);
     }
   }
+
 </style>
 
 <script>
-import Loading from '@/components/Loading.vue';
+  import Loading from '@/components/Loading.vue';
+  import SendMail from '@/components/SendMail.vue';
 
-export default {
-  name: 'PersonDetail',
-  components: {
-    Loading,
-  },
-  data: () => ({
-    loading: true,
-    id: null,
-    data: null,
-  }),
-  computed: {
-    config() {
-      return this.$store.state.config.config;
+  export default {
+    name: 'PersonDetail',
+    components: {
+      Loading,
+      SendMail,
     },
-    job() {
-      let job = {};
-      if (this.data.Group && this.data.Group.length > 0) {
-        [job] = this.data.Group;
-      }
-
-      return job;
-    },
-    skills() {
-      return this.typeTags('HAS_SKILL');
-    },
-    interests() {
-      return this.typeTags('HAS_INTEREST');
-    },
-    memberSince() {
-      if (!this.data.memberSince) {
-        return null;
-      }
-
-      let date = new Date(this.data.memberSince);
-      return `${date.getMonth()}/${date.getFullYear()}`;
-    },
-    memberUntil() {
-      if (!this.data.memberUntil) {
-        return null;
-      }
-
-      let date = new Date(this.data.memberUntil);
-      return `${date.getMonth()}/${date.getFullYear()}`;
-    },
-    slackActive() {
-      if (this.config.slack) {
-        return true;
-      }
-      return false;
-    },
-    slackTeam() {
-      return this.$store.getters['settings/slackWorkspace'] || '';
-    },
-    connect() {
-      let connectData = {
-        show: true,
-        media: '',
-        url: '',
-      };
-
-      if (this.data.slack) {
-        connectData.media = 'Slack';
-        connectData.url = this.slackUrl(this.data.slack);
-      } else if (this.data.linkedin) {
-        connectData.media = 'Linkedin';
-        connectData.url = this.data.linkedin;
-      } else if (this.data.twitter) {
-        connectData.media = 'Twitter';
-        connectData.url = this.data.twitter;
-      } else if (this.data.instagram) {
-        connectData.media = 'Instagram';
-        connectData.url = this.data.instagram;
-      } else {
-        connectData.show = false;
-      }
-
-      return connectData;
-    },
-    hasConnections() {
-      if (!this.config.hasLinkedin
-        && !this.config.hasTwitter
-        && !this.config.hasInstagram
-        && !this.slackActive) {
-        return false;
-      } else if (!this.data.linkedin
-        && !this.data.twitter
-        && !this.data.instagram
-        && !this.data.slack) {
-        return false;
-      }
-
-      return true;
-    },
-  },
-  methods: {
-    slackUrl(id) {
-      return `https://${this.slackTeam}.slack.com/team/${id}`;
-    },
-    getData() {
-      this.data = this.$store.getters['people/getById'](this.id);
-      if (this.data != null) {
-        this.loading = false;
-      }
-    },
-    typeTags(type) {
-      if (!this.data.Tag) return [];
-
-      return this.data.Tag.filter(tag => {
-        const tagTypes = tag.relations ? tag.relations.map(type => type.toUpperCase()) : [];
-
-        if (tagTypes.indexOf(type) > -1) {
-          return true;
+    data: () => ({
+      loading: true,
+      id: null,
+      data: null,
+    }),
+    computed: {
+      config() {
+        return this.$store.state.config.config;
+      },
+      job() {
+        let job = {};
+        if (this.data.Group && this.data.Group.length > 0) {
+          [job] = this.data.Group;
         }
 
-        return false;
-      });
-    },
-  },
-  created() {
-    this.id = this.$router.currentRoute.params.id;
+        return job;
+      },
+      skills() {
+        return this.typeTags('HAS_SKILL');
+      },
+      interests() {
+        return this.typeTags('HAS_INTEREST');
+      },
+      memberSince() {
+        if (!this.data.memberSince) {
+          return null;
+        }
 
-    if (this.$store.state.people.list.length > 0) {
-      this.getData();
-    } else {
-      this.$store.dispatch('people/getPeople')
-        .then(this.getData);
-    }
-  },
-};
+        let date = new Date(this.data.memberSince);
+        return `${date.getMonth()}/${date.getFullYear()}`;
+      },
+      memberUntil() {
+        if (!this.data.memberUntil) {
+          return null;
+        }
+
+        let date = new Date(this.data.memberUntil);
+        return `${date.getMonth()}/${date.getFullYear()}`;
+      },
+      slackActive() {
+        if (this.config.slack) {
+          return true;
+        }
+        return false;
+      },
+      slackTeam() {
+        return this.$store.getters['settings/slackWorkspace'] || '';
+      },
+      connect() {
+        let connectData = {
+          show: true,
+          media: '',
+          url: '',
+        };
+
+        if (this.data.slack) {
+          connectData.media = 'Slack';
+          connectData.url = this.slackUrl(this.data.slack);
+        } else if (this.data.linkedin) {
+          connectData.media = 'Linkedin';
+          connectData.url = this.data.linkedin;
+        } else if (this.data.twitter) {
+          connectData.media = 'Twitter';
+          connectData.url = this.data.twitter;
+        } else if (this.data.instagram) {
+          connectData.media = 'Instagram';
+          connectData.url = this.data.instagram;
+        } else {
+          connectData.show = false;
+        }
+
+        return connectData;
+      },
+      hasConnections() {
+        if (!this.config.hasLinkedin
+          && !this.config.hasTwitter
+          && !this.config.hasInstagram
+          && !this.slackActive) {
+          return false;
+        } else if (!this.data.linkedin
+          && !this.data.twitter
+          && !this.data.instagram
+          && !this.data.slack) {
+          return false;
+        }
+
+        return true;
+      },
+    },
+    methods: {
+      slackUrl(id) {
+        return `https://${this.slackTeam}.slack.com/team/${id}`;
+      },
+      getData() {
+        this.data = this.$store.getters['people/getById'](this.id);
+        if (this.data != null) {
+          this.loading = false;
+        }
+      },
+      typeTags(type) {
+        if (!this.data.Tag) return [];
+
+        return this.data.Tag.filter(tag => {
+          const tagTypes = tag.relations ? tag.relations.map(type => type.toUpperCase()) : [];
+
+          if (tagTypes.indexOf(type) > -1) {
+            return true;
+          }
+
+          return false;
+        });
+      },
+    },
+    created() {
+      this.id = this.$router.currentRoute.params.id;
+
+      if (this.$store.state.people.list.length > 0) {
+        this.getData();
+      } else {
+        this.$store.dispatch('people/getPeople')
+          .then(this.getData);
+      }
+    },
+  };
 </script>

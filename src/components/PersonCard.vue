@@ -1,8 +1,11 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover card-elements ellipsis">
+  <v-card light :hover="true" class="light-border custom-hover card-elements ellipsis">
     <div @click="goToPerson(id)">
-      <div class="card-user-pic" :style="{backgroundImage: 'url('+ pic +'), url(/img/nopic.png)'}">
-      </div>
+      <v-responsive
+        class="card-user-pic"
+        :aspect-ratio="1/1"
+        :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
+      </v-responsive>
       <div style="padding: 8px 24px;">
         <div class="headline ellipsis">{{ name }} {{ surname }}</div>
         <div class="ellipsis">
@@ -11,14 +14,23 @@
               <span v-if="role && company">@</span>
               <!-- <span v-else>-</span> -->
               {{ company }}
+              &nbsp;
             </span>
         </div>
       </div>
     </div>
     <v-card-title primary-title @click="goToPerson(id)">
       <div class="card-user-info">
-        <h4 class="ellipsis" v-if="expertise">
-         <v-icon size="14" class="mr-1">forum</v-icon>
+        <h4 class="ellipsis">
+          <v-icon
+            v-if="expertise.length > 0"
+            size="14"
+            class="mr-1"
+          >
+            forum
+          </v-icon>
+          <span v-else>&nbsp;</span>
+          
           <span v-for="(ability, index) in expertise"
             :key="ability.id">{{ (index !== 0) ?', ' + ability.name : ability.name }}
           </span>
@@ -33,10 +45,6 @@
 </template>
 
 <style type="text/css">
-
-    .v-icon {
-        line-height: 1.3;
-    }
 
     .v-card {
       border-radius: 8px;
@@ -74,36 +82,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: calc(100vw - 32px);
   margin-bottom: 4px;
-}
-
-/* In tablet, we have two columns */
-@media (min-width: 600px) {
-  .card-user-pic {
-    height: calc(50vw - 32px);
-  }
-}
-
-/* In desktop, we have three columns */
-@media (min-width: 960px) {
-  .card-user-pic {
-    height: calc(33vw - 64px);
-  }
-}
-
-/* In long-desktop, we have five columns */
-@media (min-width: 1264px) {
-  .card-user-pic {
-    height: calc(20vw - 80px);
-  }
-}
-
-/* In TV, we have six columns */
-@media (min-width: 1904px) {
-  .card-user-pic {
-    height: calc(16vw);
-  }
 }
 
 .light-border {
@@ -155,7 +134,7 @@ export default {
   data: () => ({
     show: false,
   }),
-  
+
   computed: {
     config() {
       return this.$store.state.config.config;

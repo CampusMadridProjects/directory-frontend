@@ -1,14 +1,13 @@
 <template>
-  <v-card light :hover="true" class="box-shadow light-border custom-hover ellipsis">
+  <v-card light :hover="true" class="light-border custom-hover ellipsis">
     <div @click="goToStartup(id)">
-      <v-img
-        :height="cardHeight"
-        :src="logo"
-        contain
-        class="card-user-pic"
-      ></v-img>
-
-      <div style="padding: 8px 24px; padding-bottom: 24px;">
+      <v-responsive>
+        <v-img
+          :src="logo || 'img/nologo.png'"
+          aspect-ratio="1"
+        ></v-img>
+      </v-responsive>
+      <div style="padding: 16px 24px;">
         <div class="headline ellipsis">
           {{ name }}
         </div>
@@ -19,11 +18,11 @@
 </template>
 
 <style scoped>
-  
+
   .card-user-pic {
     margin-bottom: 0px;
   }
-  
+
   .v-card__title--primary {
     padding: 8px 16px 24px;
   }
@@ -84,7 +83,7 @@ export default {
   },
 
   data: () => ({
-    cardHeight: '164px',
+    cardHeight: '172px',
   }),
 
   methods: {
