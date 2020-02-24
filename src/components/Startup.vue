@@ -21,7 +21,7 @@
   <!-- Container -->
   <v-container class="card-grid pb-5 mb-3" v-else>
     <v-flex
-      xs12 sm6 md4 lg3 xl2
+      xs6 sm4 md3 lg2 xl2
       class="card-grid-item"
       v-for="startup in this.filterStartup(search)"
       :key="startup._id"

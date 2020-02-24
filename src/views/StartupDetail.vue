@@ -32,7 +32,7 @@
       <v-card-media>
         <div class="text-xs-center">
           <v-img
-            :src="data.logo || 'img/nopic.png'"
+            :src="data.logo || 'img/nologo.png'"
             class="startup-logo"
             aspect-ratio="1"
           />
@@ -132,7 +132,7 @@
         </div>
         <!-- /Employees -->
       </div>
-      <!-- /Startup info --> 
+      <!-- /Startup info -->
     <!-- /Content -->
 
   </v-card>

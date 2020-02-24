@@ -4,7 +4,6 @@
       v-if="pic"
       :src="pic"
     ></v-img>
-
     <v-card-title primary-title class="px-0">
       <div class="py-2">
         <h2 class="mb-0">{{ heading }}</h2>
