@@ -54,6 +54,10 @@
 
 <style scoped>
 
+.ma-1 {
+  margin: 6px !important;
+}
+
   /* aligns FAB | duplicated in People.vue */
   .v-btn--bottom {
     bottom: 64px;
@@ -106,9 +110,6 @@
       .flex.lg2 {
         flex-basis: 20%;
         max-width: 20%;
-      }
-      .card-user-pic {
-        height: calc(20vw - 80px);
       }
   }
 

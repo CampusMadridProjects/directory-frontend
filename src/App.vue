@@ -17,7 +17,7 @@
   @media only screen and (min-width: 1440px) {
     .container {
       max-width: none !important;
-      padding: 24px 3%;
+      padding: 24px 2%;
     }
   }
 </style>
