@@ -132,8 +132,7 @@
         </div>
         <!-- /Employees -->
       </div>
-      <!-- /Startup info -->
-
+      <!-- /Startup info --> 
     <!-- /Content -->
 
   </v-card>
@@ -141,6 +140,11 @@
 </template>
 
 <style scoped>
+
+  /* makes toolbar icons bigger */
+  .v-toolbar .v-btn--floating.v-btn--small .v-icon {
+      font-size: x-large;
+  }
 
   /* styles for the detail view | repeated in person detail */
   .full-size {
