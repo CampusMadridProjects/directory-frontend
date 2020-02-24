@@ -55,7 +55,7 @@
         </v-card>
         <v-card flat class="pb-4">
             <v-card-text>
-                <v-layout align-center mb-3>
+                <v-layout align-center mx-1 mb-3>
                     <strong class="title">Help</strong>
                     <v-spacer></v-spacer>
                 </v-layout>
@@ -130,7 +130,7 @@
         </v-card>
         <v-card flat class="pb-4">
           <v-card-text>
-              <v-layout align-center mb-3>
+              <v-layout align-center mx-1 mb-3>
                 <strong class="title">About</strong>
                 <v-spacer></v-spacer>
               </v-layout>
