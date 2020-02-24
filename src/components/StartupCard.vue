@@ -8,7 +8,7 @@
         class="card-user-pic"
       ></v-img>
 
-      <div style="padding: 8px 24px; padding-bottom: 24px;">
+      <div style="padding: 16px 24px;">
         <div class="headline ellipsis">
           {{ name }}
         </div>
