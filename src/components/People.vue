@@ -133,9 +133,6 @@
         flex-basis: 20%;
         max-width: 20%;
     }
-    >>> .card-user-pic {
-        height: calc(20vw - 80px);
-    }
   }
 
   @media screen and (max-width: 959px) {
