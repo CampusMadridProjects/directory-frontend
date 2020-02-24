@@ -26,7 +26,7 @@
       v-for="startup in this.filterStartup(search)"
       :key="startup._id"
     >
-      <startup-card class="card-grid-item-card"
+      <startup-card class="card-grid-item-card ma-1"
         :id="startup.id"
         :name="startup.name"
         :logo="startup.logo"
@@ -89,10 +89,6 @@
 
   .card-grid-item {
     display: flex;
-  }
-
-  .card-grid-item-card {
-    margin: 6px;
   }
 
   @media screen and (max-width: 996px) {
