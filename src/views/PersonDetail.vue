@@ -4,7 +4,7 @@
 
     <!-- Actions -->
     <v-toolbar>
-      <v-btn fab small @click="$router.replace('/directory');">
+      <v-btn fab small @click="$router.replace('/directory');" class="elevation-2">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <!-- <v-toolbar-title></v-toolbar-title> -->
@@ -13,7 +13,7 @@
         target="_blank"
         class="no-underline"
       >
-        <v-btn fab small class="ma-0">
+        <v-btn fab small class="ma-0 elevation-2">
           <v-icon>edit</v-icon>
         </v-btn>
       </a>
@@ -29,7 +29,15 @@
     <!-- Content -->
     <div v-else>
       <!-- User picture -->
-      <div class="card-user-pic" :style="{ backgroundImage: 'url('+ data.pic +'), url(img/nopic.png)' }"></div>
+      <v-card-media>
+        <div class="text-xs-center">
+          <v-img
+            :src="data.pic || 'img/nopic.png'"
+            class="startup-logo"
+            aspect-ratio="1"
+          />
+        </div>
+      </v-card-media>
       <!-- /User picture -->
       <!-- Profile info container -->
       <div class="text-xs-left">
@@ -63,11 +71,7 @@
           <span class="bio">{{ data.bio }}</span>
           <!-- /Bio -->
           <!-- CTA -->
-          <div
-            v-if="config.emailConnect === true"
-            class="pa-0 my-2 bottom-cta elevation-0"
-            style="height: 64px"
-          >
+          <div v-else class="pa-0 my-2 bottom-cta" v-if="config.emailConnect === true">
             <send-mail :id="data.id" />
           </div>
           <div v-else class="pa-0 my-2 bottom-cta">
@@ -181,6 +185,11 @@
 
 <style>
 
+  /* prov fix */
+  .full-size .v-toolbar {
+    z-index: 2;
+  }
+
   /* fix | decreases padding of location and join date */
   .full-size .v-card__title--primary {
     padding: 4px 24px;
@@ -283,6 +292,11 @@
 
 <style scoped>
 
+  /* makes toolbar icons bigger */
+  .v-toolbar .v-btn--floating.v-btn--small .v-icon {
+      font-size: x-large;
+  }
+
   /* styles for the detail view | repeated in startup detail */
   .full-size {
     border-radius: 0 !important;
@@ -319,7 +333,6 @@
   /* adds shadow to detail toolbar icons */
   .v-toolbar .v-btn {
     background: white !important;
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2) !important;
   }
 
   .v-toolbar__title {
@@ -341,7 +354,6 @@
   }
 
   .card-user-pic {
-    height: calc(43vw - 64px);
     margin-bottom: 0px;
     border-radius: 0px;
   }
@@ -368,140 +380,141 @@
       height: calc(56vh - 64px);
     }
   }
+
 </style>
 
 <script>
-import Loading from '@/components/Loading.vue';
-import SendMail from '@/components/SendMail.vue';
+  import Loading from '@/components/Loading.vue';
+  import SendMail from '@/components/SendMail.vue';
 
-export default {
-  name: 'PersonDetail',
-  components: {
-    Loading,
-    SendMail,
-  },
-  data: () => ({
-    loading: true,
-    id: null,
-    data: null,
-  }),
-  computed: {
-    config() {
-      return this.$store.state.config.config;
+  export default {
+    name: 'PersonDetail',
+    components: {
+      Loading,
+      SendMail,
     },
-    job() {
-      let job = {};
-      if (this.data.Group && this.data.Group.length > 0) {
-        [job] = this.data.Group;
-      }
-
-      return job;
-    },
-    skills() {
-      return this.typeTags('HAS_SKILL');
-    },
-    interests() {
-      return this.typeTags('HAS_INTEREST');
-    },
-    memberSince() {
-      if (!this.data.memberSince) {
-        return null;
-      }
-
-      let date = new Date(this.data.memberSince);
-      return `${date.getMonth()}/${date.getFullYear()}`;
-    },
-    memberUntil() {
-      if (!this.data.memberUntil) {
-        return null;
-      }
-
-      let date = new Date(this.data.memberUntil);
-      return `${date.getMonth()}/${date.getFullYear()}`;
-    },
-    slackActive() {
-      if (this.config.slack) {
-        return true;
-      }
-      return false;
-    },
-    slackTeam() {
-      return this.$store.getters['settings/slackWorkspace'] || '';
-    },
-    connect() {
-      let connectData = {
-        show: true,
-        media: '',
-        url: '',
-      };
-
-      if (this.data.slack) {
-        connectData.media = 'Slack';
-        connectData.url = this.slackUrl(this.data.slack);
-      } else if (this.data.linkedin) {
-        connectData.media = 'Linkedin';
-        connectData.url = this.data.linkedin;
-      } else if (this.data.twitter) {
-        connectData.media = 'Twitter';
-        connectData.url = this.data.twitter;
-      } else if (this.data.instagram) {
-        connectData.media = 'Instagram';
-        connectData.url = this.data.instagram;
-      } else {
-        connectData.show = false;
-      }
-
-      return connectData;
-    },
-    hasConnections() {
-      if (!this.config.hasLinkedin
-        && !this.config.hasTwitter
-        && !this.config.hasInstagram
-        && !this.slackActive) {
-        return false;
-      } else if (!this.data.linkedin
-        && !this.data.twitter
-        && !this.data.instagram
-        && !this.data.slack) {
-        return false;
-      }
-
-      return true;
-    },
-  },
-  methods: {
-    slackUrl(id) {
-      return `https://${this.slackTeam}.slack.com/team/${id}`;
-    },
-    getData() {
-      this.data = this.$store.getters['people/getById'](this.id);
-      if (this.data != null) {
-        this.loading = false;
-      }
-    },
-    typeTags(type) {
-      if (!this.data.Tag) return [];
-
-      return this.data.Tag.filter(tag => {
-        const tagTypes = tag.relations ? tag.relations.map(type => type.toUpperCase()) : [];
-
-        if (tagTypes.indexOf(type) > -1) {
-          return true;
+    data: () => ({
+      loading: true,
+      id: null,
+      data: null,
+    }),
+    computed: {
+      config() {
+        return this.$store.state.config.config;
+      },
+      job() {
+        let job = {};
+        if (this.data.Group && this.data.Group.length > 0) {
+          [job] = this.data.Group;
         }
 
-        return false;
-      });
-    },
-  },
-  created() {
-    this.id = this.$router.currentRoute.params.id;
+        return job;
+      },
+      skills() {
+        return this.typeTags('HAS_SKILL');
+      },
+      interests() {
+        return this.typeTags('HAS_INTEREST');
+      },
+      memberSince() {
+        if (!this.data.memberSince) {
+          return null;
+        }
 
-    if (this.$store.state.people.list.length > 0) {
-      this.getData();
-    } else {
-      this.$store.dispatch('people/getPeople')
-        .then(this.getData);
-    }
-  },
-};
+        let date = new Date(this.data.memberSince);
+        return `${date.getMonth()}/${date.getFullYear()}`;
+      },
+      memberUntil() {
+        if (!this.data.memberUntil) {
+          return null;
+        }
+
+        let date = new Date(this.data.memberUntil);
+        return `${date.getMonth()}/${date.getFullYear()}`;
+      },
+      slackActive() {
+        if (this.config.slack) {
+          return true;
+        }
+        return false;
+      },
+      slackTeam() {
+        return this.$store.getters['settings/slackWorkspace'] || '';
+      },
+      connect() {
+        let connectData = {
+          show: true,
+          media: '',
+          url: '',
+        };
+
+        if (this.data.slack) {
+          connectData.media = 'Slack';
+          connectData.url = this.slackUrl(this.data.slack);
+        } else if (this.data.linkedin) {
+          connectData.media = 'Linkedin';
+          connectData.url = this.data.linkedin;
+        } else if (this.data.twitter) {
+          connectData.media = 'Twitter';
+          connectData.url = this.data.twitter;
+        } else if (this.data.instagram) {
+          connectData.media = 'Instagram';
+          connectData.url = this.data.instagram;
+        } else {
+          connectData.show = false;
+        }
+
+        return connectData;
+      },
+      hasConnections() {
+        if (!this.config.hasLinkedin
+          && !this.config.hasTwitter
+          && !this.config.hasInstagram
+          && !this.slackActive) {
+          return false;
+        } else if (!this.data.linkedin
+          && !this.data.twitter
+          && !this.data.instagram
+          && !this.data.slack) {
+          return false;
+        }
+
+        return true;
+      },
+    },
+    methods: {
+      slackUrl(id) {
+        return `https://${this.slackTeam}.slack.com/team/${id}`;
+      },
+      getData() {
+        this.data = this.$store.getters['people/getById'](this.id);
+        if (this.data != null) {
+          this.loading = false;
+        }
+      },
+      typeTags(type) {
+        if (!this.data.Tag) return [];
+
+        return this.data.Tag.filter(tag => {
+          const tagTypes = tag.relations ? tag.relations.map(type => type.toUpperCase()) : [];
+
+          if (tagTypes.indexOf(type) > -1) {
+            return true;
+          }
+
+          return false;
+        });
+      },
+    },
+    created() {
+      this.id = this.$router.currentRoute.params.id;
+
+      if (this.$store.state.people.list.length > 0) {
+        this.getData();
+      } else {
+        this.$store.dispatch('people/getPeople')
+          .then(this.getData);
+      }
+    },
+  };
 </script>
