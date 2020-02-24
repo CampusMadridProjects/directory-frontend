@@ -99,6 +99,12 @@
     display: flex;
   }
 
+  @media (max-width: 700px) {
+    >>> .container.grid-list-lg .layout .flex.card-grid-item {
+      padding: 8px 0;
+    }
+  }
+
 </style>
 
 <script>

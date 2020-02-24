@@ -478,7 +478,7 @@
 
   @media (min-width: 1024px) {
     >>> .v-window__container {
-      margin-left: 96px !important;
+      margin-left: 116px !important;
     }
   }
 
@@ -577,7 +577,7 @@
     }*/
 
     .v-content {
-      padding: 116px 0px 0px !important;
+      padding: 124px 0px 0px !important;
     }
 
   }
