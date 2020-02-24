@@ -505,7 +505,7 @@
   }
 
   .v-content.no-extended {
-      padding: 64px 0px 0px !important;
+      padding: 56px 0px 0px !important;
   }
 
   .v-item-group.v-bottom-nav .v-btn {
