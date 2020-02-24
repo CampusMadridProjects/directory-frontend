@@ -198,7 +198,7 @@
   /* fix | adds padding to name, job title and bio */
   .container-1 {
     padding: 0px 24px;
-    margin-top: 8px;
+    margin-top: 12px;
   }
 
   .v-card-text {
