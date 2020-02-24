@@ -577,7 +577,7 @@
     }*/
 
     .v-content {
-      padding: 124px 0px 0px !important;
+      padding: 116px 0px 0px !important;
     }
 
   }
