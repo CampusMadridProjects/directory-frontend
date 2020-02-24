@@ -31,7 +31,11 @@
       <!-- Startup logo -->
       <v-card-media>
         <div class="text-xs-center">
-          <img :src="data.logo" class="startup-logo">
+          <v-img
+            :src="data.logo || 'img/nopic.png'"
+            class="startup-logo"
+            aspect-ratio="1"
+          />
         </div>
       </v-card-media>
       <!-- /Startup logo -->
