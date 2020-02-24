@@ -1,7 +1,10 @@
 <template>
   <v-card light :hover="true" class="light-border custom-hover card-elements ellipsis">
     <div @click="goToPerson(id)">
-      <v-responsive class="card-user-pic" :aspect-ratio="1/1" :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
+      <v-responsive
+        class="card-user-pic"
+        :aspect-ratio="1/1"
+        :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
       </v-responsive>
       <div style="padding: 8px 24px;">
         <div class="headline ellipsis">{{ name }} {{ surname }}</div>
@@ -33,10 +36,6 @@
 </template>
 
 <style type="text/css">
-
-    .v-icon {
-        line-height: 1.3;
-    }
 
     .v-card {
       border-radius: 8px;
@@ -75,34 +74,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 4px;
-}
-
-/* In tablet, we have two columns */
-@media (min-width: 600px) {
-  .card-user-pic {
-    height: calc(50vw - 32px);
-  }
-}
-
-/* In desktop, we have three columns */
-@media (min-width: 960px) {
-  .card-user-pic {
-    height: calc(33vw - 64px);
-  }
-}
-
-/* In long-desktop, we have five columns */
-@media (min-width: 1264px) {
-  .card-user-pic {
-    height: calc(20vw - 80px);
-  }
-}
-
-/* In TV, we have six columns */
-@media (min-width: 1904px) {
-  .card-user-pic {
-    height: calc(16vw);
-  }
 }
 
 .light-border {
