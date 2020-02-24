@@ -5,16 +5,17 @@
       grid-list-lg
     >
       <v-layout row wrap pb-5>
-
         <v-flex xs12 sm12 md8 offset-md2 lg6 offset-lg3>
           <!-- News -->
           <div>
-            <div>
+            <!-- Section title -->
+            <!-- <div>
               <h1>
                 {{ newsHeading }}
               </h1>
               <p>{{ newsSubheading }}</p>
-            </div>
+            </div> -->
+            <!-- /Section title -->
 
             <PostCard
               v-for="post in newsList"
@@ -36,44 +37,47 @@
             </div>
           </div>
           <!-- /News -->
-
           <!-- New members -->
           <div>
+            <!-- Section title -->
             <div>
               <h1>
                 New members
               </h1>
               <p>Go and share some coffee</p>
             </div>
-
-            <div class="card-grid pb-3">
+            <!-- /Section title -->
+            <!-- Content -->
+            <v-container class="card-grid pb-3 pa-0">
               <v-flex
-                xs12 sm6 md6 lg4 xl4
+                xs12 sm4 md6 lg4 xl4
                 v-for="person in newMemebers"
                 :key="person.id"
                 class="card-grid-item"
               >
-                <person-card-hybrid :person="person" class="pa-0" />
+                <person-card-hybrid :person="person" class="card-grid-item-card pa-0 light-border" />
               </v-flex>
-            </div>
+            </v-container>
+            <!-- /Content -->
           </div>
-          <!-- /New members -->
-
           <!-- <div class="text-xs-center mb-4">
             <v-btn color="info" outline large>See more</v-btn>
           </div> -->
           <!-- /New members -->
         </v-flex>
-
       </v-layout>
     </v-container>
     <!-- <v-container class="card-grid mb-5 pb-3">
-
     </v-container> -->
   </div>
 </template>
 
 <style scoped>
+
+  /* softens post's default border radius */
+  .v-card {
+    border-radius: 0px;
+  }
 
   /* */
   .title {
