@@ -1,9 +1,12 @@
 <template>
   <v-container fluid grid-list-lg>
     <v-layout row wrap>
-      <v-flex xs12 sm10 offset-sm1 md8 offset-md2 lg6 offset-lg3
-        v-if="config.slack">
-        <v-card flat class="pb-4">
+      <v-flex xs12 sm10 offset-sm1 md8 offset-md2 lg6 offset-lg3>  
+        <v-card
+          flat
+          class="pb-4"
+          v-if="config.slack"
+        >
           <v-card-text>
             <v-layout align-center mb-3>
               <!-- <v-avatar color="grey" class="mr-3"></v-avatar> -->
@@ -188,11 +191,6 @@
   }
 </style>
 
-<script>
-export default {
-  name: 'More',
-};
-</script>
 <script>
 export default {
   name: 'More',

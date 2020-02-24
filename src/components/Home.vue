@@ -50,6 +50,7 @@
               <v-flex
                 xs12 sm6 md6 lg4 xl4
                 v-for="person in newMemebers"
+                :key="person.id"
                 class="card-grid-item"
               >
                 <person-card-hybrid :person="person" class="pa-0" />
