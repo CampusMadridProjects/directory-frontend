@@ -44,7 +44,7 @@
               <h1>
                 New members
               </h1>
-              <p>Time to connect! Say hello:</p>
+              <p>Go and share some coffee</p>
             </div>
             <!-- /Section title -->
             <!-- Content -->
