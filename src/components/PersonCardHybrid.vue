@@ -32,9 +32,7 @@
 <style type="text/css">
 
   .card-grid-item-card {
-    margin: 6px;
     padding-bottom: 8px;
-    border: 1px solid #eaeaea;
   }
 
 </style>
