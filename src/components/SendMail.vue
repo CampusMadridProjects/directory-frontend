@@ -8,6 +8,7 @@
           color="primary"
           v-on="on"
           class="elevation-0 mx-0"
+          @click="$ga.event('email_connect', 'open_form', id)"
         >
           Connect via email
         </v-btn>
@@ -158,6 +159,8 @@
           this.showErrors = true;
           return false;
         }
+
+        this.$ga.event('email_connect', 'connect', id)
 
         this.$store.dispatch('mail/send', {
             id,
