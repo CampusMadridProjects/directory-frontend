@@ -9,12 +9,12 @@
           <!-- News -->
           <div>
             <!-- Section title -->
-            <!-- <div>
+            <div v-if="hasNewsHeading">
               <h1>
                 {{ newsHeading }}
               </h1>
               <p>{{ newsSubheading }}</p>
-            </div> -->
+            </div>
             <!-- /Section title -->
 
             <PostCard
@@ -40,11 +40,11 @@
           <!-- New members -->
           <div>
             <!-- Section title -->
-            <div>
+            <div v-if="hasMembersHeading">
               <h1>
-                New members
+                {{ membersHeading }}
               </h1>
-              <p>Time to connect! Come say hello:</p>
+              <p>{{ membersSubheading }}</p>
             </div>
             <!-- /Section title -->
             <!-- Content -->
@@ -124,6 +124,9 @@
       config() {
         return this.$store.state.config.config || {};
       },
+      hasNewsHeading() {
+        return !this.config.hideNewsHeading;
+      },
       newsHeading() {
         return this.config.newsHeading || 'It\'s happening';
       },
@@ -139,6 +142,16 @@
 
       newMemebers() {
         return this.$store.state.people.list.slice(0, this.membersShown);
+      },
+      hasMembersHeading() {
+        return !this.config.hideNewMembersHeading;
+      },
+
+      membersHeading() {
+        return this.config.newMembersHeading || 'New members';
+      },
+      membersSubheading() {
+        return this.config.newMembersSubheading || 'Time to connect! Come say hello:';
       },
     },
     beforeMount() {

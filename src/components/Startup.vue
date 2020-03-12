@@ -137,8 +137,10 @@
         }
 
         let found = false;
+        console.log(data)
+        console.log(array)
         for (let i = array.length - 1; i >= 0; i -= 1) {
-          if (array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
+          if (array[i] && array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
             found = true;
           }
         }
