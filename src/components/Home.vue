@@ -23,7 +23,7 @@
               :heading="post.heading"
               :text="post.text"
               :pic="post.pic"
-              class="mb-4"
+              class="mb-4 post-card"
             />
 
             <div
@@ -157,6 +157,46 @@
     beforeMount() {
       this.$store.dispatch('news/get');
     },
+    watch: {
+      newsList: {
+        immediate: true,
+        handler(val) {
+          if (val && val.length > 0) {
+            this.$nextTick(setLinkTracking);
+          }
+        },
+      },
+    },
+  };
+
+  function setLinkTracking() {
+    let links = document.querySelectorAll('.post-card a');
+    for (var i = 0; i < links.length; i++) {
+      // Set target as blank
+      links[i].setAttribute('target', '_blank');
+      // Clear events, if any
+      links[i].removeEventListener('click', trackEvent)
+      // And add a new event listener
+      links[i].addEventListener('click', trackEvent)
+    }
+  }
+
+  function trackEvent(e) {
+    let { href } = e.target;
+    let text = e.target.innerHTML;
+    let title = getPostTitle(e.target);
+    let label = `title:${title}|text:${text}|url:${href}`;
+    
+    ga('send', 'event', 'news', 'news_link', label);
+  }
+
+  function getPostTitle(element) {
+    if (element.className.indexOf('post-card') === -1) {
+      return getPostTitle(element.parentNode);
+    } else {
+      let h2 = element.querySelector('h2');
+      return h2 ? h2.innerHTML : '';
+    }
   }
 
 </script>
