@@ -2,11 +2,15 @@ import '@babel/polyfill';
 import Vue from 'vue';
 import VueAnalytics from 'vue-analytics';
 import head from 'vue-head';
+
+import helpers from './plugins/helpers';
 import './plugins/vuetify';
+
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import './registerServiceWorker';
+
 import config from './config.js';
 
 window.addEventListener('beforeinstallprompt', (event) => {
@@ -18,6 +22,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
 });
 
 Vue.use(head);
+Vue.use(helpers);
 
 config()
   .then(conf => {

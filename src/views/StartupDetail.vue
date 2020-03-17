@@ -54,7 +54,7 @@
           <!-- Website -->
           <a
             v-if="data.website"
-            :href="link(data.website)"
+            :href="$link(data.website)"
             target="_blank"
             class="d-flex pt-2"
           >
@@ -79,49 +79,15 @@
           </div>
         </v-card-title> -->
         <!-- /Membership dates -->
+
         <!-- Social profiles -->
-        <div class="px-4 my-3">
-          <h4>Social profiles</h4>
-          <div class="person-card-social-icons">
-            <a v-if="data.instagram"
-              :href="data.instagram"
-              target="_blank"
-              class="person-card-social-icon"
-              @click="$ga.event('person_detail', 'instagram', data._id)"
-            >
-              <img src="img/instagram_64.png" alt="instagram" />
-              <span>Instagram</span>
-            </a>
-            <a v-if="data.twitter"
-              :href="data.twitter"
-              target="_blank"
-              class="person-card-social-icon"
-              @click="$ga.event('person_detail', 'twitter', data._id)"
-            >
-              <img src="img/twitter_64.png" alt="twitter" />
-              <span>Twitter</span>
-            </a>
-            <a v-if="data.linkedin"
-              :href="data.linkedin"
-              target="_blank"
-              class="person-card-social-icon"
-              @click="$ga.event('person_detail', 'linkedin', data._id)"
-            >
-              <img src="img/linkedin_64.png" alt="linkedin" />
-              <span>LinkedIn</span>
-            </a>
-            <a v-if="data.slack"
-              :href="slackUrl(data.slack)"
-              target="_blank"
-              class="person-card-social-icon"
-              @click="$ga.event('person_detail', 'slack', data._id)"
-            >
-              <img src="img/slack_64.png" alt="slack" />
-              <span>Slack</span>
-            </a>
-          </div>
-        </div>
+        <social-links
+          :data="data"
+          :config="config"
+          class="px-4 my-3"
+        />
         <!-- /Social profiles -->
+
         <!-- /Employees -->
         <div
           v-if="data.persons && data.persons.length > 0"
@@ -210,10 +176,6 @@
     text-align: center;
   }
 
-  .startup-card-social-icon img {
-    width: 42px;
-  }
-
   .startup-employees {
     max-width: 500px;
     margin: auto;
@@ -245,29 +207,28 @@
 
 <script>
 import PersonList from '../components/PersonList.vue';
+import SocialLinks from '@/components/SocialLinks.vue';
 
 export default {
   name: 'StartupDetail',
   components: {
     PersonList,
+    SocialLinks,
   },
   data: () => ({
     loading: true,
     id: null,
     data: {},
   }),
+  computed: {
+    config() {
+      return this.$store.state.config.config;
+    },
+  },
   methods: {
     getData() {
       this.data = this.$store.getters['startups/getById'](this.id);
       this.loading = false;
-      console.log(this.data);
-    },
-    link(url) {
-      if (url.toLowerCase().indexOf('http') === -1) {
-        return `https://${url}`;
-      }
-
-      return url;
     },
   },
   created() {

@@ -71,7 +71,7 @@
           <span class="bio">{{ data.bio }}</span>
           <!-- /Bio -->
           <!-- CTA -->
-          <div v-else class="pa-0 my-2 bottom-cta" v-if="config.emailConnect === true">
+          <div class="pa-0 my-2 bottom-cta" v-if="config.emailConnect === true">
             <send-mail :id="data.id" />
           </div>
           <div v-else class="pa-0 my-2 bottom-cta">
@@ -133,47 +133,11 @@
           <!-- /Needs help with -->
         </div>
         <!-- Social profiles -->
-        <div class="px-4 my-3" v-if="hasConnections">
-          <h4>Social profiles</h4>
-          <div class="person-card-social-icons">
-            <a v-if="config.hasInstagram === true && data.instagram"
-              :href="data.instagram"
-              target="_blank"
-              class="person-card-social-icon"
-              @click="$ga.event('person_detail', 'instagram', data._id)"
-            >
-              <img src="img/instagram_64.png" alt="instagram" />
-              <span>Instagram</span>
-            </a>
-            <a v-if="config.hasTwitter === true && data.twitter"
-              :href="data.twitter"
-              target="_blank"
-              class="person-card-social-icon"
-              @click="$ga.event('person_detail', 'twitter', data._id)"
-            >
-              <img src="img/twitter_64.png" alt="twitter" />
-              <span>Twitter</span>
-            </a>
-            <a v-if="config.hasLinkedin === true && data.linkedin"
-              :href="data.linkedin"
-              target="_blank"
-              class="person-card-social-icon"
-              @click="$ga.event('person_detail', 'linkedin', data._id)"
-            >
-              <img src="img/linkedin_64.png" alt="linkedin" />
-              <span>LinkedIn</span>
-            </a>
-            <a v-if="slackActive && data.slack"
-              :href="slackUrl(data.slack)"
-              target="_blank"
-              class="person-card-social-icon"
-              @click="$ga.event('person_detail', 'slack', data._id)"
-            >
-              <img src="img/slack_64.png" alt="slack" />
-              <span>Slack</span>
-            </a>
-          </div>
-        </div>
+        <social-links
+          :data="data"
+          :config="config"
+          class="px-4 my-3"
+        />
         <!-- /Social profiles -->
       </div>
     </div>
@@ -204,10 +168,7 @@
   .v-card-text {
     padding: 0px;
   }
-  /* fix | adds hover to social options */
-  .person-card-social-icon:hover {
-    background: #f0f0f0;
-  }
+  
   /* */
   .v-btn {
     text-transform: none;
@@ -235,32 +196,6 @@
   /* removes underline from links */
   a  {
     text-decoration: none;
-  }
-
-  .person-card-social-icons {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-  }
-
-  .person-card-social-icon {
-    display: inline-block;
-    padding: 0 8px;
-    display: flex;
-    align-content: center;
-    margin: 4px 0px;
-    background: #fafafa;
-    padding: 8px;
-    color: black;
-    align-items: center;
-    border-radius: 4px;
-  }
-
-  .person-card-social-icon img {
-    height: 32px;
-    width: 32px;
-    margin-right: 8px;
-    border-radius: 50px;
   }
 
   @media screen and (max-width: 768px) {
@@ -386,12 +321,14 @@
 <script>
   import Loading from '@/components/Loading.vue';
   import SendMail from '@/components/SendMail.vue';
+  import SocialLinks from '@/components/SocialLinks.vue';
 
   export default {
     name: 'PersonDetail',
     components: {
       Loading,
       SendMail,
+      SocialLinks,
     },
     data: () => ({
       loading: true,
@@ -432,15 +369,6 @@
         let date = new Date(this.data.memberUntil);
         return `${date.getMonth()}/${date.getFullYear()}`;
       },
-      slackActive() {
-        if (this.config.slack) {
-          return true;
-        }
-        return false;
-      },
-      slackTeam() {
-        return this.$store.getters['settings/slackWorkspace'] || '';
-      },
       connect() {
         let connectData = {
           show: true,
@@ -450,7 +378,7 @@
 
         if (this.data.slack) {
           connectData.media = 'Slack';
-          connectData.url = this.slackUrl(this.data.slack);
+          connectData.url = this.$slackUrl(this.data.slack);
         } else if (this.data.linkedin) {
           connectData.media = 'Linkedin';
           connectData.url = this.data.linkedin;
@@ -466,26 +394,9 @@
 
         return connectData;
       },
-      hasConnections() {
-        if (!this.config.hasLinkedin
-          && !this.config.hasTwitter
-          && !this.config.hasInstagram
-          && !this.slackActive) {
-          return false;
-        } else if (!this.data.linkedin
-          && !this.data.twitter
-          && !this.data.instagram
-          && !this.data.slack) {
-          return false;
-        }
 
-        return true;
-      },
     },
     methods: {
-      slackUrl(id) {
-        return `https://${this.slackTeam}.slack.com/team/${id}`;
-      },
       getData() {
         this.data = this.$store.getters['people/getById'](this.id);
         if (this.data != null) {
