@@ -9,12 +9,12 @@
           <!-- News -->
           <div>
             <!-- Section title -->
-            <div v-if="hasNewsHeading">
+            <!-- <div v-if="hasNewsHeading">
               <h1>
                 {{ newsHeading }}
               </h1>
               <p>{{ newsSubheading }}</p>
-            </div>
+            </div> -->
             <!-- /Section title -->
 
             <PostCard
@@ -66,6 +66,21 @@
           <!-- /New members -->
         </v-flex>
       </v-layout>
+    </v-flex>
+    <!-- FAB -->
+    <a href="/admin/#/suggest-person-public/" target="_blank" class="no-underline">
+      <v-btn
+        class="hidden-md-and-up"
+        fab
+        fixed
+        bottom
+        right
+        color="primary"
+      >
+        <v-icon>person_add</v-icon>
+      </v-btn>
+    </a>
+    <!-- /FAB -->
     </v-container>
     <!-- <v-container class="card-grid mb-5 pb-3">
     </v-container> -->
@@ -73,6 +88,11 @@
 </template>
 
 <style scoped>
+
+  /* aligns FAB | duplicated in Startup.vue */
+  .v-btn--bottom {
+    bottom: 64px;
+  }
 
   /* softens post's default border radius */
   .v-card {
