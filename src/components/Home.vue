@@ -9,12 +9,12 @@
           <!-- News -->
           <div>
             <!-- Section title -->
-            <!-- <div v-if="hasNewsHeading">
+            <div v-if="hasNewsHeading">
               <h1>
                 {{ newsHeading }}
               </h1>
               <p>{{ newsSubheading }}</p>
-            </div> -->
+            </div>
             <!-- /Section title -->
 
             <PostCard
