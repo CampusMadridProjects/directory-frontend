@@ -50,7 +50,7 @@
             <!-- Content -->
             <v-container class="card-grid pb-3 pa-0">
               <v-flex
-                xs12 sm4 md6 lg4 xl4
+                xs6 sm4 md6 lg4 xl4
                 v-for="person in newMemebers"
                 :key="person.id"
                 class="card-grid-item"
@@ -91,7 +91,7 @@
 
   /* aligns FAB | duplicated in Startup.vue */
   .v-btn--bottom {
-    bottom: 64px;
+    bottom: 72px;
   }
 
   /* softens post's default border radius */
@@ -120,9 +120,9 @@
   }
 
   @media (max-width: 700px) {
-    >>> .container.grid-list-lg .layout .flex.card-grid-item {
+    /* >>> .container.grid-list-lg .layout .flex.card-grid-item {
       padding: 8px 0;
-    }
+    } */
   }
 
 </style>
@@ -206,7 +206,7 @@
     let text = e.target.innerHTML;
     let title = getPostTitle(e.target);
     let label = `title:${title}|text:${text}|url:${href}`;
-    
+
     ga('send', 'event', 'news', 'news_link', label);
   }
 
