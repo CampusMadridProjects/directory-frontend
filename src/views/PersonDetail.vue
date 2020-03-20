@@ -49,9 +49,9 @@
           <!-- /Name and surname -->
           <!-- Job title and company -->
           <div>
-            <span class="one-line job">
+            <span class="one-line job title">
               {{ job.role }}
-              <span v-if="job.role && job.name">@</span>
+              <span v-if="job.role && job.name">at</span>
               <!-- No company
               <span v-else>-</span>
               /No company -->
@@ -79,13 +79,14 @@
               :href="connect.url"
               target="_blank"
               @click="$ga.event('person_detail', 'connect', data._id)"
-              class="elevation-0"
+              class="elevation-0 br-6"
             >
               Connect via {{ connect.media }}
             </v-btn>
           </div>
           <!-- /CTA -->
         </div>
+        <v-divider></v-divider>
         <!-- Location -->
         <v-card-title v-if="config.hasLocation && data.location" primary-title>
           <div class="location">
@@ -109,10 +110,8 @@
             <!-- User info -->
             <div class="card-user-info">
               <!-- Tags and location -->
-              <span>Can help you with</span>
-              <h4>
-                <span v-for="(ability, index) in skills" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
-              </h4>
+              <h2 class="pb-1">Can help you with</h2>
+              <v-chip color="grey lighten-4" v-for="(ability, index) in skills" :key="ability.id"><strong>{{ (index !== 0) ? '' + ability.name : ability.name }}</strong></v-chip>
               <!-- Tags and location -->
             </div>
             <!-- /User info -->
@@ -122,16 +121,15 @@
           <v-card-title primary-title v-if="interests.length">
             <!-- User info -->
             <div class="card-user-info">
-              <span>Would like your help with</span>
-              <h4>
-                <span v-for="(ability, index) in interests" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
-              </h4>
+              <h2 class="pb-1">Would like your help with</h2>
+                <v-chip color="grey lighten-4" v-for="(ability, index) in interests" :key="ability.id"><strong>{{ (index !== 0) ? '' + ability.name : ability.name }}</strong></v-chip>
               <!-- Tags and location -->
             </div>
             <!-- /User info -->
           </v-card-title>
           <!-- /Needs help with -->
         </div>
+        <v-divider></v-divider>
         <!-- Social profiles -->
         <social-links
           :data="data"
@@ -148,6 +146,11 @@
 </template>
 
 <style>
+
+  /* custom border radius */
+  .br-6 {
+    border-radius: 6px;
+  }
 
   /* prov fix */
   .full-size .v-toolbar {
@@ -176,7 +179,7 @@
   /* adds space between job title and bio */
   .job {
     display: block;
-    margin-bottom: 8px;
+    margin: 4px 0px 12px 0px;
   }
   /* fixes connect bottom position */
   .bottom-cta {
@@ -226,6 +229,21 @@
 </style>
 
 <style scoped>
+
+  /* review */
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  /* review */
+  .title {
+  font-size: 1.2rem !important;
+  }
+
+  /* probably not the best solution */
+  .v-chip {
+    margin-left: 0px;
+  }
 
   /* makes toolbar icons bigger */
   .v-toolbar .v-btn--floating.v-btn--small .v-icon {
@@ -306,6 +324,17 @@
   }
 
   @media (max-width: 960px) {
+
+    /* review */
+    h2 {
+      font-size: 1.6rem;
+    }
+
+
+    /* adds more padding between persons name and picture */
+    .headline {
+      margin-top: 24px;
+    }
 
     .v-card-text .v-btn {
       width: 100%;

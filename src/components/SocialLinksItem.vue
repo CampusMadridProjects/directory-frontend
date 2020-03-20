@@ -18,18 +18,15 @@
     display: flex;
     align-content: center;
     margin: 4px 0px;
-    background: #fafafa;
-    padding: 8px;
+    padding: 8px 0px;
     color: black;
     align-items: center;
-    border-radius: 4px;
   }
 
   .person-card-social-icon img {
     height: 32px;
     width: 32px;
     margin-right: 8px;
-    border-radius: 50px;
   }
 
   /* fix | adds hover to social options */

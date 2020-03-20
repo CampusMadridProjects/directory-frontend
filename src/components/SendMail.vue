@@ -7,7 +7,7 @@
         <v-btn
           color="primary"
           v-on="on"
-          class="elevation-0 mx-0"
+          class="elevation-0 mx-0 br-6"
           @click="$ga.event('email_connect', 'open_form', id)"
         >
           Connect via email
