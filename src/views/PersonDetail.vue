@@ -68,7 +68,7 @@
           </div>
           <!-- /Job title and company -->
           <!-- Bio -->
-          <span class="bio">{{ data.bio }}</span>
+          <span class="bio subheading">{{ data.bio }}</span>
           <!-- /Bio -->
           <!-- CTA -->
           <div class="pa-0 my-2 bottom-cta" v-if="config.emailConnect === true">
@@ -280,11 +280,11 @@
 
   /*** USER STYLES ***/
 
+  /* offers and requests for help */
   .card-user-info {
     text-align: left;
     width: 100%;
-    background: #fafafa;
-    padding: 8px;
+    padding: 8px 0px;
     border-radius: 4px;
   }
 
