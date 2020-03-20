@@ -83,7 +83,7 @@
 
   /* aligns FAB | duplicated in Startup.vue */
   .v-btn--bottom {
-    bottom: 64px;
+    bottom: 72px;
   }
 
   h1, h2 {
