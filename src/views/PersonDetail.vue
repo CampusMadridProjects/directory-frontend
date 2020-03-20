@@ -109,7 +109,7 @@
             <!-- User info -->
             <div class="card-user-info">
               <!-- Tags and location -->
-              <span>Knows about</span>
+              <span>Can help you with</span>
               <h4>
                 <span v-for="(ability, index) in skills" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
               </h4>
@@ -122,7 +122,7 @@
           <v-card-title primary-title v-if="interests.length">
             <!-- User info -->
             <div class="card-user-info">
-              <span>Needs help with</span>
+              <span>Would like your help with</span>
               <h4>
                 <span v-for="(ability, index) in interests" :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
               </h4>
@@ -168,7 +168,7 @@
   .v-card-text {
     padding: 0px;
   }
-  
+
   /* */
   .v-btn {
     text-transform: none;
