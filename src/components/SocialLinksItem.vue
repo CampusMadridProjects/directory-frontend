@@ -12,6 +12,7 @@
 </template>
 
 <style scoped>
+
   .person-card-social-icon {
     display: inline-block;
     padding: 0 8px;
@@ -29,10 +30,6 @@
     margin-right: 8px;
   }
 
-  /* fix | adds hover to social options */
-  .person-card-social-icon:hover {
-    background: #f0f0f0;
-  }
 </style>
 
 <script>

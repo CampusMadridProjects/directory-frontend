@@ -75,7 +75,10 @@
             <send-mail :id="data.id" />
           </div>
           <div v-else class="pa-0 my-2 bottom-cta">
-            <v-btn color="primary" x-large v-if="connect.show"
+            <v-btn
+              color="primary"
+              x-large
+              v-if="connect.show"
               :href="connect.url"
               target="_blank"
               @click="$ga.event('person_detail', 'connect', data._id)"
@@ -104,6 +107,7 @@
           </div>
         </v-card-title>
         <!-- /Membership dates -->
+        <!-- Knowledge and interests -->
         <div class="my-3">
           <!-- Knows about -->
           <v-card-title primary-title v-if="skills.length">
@@ -111,7 +115,7 @@
             <div class="card-user-info">
               <!-- Tags and location -->
               <h2 class="pb-1">Can help you with</h2>
-              <v-chip color="grey lighten-4" v-for="(ability, index) in skills" :key="ability.id"><strong>{{ (index !== 0) ? '' + ability.name : ability.name }}</strong></v-chip>
+              <v-chip color="grey lighten-4" v-for="(ability, index) in skills" :key="ability.id">{{ (index !== 0) ? '' + ability.name : ability.name }}</v-chip>
               <!-- Tags and location -->
             </div>
             <!-- /User info -->
@@ -122,13 +126,14 @@
             <!-- User info -->
             <div class="card-user-info">
               <h2 class="pb-1">Would like your help with</h2>
-                <v-chip color="grey lighten-4" v-for="(ability, index) in interests" :key="ability.id"><strong>{{ (index !== 0) ? '' + ability.name : ability.name }}</strong></v-chip>
+                <v-chip color="grey lighten-4" v-for="(ability, index) in interests" :key="ability.id">{{ (index !== 0) ? '' + ability.name : ability.name }}</v-chip>
               <!-- Tags and location -->
             </div>
             <!-- /User info -->
           </v-card-title>
           <!-- /Needs help with -->
         </div>
+        <!-- /Knowledge and interests -->
         <v-divider></v-divider>
         <!-- Social profiles -->
         <social-links
@@ -138,6 +143,7 @@
         />
         <!-- /Social profiles -->
       </div>
+      <!-- /Profile info container -->
     </div>
     <!-- /Content -->
 
@@ -226,6 +232,7 @@
       font-size: 1.4rem;
     }
   }
+
 </style>
 
 <style scoped>
@@ -237,7 +244,8 @@
 
   /* review */
   .title {
-  font-size: 1.2rem !important;
+    font-size: 1.2rem !important;
+    line-height: 1.4 !important;
   }
 
   /* probably not the best solution */

@@ -1,11 +1,10 @@
 <template>
   <div v-if="hasConnections">
-    <h2 v-if="!hideHeading">
+    <h2 v-if="!hideHeading" class="pb-1">
       Social profiles
     </h2>
 
-    <div class="person-card-social-icons">
-
+    <div class="person-card-social-icons light-border">
       <social-links-item
         v-for="item in activeLinks"
         :link="item.link"
@@ -14,7 +13,7 @@
         :event="item.event"
         class="person-card-social-icon"
       />
-<!--
+      <!--
       <a v-if="slackActive && data.slack"
         :href="slackUrl(data.slack)"
         target="_blank"
@@ -23,7 +22,8 @@
       >
         <img src="img/slack_64.png" alt="slack" />
         <span>Slack</span>
-      </a> -->
+      </a>
+      -->
     </div>
   </div>
 </template>
@@ -34,6 +34,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 8px;
+    padding: 0px 8px;
+  }
+
+  /* fix | adds hover to social options */
+  .person-card-social-icons:hover {
+    border: 1px solid transparent;
+    -webkit-box-shadow: 0px 8px 24px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 8px 24px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 8px 24px 0px rgba(0,0,0,0.1);
   }
 
 </style>
