@@ -62,6 +62,7 @@
               :href="$link(data.website)"
               target="_blank"
               class="elevation-0 br-6 bottom-cta"
+              @click="$ga.event('startup_detail', 'website', data.website)"
             >
               Visit website
             </v-btn>

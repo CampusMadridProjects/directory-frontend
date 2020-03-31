@@ -10,7 +10,7 @@
           class="elevation-0 mx-0 br-6"
           @click="$ga.event('email_connect', 'open_form', id)"
         >
-          Connect via email
+          Connect
         </v-btn>
       </template>
 
@@ -28,12 +28,12 @@
           class="headline text-xs-center d-block"
           primary-title
         >
-          Connect through Email
+          Connect
         </v-card-title>
 
         <v-card-text>
           <p class="pb-2 text-xs-center">
-            Let us know your name and your email, and we will make the connection through email
+            Let us know your name and your email, and make the connection happen!
           </p>
 
           <v-text-field
