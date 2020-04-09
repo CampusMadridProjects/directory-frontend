@@ -11,7 +11,7 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 
-import config from './config.js';
+import config from './config';
 
 window.addEventListener('beforeinstallprompt', (event) => {
   // Commented, becouse we will enable this in the future
@@ -25,9 +25,21 @@ Vue.use(head);
 Vue.use(helpers);
 
 config()
-  .then(conf => {
+  .then((conf) => {
+    const id = [];
+
+    // Config analytics ID
+    if (conf.analyticsID) {
+      id.push(conf.analyticsID);
+    }
+
+    // Global analytics ID
+    if (process.env.VUE_APP_ANALYTICS_ID) {
+      id.push(process.env.VUE_APP_ANALYTICS_ID);
+    }
+
     Vue.use(VueAnalytics, {
-      id: conf.analyticsID,
+      id,
       router,
     });
   });
