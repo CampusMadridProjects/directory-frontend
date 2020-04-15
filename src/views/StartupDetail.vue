@@ -71,6 +71,14 @@
         </div>
       </div>
       <!-- /Startup info -->
+      <!-- Program -->
+      <v-card-title v-if="config.hasProgram && data.program" primary-title>
+        <div class="location">
+          <v-icon size="14" class="mr-1">people</v-icon>
+          <span>{{ data.program }}</span>
+        </div>
+      </v-card-title>
+      <!-- /Program -->
       <!-- Location -->
       <v-card-title v-if="data.location" primary-title>
         <div class="location">

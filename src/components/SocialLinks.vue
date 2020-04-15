@@ -7,6 +7,7 @@
     <div class="person-card-social-icons light-border">
       <social-links-item
         v-for="item in activeLinks"
+        :key="item.event"
         :link="item.link"
         :text="item.text"
         :pic="item.pic"
