@@ -140,7 +140,7 @@
                 <a href="http://communitytools.co/" target="blank">Community Tools</a>, a project
                 created to facilitate contacts across Google for Startups Campus communities.<br />
                 If you want to share your thoughts, report a bug or just say hi, you can get in
-                touch by clicking <a href="mailto:directory@campus.co" target="blank">here</a>.
+                touch by clicking <a :href="supportHref" target="blank">here</a>.
                 We'd love to hear whatever's on your mind!
               </p>
 
@@ -217,6 +217,9 @@ export default {
     },
     slackTeam() {
       return this.$store.getters['settings/slackWorkspace'] || '';
+    },
+    supportHref() {
+      return `mailto:${process.env.VUE_APP_SUPPORT_EMAIL}`;
     },
   },
 
