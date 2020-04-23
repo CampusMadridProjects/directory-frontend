@@ -3,7 +3,8 @@
 </template>
 
 <style>
-  html, body, .application {
+  body.gfs,
+  body.gfs .application {
     font-family: 'Google Sans';
   }
 
@@ -23,6 +24,12 @@
 </style>
 
 <script>
+// ToDo @CodingCarlos: Make this dynamic
+// Set GFS class to GFS instances
+const gfsDomain = 'gfs.directory';
+if (window.location.hostname.indexOf(gfsDomain) !== -1) {
+  document.body.className += ' gfs'
+}
 
 export default {
   name: 'App',
