@@ -22,7 +22,6 @@
         large
         color="primary"
         href="/admin/#/suggest-public"
-        target="_blank"
         class="elevation-0"
       >
         <v-icon left>add</v-icon>Add Profile

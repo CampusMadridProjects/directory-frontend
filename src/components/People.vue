@@ -13,7 +13,9 @@
     <br>
     <h1>No one found</h1>
     <p>
-      <a href="/admin/#/suggest-person-public/" target="_blank" class="no-underline">
+      <a href="/admin/#/suggest-person-public/"
+        class="no-underline"
+      >
         <v-btn color="primary" class="mb-3">
           Create {{search}}...
         </v-btn>

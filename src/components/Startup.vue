@@ -9,7 +9,9 @@
     <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
     <h1>Nothing found</h1>
     <p>
-      <a href="/admin/#/suggest-startup-public/" target="_blank" class="no-underline">
+      <a href="/admin/#/suggest-startup-public/"
+        class="no-underline"
+      >
         <v-btn color="primary" class="mb-3">
           Create {{search}}...
         </v-btn>

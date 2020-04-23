@@ -68,7 +68,7 @@
       </v-layout>
     </v-flex>
     <!-- FAB -->
-    <a href="/admin/#/suggest-person-public/" target="_blank" class="no-underline">
+    <a href="/admin/#/suggest-public/" class="no-underline">
       <v-btn
         class="hidden-md-and-up"
         fab

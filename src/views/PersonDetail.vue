@@ -10,7 +10,6 @@
       <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
       <a :href="'/admin/#/suggest-person-public/'+ id"
-        target="_blank"
         class="no-underline"
       >
         <v-btn fab small class="ma-0 elevation-2">

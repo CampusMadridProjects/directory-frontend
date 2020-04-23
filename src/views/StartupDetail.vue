@@ -10,7 +10,6 @@
       <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
       <a :href="'/admin/#/suggest-startup-public/'+ id"
-        target="_blank"
         class="no-underline"
       >
         <v-btn fab small class="mx-0">
