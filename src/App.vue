@@ -4,7 +4,10 @@
 
 <style>
   body.gfs,
-  body.gfs .application, .display-1, .headline, .application {
+  body.gfs .application,
+  body.gfs .display-1,
+  body.gfs .headline,
+  body.gfs .application {
     font-family: 'Google Sans' !important;
   }
 
