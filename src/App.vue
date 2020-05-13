@@ -4,8 +4,8 @@
 
 <style>
   body.gfs,
-  body.gfs .application {
-    font-family: 'Google Sans';
+  body.gfs .application, .display-1, .headline, .application {
+    font-family: 'Google Sans' !important;
   }
 
   /* sets card container size for screen sizes between ipad and desktop */
