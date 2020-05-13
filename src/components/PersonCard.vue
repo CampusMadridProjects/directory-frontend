@@ -1,17 +1,17 @@
 <template>
-  <v-card light :hover="true" class="light-border custom-hover card-elements ellipsis">
+  <v-card light :hover="true" class="ma-1 pb-1 light-border custom-hover card-elements ellipsis">
     <div @click="goToPerson(id)">
       <v-responsive
         class="card-user-pic"
         :aspect-ratio="1/1"
         :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
       </v-responsive>
-      <div style="padding: 8px 24px;">
+      <div style="padding: 8px 16px 4px 16px;">
         <div class="headline ellipsis">{{ name }} {{ surname }}</div>
         <div class="ellipsis">
             <span class="one-line">
               {{ role }}
-              <span v-if="role && company">@</span>
+              <span v-if="role && company">at</span>
               <!-- <span v-else>-</span> -->
               {{ company }}
               &nbsp;
@@ -19,26 +19,24 @@
         </div>
       </div>
     </div>
+    <div v-if="config.hasLocation" class="px-3 py-1">
+      <v-icon size="14" color="black" class="mr-1">room</v-icon>
+      <span>{{ location || 'Community' }}</span>
+    </div>
     <v-card-title primary-title @click="goToPerson(id)">
       <div class="card-user-info">
-        <h4 class="ellipsis">
-          <v-icon
+          <!-- <v-icon
             v-if="expertise.length > 0"
             size="14"
             class="mr-1"
+            color="black"
           >
-            forum
+            local_offer
           </v-icon>
-          <span v-else>&nbsp;</span>
-          
-          <span v-for="(ability, index) in expertise"
-            :key="ability.id">{{ (index !== 0) ?', ' + ability.name : ability.name }}
-          </span>
-        </h4>
-        <div v-if="config.hasLocation">
-          <v-icon size="14" class="mr-1">room</v-icon>
-          <span>{{ location || 'Community' }}</span>
-        </div>
+          <span v-else>&nbsp;</span> -->
+          <v-chip class="ma-0 mr-1" color="#f0f0f0" v-for="(ability, index) in expertise"
+            :key="ability.id">{{ (index !== 0) ?'' + ability.name : ability.name }}
+          </v-chip>
       </div>
     </v-card-title>
   </v-card>
@@ -65,7 +63,7 @@
     }
 
     .v-card__title--primary {
-        padding: 8px 24px;
+        padding: 8px 16px;
     }
 
     .headline {
@@ -82,12 +80,6 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  margin-bottom: 4px;
-}
-
-.light-border {
-  border: 1px solid #eaeaea;
-  border-radius: 6px;
 }
 
 /* more spread, low contrast */
@@ -106,11 +98,20 @@
 .card-user-pic {
   border-radius: 6px 6px 0px 0px;
 }
+
 </style>
 
 <style scoped>
+  .v-icon {
+    vertical-align: text-top;
+    font-size: 16px !important;
+  }
+  >>> .v-chip .v-chip__content {
+    height: 24px;
+  }
   .headline {
-    font-size: 21px !important;
+    font-size: 1.2rem !important;
+    line-height: 1.5 !important;
   }
 </style>
 

@@ -192,7 +192,7 @@
   /* adds space between job title and bio */
   .job {
     display: block;
-    margin: 4px 0px 12px 0px;
+    margin: 0px 0px 12px 0px;
   }
   /* fixes connect bottom position */
   .bottom-cta {
@@ -253,6 +253,7 @@
   .title {
     font-size: 1.2rem !important;
     line-height: 1.4 !important;
+    font-weight: normal;
   }
 
   /* probably not the best solution */

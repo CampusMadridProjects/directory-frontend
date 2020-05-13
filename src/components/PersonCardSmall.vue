@@ -1,5 +1,5 @@
 <template>
-  <v-card light :hover="true" class="light-border custom-hover">
+  <v-card light :hover="true" class="custom-hover">
     <v-list-tile @click="goToPerson(id)">
       <div>
         <v-list-tile-avatar :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
@@ -10,18 +10,14 @@
         <v-list-tile-title class="text-xs-left">{{ name }} {{ surname }}</v-list-tile-title>
         <v-list-tile-sub-title class="text-xs-left">
           {{ role }}
-          <span v-if="role && company">@</span>
+          <span v-if="role && company">at</span>
           <!-- <router-link :to="{name: 'startup', params: {startupId: company_id}}"> -->
             {{ company }}
           <!-- </router-link> -->
         </v-list-tile-sub-title>
-
-        <div class="card-user-info text-xs-left ellipsis">
-          <h5 class="ellipsis">
-           <v-icon size="14" class="mr-1">forum</v-icon>
-            <span v-for="(ability, index) in expertise"
-              :key="ability.id">{{ (index !== 0) ? ', ' + ability.name : ability.name }}</span>
-          </h5>
+        <div class="ellipsis">
+          <v-chip class="ma-0 mt-1 mr-1" color="#f0f0f0" v-for="(ability, index) in expertise"
+            :key="ability.id">{{ (index !== 0) ? '' + ability.name : ability.name }}</v-chip>
         </div>
       </div>
     </v-list-tile>
@@ -30,10 +26,16 @@
 
 <style scoped>
 
+  >>> .v-chip .v-chip__content {
+    height: 24px;
+    font-size: 16px;
+    /* font-weight: 500; */
+  }
+
   .v-list__tile__title {
-        font-weight: bold;
-        font-size: 1.4rem;
-    }
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
 
   .custom-hover:hover {
     box-shadow: none !important;
@@ -48,11 +50,6 @@
     box-shadow: none;
 }
 
-.light-border {
-  border: 1px solid #f3f3f3;
-  border-radius: 8px;
-}
-
 /* more spread, low contrast */
 .custom-hover:hover {
   box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
@@ -60,7 +57,7 @@
 
 .v-list__tile {
   height: auto;
-    min-height: 96px;
+  min-height: 96px;
   padding: 0px 16px;
 }
 
@@ -74,12 +71,19 @@
 }
 
 .v-list__tile__action, .v-list__tile__avatar {
-  min-width: 72px;
-  min-height: 72px;
+  min-width: 80px;
+  min-height: 80px;
   background-position: center;
   background-size: cover;
   border-radius: 50px;
 }
+
+.v-list__tile__sub-title {
+  color: #454545;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
 </style>
 
 <script>

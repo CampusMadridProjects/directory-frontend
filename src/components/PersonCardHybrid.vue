@@ -13,7 +13,7 @@
       :twitter="person.twitter"
       :linkedin="person.linkedin">
     </person-card-small> -->
-    <person-card class="card-grid-item-card"
+    <person-card class="card-grid-item-card light-border"
       :id="person.id"
       :name="person.name"
       :surname="person.surname"
@@ -29,12 +29,11 @@
   </v-flex>
 </template>
 
-<style type="text/css">
-
-  .card-grid-item-card {
-    padding-bottom: 8px;
+<style scoped>
+  .light-border {
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
   }
-
 </style>
 
 <script>

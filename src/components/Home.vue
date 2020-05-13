@@ -55,7 +55,7 @@
                 :key="person.id"
                 class="card-grid-item"
               >
-                <person-card-hybrid :person="person" class="card-grid-item-card pa-0 light-border" />
+                <person-card-hybrid :person="person" class="card-grid-item-card pa-0" />
               </v-flex>
             </v-container>
             <!-- /Content -->

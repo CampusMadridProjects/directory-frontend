@@ -48,7 +48,7 @@
         :linkedin="person.linkedin">
       </person-card-small>
 
-      <person-card class="card-grid-item-card hidden-sm-and-down"
+      <person-card class="card-grid-item-card light-border hidden-sm-and-down"
         :id="person.id"
         :name="person.name"
         :surname="person.surname"
@@ -82,6 +82,16 @@
 </template>
 
 <style scoped>
+
+.light-border-bottom {
+  border-bottom: 1px solid #eaeaea;
+  border-radius: 0px;
+}
+
+.light-border {
+  border: 1px solid #eaeaea;
+  border-radius: 6px;
+}
 
   /* aligns FAB | duplicated in Startup.vue */
   .v-btn--bottom {
@@ -120,33 +130,11 @@
     display: flex;
   }
 
-  .card-grid-item-card {
-    margin: 6px;
-    padding-bottom: 8px;
-    border: 1px solid #eaeaea;
-  }
-
-  /* adds additional space for 1 more card in wide screens */
-  @media screen and (min-width: 1264px){
-    >>> .container {
-        max-width: 1300px;
-    }
-    >>> .flex.lg2 {
-        flex-basis: 20%;
-        max-width: 20%;
-    }
-  }
-
   @media screen and (max-width: 959px) {
-    .card-grid-item-card {
-      margin: 0px;
-      border: 0px;
-      padding-bottom: 0px;
-    }
-    .container {
-      padding: 0px;
-    }
+  .container {
+    padding: 0px;
   }
+}
 
 </style>
 
