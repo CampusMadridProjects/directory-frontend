@@ -79,7 +79,6 @@
 }
 
 .v-list__tile__sub-title {
-  color: #454545;
   font-size: 1.2rem;
   font-weight: 500;
 }

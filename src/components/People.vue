@@ -37,7 +37,7 @@
       <person-card-small class="card-grid-item-card hidden-md-and-up"
         :id="person.id"
         :name="person.name"
-        :surname="person.surnname"
+        :surname="person.surname"
         :pic="person.pic || ''"
         :role="getJob(person).role"
         :company="getJob(person).name"
