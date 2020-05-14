@@ -40,7 +40,7 @@
       <!-- /User picture -->
       <!-- Profile info container -->
       <div class="text-xs-left">
-        <div class="container-1">
+        <div class="container-1 pt-3 pb-2 px-4">
           <!-- Name and surname -->
           <div class="headline">
             {{ data.name }} {{ data.surname }}
@@ -70,7 +70,7 @@
           <span class="bio subheading">{{ data.bio }}</span>
           <!-- /Bio -->
           <!-- CTA -->
-          <div class="pa-0 my-2 bottom-cta" v-if="config.emailConnect === true">
+          <div class="pa-0 mt-2 bottom-cta" v-if="config.emailConnect === true">
             <send-mail :id="data.id" />
           </div>
           <div v-else class="pa-0 my-2 bottom-cta">
@@ -87,35 +87,45 @@
             </v-btn>
           </div>
           <!-- /CTA -->
+          <!-- Memberships -->
+          <v-layout align-star justify-start row wrap class="pt-2 pb-1">
+            <v-flex v-if="config.hasProgram && data.program" grow>
+              <!-- Program -->
+              <v-chip class="d-flex" color="grey lighten-4">
+                <div class="location">
+                  <v-icon size="14" class="mr-1">supervised_user_circle</v-icon>
+                  <span>{{ data.program }}</span>
+                </div>
+              </v-chip>
+            </v-flex>
+            <!-- /Program -->
+            <!-- Location -->
+            <v-flex v-if="config.hasLocation && data.location" grow>
+              <v-chip class="d-flex" color="grey lighten-4">
+                <div class="location">
+                  <v-icon size="14" class="mr-1">room</v-icon>
+                  <span>{{ data.location }}</span>
+                </div>
+              </v-chip>
+            </v-flex>
+            <!-- /Location -->
+            <!-- Membership dates -->
+            <v-flex v-if="config.hasMembership && memberSince" grow>
+              <v-chip class="d-flex" color="grey lighten-4">
+                <div class="location">
+                  <v-icon size="14" class="mr-1">calendar_today</v-icon>
+                   <span>Member from {{ memberSince }}</span>
+                   <span v-if="memberUntil"> to {{ memberUntil }}</span>
+                </div>
+              </v-chip>
+              <!-- /Membership dates -->
+            </v-flex>
+          </v-layout>
+          <!-- /Memberships -->
         </div>
-        <v-divider class="pb-3"></v-divider>
-        <!-- Program -->
-        <v-card-title v-if="config.hasProgram && data.program" primary-title>
-          <div class="location">
-            <v-icon size="14" class="mr-1">people</v-icon>
-            <span>{{ data.program }}</span>
-          </div>
-        </v-card-title>
-        <!-- /Program -->
-        <!-- Location -->
-        <v-card-title v-if="config.hasLocation && data.location" primary-title>
-          <div class="location">
-            <v-icon size="14" class="mr-1">room</v-icon>
-            <span>{{ data.location }}</span>
-          </div>
-        </v-card-title>
-        <!-- /Location -->
-        <!-- Membership dates -->
-        <v-card-title primary-title v-if="config.hasMembership && memberSince">
-          <div class="location">
-            <v-icon size="14" class="mr-1">calendar_today</v-icon>
-            <span>Member from {{ memberSince }}</span>
-            <span v-if="memberUntil"> to {{ memberUntil }}</span>
-          </div>
-        </v-card-title>
-        <!-- /Membership dates -->
         <!-- Knowledge and interests -->
-        <div class="my-3">
+        <v-divider v-if="skills.length"></v-divider>
+        <div class="my-2">
           <!-- Knows about -->
           <v-card-title primary-title v-if="skills.length">
             <!-- User info -->
@@ -141,8 +151,8 @@
           <!-- /Needs help with -->
         </div>
         <!-- /Knowledge and interests -->
-        <v-divider></v-divider>
         <!-- Social profiles -->
+        <v-divider></v-divider>
         <social-links
           :data="data"
           :config="config"
@@ -173,12 +183,6 @@
   /* fix | decreases padding of location and join date */
   .full-size .v-card__title--primary {
     padding: 4px 24px;
-  }
-
-  /* fix | adds padding to name, job title and bio */
-  .container-1 {
-    padding: 0px 24px;
-    margin-top: 16px;
   }
 
   .v-card-text {
@@ -280,10 +284,6 @@
     width: 100%;
   }
 
-  .headline {
-    margin-top: 16px;
-  }
-
   .v-btn--icon {
     min-width: 36px;
   }
@@ -344,12 +344,6 @@
     /* review */
     h2 {
       font-size: 1.6rem;
-    }
-
-
-    /* adds more padding between persons name and picture */
-    .headline {
-      margin-top: 24px;
     }
 
     .v-card-text .v-btn {
