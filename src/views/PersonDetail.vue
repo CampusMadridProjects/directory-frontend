@@ -20,7 +20,7 @@
     <!-- /Actions -->
 
     <!-- Loading -->
-    <div v-if="loading" class="mt-5 pt-5">
+    <div v-if="loading">
       <loading></loading>
     </div>
     <!-- /Loading -->
@@ -42,7 +42,7 @@
       <div class="text-xs-left">
         <div class="container-1 pt-3 pb-2 px-4">
           <!-- Name and surname -->
-          <div class="headline">
+          <div class="headline mt-1">
             {{ data.name }} {{ data.surname }}
           </div>
           <!-- /Name and surname -->
@@ -67,7 +67,9 @@
           </div>
           <!-- /Job title and company -->
           <!-- Bio -->
-          <span class="bio subheading">{{ data.bio }}</span>
+          <div class="pt-2">
+            <span class="bio subheading">{{ data.bio }}</span>
+          </div>
           <!-- /Bio -->
           <!-- CTA -->
           <div class="pa-0 mt-2 bottom-cta" v-if="config.emailConnect === true">
@@ -88,13 +90,14 @@
           </div>
           <!-- /CTA -->
           <!-- Memberships -->
-          <v-layout align-star justify-start row wrap class="pt-2 pb-1">
+          <v-layout align-star justify-start row wrap class="pb-1">
             <v-flex v-if="config.hasProgram && data.program" grow>
               <!-- Program -->
               <v-chip class="d-flex" color="grey lighten-4">
                 <div class="location">
                   <v-icon size="14" class="mr-1">supervised_user_circle</v-icon>
-                  <span>{{ data.program }}</span>
+                  <!-- <span>{{ data.program }}</span> -->
+                  <span>Tetuan Valley</span>
                 </div>
               </v-chip>
             </v-flex>
@@ -111,7 +114,7 @@
             <!-- /Location -->
             <!-- Membership dates -->
             <v-flex v-if="config.hasMembership && memberSince" grow>
-              <v-chip class="d-flex" color="grey lighten-4">
+              <v-chip  class="d-flex" color="grey lighten-4">
                 <div class="location">
                   <v-icon size="14" class="mr-1">calendar_today</v-icon>
                    <span>Member from {{ memberSince }}</span>
@@ -193,11 +196,7 @@
   .v-btn {
     text-transform: none;
   }
-  /* adds space between job title and bio */
-  .job {
-    display: block;
-    margin: 0px 0px 12px 0px;
-  }
+
   /* fixes connect bottom position */
   .bottom-cta {
     /*
