@@ -7,7 +7,9 @@
       </div>
 
       <div class="person-info">
-        <v-list-tile-title class="text-xs-left">{{ name }} {{ surname }}</v-list-tile-title>
+        <v-list-tile-title class="text-xs-left">
+          <person-fullname :name="name" :surname="surname" />
+        </v-list-tile-title>
         <v-list-tile-sub-title class="text-xs-left">
           {{ role }}
           <span v-if="role && company">at</span>
@@ -25,7 +27,6 @@
 </template>
 
 <style scoped>
-
   >>> .v-chip .v-chip__content {
     height: 24px;
     font-size: 16px;
@@ -86,8 +87,13 @@
 </style>
 
 <script>
+import PersonFullname from '@/components/PersonFullname.vue';
+
 export default {
   name: 'PersonCardSmall',
+  components: {
+    PersonFullname,
+  },
   props: {
     id: { type: String, required: true },
     pic: { type: String, required: true },

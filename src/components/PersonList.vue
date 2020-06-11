@@ -11,7 +11,7 @@
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title>
-            {{ item.name }} {{ item.surname || '' }}
+            <person-fullname :name="item.name" :surname="item.surname" />
           </v-list-tile-title>
           <v-list-tile-sub-title v-html="item.role"></v-list-tile-sub-title>
         </v-list-tile-content>
@@ -35,8 +35,13 @@
 
 
 <script>
+import PersonFullname from '@/components/PersonFullname.vue';
+
 export default {
   name: 'PersonList',
+  components: {
+    PersonFullname,
+  },
   props: {
     people: { type: Array, required: true },
     eventCategory: { type: String, required: false },

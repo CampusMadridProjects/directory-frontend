@@ -7,7 +7,9 @@
         :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
       </v-responsive>
       <div style="padding: 8px 16px 4px 16px;">
-        <div class="headline ellipsis">{{ name }} {{ surname }}</div>
+        <div class="headline ellipsis">
+          <person-fullname :name="name" :surname="surname" />
+        </div>
         <div class="ellipsis">
             <span class="one-line">
               {{ role }}
@@ -116,8 +118,13 @@
 </style>
 
 <script>
+import PersonFullname from '@/components/PersonFullname.vue';
+
 export default {
   name: 'PersonCard',
+  components: {
+    PersonFullname,
+  },
   props: {
     id: { type: String, required: true },
     pic: { type: String, required: true },

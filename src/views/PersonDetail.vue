@@ -43,7 +43,7 @@
         <div class="container-1">
           <!-- Name and surname -->
           <div class="headline">
-            {{ data.name }} {{ data.surname }}
+            <person-fullname :name="data.name" :surname="data.surname" />
           </div>
           <!-- /Name and surname -->
           <!-- Job title and company -->
@@ -159,7 +159,6 @@
 </template>
 
 <style>
-
   /* custom border radius */
   .br-6 {
     border-radius: 6px;
@@ -365,6 +364,7 @@
 
 <script>
   import Loading from '@/components/Loading.vue';
+  import PersonFullname from '@/components/PersonFullname.vue';
   import SendMail from '@/components/SendMail.vue';
   import SocialLinks from '@/components/SocialLinks.vue';
 
@@ -372,6 +372,7 @@
     name: 'PersonDetail',
     components: {
       Loading,
+      PersonFullname,
       SendMail,
       SocialLinks,
     },
