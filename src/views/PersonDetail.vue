@@ -427,13 +427,17 @@
           connectData.url = this.$slackUrl(this.data.slack);
         } else if (this.data.linkedin) {
           connectData.media = 'Linkedin';
-          connectData.url = this.data.linkedin;
+          connectData.url = this.$link(this.data.linkedin);
         } else if (this.data.twitter) {
           connectData.media = 'Twitter';
-          connectData.url = this.data.twitter;
+          connectData.url = this.$link(this.data.twitter);
         } else if (this.data.instagram) {
           connectData.media = 'Instagram';
-          connectData.url = this.data.instagram;
+          connectData.url = this.$link(this.data.instagram);
+        } else if (this.data.facebook) {
+          connectData.media = 'Facebook';
+          connectData.url = this.$link(this.data.facebook);
+        
         } else {
           connectData.show = false;
         }

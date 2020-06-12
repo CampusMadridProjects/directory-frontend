@@ -114,6 +114,13 @@
             link: this.$link(this.data.instagram),
           },
           {
+            pic: '/img/freelancer_64.png',
+            text: 'Facebook',
+            event: 'facebook',
+            active: this.config.hasFacebook,
+            link: this.$link(this.data.facebook),
+          },
+          {
             pic: '/img/upwork_64.png',
             text: 'UpWork',
             event: 'upwork',
