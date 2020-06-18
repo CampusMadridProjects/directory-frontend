@@ -135,10 +135,19 @@
                 <v-spacer></v-spacer>
               </v-layout>
 
-              <p>
+              <p v-if="isGfs">
                 This directory is part of Google for Startups &amp;
                 <a href="http://communitytools.co/" target="blank">Community Tools</a>, a project
                 created to facilitate contacts across Google for Startups Campus communities.<br />
+                If you want to share your thoughts, report a bug or just say hi, you can get in
+                touch by clicking <a :href="supportHref" target="blank">here</a>.
+                We'd love to hear whatever's on your mind!
+              </p>
+              <p v-else>
+                This directory is part of
+                <span v-if="companyName">{{ companyName }} &amp; </span>
+                <a href="http://communitytools.co/" target="blank">Community Tools</a>, a project
+                created to facilitate contacts across communities.<br />
                 If you want to share your thoughts, report a bug or just say hi, you can get in
                 touch by clicking <a :href="supportHref" target="blank">here</a>.
                 We'd love to hear whatever's on your mind!
@@ -209,6 +218,10 @@ export default {
     ],
   }),
   computed: {
+    isGfs() {
+      const gfsDomain = 'gfs.directory';
+      return (window.location.hostname.indexOf(gfsDomain) !== -1);
+    },
     config() {
       return this.$store.state.config.config;
     },
@@ -217,6 +230,9 @@ export default {
     },
     slackTeam() {
       return this.$store.getters['settings/slackWorkspace'] || '';
+    },
+    companyName() {
+      return this.config.companyName;
     },
     supportHref() {
       return `mailto:${process.env.VUE_APP_SUPPORT_EMAIL}`;

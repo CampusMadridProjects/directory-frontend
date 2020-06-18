@@ -21,6 +21,8 @@ function install(Vue, options) {
  *  @return {string} Slack user url
  */
 function slackUrl(id = '') {
+  if (!id) return null;
+  
   let team = this.$store.getters['settings/slackWorkspace'];
   return `https://${team}.slack.com/team/${id}`;
 }

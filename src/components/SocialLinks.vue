@@ -78,7 +78,7 @@
     },
     computed: {
       slackActive() {
-        if (this.config.slack) {
+        if (this.config.slack && this.config.slack.active) {
           return true;
         }
         return false;
@@ -114,7 +114,7 @@
             link: this.$link(this.data.instagram),
           },
           {
-            pic: '/img/freelancer_64.png',
+            pic: '/img/facebook_64.png',
             text: 'Facebook',
             event: 'facebook',
             active: this.config.hasFacebook,
@@ -138,6 +138,7 @@
       },
       activeLinks() {
         return this.links.filter(item => {
+          console.log(item.link);
           return (item.active === true && item.link);
         });
       },
