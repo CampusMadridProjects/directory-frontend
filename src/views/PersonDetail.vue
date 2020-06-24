@@ -70,7 +70,12 @@
           <span class="bio subheading">{{ data.bio }}</span>
           <!-- /Bio -->
           <!-- CTA -->
-          <div class="pa-0 my-2 bottom-cta" v-if="config.emailConnect === true">
+          <div class="pa-0 my-2 bottom-cta" v-if="config.agency && config.agency.active === true">
+            HIRE ME!
+            <!-- <send-mail :id="data.id" /> -->
+            <agency-button :id="data.id" />
+          </div>
+          <div class="pa-0 my-2 bottom-cta" v-else-if="config.emailConnect === true">
             <send-mail :id="data.id" />
           </div>
           <div v-else class="pa-0 my-2 bottom-cta">
@@ -365,6 +370,7 @@
 <script>
   import Loading from '@/components/Loading.vue';
   import PersonFullname from '@/components/PersonFullname.vue';
+  import AgencyButton from '@/components/AgencyButton.vue';
   import SendMail from '@/components/SendMail.vue';
   import SocialLinks from '@/components/SocialLinks.vue';
 
@@ -373,6 +379,7 @@
     components: {
       Loading,
       PersonFullname,
+      AgencyButton,
       SendMail,
       SocialLinks,
     },
