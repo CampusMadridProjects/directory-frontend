@@ -71,8 +71,6 @@
           <!-- /Bio -->
           <!-- CTA -->
           <div class="pa-0 my-2 bottom-cta" v-if="config.agency && config.agency.active === true">
-            HIRE ME!
-            <!-- <send-mail :id="data.id" /> -->
             <agency-button :id="data.id" />
           </div>
           <div class="pa-0 my-2 bottom-cta" v-else-if="config.emailConnect === true">
