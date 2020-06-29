@@ -36,23 +36,17 @@
             Let us know your name and your email, and we'll make the connection happen!
           </p>
 
-          <agency-form :form="form" />
+          <agency-form
+            :form="form"
+            :disabled="!canSend"
+            @submit="send"
+          />
         </v-card-text>
 
         <loading
           v-if="$store.state.mail.loading"
           class="mb-3"
         />
-
-<!--         <v-card-actions class="justify-center">
-          <v-btn
-            :disabled="!canSend"
-            color="primary"
-            @click="sendMail()"
-          >
-            Connect through email
-          </v-btn>
-        </v-card-actions> -->
       </v-card>
     </v-dialog>
     <v-snackbar
@@ -113,54 +107,50 @@
           return [];
         }
       },
-      emailError() {
-        if (!this.showErrors) return null;
+      // emailError() {
+      //   if (!this.showErrors) return null;
 
-        let { email } = this;
-        if (!email) {
-          return "Email is mandatory";
-        } else if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
-          return "Invalid email format";
-        }
+      //   let { email } = this;
+      //   if (!email) {
+      //     return "Email is mandatory";
+      //   } else if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+      //     return "Invalid email format";
+      //   }
 
-        return null;
-      },
-      nameError() {
-        if (!this.showErrors) return null;
-        if (!this.name) {
-          return "Name is mandatory";
-        }
-        return null
-      },
-      messageError() {
-        if (!this.showErrors) return null;
-        if (!this.message) {
-          return "Message is mandatory";
-        }
-        return null
-      },
+      //   return null;
+      // },
+      // nameError() {
+      //   if (!this.showErrors) return null;
+      //   if (!this.name) {
+      //     return "Name is mandatory";
+      //   }
+      //   return null
+      // },
+      // messageError() {
+      //   if (!this.showErrors) return null;
+      //   if (!this.message) {
+      //     return "Message is mandatory";
+      //   }
+      //   return null
+      // },
       canSend() {
-        if (this.$store.state.mail.loading === true) return false;
+        if (this.$store.state.agency.loading === true) {
+          return false;
+        }
 
-        return (this.id && this.name && this.email && this.message);
+        // return (this.id && this.name && this.email && this.message);
+        return true;
       },
     },
 
     methods: {
-      sendMail() {
-        let { id, name, email, message } = this;
-        if (!id || this.nameError || this.emailError || this.messageError) {
-          this.showErrors = true;
-          return false;
-        }
+      send(formResponse) {
+        const { id } = this;
 
-        this.$ga.event('email_connect', 'connect', id)
-
-        this.$store.dispatch('mail/send', {
+        this.$ga.event('agency_connect', 'connect', id)
+        this.$store.dispatch('agency/send', {
+            ...formResponse,
             id,
-            name,
-            email,
-            message,
           })
           .finally(() => {
             this.snackbar = true;
