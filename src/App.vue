@@ -1,5 +1,8 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <router-view></router-view>
+    <cookies-notice />
+  </div>
 </template>
 
 <style>
@@ -27,6 +30,8 @@
 </style>
 
 <script>
+import CookiesNotice from '@/components/CookiesNotice.vue';
+
 // ToDo @CodingCarlos: Make this dynamic
 // Set GFS class to GFS instances
 const gfsDomain = 'gfs.directory';
@@ -36,6 +41,9 @@ if (window.location.hostname.indexOf(gfsDomain) !== -1) {
 
 export default {
   name: 'App',
+  components: {
+    CookiesNotice,
+  },
   async beforeCreate() {
     await this.$store.dispatch('settings/getConfig');
   },
