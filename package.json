@@ -1,6 +1,6 @@
 {
   "name": "campus-digital-directory-frontend",
-  "version": "1.18.0",
+  "version": "1.18.2",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
