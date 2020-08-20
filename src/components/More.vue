@@ -86,6 +86,7 @@
                     :key="item.title"
                     :prepend-icon="item.action"
                     no-action
+                    :value="activeItem"
                   >
                     <template v-slot:activator>
                       <v-list-tile>
@@ -203,6 +204,12 @@
 <script>
 export default {
   name: 'More',
+  props: {
+    activeItem: {
+      type: Number,
+      default: -1.
+    },
+  },
   data: () => ({
     items: [
       {

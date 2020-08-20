@@ -1,7 +1,6 @@
 <template>
   <div>
     <router-view></router-view>
-    <cookies-notice />
   </div>
 </template>
 
@@ -30,8 +29,6 @@
 </style>
 
 <script>
-import CookiesNotice from '@/components/CookiesNotice.vue';
-
 // ToDo @CodingCarlos: Make this dynamic
 // Set GFS class to GFS instances
 const gfsDomain = 'gfs.directory';
@@ -41,9 +38,6 @@ if (window.location.hostname.indexOf(gfsDomain) !== -1) {
 
 export default {
   name: 'App',
-  components: {
-    CookiesNotice,
-  },
   async beforeCreate() {
     await this.$store.dispatch('settings/getConfig');
   },
@@ -60,8 +54,9 @@ export default {
     let self = this;
     this.$store.dispatch('config/getConfig')
       .then(a => {
+        let title = this.$store.state.config.config.title || '';
         self.title = {
-          complement: "A new sun",
+          complement: title,
         };
         this.$emit('updateHead');
       });

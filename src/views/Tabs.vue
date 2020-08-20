@@ -107,7 +107,7 @@
           v-if="config.showMore !== false"
           value="tabs-more"
         >
-            <More></More>
+            <More :active-item="moreActiveItem" />
         </v-tab-item>
       </v-tabs-items>
     </v-content>
@@ -159,6 +159,8 @@
     <v-dialog v-model="dialog" transition="dialog-bottom-transition" persistent>
       <router-view name="dialog"></router-view>
     </v-dialog>
+
+    <cookies-notice @read="goToCookiesPolicy" />
 
   </v-app>
 </template>
@@ -588,6 +590,7 @@
   import People from '../components/People.vue';
   import Startup from '../components/Startup.vue';
   import More from '../components/More.vue';
+  import CookiesNotice from '@/components/CookiesNotice.vue';
 
   function checkChildren(name) {
     const childrenRoutes = ['personDetail', 'startupDetail'];
@@ -623,6 +626,7 @@
       People,
       Startup,
       More,
+      CookiesNotice,
     },
     head: {
       title() {
@@ -639,6 +643,7 @@
       allFilters: false,
       dialog: false,
       tabClicked: null,
+      moreActiveItem: null,
     }),
     computed: {
       config() {
@@ -728,7 +733,12 @@
         } else {
           return setTimeout(this.checkInitialTab, 200);
         }
-      }
+      },
+
+      goToCookiesPolicy() {
+        this.moreActiveItem = 1;
+        this.tabs = 'tabs-more';
+      },
     },
 
     created() {

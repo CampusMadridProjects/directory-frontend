@@ -2,7 +2,7 @@
   <div class="cookies-notice" v-if="!cookiesAccepted">
     <div>
       Hi! To discover how to make a better product for you, we use third party cookies.
-      <a href="https://communitytools.co/cookies.html" target="_blank" class="cookies-read">
+      <a class="cookies-read" @click="$emit('read')">
         Read cookie policy
       </a>.
     </div>
@@ -21,13 +21,15 @@
   color: #ffffff;
   display: flex;
   flex-direction: row;
-  font-family: 'Roboto', sans-serif;
   justify-content: space-between;
   left: 0px;
   padding: 24px;
   position: fixed;
   width: 100%;
   z-index: 999;
+}
+.gfs .cookies-notice {
+  font-family: 'Google Sans';
 }
 
   .cookies-notice .cookies-read {
