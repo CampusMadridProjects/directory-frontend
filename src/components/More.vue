@@ -220,7 +220,21 @@ export default {
       {
         action: 'lock',
         title: 'Privacy',
-        text: "Users data is securely stored in Google's infrastructure in Europe under the best standards. Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
+        text: `
+          <h4>What's beeing tracked?</h4>
+          <p>Users data is securely stored in Google's infrastructure in Europe under the best standards. Every action in this site is 100% anonymous. To do so, we use third party cookies.</p>
+          <br>
+          <h4>What's a cookie?</h4>
+          <p>A cookie is a file that is downloaded to your computer when you access certain web pages. Cookies allow a web page, among other things, to store and retrieve information about the browsing habits of a user or their equipment and, depending on the information they contain and the way they use their equipment, they can be used to recognize the user.</p><br>
+          <h4>What types of cookies does this website use?</h4>
+          <p>Google Analytics: Analytic cookies, are those that are well treated by us or by third parties, allow us to quantify the number of users and thus carry out the measurement and statistical analysis of the use made by users of the service offered.<br>For this, their browsing is analyzed in our website in order to improve the products or services that we offer you.</p>
+          <p><a href="https://policies.google.com/technologies/cookies" target="
+            ">More information about Google cookies</a>.</p>
+          <br>
+
+          <h4>Revocation and elimination of cookies</h4>
+          <p>You can allow, block or delete the cookies installed on your computer by configuring the browser options installed on your computer.</p>`,
+        // text: "Users data is securely stored in Google's infrastructure in Europe under the best standards. Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
       },
     ],
   }),
