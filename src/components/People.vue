@@ -26,7 +26,7 @@
   </v-container>
   <!-- /Nothing found -->
   <!-- Container -->
-  <v-container class="card-grid mb-5 pb-3" v-else>
+  <v-container class="card-grid mb-5 pb-3 pt-1" v-else>
     <v-flex
       xs12 sm6 md3 lg2 xl2
       v-for="person in this.filterPeople(search, filter)"
@@ -83,15 +83,15 @@
 
 <style scoped>
 
-.light-border-bottom {
-  border-bottom: 1px solid #eaeaea;
-  border-radius: 0px;
-}
+  .light-border-bottom {
+    border-bottom: 1px solid #eaeaea;
+    border-radius: 0px;
+  }
 
-.light-border {
-  border: 1px solid #eaeaea;
-  border-radius: 6px;
-}
+  .light-border {
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+  }
 
   /* aligns FAB | duplicated in Startup.vue */
   .v-btn--bottom {
