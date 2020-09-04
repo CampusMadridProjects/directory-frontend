@@ -1,5 +1,7 @@
 <template>
-  <router-view></router-view>
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <style>
@@ -52,8 +54,9 @@ export default {
     let self = this;
     this.$store.dispatch('config/getConfig')
       .then(a => {
+        let title = this.$store.state.config.config.title || '';
         self.title = {
-          complement: "A new sun",
+          complement: title,
         };
         this.$emit('updateHead');
       });

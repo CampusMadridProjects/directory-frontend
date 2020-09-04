@@ -174,6 +174,7 @@
           if ((startup.name && startup.name.toUpperCase().indexOf(safeSearch) > -1)
             || (startup.description && startup.description.toUpperCase().indexOf(safeSearch) > -1)
             || (startup.accelerator && startup.accelerator.toUpperCase().indexOf(safeSearch) > -1)
+            || (startup.program && startup.program.toUpperCase().indexOf(safeSearch) > -1)
           ) {
             found = true;
           }

@@ -245,6 +245,7 @@
           if ((person.name && person.name.toUpperCase().indexOf(safeSearch) > -1)
             || (person.surname && person.surname.toUpperCase().indexOf(safeSearch) > -1)
             || (person.bio && person.bio.toUpperCase().indexOf(safeSearch) > -1)
+            || (person.program && person.program.toUpperCase().indexOf(safeSearch) > -1)
             || (person.location && person.location.toUpperCase().indexOf(safeSearch) > -1)
             || (person.Group && inGroups(person.Group, safeSearch))
             // || (person.company && person.company.toUpperCase().indexOf(safeSearch) > -1)

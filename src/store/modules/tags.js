@@ -43,7 +43,7 @@ const mutations = {
     state.loading = false;
   },
   setTags(state, list) {
-    state.list = list;
+    state.list = list.sort((a, b) => a.name.trim().localeCompare(b.name.trim()));
   },
 };
 
