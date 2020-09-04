@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar :extended="hasFilters" app>
+    <v-toolbar :extended="hasFilters" app class="light-border-bottom">
       <img :src="logo" class="logo" :title="title">
 
       <v-text-field
@@ -17,17 +17,17 @@
         @click:clear="searchClear()"
         @click="goToSearchMenu"
       ></v-text-field>
-
+      <!-- Add profile button -->
       <v-btn
         large
         color="primary"
         href="/admin/#/suggest-public"
-        class="elevation-0"
+        class="elevation-0 hidden-md-and-down"
       >
         <v-icon left>add</v-icon>Add Profile
       </v-btn>
-
-      <!-- filter chips -->
+      <!-- /Add profile button -->
+      <!-- Filter chips -->
       <v-container
         v-if="hasFilters"
         slot="extension"
@@ -40,25 +40,51 @@
       >
         <div class="scroll-container">
           <div class="text-md-center chip-content">
-            <span class="mr-2 d-sm-none d-lg-flex">
-              Filter by:
-            </span>
+            <!-- All filters button -->
             <v-chip
               @click="allFilters = !allFilters"
             >
-              <v-icon size="14" class="px-1">apps</v-icon>
-              <span v-if="tagFilter.length === 0">All filters</span>
-              <span v-else>Active filters ({{ tagFilter.length }})</span>
+              <v-icon class="ml-0 px-1">tune</v-icon>
+              <!-- <span v-else><v-icon class="ml-0">tune</v-icon>({{ tagFilter.length }})</span> -->
             </v-chip>
+            <!-- /All filters button -->
+            <!-- Dropdown chip -->
+            <div class="text-xs-center">
+              <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                  <v-chip
+                    v-on="on"
+                  >
+                    <span class="px-2">Program<v-icon right class="ml-0">arrow_drop_down</v-icon></span>
+                  </v-chip>
+                </template>
+                <v-list>
+                  <v-list-tile
+                    v-for="(item, index) in items"
+                    :key="index"
+                    @click=""
+                  >
+                    <v-list-tile-title>
+                      {{ item.title }}
+                    </v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </div>
+            <!-- /Dropdown chip -->
+            <!-- Skill chips -->
             <v-chip
               v-for="tag in tagList"
               :key="tag.id"
               :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
               @click="switchTag(tag.name)"
             >
-              {{ tag.name }}
+              <span class="px-2">{{ tag.name }}</span>
             </v-chip>
-            <span class="chip-spacer"></span>
+            <!-- Skill chips -->
+            <!-- All filters again -->
+            <v-btn @click="allFilters = !allFilters" flat color="primary" class="ml-0 mr-3"><strong>All filters</strong></v-btn>
+            <!-- /All filters again -->
           </div>
         </div>
       </v-container>
@@ -167,6 +193,35 @@
 
 <style scoped>
 
+  .v-input {
+    font-size: 1.4rem;
+  }
+
+  /* Adds cursor hover to chips */
+  .v-chip span {
+    cursor: pointer;
+    line-height: initial;
+  }
+
+  .light-border-bottom {
+    border-bottom: 1px solid #eaeaea;
+    border-radius: 0px;
+  }
+
+  /* .light-border-bottom:after {
+    content:"";
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(234,234,234,1) 24%, rgba(234,234,234,1) 100%);
+    display: block;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  } */
+
+  >>> .v-toolbar .v-chip .v-chip__content {
+    padding: 0px;
+  }
+
   /* changes default padding for large button */
   .v-btn--large {
     padding: 0 16px;
@@ -183,7 +238,7 @@
     margin-top: -6px;
   }
 
-  /**/
+  /* */
   .v-item-group.v-bottom-nav .v-btn .v-btn__content span {
     font-weight: bold;
   }
@@ -204,10 +259,6 @@
     /* width: 115px; */
     height: 21px;
     margin-right: 8px;
-  }
-
-  .v-input__slot {
-      background: #e0e0e0;
   }
 
   .v-bottom-nav {
@@ -278,7 +329,8 @@
     background: #FFFFFF;
     border: 1px solid #DFE1E5;
     color: #3c3c3c;
-    font-weight: 500;
+    /* font-weight: 500; */
+    font-size: 1.1rem;
   }
     .v-chip:focus {
       box-shadow: none;
@@ -311,8 +363,7 @@
   }
 
   .theme--light .v-text-field--solo .v-input__slot {
-    background: #e0e0e0;
-    border-radius: 50px;
+    border-radius: 8px;
   }
 
   .v-text-field.v-text-field--solo .v-input__control {
@@ -321,9 +372,6 @@
     margin-right: auto;
   }
 
-  /*.chip-content {
-    text-align: center;
-  }*/
     .scroll-container {
       overflow-x: scroll;
       width: calc(100% - 116px);
@@ -356,14 +404,17 @@
     width: 360px;
   }
 
-
-
   .search-box >>> .v-input__slot {
-    /* border-radius: 8px !important; */
+    /* border-radius: 10px !important; */
     border-radius: 50px !important;
     background: #f1f3f4 !important;
     font-weight: 500;
-    border: 2px solid #f1f3f4;
+    border: 1px solid #e6e6e6;
+  }
+
+  .search-box >>> .v-input__slot:active {
+    background: white !important;
+    border: none;
   }
 
   .search-box >>> .v-input__icon i {
@@ -401,10 +452,6 @@
       padding: 8px;
     }
 
-      .v-toolbar .v-btn {
-          display: none;
-      }
-
       .v-toolbar img {
           display: none;
       }
@@ -419,10 +466,6 @@
 
       .search-box >>> input {
         color: #8E8E93 !important;
-      }
-
-      .search-box >>> .v-input__slot {
-        background: #f5f5f5;
       }
   }
 
@@ -444,8 +487,9 @@
       position: fixed;
       top: 72px;
       justify-content: flex-start;
-      width: 96px !important;
-      margin: 0px 24px;
+      width: 136px !important;
+      padding: 0px 24px;
+      background: white;
     }
 
       .v-item-group.v-bottom-nav .v-btn {
@@ -499,14 +543,6 @@
 
   .v-toolbar__extension {
     height: 56px !important;
-  }
-
-  .v-content {
-    padding: 100px 0px 0px !important;
-  }
-
-  .v-content.no-extended {
-      padding: 56px 0px 0px !important;
   }
 
   .v-item-group.v-bottom-nav .v-btn {
@@ -565,6 +601,11 @@
 
   @media (max-width: 959px) {
 
+    /* provisonal fix for toolbar extension misalignment */
+    .v-toolbar__content {
+      margin-bottom: -2px;
+    }
+
     main {
       padding: 96px 0px 0px !important;
     }
@@ -578,7 +619,7 @@
     }*/
 
     .v-content {
-      padding: 124px 0px 0px !important;
+      padding: 120px 0px 0px !important;
     }
 
   }
@@ -644,6 +685,11 @@
       dialog: false,
       tabClicked: null,
       moreActiveItem: null,
+      items: [
+        { title: 'Startup School' },
+        { title: 'Campus de Emprendedores' },
+        { title: 'GFS Residency' }
+      ]
     }),
     computed: {
       config() {
