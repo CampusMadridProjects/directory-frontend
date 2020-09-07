@@ -2,7 +2,6 @@
   <v-app>
     <v-toolbar :extended="hasFilters" app class="light-border-bottom">
       <img :src="logo" class="logo" :title="title">
-
       <v-text-field
         prepend-inner-icon="search"
         hide-details
@@ -10,7 +9,8 @@
         solo
         v-model="search"
         clearable
-        color="#F5F5F5"
+        color="primary"
+        background-color="#f1f3f4"
         class="search-box"
         :placeholder="searchPlaceholder"
         @keyup="trackSearch(search)"
@@ -194,7 +194,7 @@
 <style scoped>
 
   .v-input {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   /* Adds cursor hover to chips */
@@ -273,6 +273,7 @@
   .v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
        background-color: transparent;
   }
+
   /* - Remove padding in chips*/
   >>> .v-toolbar__extension {
     padding: 0 !important;
@@ -362,10 +363,6 @@
     background: #ffffff;
   }
 
-  .theme--light .v-text-field--solo .v-input__slot {
-    border-radius: 8px;
-  }
-
   .v-text-field.v-text-field--solo .v-input__control {
     max-width: 700px;
     margin-left: auto;
@@ -404,17 +401,19 @@
     width: 360px;
   }
 
-  .search-box >>> .v-input__slot {
-    /* border-radius: 10px !important; */
-    border-radius: 50px !important;
-    background: #f1f3f4 !important;
+  >>> .theme--light.v-text-field--solo>.v-input__control>.v-input__slot {
+    border-radius: 50px;
     font-weight: 500;
     border: 1px solid #e6e6e6;
   }
 
-  .search-box >>> .v-input__slot:active {
+  >>> .v-input--is-focused .v-input__slot {
     background: white !important;
-    border: none;
+    border: 1px solid #e6e6e6 !important;
+  }
+
+  >>> .v-input--is-label-active .v-input__slot {
+    background: white !important;
   }
 
   .search-box >>> .v-input__icon i {
@@ -441,6 +440,11 @@
 
   @media (max-width: 959px) {
 
+    /* bigger text size in search box mobile */
+    .v-input {
+      font-size: 1.4rem;
+    }
+
     .v-footer {
       height: auto !important;
       padding: 16px 0px;
@@ -462,10 +466,6 @@
       */
       .d-sm-none {
           display: none;
-      }
-
-      .search-box >>> input {
-        color: #8E8E93 !important;
       }
   }
 
@@ -570,10 +570,6 @@
       color: #4285F4 !important;
   }
 
-  .v-input--is-focused .v-input__slot {
-    background: #ffffff !important;
-  }
-
   .no-underline {
     text-decoration: none;
   }
@@ -582,13 +578,6 @@
     height: 56px !important;
     align-content: center;
     margin: 8px 0px;
-  }
-
-  /*.v-input__slot {
-    border-radius: 50px !important;
-    background: #f1f3f4 !important;
-    font-weight: 500;
-    border: 2px solid #f1f3f4;
   }
 
   .v-input__icon i {
@@ -609,14 +598,6 @@
     main {
       padding: 96px 0px 0px !important;
     }
-
-    /*input {
-      color: #8E8E93 !important;
-    }
-
-    .v-input__slot {
-      background: #f5f5f5;
-    }*/
 
     .v-content {
       padding: 120px 0px 0px !important;
