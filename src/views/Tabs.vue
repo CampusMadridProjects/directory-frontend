@@ -55,7 +55,8 @@
                   <v-chip
                     v-on="on"
                   >
-                    <span class="px-2">Program<v-icon right class="ml-0">arrow_drop_down</v-icon></span>
+                    <span class="pl-2">Program</span>
+                    <v-icon right class="ml-0 mr-1">arrow_drop_down</v-icon>
                   </v-chip>
                 </template>
                 <v-list>
