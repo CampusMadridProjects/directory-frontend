@@ -199,7 +199,7 @@
   }
 
   /* Adds cursor hover to chips */
-  .v-chip span {
+  .v-chip span, .v-chip i {
     cursor: pointer;
     line-height: initial;
   }
