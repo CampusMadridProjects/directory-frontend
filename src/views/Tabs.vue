@@ -401,6 +401,7 @@
     width: 360px;
   }
 
+  /* search box interaction */
   >>> .theme--light.v-text-field--solo>.v-input__control>.v-input__slot {
     border-radius: 50px;
     font-weight: 500;
@@ -423,6 +424,7 @@
   .search-box >>> .v-text-field .v-input__prepend-inner {
       padding-right: 8px;
   }
+  /* /search box interaction */
 
   /* bigger-chips-mobile */
   @media only screen and (max-width: 768px) {
