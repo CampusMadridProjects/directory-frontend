@@ -1,5 +1,5 @@
 <template>
-  <v-card light :hover="true" class="custom-hover pl-2 py-2">
+  <v-card light :hover="true" class="custom-hover py-2">
     <v-list-tile class="pl-0 pr-0" @click="goToPerson(id)">
       <div>
         <v-list-tile-avatar :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
