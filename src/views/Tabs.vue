@@ -48,31 +48,13 @@
               <!-- <span v-else><v-icon class="ml-0">tune</v-icon>({{ tagFilter.length }})</span> -->
             </v-chip>
             <!-- /All filters button -->
+
             <!-- Dropdown chip -->
-            <div class="text-xs-center">
-              <v-menu offset-y>
-                <template v-slot:activator="{ on }">
-                  <v-chip
-                    v-on="on"
-                  >
-                    <span class="pl-2">Program</span>
-                    <v-icon right class="ml-0 mr-1">arrow_drop_down</v-icon>
-                  </v-chip>
-                </template>
-                <v-list>
-                  <v-list-tile
-                    v-for="(item, index) in items"
-                    :key="index"
-                    @click=""
-                  >
-                    <v-list-tile-title>
-                      {{ item.title }}
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-            </div>
+            <program-filter
+              v-model="activePrograms"
+            />
             <!-- /Dropdown chip -->
+
             <!-- Skill chips -->
             <v-chip
               v-for="tag in tagList"
@@ -122,19 +104,29 @@
           v-if="config.showPeople !== false"
           value="tabs-people"
         >
-          <People :search="search" :filter="tagTabFilter"></People>
+          <People
+            :search="search"
+            :filter="tagTabFilter"
+            :programs="activePrograms"
+          />
         </v-tab-item>
         <v-tab-item
           v-if="config.showStartups !== false"
           value="tabs-startups"
         >
-          <Startup :search="search" :filter="tagTabFilter"></Startup>
+          <Startup
+            :search="search"
+            :filter="tagTabFilter"
+            :programs="activePrograms"
+          />
         </v-tab-item>
         <v-tab-item
           v-if="config.showMore !== false"
           value="tabs-more"
         >
-            <More :active-item="moreActiveItem" />
+          <More
+            :active-item="moreActiveItem"
+          />
         </v-tab-item>
       </v-tabs-items>
     </v-content>
@@ -620,6 +612,7 @@
 <script>
   import Home from '../components/Home.vue';
   import People from '../components/People.vue';
+  import ProgramFilter from '../components/ProgramFilter.vue';
   import Startup from '../components/Startup.vue';
   import More from '../components/More.vue';
   import CookiesNotice from '@/components/CookiesNotice.vue';
@@ -656,6 +649,7 @@
     components: {
       Home,
       People,
+      ProgramFilter,
       Startup,
       More,
       CookiesNotice,
@@ -676,11 +670,7 @@
       dialog: false,
       tabClicked: null,
       moreActiveItem: null,
-      items: [
-        { title: 'Startup School' },
-        { title: 'Campus de Emprendedores' },
-        { title: 'GFS Residency' }
-      ]
+      activePrograms: [],
     }),
     computed: {
       config() {
