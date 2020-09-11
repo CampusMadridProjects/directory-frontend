@@ -443,6 +443,12 @@
 
   @media (max-width: 959px) {
 
+    /* Fixes library default toolbar styles in mobile */
+    >>> .v-toolbar__extension {
+      margin-top: -8px !important;
+      margin-bottom: 2px !important;
+    }
+
     /* bigger text size in search box mobile */
     .v-input {
       font-size: 1.4rem;
@@ -545,7 +551,8 @@
 <style>
 
   .v-toolbar__extension {
-    height: 56px !important;
+    height: 48px !important;
+    margin-top: 12px;
   }
 
   .v-item-group.v-bottom-nav .v-btn {

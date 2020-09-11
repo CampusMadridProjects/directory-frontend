@@ -26,7 +26,7 @@
   </v-container>
   <!-- /Nothing found -->
   <!-- Container -->
-  <v-container class="card-grid mb-5 pb-3 pt-1" v-else>
+  <v-container class="card-grid mb-5 pb-3 pt-2" v-else>
     <v-flex
       xs12 sm6 md3 lg2 xl2
       v-for="person in this.filterPeople(search, filter)"
