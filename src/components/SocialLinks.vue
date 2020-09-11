@@ -138,7 +138,6 @@
       },
       activeLinks() {
         return this.links.filter(item => {
-          console.log(item.link);
           return (item.active === true && item.link);
         });
       },
