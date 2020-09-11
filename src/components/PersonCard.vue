@@ -6,6 +6,14 @@
         :aspect-ratio="1/1"
         :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
       </v-responsive>
+      <!-- For hire chip -->
+      <!-- <v-chip color="white" class="elevation-1 ml-3" style="margin-top: -56px;">
+        <v-avatar class="mr-0">
+          <v-icon>🦄</v-icon>
+        </v-avatar>
+        <span class="ml-0">Available for hire</span>
+      </v-chip> -->
+      <!-- For hire chip -->
       <div style="padding: 8px 16px 4px 16px;">
         <div class="headline ellipsis">
           <person-fullname :name="name" :surname="surname" />
