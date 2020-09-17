@@ -1,33 +1,45 @@
 <template>
-  <div class="text-xs-center cursor-pointer">
-    <v-menu offset-y :close-on-content-click="false">
-      <template v-slot:activator="{ on }">
-        <v-chip
-          v-on="on"
-        >
-          <span class="pl-2 cursor-pointer">
-            {{ programName }}
-          </span>
-          <v-icon right class="ml-0 mr-1 cursor-pointer">arrow_drop_down</v-icon>
-        </v-chip>
-      </template>
-      <v-list>
-        <v-list-tile
-          v-for="(item, index) in programs"
-          :key="index"
-          @click="switchProgram(item.name)"
-        >
-          <v-checkbox
-            primary
-            v-model="item.active"
+  <div class="d-flex">
+    <div class="text-xs-center cursor-pointer">
+      <v-menu offset-y :close-on-content-click="false">
+        <template v-slot:activator="{ on }">
+          <v-chip
+            v-on="on"
+          >
+            <span class="pl-2 cursor-pointer">
+              {{ programName }}
+            </span>
+            <v-icon right class="ml-0 mr-1 cursor-pointer">arrow_drop_down</v-icon>
+          </v-chip>
+        </template>
+        <v-list>
+          <v-list-tile
+            v-for="(item, index) in programs"
+            :key="index"
             @click="switchProgram(item.name)"
-          ></v-checkbox>
-          <v-list-tile-title>
-            {{ item.name }}
-          </v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-menu>
+          >
+            <v-checkbox
+              primary
+              v-model="item.active"
+              @click="switchProgram(item.name)"
+            ></v-checkbox>
+            <v-list-tile-title>
+              {{ item.name }}
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+    </div>
+    <v-chip
+      v-for="program in selected"
+      :key="program"
+      class="active"
+      @click="switchProgram(program)"
+    >
+      <span class="px-2 cursor-pointer">
+        {{ program }}
+      </span>
+    </v-chip>
   </div>
 </template>
 
