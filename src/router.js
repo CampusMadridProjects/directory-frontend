@@ -25,9 +25,9 @@ export default new Router({
       path: '/directory',
       name: 'home',
       component: Tabs,
-      title() {
-        return 'Ejeeeeeemploooo';
-      },
+      // title() {
+      //   return 'Ejeeeeeemploooo';
+      // },
       children: [
         {
           // UserProfile will be rendered inside User's <router-view>

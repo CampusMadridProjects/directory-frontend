@@ -15,15 +15,15 @@
         <v-list-tile
           v-for="(item, index) in programs"
           :key="index"
-          @click="switchProgram(item)"
+          @click="switchProgram(item.name)"
         >
           <v-checkbox
             primary
-            :value="isSelected(item)"
-            @click="switchProgram(item)"
+            v-model="item.active"
+            @click="switchProgram(item.name)"
           ></v-checkbox>
           <v-list-tile-title>
-            {{ item }}
+            {{ item.name }}
           </v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -89,7 +89,12 @@ export default {
       const programs = this.config.programOptions;
 
       if (programs) {
-        return programs.split(',');
+        return programs.split(',').map((item) => {
+          return {
+            name: item,
+            active: this.isSelected(item),
+          };
+        });
       }
 
       return [];
@@ -121,6 +126,8 @@ export default {
     value: {
       immediate: true,
       handler(newValue) {
+        console.log('Updating selected value from outside...')
+        console.log(newValue);
         this.selected = newValue;
       }
     },

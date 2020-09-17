@@ -753,12 +753,30 @@
       },
 
       checkInitialTab() {
+        if (this.config.showHome === false) {
+          this.tabs = 'tabs-people';
+        }
+      },
+
+      checkInitialQuery() {
+        const program = Number(this.$route.query.program);
+        if (!this.config.programOptions || isNaN(program)) {
+          return false;
+        }
+
+        const programs = this.config.programOptions.split(',');
+        const initialProgram = programs[this.$route.query.program];
+        if (initialProgram) {
+          this.activePrograms.push(initialProgram);
+        }
+      },
+
+      checkInitialState() {
         if (this.$store.state.config.loaded === true) {
-          if (this.config.showHome === false) {
-            this.tabs = 'tabs-people';
-          }
+          this.checkInitialQuery();
+          this.checkInitialTab();
         } else {
-          return setTimeout(this.checkInitialTab, 200);
+          return setTimeout(this.checkInitialState, 200);
         }
       },
 
@@ -772,7 +790,7 @@
       this.$store.dispatch('tags/getTags');
       this.checkChildren(this.$router.currentRoute.name);
       this.deferPrompt();
-      this.checkInitialTab();
+      this.checkInitialState();
     },
 
     watch: {
