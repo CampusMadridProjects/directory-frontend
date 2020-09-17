@@ -75,7 +75,7 @@
                       </v-list-tile>
                     </template>
 
-                    <v-list-tile>
+                    <v-list-tile class="group-list__content">
                       <div v-html="item.answer"></div>
                     </v-list-tile>
                   </v-list-group>
@@ -96,7 +96,7 @@
                       </v-list-tile>
                     </template>
 
-                    <v-list-tile>
+                    <v-list-tile class="group-list__content">
                       <div v-html="item.text"></div>
                     </v-list-tile>
                   </v-list-group>
@@ -189,6 +189,17 @@
     background: #e0ebfe !important;
     color: #4285f4;
   }
+
+  /* FIX THE ACCOURDION BUG INTRODUCED WITH ALUMNII DEPLOYMENT */
+  >>> .v-list__group--active .v-list__group__items--no-action .v-list__tile {
+    height: auto;
+  }
+
+  .group-list__content {
+    margin-top: 12px;
+  }
+
+
 
 </style>
 
