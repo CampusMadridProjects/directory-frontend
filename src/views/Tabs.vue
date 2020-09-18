@@ -81,14 +81,27 @@
       <v-btn flat icon class="close-filters" @click="allFilters = false">
         <v-icon>close</v-icon>
       </v-btn>
-      <v-chip
-        v-for="tag in tagList"
-        :key="tag.id"
-        :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
-        @click="switchTag(tag.name)"
+      <div>
+        <v-chip
+          v-for="tag in tagList"
+          :key="tag.id"
+          :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+          @click="switchTag(tag.name)"
+        >
+          {{ tag.name }}
+        </v-chip>
+      </div>
+      <div>
+        <p class="px-2 pt-4">Programs</p>
+        <v-chip
+        v-for="program in programs"
+        :key="program.name"
+        :class="{ 'active': program.active }"
+        @click="switchProgram(program.name)"
       >
-        {{ tag.name }}
+        {{ program.name }}
       </v-chip>
+      </div>
     </div>
     <!-- /Open filters -->
 
@@ -706,6 +719,19 @@
       searchPlaceholder() {
         return this.config.searchPlaceholder || 'Try RatedPower, Andrea or UX';
       },
+      programs() {
+        const programs = this.config.programOptions;
+          if (programs) {
+          return programs.split(',').map((item) => {
+            return {
+              name: item,
+              active: this.activePrograms.indexOf(item) > -1,
+            };
+          });
+        }
+
+        return [];
+      }
     },
     methods: {
       checkChildren,
@@ -783,6 +809,16 @@
       goToCookiesPolicy() {
         this.moreActiveItem = 1;
         this.tabs = 'tabs-more';
+      },
+
+      switchProgram(program) {
+        const index = this.activePrograms.indexOf(program);
+
+        if (index !== -1) {
+          this.activePrograms.splice(index, 1);
+        } else {
+          this.activePrograms.push(program)
+        }
       },
     },
 
