@@ -3,8 +3,6 @@ import api from '@/store/helpers/api';
 
 // Functions
 function getById(state, id) {
-  console.log(id);
-  console.log(state.list);
   return state.list.find(item => item.id === id);
 }
 function getArrayIndexById(array, id) {
@@ -59,7 +57,10 @@ const mutations = {
     state.loading = false;
   },
   setPeople(state, list) {
-    state.list = list;
+    state.list = [
+      ...list.filter(item => (item.pic && item.pic != 'undefined')),
+      ...list.filter(item => (!item.pic || item.pic == '' || item.pic == 'undefined')),
+    ];
   },
   updatePerson(state, person) {
     const index = getIndexById(state, person.id);

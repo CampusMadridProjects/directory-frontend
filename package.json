@@ -1,6 +1,6 @@
 {
   "name": "campus-digital-directory-frontend",
-  "version": "0.1.0",
+  "version": "1.21.9",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -14,6 +14,7 @@
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.16",
     "vue-analytics": "^5.16.0",
+    "vue-head": "^2.2.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.19",
     "vuex": "^3.1.1"
@@ -36,10 +37,5 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ],
-  "vue": {
-    "pwa": {
-      "themeColor": "#000000"
-    }
-  }
+  ]
 }

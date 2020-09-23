@@ -1,6 +1,6 @@
 {
-  "name": "People at Campus",
-  "short_name": "Campus",
+  "name": "GFS Directory",
+  "short_name": "Directory",
   "icons": [
     {
       "src": "/img/icons/android-chrome-512x512.png",
@@ -15,6 +15,6 @@
   ],
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4285F4"
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF"
 }

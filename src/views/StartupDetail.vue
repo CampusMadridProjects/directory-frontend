@@ -1,183 +1,255 @@
 <template>
+
   <v-card light class="full-size">
+
+    <!-- Actions -->
     <v-toolbar>
-      <v-btn fab @click="$router.replace('/directory');">
+      <v-btn fab small @click="$router.replace('/directory');">
         <v-icon>arrow_back</v-icon>
       </v-btn>
-      <v-toolbar-title></v-toolbar-title>
+      <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScaem-y35W3AJeuUAeviZEkqecG98fDOBQErBw0UzJqKsa06g/viewform"
-          target="_blank"
-          class="no-underline"
-        >
-            <v-btn fab class="mx-0">
-              <v-icon>edit</v-icon>
-            </v-btn>
-        </a>
-    </v-toolbar>
-
-    <v-card-media>
-      <div class="text-xs-center">
-        <img :src="data.logo" class="startup-logo">
-      </div>
-    </v-card-media>
-
-    <v-card-text class="text-xs-left" style="padding: 8px 24px;">
-           <div class="startup-info">
-      <h3 class="headline text-xs-left mb-0">{{ data.name }}</h3>
-      <div>{{ data.accelerator }}</div>
-    </div>
-        <!--<v-subheader v-if="data.bio">What do they do?</v-subheader>-->
-      <div>{{ data.bio }}</div>
-      <a
-        v-if="data.website"
-        :href="link(data.website)"
-        target="_blank"
-        class="d-flex py-3"
+      <a :href="'/admin/#/suggest-startup-public/'+ id"
+        class="no-underline"
       >
-        {{ data.website }}
+        <v-btn fab small class="mx-0">
+          <v-icon>edit</v-icon>
+        </v-btn>
       </a>
+    </v-toolbar>
+    <!-- /Actions -->
 
-      <div class="startup-card-social-icons">
-        <a v-if="data.twitter && data.twitter !== 'undefined'"
-          :href="data.twitter"
-          target="_blank"
-          class="startup-card-social-icon"
-          @click="$ga.event('startup_detail', 'twitter', data._id)"
-        >
-          <img src="img/twitter_64.png" alt="twitter" />
-        </a>
-        <a v-if="data.linkedin && data.linkedin !== 'undefined'"
-          :href="data.linkedin"
-          target="_blank"
-          class="startup-card-social-icon"
-          @click="$ga.event('startup_detail', 'linkedin', data._id)"
-        >
-          <img src="img/linkedin_64.png" alt="linkedin" />
-        </a>
+    <!-- Loading -->
+    <div v-if="loading" class="mt-5 pt-5">
+      <loading></loading>
+    </div>
+    <!-- /Loading -->
+
+    <!-- Content -->
+    <div>
+      <!-- Startup logo -->
+      <v-card-media>
+        <div class="text-xs-center">
+          <v-img
+            :src="data.logo || 'img/nologo.png'"
+            class="startup-logo"
+            aspect-ratio="1"
+          />
+        </div>
+      </v-card-media>
+      <!-- /Startup logo -->
+      <!-- Startup info -->
+      <div class="text-xs-left">
+        <div class="container-1">
+          <!-- Name and program -->
+          <div class="startup-info text-xs-left">
+            <div class="headline">{{ data.name }}</div>
+            <div>{{ data.accelerator }}</div>
+          </div>
+          <!-- /Name and program -->
+          <!-- Bio -->
+          <span v-if="data.bio" class="subheading">
+            {{ data.bio }}
+          </span>
+          <!-- /Bio -->
+          <!-- Website -->
+          <div class="pa-0 my-2 bottom-cta">
+            <v-btn
+              x-large
+              color="primary"
+              v-if="data.website"
+              :href="$link(data.website)"
+              target="_blank"
+              class="elevation-0 br-6 bottom-cta"
+              @click="$ga.event('startup_detail', 'website', data.website)"
+            >
+              Visit website
+            </v-btn>
+          </div>
+          <!-- /Website -->
+        </div>
       </div>
-
+      <!-- /Startup info -->
+      <!-- Program -->
+      <v-card-title v-if="config.hasProgram && data.program" primary-title>
+        <div class="location">
+          <v-icon size="14" class="mr-1">people</v-icon>
+          <span>{{ data.program }}</span>
+        </div>
+      </v-card-title>
+      <!-- /Program -->
+      <!-- Location -->
+      <v-card-title v-if="data.location" primary-title>
+        <div class="location">
+          <v-icon size="14" class="mr-1">room</v-icon>
+          <span>{{ data.location }}</span>
+        </div>
+      </v-card-title>
+      <!-- /Location -->
+      <!-- Membership dates -->
+      <!-- <v-card-title primary-title>
+        <div class="location">
+          <v-icon size="14" class="mr-1">calendar_today</v-icon>
+          <span>Member from 10/2020 to 10/2021</span>
+        </div>
+      </v-card-title> -->
+      <!-- /Membership dates -->
+      <v-divider></v-divider>
+      <!-- /Employees -->
       <div
         v-if="data.persons && data.persons.length > 0"
-        class="startup-employees"
+        class="startup-employees px-4 my-2"
       >
-<v-subheader>Team</v-subheader>
+        <h2>Team</h2>
         <person-list :people="data.persons" event-category="startup_detail"></person-list>
       </div>
-    </v-card-text>
+      <!-- /Employees -->
+      <v-divider></v-divider>
+      <!-- Social profiles -->
+      <social-links
+        :data="data"
+        :config="config"
+        class="px-4 my-3"
+      />
+      <!-- /Social profiles -->
+    </div>
+    <!-- /Content -->
 
   </v-card>
+
 </template>
 
 <style scoped>
-    .full-size {
-      border-radius: 0 !important;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      height: auto;
-    }
-    
-    .v-subheader {
-        padding: 0px;
-    }
-    
-    >>> .v-list__tile {
-        min-height: 72px !important;
-        padding: 0px;
-        border: 1px solid #f0f0f0;
-        border-radius: 4px;
-        margin-bottom: 8px;
-    }
 
-    .startup-logo {
-      max-width: 370px;
-      width: 100%;
-    }
+  /* makes toolbar icons bigger */
+  .v-toolbar .v-btn--floating.v-btn--small .v-icon {
+      font-size: x-large;
+  }
 
-    .startup-info {
-      text-align: center;
-    }
+  /* styles for the detail view | repeated in person detail */
+  .full-size {
+    border-radius: 0 !important;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: auto;
+  }
 
-    .startup-card-social-icon img {
-      width: 42px;
-    }
+  .v-subheader {
+      padding: 0px;
+  }
 
-    .startup-employees {
-      max-width: 500px;
-      margin: auto;
-    border-top: 1px solid #f0f0f0;
+  >>> .v-list__tile {
+      min-height: 72px !important;
+      padding: 0px;
+      border: 1px solid #f0f0f0;
+      border-radius: 4px;
+      margin-bottom: 8px;
+  }
+
+  .v-btn--icon {
+    min-width: 36px;
+  }
+
+
+  /*** TOOLBAR ***/
+
+  .v-toolbar {
+    background-color: transparent;
+    box-shadow: none;
+    margin-bottom: -64px;
+    z-index: 1;
+    position: fixed;
+    width: 360px;
+  }
+
+  /* adds shadow to detail toolbar icons */
+  .v-toolbar .v-btn {
+    background: white !important;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.2) !important;
+  }
+
+  .v-toolbar__title {
+    width: 80%;
+    text-align: center;
+    margin: 0px;
+  }
+
+  /*** /TOOLBAR ***/
+
+  /*** STARTUP STYLES ***/
+
+  .startup-logo {
+    width: 100%;
+  }
+
+  .startup-info {
+    text-align: center;
+  }
+
+  .startup-employees {
+    max-width: 500px;
+    margin: auto;
+    /* border-top: 1px solid #f0f0f0; */
     margin-top: 12px;
     padding-top: 8px;
-    }
+  }
 
+  /*** /STARTUP STYLES ***/
+
+  @media screen and (max-width: 768px) {
+    .bottom-cta {
+      width: 100%;
+    }
     .v-toolbar {
-      background-color: transparent;
-      box-shadow: none;
-/*        margin-bottom: -64px;*/
-        z-index: 1;
+      width: 100% !important;
+    }
+  }
+
+  @media (max-width: 960px) {
+
+    .v-toolbar__content>:first-child.v-btn--icon,
+    .v-toolbar__extension>:first-child.v-btn--icon {
+      margin-left: 0px;
     }
 
-    .v-toolbar__title {
-      width: 80%;
-      text-align: center;
-      margin: 0px;
-    }
-
-    .v-btn--icon {
-      min-width: 36px;
-    }
-    
-    .v-toolbar__content button {
-        width: 45px;
-    }
-    .v-btn:hover {
-        background: white !important;
-    }
-
-    @media (max-width: 960px) {
-      .v-toolbar__content>:first-child.v-btn--icon,
-      .v-toolbar__extension>:first-child.v-btn--icon {
-        margin-left: 0px;
-      }
-    }
+  }
 </style>
 
 <script>
-import PersonList from '../components/PersonList.vue';
+  import PersonList from '../components/PersonList.vue';
+  import SocialLinks from '@/components/SocialLinks.vue';
 
-export default {
-  name: 'StartupDetail',
-  components: {
-    PersonList,
-  },
-  data: () => ({
-    loading: true,
-    id: null,
-    data: {},
-  }),
-  methods: {
-    getData() {
-      this.data = this.$store.getters['startups/getById'](this.id);
-      this.loading = false;
-      console.log(this.data);
+  export default {
+    name: 'StartupDetail',
+    components: {
+      PersonList,
+      SocialLinks,
     },
-    link(url) {
-      if (url.toLowerCase().indexOf('http') === -1) {
-        return `https://${url}`;
+    data: () => ({
+      loading: true,
+      id: null,
+      data: {},
+    }),
+    computed: {
+      config() {
+        return this.$store.state.config.config;
+      },
+    },
+    methods: {
+      getData() {
+        this.data = this.$store.getters['startups/getById'](this.id);
+        this.loading = false;
+      },
+    },
+    created() {
+      this.id = this.$router.currentRoute.params.id;
+
+      if (this.$store.state.people.list.length > 0) {
+        this.getData();
+      } else {
+        this.$store.dispatch('startups/getStartups')
+          .then(this.getData);
       }
-
-      return url;
-    }
-  },
-  created() {
-    this.id = this.$router.currentRoute.params.id;
-
-    if (this.$store.state.people.list.length > 0) {
-      this.getData();
-    } else {
-      this.$store.dispatch('startups/getStartups')
-        .then(this.getData);
-    }
-  },
-};
+    },
+  };
 </script>

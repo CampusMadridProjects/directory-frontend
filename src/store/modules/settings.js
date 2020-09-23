@@ -4,28 +4,29 @@ import api from '@/store/helpers/api';
 // Inital state
 const initialState = {
   loading: false,
-  list: [],
+  modules: [],
+  slack: {},
 };
 
 // Getters
 const getters = {
-  getById: state => id => state.list.find(item => item.id === id),
-  getByTarget: state => target => {
-    return state.list.filter(item => (item.for && item.for.indexOf(target) > -1));
-  }
+  slackWorkspace(state) {
+    if (!state.slack) return '';
+    return state.slack.slackWorkspace || '';
+  },
 };
 
 // Actions
 const actions = {
-  getTags({ commit }) {
+  getConfig({ commit }) {
     commit('loadStart');
 
-    axios.get(`${api.url}/tag`)
+    return axios.get(`${api.url}/config`)
       .then((response) => {
-        commit('setTags', response.data || []);
+        commit('setConfig', response.data || []);
       })
       .catch((e) => {
-        console.error('Error getting tag list');
+        console.error('Error getting config info');
         console.error(e);
       })
       .finally(() => {
@@ -42,10 +43,9 @@ const mutations = {
   loadEnd(state) {
     state.loading = false;
   },
-  setTags(state, list) {
-    state.list = list.filter(tag => tag.name).sort((a, b) => {
-      return a.name.trim().localeCompare(b.name.trim())
-    });
+  setConfig(state, config) {
+    state.modules = config.modules;
+    state.slack = config.slack;
   },
 };
 

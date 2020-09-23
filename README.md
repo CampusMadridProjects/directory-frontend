@@ -7,7 +7,11 @@ This is a web-app that shows people and organizations in a community. This allow
 It uses JavaScript, VueJS and Vuetify to have a material layout.
 
 ## Status
-Currently, we are **actively developing** this. It shall have bugs, since we're right now testing everything, and making it stable. Also, this is an experimental development, and we are learning while we develop, so it might contain unusefull forgotten code. If you plan to use this in a hostile production environment, do it under your own responsibility.
+Currently, we are **actively developing** this.
+
+It might have bugs. Also, this is an experimental development, and we are learning while we develop, so it might contain unusefull forgotten code.
+
+If you plan to use this in a hostile production environment, do it under your own responsibility.
 
 You can follow the development, and propose new features, in this repo's issues ^^
 
@@ -28,21 +32,16 @@ Install dependencies
 ```
 npm install
 ```
-Create a file called `.env` (yes, nothing before the dot. It's a hidden file)
+Create a file called `.env.development` (yes, starting with a dot. It's a hidden file)
 ```
-touch .env
+touch .env.development
 ```
-Open this `.env` file (with any text editor) and set the environmen vars. Just copy and paste this, and update your api url:
+Open this `.env.development` file (with any text editor) and set the environmen vars. Just copy and paste this, and update your data:
 ```bash
-VUE_APP_API_URL=https://your-api-url.com
-VUE_APP_API_PEOPLE=getPeople
-VUE_APP_API_STARTUPS=getStartups
-VUE_APP_API_ORGS=getOrganizations
-VUE_APP_API_LOCATION=isLocationValid
-VUE_APP_ANALYTICS_TRACKING_ID=UA-123456789-0
-VUE_APP_NEED_AUTH=false
+VUE_APP_API_URL=http://localhost:3000/api
+VUE_APP_ANALYTICS_ID=UA-000000000-0
+VUE_APP_SUPPORT_EMAIL=support@communitytools.co
 ```
-*If you use the cloud-functions based backend, your URL will be something like https://us-central1-projectID.cloudfunctions.net or similar*
 
 Start developing
 ```
@@ -50,9 +49,12 @@ npm run serve
 ```
 
 # Build a production version
-In the project folder, execute
+
+Probably you will have different env vars in prodution. So, create another .env file called `.env.production` and fill it with the production variables.
+
+Once you have your production env set, in the project folder, execute
 ```
-npm run build
+npm run build -- --mode production
 ```
 And you will have your prouction-ready build in the `/build` folder. The content in that folder is ready to deploy in your favorite hosting service (even in github pages...)
 
