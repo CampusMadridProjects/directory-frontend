@@ -26,10 +26,10 @@
   </v-container>
   <!-- /Nothing found -->
   <!-- Container -->
-  <v-container class="card-grid mb-5 pb-3" v-else>
+  <v-container class="card-grid mb-5 pb-3 pt-2" v-else>
     <v-flex
       xs12 sm6 md3 lg2 xl2
-      v-for="person in this.filterPeople(search, filter)"
+      v-for="person in this.filterPeople(search, filter, programs)"
       :key="person._id"
       class="card-grid-item"
     >
@@ -83,15 +83,15 @@
 
 <style scoped>
 
-.light-border-bottom {
-  border-bottom: 1px solid #eaeaea;
-  border-radius: 0px;
-}
+  .light-border-bottom {
+    border-bottom: 1px solid #eaeaea;
+    border-radius: 0px;
+  }
 
-.light-border {
-  border: 1px solid #eaeaea;
-  border-radius: 6px;
-}
+  .light-border {
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+  }
 
   /* aligns FAB | duplicated in Startup.vue */
   .v-btn--bottom {
@@ -160,6 +160,7 @@
     props: {
       search: { type: String, required: false },
       filter: { type: Array, required: false },
+      programs: { type: Array, required: false },
     },
 
     components: {
@@ -207,27 +208,42 @@
         return found;
       },
 
-      filterByCategory(list, categories) {
-        if (!Array.isArray(categories) || categories.length === 0) {
-          return list;
+      filterByCategory(list, tags, programs) {
+        let filtered = list;
+
+        if (Array.isArray(tags) && tags.length !== 0) {
+          // Filter by tags
+          list = list.filter((person) => {
+            let clearTags = [];
+            if (person.Tag) {
+              clearTags = person.Tag.map(item => item.name);
+            }
+
+            for (let i = 0; i < tags.length; i += 1) {
+              if (!clearTags || !this.inArray(clearTags, tags[i])) {
+                return false;
+              }
+            }
+            return true;
+          });
         }
 
-        return list.filter((person) => {
-          let clearTags = [];
-          if (person.Tag) {
-            clearTags = person.Tag.map(item => item.name);
-          }
+        if (Array.isArray(programs) && programs.length !== 0) {
+          // Filter by programs
+          list = list.filter((person) => {
+            if (!person.program) return false;
 
-          // console.log(categories);
-          // console.log(clearTags);
-
-          for (let i = 0; i < categories.length; i += 1) {
-            if (!clearTags || !this.inArray(clearTags, categories[i])) {
-              return false;
+            for (let i = 0; i < programs.length; i += 1) {
+              if (person.program.indexOf(programs[i]) > -1) {
+                return true;
+              }
             }
-          }
-          return true;
-        });
+
+            return false;
+          });
+        }
+
+        return list
       },
 
       filterByText(list, search) {
@@ -264,12 +280,13 @@
        *  any way with the term.
        *
        *  @param {string} search Search query to filter persons
-       *  @param {array} filter Filter by categories to search
+       *  @param {array} tags Filter by tags to search
+       *  @param {array} programs Filter by tags to search
        *  @return {array} An array that matches the requested search term
        */
-      filterPeople(search, filter) {
-        // filter by categories
-        const filteredByCategory = this.filterByCategory(this.$store.state.people.list, filter);
+      filterPeople(search, tags, programs) {
+        // filter by tags
+        const filteredByCategory = this.filterByCategory(this.$store.state.people.list, tags, programs);
 
         // Filter by search text
         return this.filterByText(filteredByCategory, search);

@@ -1,12 +1,12 @@
 <template>
-  <v-card light :hover="true" class="custom-hover">
-    <v-list-tile @click="goToPerson(id)">
+  <v-card light :hover="true" class="custom-hover py-2">
+    <v-list-tile class="pl-0 pr-0" @click="goToPerson(id)">
       <div>
         <v-list-tile-avatar :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
         </v-list-tile-avatar>
       </div>
 
-      <div class="person-info">
+      <div class="person-info pl-3">
         <v-list-tile-title class="text-xs-left">
           <person-fullname :name="name" :surname="surname" />
         </v-list-tile-title>
@@ -27,6 +27,12 @@
 </template>
 
 <style scoped>
+
+  /* fix ellipsis problem with skill chips */
+  .v-chip {
+    display: inline-grid;
+  }
+
   >>> .v-chip .v-chip__content {
     height: 24px;
     font-size: 16px;
@@ -41,8 +47,15 @@
   .custom-hover:hover {
     box-shadow: none !important;
     background: #f5f5f5 !important;
-}
+  }
 
+  /* styles card height  */
+  >>> .v-list__tile {
+    height: auto;
+  }
+  .v-card {
+    border-radius: 0px;
+  }
 </style>
 
 <style>
@@ -56,19 +69,13 @@
   box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);
 }
 
-.v-list__tile {
-  height: auto;
-  min-height: 96px;
-  padding: 0px 16px;
-}
-
 .v-list__tile__title {
   font-size: 21px;
 }
 
+/* avoids layout breaking */
 .person-info {
-  padding: 12px;
-  max-width: 80%;
+  max-width: 81%;
 }
 
 .v-list__tile__action, .v-list__tile__avatar {

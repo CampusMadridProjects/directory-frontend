@@ -162,6 +162,7 @@
 </template>
 
 <style>
+
   /* custom border radius */
   .br-6 {
     border-radius: 6px;
@@ -274,8 +275,7 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     height: auto;
-    padding-bottom: 20%;
-  } /* startup detail doesn't have padding bottom because it doesn't have a fixed CTA */
+  }
 
   /* makes bottom CTA full width */
   .bottom-cta >>> .v-btn {
@@ -442,7 +442,7 @@
         } else if (this.data.facebook) {
           connectData.media = 'Facebook';
           connectData.url = this.$link(this.data.facebook);
-        
+
         } else {
           connectData.show = false;
         }

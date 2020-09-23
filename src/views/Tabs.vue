@@ -1,8 +1,7 @@
 <template>
   <v-app>
-    <v-toolbar :extended="hasFilters" app>
+    <v-toolbar :extended="hasFilters" app class="light-border-bottom">
       <img :src="logo" class="logo" :title="title">
-
       <v-text-field
         prepend-inner-icon="search"
         hide-details
@@ -10,24 +9,25 @@
         solo
         v-model="search"
         clearable
-        color="#F5F5F5"
+        color="primary"
+        background-color="#f1f3f4"
         class="search-box"
         :placeholder="searchPlaceholder"
         @keyup="trackSearch(search)"
         @click:clear="searchClear()"
         @click="goToSearchMenu"
       ></v-text-field>
-
+      <!-- Add profile button -->
       <v-btn
         large
         color="primary"
         href="/admin/#/suggest-public"
-        class="elevation-0"
+        class="elevation-0 hidden-md-and-down"
       >
         <v-icon left>add</v-icon>Add Profile
       </v-btn>
-
-      <!-- filter chips -->
+      <!-- /Add profile button -->
+      <!-- Filter chips -->
       <v-container
         v-if="hasFilters"
         slot="extension"
@@ -40,25 +40,35 @@
       >
         <div class="scroll-container">
           <div class="text-md-center chip-content">
-            <span class="mr-2 d-sm-none d-lg-flex">
-              Filter by:
-            </span>
+            <!-- All filters button -->
             <v-chip
               @click="allFilters = !allFilters"
             >
-              <v-icon size="14" class="px-1">apps</v-icon>
-              <span v-if="tagFilter.length === 0">All filters</span>
-              <span v-else>Active filters ({{ tagFilter.length }})</span>
+              <v-icon class="ml-0 px-1">tune</v-icon>
+              <!-- <span v-else><v-icon class="ml-0">tune</v-icon>({{ tagFilter.length }})</span> -->
             </v-chip>
+            <!-- /All filters button -->
+
+            <!-- Dropdown chip -->
+            <program-filter
+              v-if="hasProgram"
+              v-model="activePrograms"
+            />
+            <!-- /Dropdown chip -->
+
+            <!-- Skill chips -->
             <v-chip
               v-for="tag in tagList"
               :key="tag.id"
               :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
               @click="switchTag(tag.name)"
             >
-              {{ tag.name }}
+              <span class="px-2">{{ tag.name }}</span>
             </v-chip>
-            <span class="chip-spacer"></span>
+            <!-- Skill chips -->
+            <!-- All filters again -->
+            <v-btn @click="allFilters = !allFilters" flat color="primary" class="ml-0 mr-3"><strong>All filters</strong></v-btn>
+            <!-- /All filters again -->
           </div>
         </div>
       </v-container>
@@ -72,14 +82,27 @@
       <v-btn flat icon class="close-filters" @click="allFilters = false">
         <v-icon>close</v-icon>
       </v-btn>
-      <v-chip
-        v-for="tag in tagList"
-        :key="tag.id"
-        :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
-        @click="switchTag(tag.name)"
+      <div>
+        <v-chip
+          v-for="tag in tagList"
+          :key="tag.id"
+          :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+          @click="switchTag(tag.name)"
+        >
+          {{ tag.name }}
+        </v-chip>
+      </div>
+      <div v-if="hasProgram">
+        <p class="px-2 pt-4">Programs</p>
+        <v-chip
+        v-for="program in programs"
+        :key="program.name"
+        :class="{ 'active': program.active }"
+        @click="switchProgram(program.name)"
       >
-        {{ tag.name }}
+        {{ program.name }}
       </v-chip>
+      </div>
     </div>
     <!-- /Open filters -->
 
@@ -95,19 +118,29 @@
           v-if="config.showPeople !== false"
           value="tabs-people"
         >
-          <People :search="search" :filter="tagTabFilter"></People>
+          <People
+            :search="search"
+            :filter="tagTabFilter"
+            :programs="activePrograms"
+          />
         </v-tab-item>
         <v-tab-item
           v-if="config.showStartups !== false"
           value="tabs-startups"
         >
-          <Startup :search="search" :filter="tagTabFilter"></Startup>
+          <Startup
+            :search="search"
+            :filter="tagTabFilter"
+            :programs="activePrograms"
+          />
         </v-tab-item>
         <v-tab-item
           v-if="config.showMore !== false"
           value="tabs-more"
         >
-            <More :active-item="moreActiveItem" />
+          <More
+            :active-item="moreActiveItem"
+          />
         </v-tab-item>
       </v-tabs-items>
     </v-content>
@@ -167,6 +200,35 @@
 
 <style scoped>
 
+  .v-input {
+    font-size: 1.2rem;
+  }
+
+  /* Adds cursor hover to chips */
+  .v-chip span, .v-chip i {
+    cursor: pointer;
+    line-height: initial;
+  }
+
+  .light-border-bottom {
+    border-bottom: 1px solid #eaeaea;
+    border-radius: 0px;
+  }
+
+  /* .light-border-bottom:after {
+    content:"";
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(234,234,234,1) 24%, rgba(234,234,234,1) 100%);
+    display: block;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  } */
+
+  >>> .v-toolbar .v-chip .v-chip__content {
+    padding: 0px;
+  }
+
   /* changes default padding for large button */
   .v-btn--large {
     padding: 0 16px;
@@ -183,7 +245,7 @@
     margin-top: -6px;
   }
 
-  /**/
+  /* */
   .v-item-group.v-bottom-nav .v-btn .v-btn__content span {
     font-weight: bold;
   }
@@ -206,10 +268,6 @@
     margin-right: 8px;
   }
 
-  .v-input__slot {
-      background: #e0e0e0;
-  }
-
   .v-bottom-nav {
       box-shadow: none;
       border-top: 1px solid #DFE1E5;
@@ -222,6 +280,7 @@
   .v-btn--active:before, .v-btn:focus:before, .v-btn:hover:before {
        background-color: transparent;
   }
+
   /* - Remove padding in chips*/
   >>> .v-toolbar__extension {
     padding: 0 !important;
@@ -278,7 +337,8 @@
     background: #FFFFFF;
     border: 1px solid #DFE1E5;
     color: #3c3c3c;
-    font-weight: 500;
+    /* font-weight: 500; */
+    font-size: 1.1rem;
   }
     .v-chip:focus {
       box-shadow: none;
@@ -310,20 +370,12 @@
     background: #ffffff;
   }
 
-  .theme--light .v-text-field--solo .v-input__slot {
-    background: #e0e0e0;
-    border-radius: 50px;
-  }
-
   .v-text-field.v-text-field--solo .v-input__control {
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
   }
 
-  /*.chip-content {
-    text-align: center;
-  }*/
     .scroll-container {
       overflow-x: scroll;
       width: calc(100% - 116px);
@@ -356,14 +408,20 @@
     width: 360px;
   }
 
-
-
-  .search-box >>> .v-input__slot {
-    /* border-radius: 8px !important; */
-    border-radius: 50px !important;
-    background: #f1f3f4 !important;
+  /* search box interaction */
+  >>> .theme--light.v-text-field--solo>.v-input__control>.v-input__slot {
+    border-radius: 50px;
     font-weight: 500;
-    border: 2px solid #f1f3f4;
+    border: 1px solid #e6e6e6;
+  }
+
+  >>> .v-input--is-focused .v-input__slot {
+    background: white !important;
+    border: 1px solid #e6e6e6 !important;
+  }
+
+  >>> .v-input--is-label-active .v-input__slot {
+    background: white !important;
   }
 
   .search-box >>> .v-input__icon i {
@@ -373,6 +431,7 @@
   .search-box >>> .v-text-field .v-input__prepend-inner {
       padding-right: 8px;
   }
+  /* /search box interaction */
 
   /* bigger-chips-mobile */
   @media only screen and (max-width: 768px) {
@@ -390,6 +449,17 @@
 
   @media (max-width: 959px) {
 
+    /* Fixes library default toolbar styles in mobile */
+    >>> .v-toolbar__extension {
+      margin-top: -8px !important;
+      margin-bottom: 2px !important;
+    }
+
+    /* bigger text size in search box mobile */
+    .v-input {
+      font-size: 1.4rem;
+    }
+
     .v-footer {
       height: auto !important;
       padding: 16px 0px;
@@ -401,10 +471,6 @@
       padding: 8px;
     }
 
-      .v-toolbar .v-btn {
-          display: none;
-      }
-
       .v-toolbar img {
           display: none;
       }
@@ -415,14 +481,6 @@
       */
       .d-sm-none {
           display: none;
-      }
-
-      .search-box >>> input {
-        color: #8E8E93 !important;
-      }
-
-      .search-box >>> .v-input__slot {
-        background: #f5f5f5;
       }
   }
 
@@ -444,8 +502,9 @@
       position: fixed;
       top: 72px;
       justify-content: flex-start;
-      width: 96px !important;
-      margin: 0px 24px;
+      width: 136px !important;
+      padding: 0px 24px;
+      background: white;
     }
 
       .v-item-group.v-bottom-nav .v-btn {
@@ -498,15 +557,8 @@
 <style>
 
   .v-toolbar__extension {
-    height: 56px !important;
-  }
-
-  .v-content {
-    padding: 100px 0px 0px !important;
-  }
-
-  .v-content.no-extended {
-      padding: 56px 0px 0px !important;
+    height: 48px !important;
+    margin-top: 12px;
   }
 
   .v-item-group.v-bottom-nav .v-btn {
@@ -534,10 +586,6 @@
       color: #4285F4 !important;
   }
 
-  .v-input--is-focused .v-input__slot {
-    background: #ffffff !important;
-  }
-
   .no-underline {
     text-decoration: none;
   }
@@ -546,13 +594,6 @@
     height: 56px !important;
     align-content: center;
     margin: 8px 0px;
-  }
-
-  /*.v-input__slot {
-    border-radius: 50px !important;
-    background: #f1f3f4 !important;
-    font-weight: 500;
-    border: 2px solid #f1f3f4;
   }
 
   .v-input__icon i {
@@ -565,20 +606,17 @@
 
   @media (max-width: 959px) {
 
+    /* provisonal fix for toolbar extension misalignment */
+    .v-toolbar__content {
+      margin-bottom: -2px;
+    }
+
     main {
       padding: 96px 0px 0px !important;
     }
 
-    /*input {
-      color: #8E8E93 !important;
-    }
-
-    .v-input__slot {
-      background: #f5f5f5;
-    }*/
-
     .v-content {
-      padding: 124px 0px 0px !important;
+      padding: 120px 0px 0px !important;
     }
 
   }
@@ -588,6 +626,7 @@
 <script>
   import Home from '../components/Home.vue';
   import People from '../components/People.vue';
+  import ProgramFilter from '../components/ProgramFilter.vue';
   import Startup from '../components/Startup.vue';
   import More from '../components/More.vue';
   import CookiesNotice from '@/components/CookiesNotice.vue';
@@ -624,6 +663,7 @@
     components: {
       Home,
       People,
+      ProgramFilter,
       Startup,
       More,
       CookiesNotice,
@@ -644,6 +684,7 @@
       dialog: false,
       tabClicked: null,
       moreActiveItem: null,
+      activePrograms: [],
     }),
     computed: {
       config() {
@@ -679,6 +720,22 @@
       searchPlaceholder() {
         return this.config.searchPlaceholder || 'Try RatedPower, Andrea or UX';
       },
+      hasProgram() {
+        return this.config.hasProgram && this.config.programOptions;
+      },
+      programs() {
+        const programs = this.config.programOptions;
+          if (programs) {
+          return programs.split(',').map((item) => {
+            return {
+              name: item,
+              active: this.activePrograms.indexOf(item) > -1,
+            };
+          });
+        }
+
+        return [];
+      }
     },
     methods: {
       checkChildren,
@@ -726,12 +783,30 @@
       },
 
       checkInitialTab() {
+        if (this.config.showHome === false) {
+          this.tabs = 'tabs-people';
+        }
+      },
+
+      checkInitialQuery() {
+        const program = Number(this.$route.query.program);
+        if (!this.config.programOptions || isNaN(program)) {
+          return false;
+        }
+
+        const programs = this.config.programOptions.split(',');
+        const initialProgram = programs[this.$route.query.program];
+        if (initialProgram) {
+          this.activePrograms.push(initialProgram);
+        }
+      },
+
+      checkInitialState() {
         if (this.$store.state.config.loaded === true) {
-          if (this.config.showHome === false) {
-            this.tabs = 'tabs-people';
-          }
+          this.checkInitialQuery();
+          this.checkInitialTab();
         } else {
-          return setTimeout(this.checkInitialTab, 200);
+          return setTimeout(this.checkInitialState, 200);
         }
       },
 
@@ -739,13 +814,23 @@
         this.moreActiveItem = 1;
         this.tabs = 'tabs-more';
       },
+
+      switchProgram(program) {
+        const index = this.activePrograms.indexOf(program);
+
+        if (index !== -1) {
+          this.activePrograms.splice(index, 1);
+        } else {
+          this.activePrograms.push(program)
+        }
+      },
     },
 
     created() {
       this.$store.dispatch('tags/getTags');
       this.checkChildren(this.$router.currentRoute.name);
       this.deferPrompt();
-      this.checkInitialTab();
+      this.checkInitialState();
     },
 
     watch: {
