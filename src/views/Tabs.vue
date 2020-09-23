@@ -51,6 +51,7 @@
 
             <!-- Dropdown chip -->
             <program-filter
+              v-if="hasProgram"
               v-model="activePrograms"
             />
             <!-- /Dropdown chip -->
@@ -91,7 +92,7 @@
           {{ tag.name }}
         </v-chip>
       </div>
-      <div>
+      <div v-if="hasProgram">
         <p class="px-2 pt-4">Programs</p>
         <v-chip
         v-for="program in programs"
@@ -718,6 +719,9 @@
       },
       searchPlaceholder() {
         return this.config.searchPlaceholder || 'Try RatedPower, Andrea or UX';
+      },
+      hasProgram() {
+        return this.config.hasProgram && this.config.programOptions;
       },
       programs() {
         const programs = this.config.programOptions;
