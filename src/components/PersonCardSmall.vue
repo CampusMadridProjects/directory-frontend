@@ -5,7 +5,6 @@
         <v-list-tile-avatar :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
         </v-list-tile-avatar>
       </div>
-
       <div class="person-info pl-3">
         <v-list-tile-title class="text-xs-left">
           <person-fullname :name="name" :surname="surname" />
