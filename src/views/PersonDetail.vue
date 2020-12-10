@@ -9,7 +9,9 @@
       </v-btn>
       <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
-      <a :href="'/admin/#/suggest-person-public/'+ id"
+      <a
+        v-if="!config.hideAddButton"
+        :href="'/admin/#/suggest-person-public/'+ id"
         class="no-underline"
       >
         <v-btn fab small class="ma-0 elevation-2">

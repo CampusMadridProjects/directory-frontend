@@ -58,6 +58,11 @@
             placeholder="Write what you want to tell"
             :error-messages="messageError"
           ></v-textarea>
+
+          <VueRecaptcha
+            sitekey="6Lf4fOIZAAAAAEeq56xYIbvRDK7YmpGBRkDDOhpo"
+            :loadRecaptchaScript="true"
+          />
         </v-card-text>
 
         <loading
@@ -95,10 +100,13 @@
 </style>
 
 <script>
+  import VueRecaptcha from 'vue-recaptcha';
+
   import Loading from '@/components/Loading.vue';
 
   export default {
     components: {
+      VueRecaptcha,
       Loading,
     },
 
