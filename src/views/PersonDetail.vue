@@ -10,7 +10,7 @@
       <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
       <a
-        v-if="!config.hideAddButton"
+        v-if="!(config.hideAddButton || config.hideEditButton)"
         :href="'/admin/#/suggest-person-public/'+ id"
         class="no-underline"
       >
@@ -74,10 +74,16 @@
           <!-- CTA -->
           <div class="pa-0 my-2 bottom-cta" v-if="config.agency && config.agency.active === true">
             <agency-button :id="data.id" />
+
+            <!-- This dont goes in this div, but in lower -->
+            <!-- <connect-dropdown :data="data" /> -->
+
           </div>
+
           <div class="pa-0 my-2 bottom-cta" v-else-if="config.emailConnect === true">
             <send-mail :id="data.id" />
           </div>
+
           <div v-else class="pa-0 my-2 bottom-cta">
             <v-btn
               color="primary"
@@ -371,6 +377,7 @@
   import Loading from '@/components/Loading.vue';
   import PersonFullname from '@/components/PersonFullname.vue';
   import AgencyButton from '@/components/AgencyButton.vue';
+  import ConnectDropdown from '@/components/ConnectDropdown.vue';
   import SendMail from '@/components/SendMail.vue';
   import SocialLinks from '@/components/SocialLinks.vue';
 
@@ -380,6 +387,7 @@
       Loading,
       PersonFullname,
       AgencyButton,
+      ConnectDropdown,
       SendMail,
       SocialLinks,
     },

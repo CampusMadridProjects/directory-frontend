@@ -10,7 +10,7 @@
       <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
       <a
-        v-if="!config.hideAddButton" 
+        v-if="!(config.hideAddButton || config.hideEditButton)"
         :href="'/admin/#/suggest-startup-public/'+ id"
         class="no-underline"
       >
