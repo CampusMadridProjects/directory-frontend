@@ -146,12 +146,13 @@
     </v-content>
 
     <v-bottom-nav
-      class="desktop-horizontal"
+      class="desktop-horizontal bottom-tab"
       :active.sync="tabs"
       :value="true"
       fixed
     >
       <v-btn
+        class="bottom-tab"
         v-if="config.showHome !== false"
         flat
         value="tabs-home"
@@ -161,6 +162,7 @@
       </v-btn>
 
       <v-btn
+        class="bottom-tab"
         v-if="config.showPeople !== false"
         flat
         value="tabs-people"
@@ -170,6 +172,7 @@
       </v-btn>
 
       <v-btn
+        class="bottom-tab"
         v-if="config.showStartups !== false"
         flat
         value="tabs-startups"
@@ -179,6 +182,7 @@
       </v-btn>
 
       <v-btn
+        class="bottom-tab"
         v-if="config.showMore !== false"
         flat
         value="tabs-more"
@@ -199,6 +203,13 @@
 </template>
 
 <style scoped>
+
+  .bottom-tab {
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    height: calc(100% + (var(--safe-area-inset-top) + var(--safe-area-inset-bottom)));
+    padding-bottom:1.8rem;padding-bottom: max(env(safe-inset-area-bottom), 1.8rem);
+  }
 
   .v-input {
     font-size: 1.2rem;
