@@ -23,10 +23,13 @@
         <div class="ellipsis">
           <span class="one-line">
             {{ role }}
-            <span v-if="role && company">at</span>
+          </span>
+        </div>
+        <div class="ellipsis">
+          <span class="one-line">
+            <!-- <v-icon size="14" class="mr-1">people</v-icon> -->
             <!-- <span v-else>-</span> -->
             {{ company }}
-            &nbsp;
           </span>
         </div>
       </div>
