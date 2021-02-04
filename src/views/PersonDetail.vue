@@ -9,7 +9,9 @@
       </v-btn>
       <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
-      <a :href="'/admin/#/suggest-person-public/'+ id"
+      <a
+        v-if="!(config.hideAddButton || config.hideEditButton)"
+        :href="'/admin/#/suggest-person-public/'+ id"
         class="no-underline"
       >
         <v-btn fab small class="ma-0 elevation-2">
@@ -69,25 +71,17 @@
           <!-- Bio -->
           <span class="bio subheading">{{ data.bio }}</span>
           <!-- /Bio -->
+
           <!-- CTA -->
           <div class="pa-0 my-2 bottom-cta" v-if="config.agency && config.agency.active === true">
             <agency-button :id="data.id" />
           </div>
-          <div class="pa-0 my-2 bottom-cta" v-else-if="config.emailConnect === true">
-            <send-mail :id="data.id" />
-          </div>
+
           <div v-else class="pa-0 my-2 bottom-cta">
-            <v-btn
-              color="primary"
-              x-large
-              v-if="connect.show"
-              :href="connect.url"
-              target="_blank"
-              @click="$ga.event('person_detail', 'connect', data._id)"
-              class="elevation-0 br-6"
-            >
-              Connect via {{ connect.media }}
-            </v-btn>
+            <connect-dropdown
+              :data="data"
+              :config="config"
+            />
           </div>
           <!-- /CTA -->
         </div>
@@ -369,6 +363,7 @@
   import Loading from '@/components/Loading.vue';
   import PersonFullname from '@/components/PersonFullname.vue';
   import AgencyButton from '@/components/AgencyButton.vue';
+  import ConnectDropdown from '@/components/ConnectDropdown.vue';
   import SendMail from '@/components/SendMail.vue';
   import SocialLinks from '@/components/SocialLinks.vue';
 
@@ -378,6 +373,7 @@
       Loading,
       PersonFullname,
       AgencyButton,
+      ConnectDropdown,
       SendMail,
       SocialLinks,
     },

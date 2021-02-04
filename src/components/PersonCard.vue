@@ -1,128 +1,133 @@
 <template>
   <v-card light :hover="true" class="ma-1 pb-1 light-border custom-hover card-elements ellipsis">
+    <!--  -->
     <div @click="goToPerson(id)">
       <v-responsive
-        class="card-user-pic"
-        :aspect-ratio="1/1"
-        :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
+      class="card-user-pic"
+      :aspect-ratio="1/1"
+      :style="{backgroundImage: 'url('+ pic +'), url(img/nopic.png)'}">
       </v-responsive>
       <!-- For hire chip -->
       <!-- <v-chip color="white" class="elevation-1 ml-3" style="margin-top: -56px;">
-        <v-avatar class="mr-0">
-          <v-icon>🦄</v-icon>
-        </v-avatar>
-        <span class="ml-0">Available for hire</span>
+      <v-avatar class="mr-0">
+      <v-icon>🦄</v-icon>
+      </v-avatar>
+      <span class="ml-0">Available for hire</span>
       </v-chip> -->
       <!-- For hire chip -->
-      <div style="padding: 8px 16px 4px 16px;">
+      <!-- Name and role -->
+      <div style="padding: 8px 16px 0px 12px;">
         <div class="headline ellipsis">
           <person-fullname :name="name" :surname="surname" />
         </div>
         <div class="ellipsis">
-            <span class="one-line">
-              {{ role }}
-              <span v-if="role && company">at</span>
-              <!-- <span v-else>-</span> -->
-              {{ company }}
-              &nbsp;
-            </span>
+          <span class="one-line">
+            {{ role }}
+          </span>
+        </div>
+        <div class="ellipsis">
+          <span class="one-line">
+            <!-- <v-icon size="14" class="mr-1">people</v-icon> -->
+            <!-- <span v-else>-</span> -->
+            {{ company }}
+          </span>
         </div>
       </div>
+      <!-- /Name and role -->
     </div>
-    <div v-if="config.hasLocation" class="px-3 py-1">
-      <v-icon size="14" color="black" class="mr-1">room</v-icon>
+    <!-- / -->
+    <!-- Location -->
+    <div v-if="config.hasLocation" class="pa-2">
+      <v-icon size="14" color="#7a7a7a" class="mr-1">room</v-icon>
       <span>{{ location || 'Community' }}</span>
     </div>
-    <v-card-title primary-title @click="goToPerson(id)">
-      <div class="card-user-info">
-          <!-- <v-icon
-            v-if="expertise.length > 0"
-            size="14"
-            class="mr-1"
-            color="black"
-          >
-            local_offer
-          </v-icon>
-          <span v-else>&nbsp;</span> -->
-          <v-chip class="ma-0 mr-1" color="#f0f0f0" v-for="(ability, index) in expertise"
-            :key="ability.id">{{ (index !== 0) ?'' + ability.name : ability.name }}
-          </v-chip>
-      </div>
-    </v-card-title>
+    <!-- /Location -->
+    <!--  -->
+    <div primary-title @click="goToPerson(id)" class="ml-1 mb-1">
+      <!-- <v-icon
+      v-if="expertise.length > 0"
+      size="14"
+      class="mr-1"
+      color="black"
+      >
+      local_offer
+      </v-icon>
+      <span v-else>&nbsp;</span> -->
+      <v-chip class="mr-0" color="#f0f0f0" v-for="(ability, index) in expertise"
+      :key="ability.id">{{ (index !== 0) ?'' + ability.name : ability.name }}
+      </v-chip>
+    </div>
+    <!-- / -->
   </v-card>
 </template>
 
 <style type="text/css">
 
-    .v-card {
-      border-radius: 8px;
-      padding: 4px;
-      text-align: left;
-      width: 100%;
-    }
+  .v-card {
+    border-radius: 8px;
+    padding: 4px;
+    text-align: left;
+    width: 100%;
+  }
 
-    .card-elements {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+  .card-elements {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-    .card-user-info {
-      text-align: left;
-      width: 100%;
-    }
+  .card-user-info {
+    text-align: left;
+    width: 100%;
+  }
 
-    .v-card__title--primary {
-        padding: 8px 16px;
-    }
+  .headline {
+    font-weight: bold !important;
+  }
 
-    .headline {
-        font-weight: bold !important;
-    }
+  .v-card__media__content {
+    padding: 16px 8px 8px 8px;
+    text-align: center;
+    flex-direction: column;
+  }
 
-.v-card__media__content {
-  padding: 16px 8px 8px 8px;
-  text-align: center;
-  flex-direction: column;
-}
+  .card-user-pic {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 
-.card-user-pic {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+  /* more spread, low contrast */
+  .custom-hover:hover {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,.10) !important;
+  }
 
-/* more spread, low contrast */
-.custom-hover:hover {
-  box-shadow: 0 4px 8px 0px rgba(0,0,0,.10) !important;
-}
+  .box-shadow {
+    box-shadow: 0px 8px 8px 2px rgba(0,0,0,0.08) !important;
+  }
 
-.box-shadow {
-  box-shadow: 0px 8px 8px 2px rgba(0,0,0,0.08) !important;
-}
+  .v-card {
+    padding: 0px;
+  }
 
-.v-card {
-  padding: 0px;
-}
-
-.card-user-pic {
-  border-radius: 6px 6px 0px 0px;
-}
+  .card-user-pic {
+    border-radius: 6px 6px 0px 0px;
+  }
 
 </style>
 
 <style scoped>
-  .v-icon {
-    vertical-align: text-top;
-    font-size: 16px !important;
-  }
-  >>> .v-chip .v-chip__content {
-    height: 24px;
-  }
-  .headline {
-    font-size: 1.2rem !important;
-    line-height: 1.5 !important;
-  }
+.v-icon {
+  vertical-align: text-top;
+  font-size: 16px !important;
+}
+>>> .v-chip .v-chip__content {
+  height: 24px;
+}
+.headline {
+  font-size: 1.2rem !important;
+  line-height: 1.5 !important;
+}
 </style>
 
 <script>

@@ -19,6 +19,7 @@
       ></v-text-field>
       <!-- Add profile button -->
       <v-btn
+        v-if="!config.hideAddButton"
         large
         color="primary"
         href="/admin/#/suggest-public"
@@ -377,7 +378,7 @@
   }
 
     .scroll-container {
-      overflow-x: scroll;
+      overflow-x: auto;
       width: calc(100% - 116px);
       margin-left: 116px;
       padding-left: 36px;
@@ -452,7 +453,7 @@
     /* Fixes library default toolbar styles in mobile */
     >>> .v-toolbar__extension {
       margin-top: -8px !important;
-      margin-bottom: 2px !important;
+      margin-bottom: 4px !important;
     }
 
     /* bigger text size in search box mobile */
@@ -558,7 +559,8 @@
 
   .v-toolbar__extension {
     height: 48px !important;
-    margin-top: 12px;
+    margin-top: -4px;
+    margin-bottom: 8px;
   }
 
   .v-item-group.v-bottom-nav .v-btn {
