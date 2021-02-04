@@ -33,7 +33,7 @@
         v-if="hasFilters"
         slot="extension"
         fluid
-        class="px-0 ma-0 chip-container"
+        class="px-0 pb-2 ma-0 chip-container"
         v-touch="{
           left: () => noSwipe(),
           right: () => noSwipe(),
@@ -49,6 +49,13 @@
               <!-- <span v-else><v-icon class="ml-0">tune</v-icon>({{ tagFilter.length }})</span> -->
             </v-chip>
             <!-- /All filters button -->
+
+            <!-- Dropdown chip -->
+            <program-filter
+              v-if="hasProgram"
+              v-model="activePrograms"
+            />
+            <!-- /Dropdown chip -->
 
             <!-- Dropdown chip -->
             <program-filter
@@ -629,6 +636,7 @@
   import Home from '../components/Home.vue';
   import People from '../components/People.vue';
   import ProgramFilter from '../components/ProgramFilter.vue';
+  import SortingFilter from '../components/SortingFilter.vue';
   import Startup from '../components/Startup.vue';
   import More from '../components/More.vue';
   import CookiesNotice from '@/components/CookiesNotice.vue';
