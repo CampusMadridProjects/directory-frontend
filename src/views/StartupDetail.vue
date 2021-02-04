@@ -9,7 +9,9 @@
       </v-btn>
       <!-- <v-toolbar-title></v-toolbar-title> -->
       <v-spacer></v-spacer>
-      <a :href="'/admin/#/suggest-startup-public/'+ id"
+      <a
+        v-if="!(config.hideAddButton || config.hideEditButton)"
+        :href="'/admin/#/suggest-startup-public/'+ id"
         class="no-underline"
       >
         <v-btn fab small class="mx-0">

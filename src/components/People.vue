@@ -13,7 +13,9 @@
     <br>
     <h1>No one found</h1>
     <p>
-      <a href="/admin/#/suggest-person-public/"
+      <a
+        v-if="!config.hideAddButton"
+        href="/admin/#/suggest-person-public/"
         class="no-underline"
       >
         <v-btn color="primary" class="mb-3">
@@ -64,7 +66,12 @@
 
     </v-flex>
     <!-- FAB -->
-    <a href="/admin/#/suggest-person-public/" target="_blank" class="no-underline">
+    <a
+      v-if="!config.hideAddButton"
+      href="/admin/#/suggest-person-public/"
+      target="_blank"
+      class="no-underline"
+    >
       <v-btn
         class="hidden-md-and-up"
         fab
@@ -316,6 +323,9 @@
       },
     },
     computed: {
+      config() {
+        return this.$store.state.config.config;
+      },
       hasPeople() {
         return this.filterPeople(this.search).length === 0;
       },

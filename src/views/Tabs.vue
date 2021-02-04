@@ -19,6 +19,7 @@
       ></v-text-field>
       <!-- Add profile button -->
       <v-btn
+        v-if="!config.hideAddButton"
         large
         color="primary"
         href="/admin/#/suggest-public"

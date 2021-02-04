@@ -9,7 +9,9 @@
     <img src="img/illustrations/undraw_people_search_wctu.png" class="illustration"> <br>
     <h1>Nothing found</h1>
     <p>
-      <a href="/admin/#/suggest-startup-public/"
+      <a
+        v-if="!config.hideAddButton"
+        href="/admin/#/suggest-startup-public/"
         class="no-underline"
       >
         <v-btn color="primary" class="mb-3">
@@ -37,7 +39,12 @@
       ></startup-card>
     </v-flex>
     <!-- FAB -->
-    <a href="/admin/#/suggest-startup-public/" target="_blank" class="no-underline">
+    <a
+      v-if="!config.hideAddButton"
+      href="/admin/#/suggest-startup-public/"
+      target="_blank"
+      class="no-underline"
+    >
       <v-btn
         class="hidden-md-and-up"
         fab
@@ -206,6 +213,9 @@
     },
 
     computed: {
+      config() {
+        return this.$store.state.config.config;
+      },
       hasStartups() {
         return this.filterStartup(this.search).length === 0;
       },

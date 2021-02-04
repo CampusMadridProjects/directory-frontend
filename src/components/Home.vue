@@ -68,7 +68,11 @@
       </v-layout>
     </v-flex>
     <!-- FAB -->
-    <a href="/admin/#/suggest-public/" class="no-underline">
+    <a
+      v-if="!config.hideAddButton"
+      href="/admin/#/suggest-public/"
+      class="no-underline"
+    >
       <v-btn
         class="hidden-md-and-up"
         fab
@@ -142,6 +146,7 @@
     }),
     computed: {
       config() {
+        console.log(this.$store.state.config.config);
         return this.$store.state.config.config || {};
       },
       hasNewsHeading() {
