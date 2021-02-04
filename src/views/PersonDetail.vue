@@ -71,31 +71,17 @@
           <!-- Bio -->
           <span class="bio subheading">{{ data.bio }}</span>
           <!-- /Bio -->
+
           <!-- CTA -->
           <div class="pa-0 my-2 bottom-cta" v-if="config.agency && config.agency.active === true">
             <agency-button :id="data.id" />
-
-            <!-- This dont goes in this div, but in lower -->
-            <!-- <connect-dropdown :data="data" /> -->
-
-          </div>
-
-          <div class="pa-0 my-2 bottom-cta" v-else-if="config.emailConnect === true">
-            <send-mail :id="data.id" />
           </div>
 
           <div v-else class="pa-0 my-2 bottom-cta">
-            <v-btn
-              color="primary"
-              x-large
-              v-if="connect.show"
-              :href="connect.url"
-              target="_blank"
-              @click="$ga.event('person_detail', 'connect', data._id)"
-              class="elevation-0 br-6"
-            >
-              Connect via {{ connect.media }}
-            </v-btn>
+            <connect-dropdown
+              :data="data"
+              :config="config"
+            />
           </div>
           <!-- /CTA -->
         </div>
