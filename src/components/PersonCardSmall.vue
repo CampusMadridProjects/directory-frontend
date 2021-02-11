@@ -47,8 +47,8 @@
 
   .v-list__tile__title {
     font-weight: 600;
-    font-size: 1.3rem;
-    line-height: 1.7rem;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
     letter-spacing: .016rem;
   }
 
