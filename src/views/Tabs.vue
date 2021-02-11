@@ -50,12 +50,11 @@
             </v-chip>
             <!-- /All filters button -->
 
-            <!-- Dropdown chip -->
-            <program-filter
-              v-if="hasProgram"
-              v-model="activePrograms"
+            <!-- Sort dropdown chip -->
+            <sorting-filter
+              v-model="sortBy"
             />
-            <!-- /Dropdown chip -->
+            <!-- /Sort dropdown chip -->
 
             <!-- Dropdown chip -->
             <program-filter
@@ -130,6 +129,7 @@
             :search="search"
             :filter="tagTabFilter"
             :programs="activePrograms"
+            :sort="sortBy"
           />
         </v-tab-item>
         <v-tab-item
@@ -140,6 +140,7 @@
             :search="search"
             :filter="tagTabFilter"
             :programs="activePrograms"
+            :sort="sortBy"
           />
         </v-tab-item>
         <v-tab-item
@@ -674,6 +675,7 @@
       Home,
       People,
       ProgramFilter,
+      SortingFilter,
       Startup,
       More,
       CookiesNotice,
@@ -695,6 +697,7 @@
       tabClicked: null,
       moreActiveItem: null,
       activePrograms: [],
+      sortBy: 'new',  // new, abc, startup
     }),
     computed: {
       config() {

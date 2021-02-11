@@ -146,7 +146,6 @@
     }),
     computed: {
       config() {
-        console.log(this.$store.state.config.config);
         return this.$store.state.config.config || {};
       },
       hasNewsHeading() {

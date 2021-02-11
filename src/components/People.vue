@@ -31,8 +31,8 @@
   <v-container class="card-grid mb-5 pb-3 pt-2" v-else>
     <v-flex
       xs12 sm6 md3 lg2 xl2
-      v-for="person in this.filterPeople(search, filter, programs)"
-      :key="person._id"
+      v-for="person in this.filterPeople(search, filter, programs, sort)"
+      :key="person.id"
       class="card-grid-item"
     >
       <!-- <person-card-hybrid :person="person" /> -->
@@ -168,6 +168,7 @@
       search: { type: String, required: false },
       filter: { type: Array, required: false },
       programs: { type: Array, required: false },
+      sort: { type: String, required: false },
     },
 
     components: {
@@ -291,12 +292,37 @@
        *  @param {array} programs Filter by tags to search
        *  @return {array} An array that matches the requested search term
        */
-      filterPeople(search, tags, programs) {
+      filterPeople(search, tags, programs, sort) {
         // filter by tags
         const filteredByCategory = this.filterByCategory(this.$store.state.people.list, tags, programs);
 
         // Filter by search text
-        return this.filterByText(filteredByCategory, search);
+        let filtered = [ ...this.filterByText(filteredByCategory, search) ];
+
+        if (!sort) {
+          return filtered;
+        }
+
+        if (sort === 'abc') {
+          return filtered.sort((a, b) => {
+            let aName = a.name;
+            let bName = b.name;
+            if (this.config.surnameFirst) {
+              aName = a.surname;
+              bName = b.surname;
+            }
+            return (aName.toUpperCase() < bName.toUpperCase()) ? -1 : 1;
+          });
+        } else if (sort === 'startup') {
+          filtered = filtered.sort((a, b) => {
+            if (!a.Group) return 1;
+            if (!b.Group) return 1;
+
+            return (a.Group[0].name.toUpperCase() < b.Group[0].name.toUpperCase()) ? -1 : 1;
+          });
+        }
+
+        return filtered;
       },
 
       getJob(person) {

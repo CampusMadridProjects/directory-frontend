@@ -48,6 +48,10 @@
     cursor: pointer;
   }
 
+  >>> .v-list__tile__title {
+    font-size: 14px;
+  }
+
   .v-chip {
     background: #FFFFFF;
     border: 1px solid #DFE1E5;

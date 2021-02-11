@@ -1,51 +1,50 @@
 <template>
   <div class="d-flex">
     <div class="text-xs-center cursor-pointer">
-      <v-menu offset-y :close-on-content-click="false">
+      <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-chip
             v-on="on"
           >
             <span class="pl-2 cursor-pointer">
-              {{ programName }}
+              Sort By
             </span>
             <v-icon right class="ml-0 mr-1 cursor-pointer">arrow_drop_down</v-icon>
           </v-chip>
         </template>
         <v-list>
           <v-list-tile
-            v-for="(item, index) in programs"
+            v-for="(item, index) in options"
             :key="index"
-            @click="switchProgram(item.name)"
+            @click="sort = item.name"
+            :class="{ 'primary--text': item.name === sort }"
           >
-            <v-checkbox
-              primary
-              v-model="item.active"
-              @click="switchProgram(item.name)"
-            ></v-checkbox>
             <v-list-tile-title>
-              {{ item.name }}
+              {{ item.text }}
             </v-list-tile-title>
+            <v-list-tile-action>
+              <v-icon
+                v-if="item.name == sort"
+                size="16"
+                color="primary"
+              >
+                check
+              </v-icon>
+            </v-list-tile-action>
           </v-list-tile>
         </v-list>
       </v-menu>
     </div>
-    <v-chip
-      v-for="program in selected"
-      :key="program"
-      class="active"
-      @click="switchProgram(program)"
-    >
-      <span class="px-2 cursor-pointer">
-        {{ program }}
-      </span>
-    </v-chip>
   </div>
 </template>
 
 <style scoped>
   .cursor-pointer {
     cursor: pointer;
+  }
+
+  >>> .v-list__tile__title {
+    font-size: 14px;
   }
 
   .v-chip {
@@ -74,6 +73,11 @@
       background: #fff;
   }
 
+  >>> .v-list__tile__action, >>> .v-list__tile__avatar {
+    min-width: 0;
+    min-height: 0;
+  }
+
   .chip-content > span {
     white-space: nowrap;
   }
@@ -81,67 +85,39 @@
 
 <script>
 export default {
-  name: 'ProgramFilter',
+  name: 'SortFilter',
   props: {
     value: {
-      type: Array,
-      default: () => [],
+      type: String,
+      default: 'new',
     }
   },
   data() {
     return {
+      sort: 'new',
       selected: [],
+      options: [
+        {
+          name: 'new',
+          text: 'Newest'
+        },
+        {
+          name: 'abc',
+          text: 'Alphabetical'
+        },
+        {
+          name: 'startup',
+          text: 'By Startup'
+        },
+      ],
     };
   },
-  computed: {
-    config() {
-      return this.$store.state.config.config;
-    },
-    programs() {
-      const programs = this.config.programOptions;
-
-      if (programs) {
-        return programs.split(',').map((item) => {
-          return {
-            name: item,
-            active: this.isSelected(item),
-          };
-        });
-      }
-
-      return [];
-    },
-    programName() {
-      // Uncomment the following line to enable dynamic chip title
-      // return this.config.programTitle || 'Program';
-      return 'Program';
-    }
-  },
-  methods: {
-    switchProgram(program) {
-      const index = this.selected.indexOf(program);
-
-      if (index !== -1) {
-        this.selected.splice(index, 1);
-      } else {
-        this.selected.push(program)
-      }
-
-      this.$emit('input', this.selected);
-    },
-    isSelected(program) {
-      const index = this.selected.indexOf(program);
-      return index !== -1;
-    },
-  },
   watch: {
-    value: {
+    sort: {
       immediate: true,
-      handler(newValue) {
-        console.log('Updating selected value from outside...')
-        console.log(newValue);
-        this.selected = newValue;
-      }
+      handler() {
+        this.$emit('input', this.sort);
+      },
     },
   },
 };
