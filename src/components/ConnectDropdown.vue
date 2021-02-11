@@ -30,7 +30,7 @@
               Connect via Email
           </v-list-tile-content>
         </v-list-tile>
-        
+
         <v-list-tile
           v-for="item in activeLinks"
           avatar
@@ -60,9 +60,9 @@
 </template>
 
 <style scoped>
->>> .v-list__tile__action, .v-list__tile__avatar {
+/* >>> .v-list__tile__action, .v-list__tile__avatar {
   min-width: 56px;
-}
+} */
 
 * {
   overflow-y: hidden;
