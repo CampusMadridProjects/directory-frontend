@@ -460,8 +460,8 @@
 
     /* Fixes library default toolbar styles in mobile */
     >>> .v-toolbar__extension {
-      margin-top: -8px !important;
-      margin-bottom: 4px !important;
+      margin-top: -12px !important;
+      margin-bottom: 8px !important;
     }
 
     /* bigger text size in search box mobile */
@@ -567,8 +567,8 @@
 
   .v-toolbar__extension {
     height: 48px !important;
-    margin-top: -4px;
-    margin-bottom: 8px;
+    margin-top: -12px;
+    margin-bottom: 16px;
   }
 
   .v-item-group.v-bottom-nav .v-btn {
