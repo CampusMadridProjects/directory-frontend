@@ -13,12 +13,30 @@
     font-family: 'Google Sans' !important;
   }
 
+  h1 {
+    line-height: 1.2;
+  }
+
+  .light-border {
+    border: 1px solid #eaeaea !important;
+  }
+
+  /* more spread, low contrast */
+  .custom-elevation {
+    box-shadow: 0 4px 24px 12px rgba(0,0,0,.16) !important;
+  }
+
+  .custom-hover:hover {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,.10) !important;
+  }
+
   /* sets card container size for screen sizes between ipad and desktop */
   @media only screen and (min-width: 960px) and (max-width: 1263px) {
     .container {
       max-width: 1124px;
     }
   }
+
   /* removes card container max width in bigger screen sizes */
   @media only screen and (min-width: 1440px) {
     .container {
