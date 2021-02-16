@@ -8,12 +8,35 @@
         <v-flex xs12 sm12 md8 offset-md2 lg6 offset-lg3>
           <!-- News -->
           <div>
+            <v-card class="pt-3 mt-2 light-border primary200 text-center home-banner">
+              <v-img
+                src="https://blush.design/api/download?shareUri=M_b1ebPIc&w=800&h=800&fm=png"
+                max-height="164"
+                aspect-ratio="2.75"
+                contain
+              ></v-img>
+
+              <v-card-title primary-title class="px-3 pb-0 pt-2 justify-center">
+                <div>
+                  <h3 class="headline mb-1">Never miss an update</h3>
+                  <div class="subheading">Turn on push notifications to receive occasional updates from your community, right from your browser</div>
+                </div>
+              </v-card-title>
+
+              <v-card-actions class="pa-3">
+                <v-btn depressed large color="white" style="width: 49%;">Maybe later</v-btn>
+                <v-btn depressed large color="primary" style="width: 49%;">Subscribe</v-btn>
+              </v-card-actions>
+            </v-card>
+
+            <v-divider class="my-4"></v-divider>
+
             <!-- Section title -->
             <div v-if="hasNewsHeading">
-              <h1>
+              <h1 class="mb-2">
                 {{ newsHeading }}
               </h1>
-              <p>{{ newsSubheading }}</p>
+              <p class="body-1">{{ newsSubheading }}</p>
             </div>
             <!-- /Section title -->
 
@@ -93,13 +116,21 @@
 
 <style scoped>
 
+  .headline {
+    font-size: 2rem !important;
+  }
+
+  .v-card__title {
+    text-align: center !important;
+  }
+
   /* aligns FAB | duplicated in Startup.vue */
   .v-btn--bottom {
     bottom: 72px;
   }
 
   /* softens post's default border radius */
-  .v-card {
+  .post-card {
     border-radius: 0px;
   }
 
@@ -127,6 +158,14 @@
     /* >>> .container.grid-list-lg .layout .flex.card-grid-item {
       padding: 8px 0;
     } */
+  }
+
+  @media (min-width: 900px) {
+
+    .home-banner {
+      padding-bottom: 4px;
+    }
+
   }
 
 </style>
