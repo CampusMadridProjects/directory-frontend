@@ -10,7 +10,7 @@
           <div>
             <!-- Section title -->
             <div v-if="hasNewsHeading">
-              <h1>
+              <h1 class="mb-2">
                 {{ newsHeading }}
               </h1>
               <p>{{ newsSubheading }}</p>
