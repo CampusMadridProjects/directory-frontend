@@ -1,5 +1,5 @@
 <template>
-  <v-card light :hover="true" class="ma-1 pb-1 light-border custom-hover card-elements ellipsis">
+  <v-card light :hover="true" class="pb-1 light-border custom-hover card-elements ellipsis">
     <!--  -->
     <div @click="goToPerson(id)">
       <v-responsive
@@ -95,11 +95,6 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-  }
-
-  /* more spread, low contrast */
-  .custom-hover:hover {
-    box-shadow: 0 4px 8px 0px rgba(0,0,0,.10) !important;
   }
 
   .box-shadow {
