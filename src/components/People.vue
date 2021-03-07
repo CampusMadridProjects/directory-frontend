@@ -315,10 +315,10 @@
           });
         } else if (sort === 'startup') {
           filtered = filtered.sort((a, b) => {
-            if (!a.Group) return 1;
-            if (!b.Group) return 1;
+            let groupA = (a.Group && a.Group[0] && a.Group[0].name) || 'zzzz';
+            let groupB = (b.Group && b.Group[0] && b.Group[0].name) || 'zzzz';
 
-            return (a.Group[0].name.toUpperCase() < b.Group[0].name.toUpperCase()) ? -1 : 1;
+            return (groupA.toUpperCase() < groupB.toUpperCase()) ? -1 : 1;
           });
         }
 

@@ -6,6 +6,13 @@
     >
       <v-layout row wrap pb-5>
         <v-flex xs12 sm12 md8 offset-md2 lg6 offset-lg3>
+
+          <div class="red">
+            <v-btn @click="initializeFirebase()">
+              ADD PUSH!
+            </v-btn>
+          </div>
+
           <!-- News -->
           <div>
             <!-- Section title -->
@@ -132,6 +139,8 @@
 </style>
 
 <script>
+  import firebase from '@/firebase';
+
   import PostCard from '@/components/PostCard.vue';
   import PersonCardHybrid from '@/components/PersonCardHybrid.vue';
 
@@ -176,6 +185,11 @@
       },
       membersSubheading() {
         return this.config.newMembersSubheading || 'Time to connect! Come say hello:';
+      },
+    },
+    methods: {
+      initializeFirebase() {
+        initializeFirebase();
       },
     },
     beforeMount() {
@@ -223,4 +237,71 @@
     }
   }
 
+
+  function initializeFirebase() {
+    // if (firebase.messaging.isSupported()) {
+    //   console.log('Alles gut');
+    // } else {
+    //   console.log('No tenemos notis :(');
+    //   return false;
+    // }
+    
+    const messaging = firebase.messaging();
+
+    console.log('a ver ese permisito...');
+
+    messaging.requestPermission().then(async () => {
+      console.log("Permission granted");
+      const customServiceWorker = await navigator.serviceWorker.getRegistration();
+      setTimeout(() => {
+        console.log("sending notification...");
+        customServiceWorker.showNotification('this is a test')
+          .then(() => {
+            console.log("sent!!");
+          })
+          .catch((err) => {
+            console.log("Ups, something went wrong", err);
+          });
+      }, 2000);
+      return messaging.getToken({
+        serviceWorkerRegistration: customServiceWorker,
+      });
+    })
+    .then(token => {
+      console.log("AY MAMA");
+      console.log(token);
+      // var userType = 'group';
+      // var UID = process.env.VUE_APP_COMMETCHAT_GUID;
+      // var appId = process.env.VUE_APP_COMMETCHAT_APP_ID;
+      // var topic = appId + '_' + userType + '_' + UID;
+      // var url = `https://ext-push-notifications.cometchat.com/fcmtokens/${token}/topics/${topic}`;
+      // fetch(url, {
+      //   method: 'POST',
+      //   headers: new Headers({
+      //     'Content-Type': 'application/json',
+      //   }),
+      //   body: JSON.stringify({appId: appId}),
+      // })
+      //   .then(response => {
+      //     if (response.status < 200 || response.status >= 400) {
+      //       console.log(
+      //         'Error subscribing to topic: ' +
+      //           response.status +
+      //           ' - ' +
+      //           response.text()
+      //       );
+      //     }
+        // })
+        // .catch(error => {
+        //   console.error(error);
+        // });
+    })
+    .catch(error => {
+      if (error.code === 'messaging/permission-blocked') {
+        console.log('Please Unblock Notification Request Manually');
+      } else {
+        console.log('Error Occurred', error);
+      }
+    });  
+  }
 </script>
