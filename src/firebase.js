@@ -14,9 +14,4 @@ const config = {
 
 firebase.initializeApp(config);
 
-const messaging = firebase.messaging();
-messaging.onMessage((payload) => {
-  console.log('Message received. ', payload);
-});
-
 export default firebase;

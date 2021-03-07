@@ -1,7 +1,9 @@
 /* eslint-disable */ 
-// import * as firebase from 'firebase/app';
-// import 'firebase/messaging'
-import firebase from './firebase';
+// import firebase from './firebase';
+importScripts('https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.2.5/firebase-messaging.js');
+
+importScripts('firebase.js');
 
 workbox.core.setCacheNameDetails({ prefix: 'd4' });
 
@@ -18,7 +20,7 @@ workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 /* Execute on SW activation */
-function activateServiceWorker(event) => {
+function activateServiceWorker(event) {
   return self.registrarion.showNotification("Todo funcionando", {
     body: 'Podemos usar estas cosas',
     icon: 'public/assets/logo.png',
@@ -59,6 +61,18 @@ function checkCache(version) {
  *  Initialize push notifications SW
  */
 function initPushMessages() {
+  const config = {
+    apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+    // authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
+    // databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
+    projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
+    // storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.VUE_APP_FIREBASE_APP_ID,
+  };
+
+  firebase.initializeApp(config);
+  
   const messaging = firebase.messaging();
 
   messaging.onMessage(messageHandler);

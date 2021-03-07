@@ -253,6 +253,7 @@
     messaging.requestPermission().then(async () => {
       console.log("Permission granted");
       const customServiceWorker = await navigator.serviceWorker.getRegistration();
+      
       setTimeout(() => {
         console.log("sending notification...");
         customServiceWorker.showNotification('this is a test')
@@ -263,6 +264,7 @@
             console.log("Ups, something went wrong", err);
           });
       }, 2000);
+
       return messaging.getToken({
         serviceWorkerRegistration: customServiceWorker,
       });
