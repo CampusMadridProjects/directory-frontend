@@ -1,14 +1,26 @@
 /* eslint-disable */ 
-// import firebase from './firebase';
 importScripts('https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.2.5/firebase-messaging.js');
-
-importScripts('firebase.js');
 
 workbox.core.setCacheNameDetails({ prefix: 'd4' });
 
 // Change this value every time before you build
-const LATEST_VERSION = 'v1.24.2';
+const LATEST_VERSION = 'v1.24.13';
+
+// Configure firebase
+const config = {
+  // apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+  apiKey: 'AIzaSyDEuQW2yuUPbOO1hDe-z7DlBUMiT6SkI58',
+  // authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
+  // databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
+  // projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
+  projectId: 'challengd-app',
+  // storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+  // messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  messagingSenderId: '332405996488',
+  appId: '332405996488:web:9f77449ab061fefdad5efd',
+};
+firebase.initializeApp(config);
 
 self.addEventListener('activate', activateServiceWorker);
 
@@ -20,12 +32,9 @@ workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 /* Execute on SW activation */
-function activateServiceWorker(event) {
-  return self.registrarion.showNotification("Todo funcionando", {
-    body: 'Podemos usar estas cosas',
-    icon: 'public/assets/logo.png',
-  });
-  console.log('serviceworker activated!');
+function activateServiceWorker(event) {  
+  console.log('[service-worker.js] service worker activated!', LATEST_VERSION);
+
   checkCache(LATEST_VERSION);
   initPushMessages();
 }
@@ -61,38 +70,27 @@ function checkCache(version) {
  *  Initialize push notifications SW
  */
 function initPushMessages() {
-  const config = {
-    apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
-    // authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-    // databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
-    projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
-    // storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.VUE_APP_FIREBASE_APP_ID,
-  };
-
-  firebase.initializeApp(config);
-  
   const messaging = firebase.messaging();
-
-  messaging.onMessage(messageHandler);
-  messaging.onBackgroundMessage(messageHandler)
-  messaging.setBackgroundMessageHandler(messageHandler);
+  
+  messaging.onBackgroundMessage(messageHandler);
+  console.log('[service-worker.js] Push notifications initialized!');
 }
 
 /**
  *  Handle a new push message
  */
 function messageHandler(payload) {
-    alert(1);
     console.log('YAY! New notification arived!');
     console.log(payload);
-    const title = payload.data.username;
+    const title = (payload.data && payload.data.title) || 'Directory';
 
     const options = {
-      body: payload.data.message,
-      icon: 'public/assets/logo.png',
+      body: payload.data.body,
+      // icon: 'https://challengd-app.web.app/img/icons/logo.png',
+      icon: '/img/icons/logo.png',
     };
 
-    return self.registrarion.showNotification(title, options);
+    console.log(options)
+
+    return self.registration.showNotification(title, options);
   }

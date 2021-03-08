@@ -7,7 +7,7 @@
       <v-layout row wrap pb-5>
         <v-flex xs12 sm12 md8 offset-md2 lg6 offset-lg3>
 
-          <div class="red">
+          <div>
             <v-btn @click="initializeFirebase()">
               ADD PUSH!
             </v-btn>
@@ -239,30 +239,46 @@
 
 
   function initializeFirebase() {
-    // if (firebase.messaging.isSupported()) {
-    //   console.log('Alles gut');
-    // } else {
-    //   console.log('No tenemos notis :(');
-    //   return false;
-    // }
+    if (!firebase.messaging.isSupported()) {
+      console.log('La mensajería no está sopotada en este dispositivo');
+      return false;
+    }
     
     const messaging = firebase.messaging();
 
-    console.log('a ver ese permisito...');
-
+    console.log('Requesting push permission...');
     messaging.requestPermission().then(async () => {
-      console.log("Permission granted");
+      console.log("Permission granted!");
       const customServiceWorker = await navigator.serviceWorker.getRegistration();
-      
+
+      // This don't go here, this is 100% temporal.
+      messaging.onMessage((payload) => {
+        let title = '¡News from the Directory!';
+        let msg = 'Check out the news of your space';
+        
+        console.log('New message in foreground:');
+        console.log(payload);
+
+        if (payload.data && !payload.data.body) {
+          if (payload.data.body.title) {
+            title = payload.data.body.title;
+          }
+          if (payload.data.body.message) {
+            msg = payload.data.body.message;
+          }
+        }
+
+        customServiceWorker.showNotification(`${title}`, {
+          body: msg,
+          icon: '/img/icons/logo.png',
+        });
+      })
+
       setTimeout(() => {
-        console.log("sending notification...");
-        customServiceWorker.showNotification('this is a test')
-          .then(() => {
-            console.log("sent!!");
-          })
-          .catch((err) => {
-            console.log("Ups, something went wrong", err);
-          });
+        customServiceWorker.showNotification('This is a test', {
+          body: 'If you can see this, it means that we can send you push notifications. Congrats!',
+          icon: '/img/icons/logo.png',
+        });
       }, 2000);
 
       return messaging.getToken({
