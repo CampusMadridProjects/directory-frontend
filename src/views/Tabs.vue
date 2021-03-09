@@ -495,10 +495,10 @@
 
   @media (min-width: 959px) {
 
-  .v-item-group.v-bottom-nav .v-btn--active {
-      background: rgba(66, 133, 244, 0.16) !important;
-      border-radius: 0px 50px 50px 0px;
-  }
+    .v-item-group.v-bottom-nav .v-btn--active {
+        background: rgba(66, 133, 244, 0.16) !important;
+        border-radius: 0px 50px 50px 0px;
+    }
 
     >>> .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
       min-height: auto;
@@ -516,21 +516,21 @@
       background: white;
     }
 
-      .v-item-group.v-bottom-nav .v-btn {
-          max-height: 72px;
-          padding: 16px 0px;
-          border-radius: 8px;
-      }
+    .v-item-group.v-bottom-nav .v-btn {
+        max-height: 72px;
+        padding: 16px 0px;
+        border-radius: 8px;
+    }
 
-      /* removes borde from vertical nav */
-      .v-bottom-nav {
-          border: none;
-      }
+    /* removes borde from vertical nav */
+    .v-bottom-nav {
+        border: none;
+    }
 
-      .all-filters {
-        left: 146px;
-        width: calc(100% - 154px);
-      }
+    .all-filters {
+      left: 146px;
+      width: calc(100% - 154px);
+    }
 
     footer {
       flex-direction: row !important;
@@ -540,13 +540,15 @@
       display: inline-block;
       margin: 0 2px;
     }
-      .v-text-field {
-          margin: 0px 16px;
-      }
+
+    .v-text-field {
+        margin: 0px 16px;
+    }
+
   }
 
   @media (min-width: 1024px) {
-    >>> .v-window__container {
+    >>> .v-window__container, .cookies-notice {
       margin-left: 116px !important;
     }
   }
