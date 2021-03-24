@@ -172,7 +172,7 @@
 
                       <v-list-tile-action>
                         <v-switch
-                          v-model="switch1"
+                          v-model="pushEnabled"
                           inset
                         ></v-switch>
                       </v-list-tile-action>
@@ -302,6 +302,23 @@
 </style>
 
 <script>
+import firebase from '@/firebase';
+
+function isPushEnabled() {
+  let isEnabled = false;
+
+  console.log(window.Notification.permission);
+  if (window.Notification && window.Notification.permission === 'granted') {
+    isEnabled = true;
+  }
+
+  if (window.localStorage && !!window.localStorage.getItem('pushDisabled')) {
+    isEnabled = false;
+  }
+
+  return isEnabled;
+}
+
 export default {
   name: 'More',
   props: {
@@ -337,6 +354,7 @@ export default {
         // text: "Users data is securely stored in Google's infrastructure in Europe under the best standards. Every action in this site is 100% anonymous. We do not collect info about you and do not track you in any creepy way.",
       },
     ],
+    pushEnabled: isPushEnabled(),
   }),
   computed: {
     isGfs() {
@@ -360,8 +378,49 @@ export default {
     },
   },
 
+  methods: {
+    enablePushNotifications() {
+      if (!firebase.messaging.isSupported()) {
+        console.log('La mensajería no está sopotada en este dispositivo');
+        this.isPushEnabled = false;
+        return false;
+      }
+
+      this.$store.dispatch('push/subscribe')
+        .then(() => {
+          console.log('Done! Subscribed.');
+        });
+    },
+    disablePushNotifications() {
+      if (!firebase.messaging.isSupported()) {
+        console.log('La mensajería no está sopotada en este dispositivo');
+        this.isPushEnabled = false;
+        return false;
+      }
+
+      this.$store.dispatch('push/unsubscribe')
+        .then(() => {
+          console.log('Unsubscribed.');
+        });
+    },
+  },
+
   beforeCreate() {
     this.$store.dispatch('faq/get');
-  }
+    this.pushEnabled = isPushEnabled();
+  },
+
+  watch: {
+    pushEnabled(newVal, oldVal) {
+      // console.log(e);
+      // e.preventDefault();
+      console.log(oldVal);
+      if (oldVal) {
+        this.disablePushNotifications();
+      } else {
+        this.enablePushNotifications();
+      }
+    },
+  },
 };
 </script>

@@ -8,28 +8,7 @@
         <v-flex xs12 sm12 md8 offset-md2 lg6 offset-lg3>
           <!-- News -->
           <div>
-            <v-card class="pt-3 mt-2 light-border primary200 text-center home-banner">
-              <v-img
-                src="https://blush.design/api/download?shareUri=M_b1ebPIc&w=800&h=800&fm=png"
-                max-height="164"
-                aspect-ratio="2.75"
-                contain
-              ></v-img>
-
-              <v-card-title primary-title class="px-3 pb-0 pt-2 justify-center">
-                <div>
-                  <h3 class="headline mb-1">Never miss an update</h3>
-                  <div class="subheading">Turn on push notifications to receive occasional updates from your community, right from your browser</div>
-                </div>
-              </v-card-title>
-
-              <v-card-actions class="pa-3">
-                <v-btn depressed large color="white" style="width: 49%;">Maybe later</v-btn>
-                <v-btn depressed large color="primary" style="width: 49%;">Subscribe</v-btn>
-              </v-card-actions>
-            </v-card>
-
-            <v-divider class="my-4"></v-divider>
+            <push-banner />
 
             <!-- Section title -->
             <div v-if="hasNewsHeading">
@@ -173,11 +152,13 @@
 <script>
   import PostCard from '@/components/PostCard.vue';
   import PersonCardHybrid from '@/components/PersonCardHybrid.vue';
+  import PushBanner from '@/components/PushBanner.vue';
 
   export default {
     components: {
       PostCard,
       PersonCardHybrid,
+      PushBanner,
     },
     data: () => ({
       newsShown: 2,
