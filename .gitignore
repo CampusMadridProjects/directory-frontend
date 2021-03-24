@@ -63,3 +63,6 @@ typings/
 # next.js build output
 .next
 .env.development
+
+# ServiceWorker firebase configs
+**/sw-config-*.js
