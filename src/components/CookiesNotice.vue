@@ -42,7 +42,7 @@
       flex-direction: column;
       margin: 16px;
       left: 0px;
-      bottom: 0px;
+      margin-bottom: env(safe-area-inset-bottom) !important;
     }
     .cookies-notice .v-btn {
       width: 100%;
