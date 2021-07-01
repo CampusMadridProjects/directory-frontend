@@ -74,7 +74,7 @@
       class="no-underline"
     >
       <v-btn
-        class="hidden-md-and-up"
+        class="hidden-md-and-up ios-safe"
         fab
         fixed
         bottom
