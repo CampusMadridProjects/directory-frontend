@@ -520,6 +520,7 @@
         max-height: 72px;
         padding: 16px 0px;
         border-radius: 8px;
+        height: auto !important;
     }
 
     /* removes borde from vertical nav */
