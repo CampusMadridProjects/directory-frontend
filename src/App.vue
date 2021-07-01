@@ -60,6 +60,19 @@
       padding: 24px 2%;
     }
   }
+
+/* iOS bottom navigation fix */
+.v-bottom-nav, .v-item-group.v-bottom-nav .v-btn, .layout .v-btn--floating {
+  height: auto !important;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.ios-safe {
+  margin-bottom: env(safe-area-inset-bottom) !important;
+  height: 56px;
+  bottom: 64px !important;
+}
+
 </style>
 
 <script>
