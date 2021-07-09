@@ -138,11 +138,11 @@
           </v-card-text>
         </v-card>
         <!-- /Help -->
+        
         <!-- Settings -->
         <v-card
           flat
           class="mt-2"
-          v-if="config.slack"
         >
           <v-card-text>
             <v-layout align-center ml-3 class="mb-0 ml-xs-4">
@@ -188,6 +188,7 @@
           </v-card-text>
         </v-card>
         <!-- /Settings -->
+
         <!-- About -->
         <v-card flat class="pb-5">
           <v-card-text>
