@@ -141,6 +141,7 @@
         
         <!-- Settings -->
         <v-card
+          v-if="config.pushEnabled"
           flat
           class="mt-2"
         >
