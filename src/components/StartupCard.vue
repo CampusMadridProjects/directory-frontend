@@ -54,12 +54,6 @@
     width: 92px;
   }
 
-  /* TD - duplicated in PersonCard */
-  .light-border {
-    border: 1px solid #eaeaea;
-    border-radius: 8px;
-  }
-
   /* more spread, low contrast */
   .custom-hover:hover {
     box-shadow: 0 4px 12px 0px rgba(0,0,0,.108);

@@ -29,13 +29,6 @@
   </v-flex>
 </template>
 
-<style scoped>
-  .light-border {
-    border: 1px solid #eaeaea;
-    border-radius: 6px;
-  }
-</style>
-
 <script>
 import PersonCard from '@/components/PersonCard.vue';
 import PersonCardSmall from '@/components/PersonCardSmall.vue';

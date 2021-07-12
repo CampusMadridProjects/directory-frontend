@@ -1,11 +1,48 @@
 /* eslint-disable */ 
+importScripts('https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.3.0/firebase-messaging.js');
+
 workbox.core.setCacheNameDetails({ prefix: 'd4' });
 
 // Change this value every time before you build
-const LATEST_VERSION = 'v1.24.0';
+const LATEST_VERSION = 'v1.24.18';
 
-self.addEventListener('activate', (event) => {
-  console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff');
+// Configure firebase
+const config = {
+  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+  // authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
+  // databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
+  // storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.VUE_APP_FIREBASE_APP_ID,
+};
+firebase.initializeApp(config);
+
+// Listen to push messages only once
+initPushMessages();
+
+self.addEventListener('activate', activateServiceWorker);
+
+workbox.skipWaiting();
+workbox.clientsClaim();
+
+self.__precacheManifest = [].concat(self.__precacheManifest || []);
+workbox.precaching.suppressWarnings();
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+/* Execute on SW activation */
+function activateServiceWorker(event) {  
+  console.log('[service-worker.js] service worker activated!', LATEST_VERSION);
+  checkCache(LATEST_VERSION);
+}
+
+/**
+ *  Ensure that latest version is always shown
+ *  @param version {String} Current version
+ */
+function checkCache(version) {
+  console.log(`%c ${version} `, 'background: #ddd; color: #0000ff');
   if (caches) {
     caches.keys().then((arr) => {
       arr.forEach((key) => {
@@ -15,21 +52,43 @@ self.addEventListener('activate', (event) => {
           caches.open(key).then((cache) => {
             cache.match('version').then((res) => {
               if (!res) {
-                cache.put('version', new Response(LATEST_VERSION, { status: 200, statusText: LATEST_VERSION }));
-              } else if (res.statusText !== LATEST_VERSION) {
-                caches.delete(key).then(() => console.log(`%c Cleared Cache ${LATEST_VERSION}`, 'background: #333; color: #ff0000'));
-              } else console.log(`%c Great you have the latest version ${LATEST_VERSION}`, 'background: #333; color: #00ff00');
+                cache.put('version', new Response(version, { status: 200, statusText: version }));
+              } else if (res.statusText !== version) {
+                caches.delete(key).then(() => console.log(`%c Cleared Cache ${version}`, 'background: #333; color: #ff0000'));
+              } else console.log(`%c Great you have the latest version ${version}`, 'background: #333; color: #00ff00');
             });
           });
         }
       });
     });
   }
-});
+}
 
-workbox.skipWaiting();
-workbox.clientsClaim();
+/**
+ *  Initialize push notifications SW
+ */
+function initPushMessages() {
+  const messaging = firebase.messaging();
+  
+  messaging.onBackgroundMessage(messageHandler);
+  console.log('[service-worker.js] Push notifications initialized!');
+}
 
-self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.suppressWarnings();
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+/**
+ *  Handle a new push message
+ */
+function messageHandler(payload) {
+    console.log('YAY! New notification arived!');
+    console.log(payload);
+    const title = (payload.data && payload.data.title) || 'Directory';
+
+    const options = {
+      body: payload.data.body,
+      // icon: 'https://challengd-app.web.app/img/icons/logo.png',
+      icon: '/img/icons/logo.png',
+    };
+
+    console.log(options)
+
+    return self.registration.showNotification(title, options);
+  }

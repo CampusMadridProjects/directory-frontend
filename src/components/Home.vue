@@ -8,12 +8,14 @@
         <v-flex xs12 sm12 md8 offset-md2 lg6 offset-lg3>
           <!-- News -->
           <div>
+            <push-banner />
+
             <!-- Section title -->
             <div v-if="hasNewsHeading">
-              <h1>
+              <h1 class="my-2">
                 {{ newsHeading }}
               </h1>
-              <p>{{ newsSubheading }}</p>
+              <p class="subtitle">{{ newsSubheading }}</p>
             </div>
             <!-- /Section title -->
 
@@ -74,7 +76,7 @@
       class="no-underline"
     >
       <v-btn
-        class="hidden-md-and-up"
+        class="hidden-md-and-up ios-safe"
         fab
         fixed
         bottom
@@ -93,13 +95,21 @@
 
 <style scoped>
 
+  .headline {
+    font-size: 2rem !important;
+  }
+
+  .v-card__title {
+    text-align: center !important;
+  }
+
   /* aligns FAB | duplicated in Startup.vue */
   .v-btn--bottom {
     bottom: 72px;
   }
 
   /* softens post's default border radius */
-  .v-card {
+  .post-card {
     border-radius: 0px;
   }
 
@@ -129,16 +139,26 @@
     } */
   }
 
+  @media (min-width: 900px) {
+
+    .home-banner {
+      padding-bottom: 4px;
+    }
+
+  }
+
 </style>
 
 <script>
   import PostCard from '@/components/PostCard.vue';
   import PersonCardHybrid from '@/components/PersonCardHybrid.vue';
+  import PushBanner from '@/components/PushBanner.vue';
 
   export default {
     components: {
       PostCard,
       PersonCardHybrid,
+      PushBanner,
     },
     data: () => ({
       newsShown: 2,

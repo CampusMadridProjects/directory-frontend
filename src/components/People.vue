@@ -50,7 +50,7 @@
         :linkedin="person.linkedin">
       </person-card-small>
 
-      <person-card class="card-grid-item-card light-border hidden-sm-and-down"
+      <person-card class="card-grid-item-card light-border hidden-sm-and-down ma-1"
         :id="person.id"
         :name="person.name"
         :surname="person.surname"
@@ -89,15 +89,17 @@
 </template>
 
 <style scoped>
+  .ma-1 {
+    margin: 4px;
+  }
+
+  .overflow-x-mobile {
+    overflow-x: scroll;
+  }
 
   .light-border-bottom {
     border-bottom: 1px solid #eaeaea;
     border-radius: 0px;
-  }
-
-  .light-border {
-    border: 1px solid #eaeaea;
-    border-radius: 6px;
   }
 
   /* aligns FAB | duplicated in Startup.vue */
