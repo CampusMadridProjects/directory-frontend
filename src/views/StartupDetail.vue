@@ -96,6 +96,44 @@
         </div>
       </v-card-title> -->
       <!-- /Membership dates -->
+
+      <!-- Tags (and categories) -->
+      <div class="my-3">
+        <!-- Startup tags -->
+        <v-card-title primary-title v-if="tags.length">
+          <div class="card-user-info">
+            <h2 class="pb-1">Tags</h2>
+            <v-chip
+              v-for="(tag, index) in tags"
+              :key="tag.id"
+              color="grey lighten-4"
+            >
+              {{ (index !== 0) ? '' + tag.name : tag.name }}
+            </v-chip>
+          </div>
+        </v-card-title>
+        <!-- /Startup tags -->
+
+        <div v-if="tagCategories.length > 0">
+          <v-card-title
+            primary-title
+            v-for="tagsCategory in tagCategories"
+            :key="tagsCategory.name"
+          >
+            <div class="card-user-info">
+              <h2 class="pb-1">{{ tagsCategory.name }}</h2>
+              <v-chip
+                v-for="(tag, index) in tagsCategory.tags"
+                :key="tag.id"
+                color="grey lighten-4"
+              >
+                {{ (index !== 0) ? '' + tag.name : tag.name }}
+              </v-chip>
+            </div>
+          </v-card-title>
+        </div>
+      </div>
+
       <v-divider></v-divider>
       <!-- /Employees -->
       <div
@@ -236,11 +274,48 @@
       config() {
         return this.$store.state.config.config;
       },
+      tagCategories() {
+        if (!this.config.startupTagCategories || this.config.startupTagCategories.length === 0) {
+          return [];
+        }
+
+        let categories = this.config.startupTagCategories.split(',');
+
+        return categories.map((categoryName) => ({
+          name: categoryName,
+          tags: this.tagsByCategory(categoryName),
+        })).filter(category => category.tags.length > 0);
+      },
+      tags() {
+        let onlyUncategorized = false;
+        if (this.tagCategories.length > 0) {
+          onlyUncategorized = true
+        }
+
+        return this.tagsByCategory('', onlyUncategorized);
+      },
     },
     methods: {
       getData() {
         this.data = this.$store.getters['startups/getById'](this.id);
         this.loading = false;
+      },
+      tagsByCategory(category, onlyUncategorized) {
+        // Has no tags
+        if (!this.data.Tag) return [];
+
+        if (onlyUncategorized) {
+          return this.data.Tag.filter((tag) => !tag.category)
+        }
+
+        // No category defined, return all tags
+        if (!category) {
+          return this.data.Tag;
+        }
+
+        return this.data.Tag.filter((tag) => {
+          return tag.category && tag.category.toUpperCase() === category.toUpperCase();
+        });
       },
     },
     created() {

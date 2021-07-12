@@ -7,6 +7,7 @@ import faq from './modules/faq';
 import mail from './modules/mail';
 import news from './modules/news';
 import people from './modules/people';
+import push from './modules/push';
 import settings from './modules/settings';
 import startups from './modules/startups';
 import tags from './modules/tags';
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     mail,
     news,
     people,
+    push,
     settings,
     startups,
     tags,
