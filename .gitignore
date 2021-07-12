@@ -66,3 +66,5 @@ typings/
 
 # ServiceWorker firebase configs
 **/sw-config-*.js
+
+.DS_Store

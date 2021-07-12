@@ -15,6 +15,15 @@
 
   h1 {
     line-height: 1.2;
+    font-size: 36px;
+  }
+
+  .subtitle {
+    /* font-size: 22px !important; */
+    font-size: 18px !important;
+    line-height: 1.3;
+    color: rgb(117, 117, 117);
+    /* font-weight: 500; */
   }
 
   .light-border {
@@ -28,6 +37,13 @@
 
   .custom-hover:hover {
     box-shadow: 0 4px 8px 0px rgba(0,0,0,.10) !important;
+  }
+
+  @media only screen and (max-width: 959px) {
+      .subtitle {
+        font-size: 18px !important;
+        line-height: 24px;
+      }
   }
 
   /* sets card container size for screen sizes between ipad and desktop */
@@ -44,6 +60,19 @@
       padding: 24px 2%;
     }
   }
+
+/* iOS bottom navigation fix */
+.v-bottom-nav, .v-item-group.v-bottom-nav .v-btn, .layout .v-btn--floating {
+  height: auto !important;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.ios-safe {
+  margin-bottom: env(safe-area-inset-bottom) !important;
+  height: 56px;
+  bottom: 64px !important;
+}
+
 </style>
 
 <script>
