@@ -33,7 +33,7 @@
         v-if="hasFilters"
         slot="extension"
         fluid
-        class="px-0 ma-0 chip-container"
+        class="px-0 pb-2 ma-0 chip-container"
         v-touch="{
           left: () => noSwipe(),
           right: () => noSwipe(),
@@ -49,6 +49,12 @@
               <!-- <span v-else><v-icon class="ml-0">tune</v-icon>({{ tagFilter.length }})</span> -->
             </v-chip>
             <!-- /All filters button -->
+
+            <!-- Sort dropdown chip -->
+            <sorting-filter
+              v-model="sortBy"
+            />
+            <!-- /Sort dropdown chip -->
 
             <!-- Dropdown chip -->
             <program-filter
@@ -123,6 +129,7 @@
             :search="search"
             :filter="tagTabFilter"
             :programs="activePrograms"
+            :sort="sortBy"
           />
         </v-tab-item>
         <v-tab-item
@@ -133,6 +140,7 @@
             :search="search"
             :filter="tagTabFilter"
             :programs="activePrograms"
+            :sort="sortBy"
           />
         </v-tab-item>
         <v-tab-item
@@ -452,8 +460,8 @@
 
     /* Fixes library default toolbar styles in mobile */
     >>> .v-toolbar__extension {
-      margin-top: -8px !important;
-      margin-bottom: 4px !important;
+      margin-top: -12px !important;
+      margin-bottom: 8px !important;
     }
 
     /* bigger text size in search box mobile */
@@ -487,10 +495,10 @@
 
   @media (min-width: 959px) {
 
-  .v-item-group.v-bottom-nav .v-btn--active {
-      background: rgba(66, 133, 244, 0.16) !important;
-      border-radius: 0px 50px 50px 0px;
-  }
+    .v-item-group.v-bottom-nav .v-btn--active {
+        background: rgba(66, 133, 244, 0.16) !important;
+        border-radius: 0px 50px 50px 0px;
+    }
 
     >>> .v-item-group.v-bottom-nav .v-btn--active .v-btn__content {
       min-height: auto;
@@ -508,21 +516,22 @@
       background: white;
     }
 
-      .v-item-group.v-bottom-nav .v-btn {
-          max-height: 72px;
-          padding: 16px 0px;
-          border-radius: 8px;
-      }
+    .v-item-group.v-bottom-nav .v-btn {
+        max-height: 72px;
+        padding: 16px 0px;
+        border-radius: 8px;
+        height: auto !important;
+    }
 
-      /* removes borde from vertical nav */
-      .v-bottom-nav {
-          border: none;
-      }
+    /* removes borde from vertical nav */
+    .v-bottom-nav {
+        border: none;
+    }
 
-      .all-filters {
-        left: 146px;
-        width: calc(100% - 154px);
-      }
+    .all-filters {
+      left: 146px;
+      width: calc(100% - 154px);
+    }
 
     footer {
       flex-direction: row !important;
@@ -532,13 +541,15 @@
       display: inline-block;
       margin: 0 2px;
     }
-      .v-text-field {
-          margin: 0px 16px;
-      }
+
+    .v-text-field {
+        margin: 0px 16px;
+    }
+
   }
 
   @media (min-width: 1024px) {
-    >>> .v-window__container {
+    >>> .v-window__container, .cookies-notice {
       margin-left: 116px !important;
     }
   }
@@ -559,8 +570,8 @@
 
   .v-toolbar__extension {
     height: 48px !important;
-    margin-top: -4px;
-    margin-bottom: 8px;
+    margin-top: -12px;
+    margin-bottom: 16px;
   }
 
   .v-item-group.v-bottom-nav .v-btn {
@@ -629,6 +640,7 @@
   import Home from '../components/Home.vue';
   import People from '../components/People.vue';
   import ProgramFilter from '../components/ProgramFilter.vue';
+  import SortingFilter from '../components/SortingFilter.vue';
   import Startup from '../components/Startup.vue';
   import More from '../components/More.vue';
   import CookiesNotice from '@/components/CookiesNotice.vue';
@@ -666,6 +678,7 @@
       Home,
       People,
       ProgramFilter,
+      SortingFilter,
       Startup,
       More,
       CookiesNotice,
@@ -687,6 +700,7 @@
       tabClicked: null,
       moreActiveItem: null,
       activePrograms: [],
+      sortBy: 'new',  // new, abc, startup
     }),
     computed: {
       config() {

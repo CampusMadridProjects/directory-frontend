@@ -27,7 +27,7 @@
     <v-flex
       xs6 sm4 md3 lg2 xl2
       class="card-grid-item"
-      v-for="startup in this.filterStartup(search)"
+      v-for="startup in this.filterStartup(search, sort)"
       :key="startup._id"
     >
       <startup-card class="card-grid-item-card ma-1"
@@ -133,6 +133,7 @@
     props: {
       search: { type: String, required: false },
       filter: { type: Array, required: false, default: () => [], },
+      sort: { type: String, required: false },
     },
     components: {
       StartupCard,
@@ -146,8 +147,6 @@
         }
 
         let found = false;
-        console.log(data)
-        console.log(array)
         for (let i = array.length - 1; i >= 0; i -= 1) {
           if (array[i] && array[i].toUpperCase().indexOf(data.toUpperCase()) > -1) {
             found = true;
@@ -164,10 +163,20 @@
        *  @param search {String} Search term to filter the startup list
        *  @return {Array} An array that matches with search params
        */
-      filterStartup(search) {
+      filterStartup(search, sort) {
         let list = this.$store.state.startups.list;
         list = this.filterByCategory(list, this.filter)
-        return this.filterByText(list, search);
+        list = [...this.filterByText(list, search)];
+
+        if (sort === 'abc' || sort === 'startup') {
+          return list.sort((a, b) => {
+            let aName = a.name;
+            let bName = b.name;
+            return (aName.toUpperCase() < bName.toUpperCase()) ? -1 : 1;
+          });
+        }
+
+        return list;
       },
 
       filterByText(list, search) {

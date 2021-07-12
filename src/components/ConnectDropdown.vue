@@ -1,17 +1,23 @@
 <template>
   <div>
-    <v-menu offset-y>
-      <template v-slot:activator="{ on }">
-        <v-btn
-          color="primary"
-          x-large
-          class="elevation-0 br-6 mx-0"
-          v-on="on"
-        >
-          Connect
-        </v-btn>
-      </template>
-      <v-list>
+    <v-btn
+      color="primary"
+      x-large
+      class="elevation-0 br-6 mx-0"
+      @click="showConnectOptions = true;"
+    >
+      Connect
+    </v-btn>
+
+    <div
+      v-if="showConnectOptions"
+      class="connect-options"
+    >
+      <div
+        class="connect-options-overlay"
+        @click="showConnectOptions = false"
+      ></div>
+      <v-list class="connect-options-list">
         <v-list-tile
           v-if="config.emailConnect === true"
           avatar
@@ -24,12 +30,13 @@
               Connect via Email
           </v-list-tile-content>
         </v-list-tile>
-        
+
         <v-list-tile
           v-for="item in activeLinks"
           avatar
           :href="item.link"
           target="_blank"
+          @click="$ga.event('person_detail', 'connect', data.id)"
         >
           <v-list-tile-action>
             <v-img
@@ -43,7 +50,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-    </v-menu>
+    </div>
 
     <mail-form
       :id="data.id"
@@ -53,12 +60,46 @@
 </template>
 
 <style scoped>
->>> .v-list__tile__action, .v-list__tile__avatar {
+/* >>> .v-list__tile__action, .v-list__tile__avatar {
   min-width: 56px;
-}
+} */
 
 * {
   overflow-y: hidden;
+}
+
+.connect-options {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  max-width: 360px;
+  height: 100%;
+  z-index: 2;
+}
+  .connect-options-overlay {
+    position: fixed;
+    height: 100%;
+    max-width: 360px;
+    width: 100%;
+    background-color: rgba(0,0,0,.3);
+  }
+  .connect-options-list {
+    background-color: #ffffff;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 3;
+    max-width: 360px;
+    width: 100%;
+  }
+
+@media screen and (max-width: 768px) {
+  .connect-options,
+  .connect-options-overlay,
+  .connect-options-list {
+    max-width: 768px;
+  }
 }
 </style>
 
@@ -81,6 +122,7 @@ export default {
     },
   },
   data: () => ({
+    showConnectOptions: false,
     emailDialog: false,
   }),
   computed: {
@@ -151,9 +193,9 @@ export default {
   },
   methods: {
     emailConnect() {
-      console.log(this.emailDialog);
-      console.log('connect via emaiol');
+      this.$ga.event('email_connect', 'open_form', this.data.id);
       this.emailDialog = true;
+      this.showConnectOptions = false;
     },
   },
 };

@@ -1,6 +1,6 @@
 {
   "name": "campus-digital-directory-frontend",
-  "version": "1.22.0",
+  "version": "1.24.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -11,6 +11,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.49",
     "axios": "^0.21.1",
+    "firebase": "^8.3.0",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.16",
     "vue-analytics": "^5.16.0",
@@ -38,5 +39,10 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "bit": {
+    "env": {},
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm"
+  }
 }

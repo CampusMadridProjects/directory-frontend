@@ -241,6 +241,10 @@
 
 <style scoped>
 
+>>> .v-list__tile__action, .v-list__tile__avatar {
+  min-width: 48px;
+}
+
   /* review */
   h2 {
     font-size: 1.4rem;
