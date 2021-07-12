@@ -5,7 +5,7 @@ importScripts('https://www.gstatic.com/firebasejs/8.3.0/firebase-messaging.js');
 workbox.core.setCacheNameDetails({ prefix: 'd4' });
 
 // Change this value every time before you build
-const LATEST_VERSION = 'v1.24.18';
+const LATEST_VERSION = 'v1.24.22';
 
 // Configure firebase
 const config = {
@@ -23,6 +23,14 @@ firebase.initializeApp(config);
 initPushMessages();
 
 self.addEventListener('activate', activateServiceWorker);
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    // clients.openWindow(event.notification.data.link + "?notification_id=" + event.notification.data.id)
+    clients.openWindow(event.notification.data.link + '?ref=notification')
+  );
+});
 
 workbox.skipWaiting();
 workbox.clientsClaim();
@@ -78,17 +86,20 @@ function initPushMessages() {
  *  Handle a new push message
  */
 function messageHandler(payload) {
-    console.log('YAY! New notification arived!');
-    console.log(payload);
-    const title = (payload.data && payload.data.title) || 'Directory';
+  console.log('YAY! New notification arived!');
+  console.log(payload);
+  const title = (payload.data && payload.data.title) || 'Directory';
 
-    const options = {
-      body: payload.data.body,
-      // icon: 'https://challengd-app.web.app/img/icons/logo.png',
-      icon: '/img/icons/logo.png',
-    };
+  const options = {
+    body: payload.data.body,
+    icon: 'https://challengd-app.web.app/img/icons/logo.png',
+    // icon: '/img/icons/logo.png',
+    data: {
+      url: payload.data.link,
+    },
+  };
 
-    console.log(options)
+  console.log(options);
 
-    return self.registration.showNotification(title, options);
-  }
+  return self.registration.showNotification(title, options);
+}
