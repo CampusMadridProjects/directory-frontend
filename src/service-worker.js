@@ -5,7 +5,7 @@ importScripts('https://www.gstatic.com/firebasejs/8.3.0/firebase-messaging.js');
 workbox.core.setCacheNameDetails({ prefix: 'd4' });
 
 // Change this value every time before you build
-const LATEST_VERSION = 'v1.25.0';
+const LATEST_VERSION = 'v1.26.10';
 
 // Configure firebase
 const config = {
@@ -76,10 +76,13 @@ function checkCache(version) {
  *  Initialize push notifications SW
  */
 function initPushMessages() {
-  const messaging = firebase.messaging();
-  
-  messaging.onBackgroundMessage(messageHandler);
-  console.log('[service-worker.js] Push notifications initialized!');
+  if (firebase.messaging.isSupported()) {
+    const messaging = firebase.messaging();
+    messaging.onBackgroundMessage(messageHandler);
+    console.log('[service-worker.js] Push notifications initialized!');
+  } else {
+    console.log('[service-worker.js] Push messaging not supported');
+  }
 }
 
 /**

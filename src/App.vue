@@ -1,7 +1,22 @@
 <template>
-  <div>
+  <v-app>
     <router-view></router-view>
-  </div>
+
+    <v-snackbar
+      v-model="updateModal"
+      color="black"
+      :timeout="0"
+    >
+      A new version is available
+      <v-btn
+        color="primary"
+        flat
+        @click="refresh()"
+      >
+        Update
+      </v-btn>
+    </v-snackbar>
+  </v-app>
 </template>
 
 <style>
@@ -97,6 +112,18 @@ export default {
       };
     },
   },
+  data: () => ({
+    updateModal: false,
+  }),
+  methods: {
+    showAppUpdateUI() {
+      this.updateModal = true;
+    },
+    refresh() {
+      this.updateModal = false;
+      window.location.reload(true);
+    },
+  },
   created() {
     let self = this;
     this.$store.dispatch('config/getConfig')
@@ -107,6 +134,8 @@ export default {
         };
         this.$emit('updateHead');
       });
+
+    document.addEventListener('serviceWorkerUpdateEvent', this.showAppUpdateUI, { once: true });
   },
 };
 </script>

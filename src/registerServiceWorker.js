@@ -7,17 +7,20 @@ if (process.env.NODE_ENV === 'production') {
     ready() {
       console.log('Site is ready');
     },
+    registered() {
+      console.log('Service worker has been registered.');
+    },
     cached() {
       console.log('Content has been cached for offline use.');
     },
     updatefound() {
       console.log('New content is downloading.');
     },
-    updated() {
+    updated(registration) {
       console.log('New content is available; Refresh...');
-      setTimeout(() => {
-        window.location.reload(true);
-      }, 500);
+      document.dispatchEvent(
+        new CustomEvent('serviceWorkerUpdateEvent', { detail: registration })
+      );
     },
     offline() {
       console.log('No internet connection found. App is running in offline mode.');

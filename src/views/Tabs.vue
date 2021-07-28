@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-toolbar :extended="hasFilters" app class="light-border-bottom">
       <img :src="logo" class="logo" :title="title">
       <v-text-field
@@ -204,7 +204,7 @@
 
     <cookies-notice @read="goToCookiesPolicy" />
 
-  </v-app>
+  </div>
 </template>
 
 <style scoped>

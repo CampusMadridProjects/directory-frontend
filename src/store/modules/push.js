@@ -2,27 +2,42 @@ import axios from 'axios';
 import api from '@/store/helpers/api';
 import firebase from '@/firebase';
 
-const messaging = firebase.messaging();
+let messaging = {};
 
-messaging.onMessage((payload) => {
-  let title = '¡News from the Directory!';
-  let msg = 'Check out the news of your space';
-  
-  console.log('New message in foreground:');
-  console.log(payload);
+/**
+ *  Initialize the messaging functionality
+ */
+function initMessaging() {
+  messaging = firebase.messaging();
 
-  if (payload.data && payload.data.title) {
-    title = payload.data.title;
-  }
-  if (payload.data && payload.data.body) {
-    msg = payload.data.body;
-  }
+  messaging.onMessage(async (payload) => {
+    const customServiceWorker = await navigator.serviceWorker.getRegistration();
+    let title = '¡News from the Directory!';
+    let msg = 'Check out the news of your space';
 
-  customServiceWorker.showNotification(`${title}`, {
-    body: msg,
-    icon: '/img/icons/logo.png',
+    console.log('New message in foreground:');
+    console.log(payload);
+
+    if (payload.data && payload.data.title) {
+      title = payload.data.title;
+    }
+    if (payload.data && payload.data.body) {
+      msg = payload.data.body;
+    }
+
+    customServiceWorker.showNotification(`${title}`, {
+      body: msg,
+      icon: '/img/icons/logo.png',
+    });
   });
-});
+}
+
+// If messaging is supported, initialize the service
+if (firebase.messaging.isSupported()) {
+  initMessaging();
+} else {
+  console.warn('[modules/push] Push notifications are not supported on this device');
+}
 
 // Inital state
 const initialState = {
@@ -54,8 +69,8 @@ const actions = {
       } else {
         console.log('Error Occurred', error);
       }
-    }  
-  
+    }
+
     commit('loadEnd');
   },
   async unsubscribe({ commit }) {
@@ -71,7 +86,7 @@ const actions = {
       await axios.post(`${api.url}/push/unsubscribe`, {
         token,
       });
-      
+
       window.localStorage.setItem('pushDisabled', true);
     } catch(error) {
       if (error.code === 'messaging/permission-blocked') {
@@ -79,8 +94,8 @@ const actions = {
       } else {
         console.log('Error Occurred', error);
       }
-    }  
-  
+    }
+
     commit('loadEnd');
   },
 };
