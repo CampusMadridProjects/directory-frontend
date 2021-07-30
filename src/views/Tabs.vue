@@ -83,11 +83,11 @@
     </v-toolbar>
 
     <!-- Open filters -->
-    <div v-if="allFilters" class="all-filters">
-      <h3 class="px-2 pt-1">
+    <div v-if="allFilters" class="all-filters elevation-3">
+      <h3 class="px-2 pt-2">
         Filters
       </h3>
-      <v-btn flat icon class="close-filters" @click="allFilters = false">
+      <v-btn flat icon class="close-filters mt-3" @click="allFilters = false">
         <v-icon>close</v-icon>
       </v-btn>
       <!-- Programs -->
@@ -379,7 +379,7 @@
   .all-filters {
     background: white;
     border: 1px solid #f0f0f0;
-    border-radius: 4px;
+    border-radius: 8px;
     left: 16px;
     max-height: 320px;
     overflow: auto;
