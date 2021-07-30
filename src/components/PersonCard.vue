@@ -43,8 +43,8 @@
     </div>
     <!-- /Location -->
     <!--  -->
-    <div primary-title @click="goToPerson(id)" class="ml-1 mb-1">
-      <!-- <v-icon
+    <!-- <div primary-title @click="goToPerson(id)" class="ml-1 mb-1">
+      <v-icon
       v-if="expertise.length > 0"
       size="14"
       class="mr-1"
@@ -52,11 +52,11 @@
       >
       local_offer
       </v-icon>
-      <span v-else>&nbsp;</span> -->
+      <span v-else>&nbsp;</span>
       <v-chip class="mr-0" color="#f0f0f0" v-for="(ability, index) in expertise"
       :key="ability.id">{{ (index !== 0) ?'' + ability.name : ability.name }}
       </v-chip>
-    </div>
+    </div> -->
     <!-- / -->
   </v-card>
 </template>
