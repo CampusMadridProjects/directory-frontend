@@ -45,7 +45,8 @@
             <v-chip
               @click="allFilters = !allFilters"
             >
-              <v-icon class="ml-0 px-1">tune</v-icon>
+              <v-icon class="mx-1 px-1">tune</v-icon>
+              <span class="mr-3">All filters</span>
               <!-- <span v-else><v-icon class="ml-0">tune</v-icon>({{ tagFilter.length }})</span> -->
             </v-chip>
             <!-- /All filters button -->
@@ -83,24 +84,15 @@
 
     <!-- Open filters -->
     <div v-if="allFilters" class="all-filters">
-      <p class="px-2 pt-1">
-        Browse all the filters
-      </p>
+      <h3 class="px-2 pt-1">
+        Filters
+      </h3>
       <v-btn flat icon class="close-filters" @click="allFilters = false">
         <v-icon>close</v-icon>
       </v-btn>
-      <div>
-        <v-chip
-          v-for="tag in tagList"
-          :key="tag.id"
-          :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
-          @click="switchTag(tag.name)"
-        >
-          {{ tag.name }}
-        </v-chip>
-      </div>
+      <!-- Programs -->
       <div v-if="hasProgram">
-        <p class="px-2 pt-4">Programs</p>
+        <p class="px-2 pt-4 mb-2">Programs</p>
         <v-chip
         v-for="program in programs"
         :key="program.name"
@@ -110,6 +102,85 @@
         {{ program.name }}
       </v-chip>
       </div>
+      <!-- /Programs -->
+      <!-- Markets -->
+      <div v-if="hasProgram">
+        <p class="px-2 pt-4 mb-2">Markets</p>
+        <v-chip
+          v-for="program in programs"
+          :key="program.name"
+          :class="{ 'active': program.active }"
+          @click="switchProgram(program.name)"
+        >
+          {{ program.name }}
+        </v-chip>
+      </div>
+      <!-- /Markets -->
+      <!-- Verticals -->
+      <div v-if="hasProgram">
+        <p class="px-2 pt-4 mb-2">Verticals</p>
+        <v-chip
+          v-for="program in programs"
+          :key="program.name"
+          :class="{ 'active': program.active }"
+          @click="switchProgram(program.name)"
+        >
+          {{ program.name }}
+        </v-chip>
+      </div>
+      <!-- /Verticals -->
+      <!-- Startup Stages Supported -->
+      <div v-if="hasProgram">
+        <p class="px-2 pt-4 mb-2">Startup Stages Supported</p>
+        <v-chip
+          v-for="program in programs"
+          :key="program.name"
+          :class="{ 'active': program.active }"
+          @click="switchProgram(program.name)"
+        >
+          {{ program.name }}
+        </v-chip>
+      </div>
+      <!-- /Startup Stages Supported -->
+      <!-- Areas of Expertise -->
+      <div v-if="hasProgram">
+        <p class="px-2 pt-4 mb-2">Areas of Expertise</p>
+        <v-chip
+          v-for="program in programs"
+          :key="program.name"
+          :class="{ 'active': program.active }"
+          @click="switchProgram(program.name)"
+        >
+          {{ program.name }}
+        </v-chip>
+      </div>
+      <!-- /Areas of Expertise -->
+      <!-- Passport Program Member -->
+      <div v-if="hasProgram">
+        <p class="px-2 pt-4 mb-2">Passport Program Member</p>
+        <v-chip
+          v-for="program in programs"
+          :key="program.name"
+          :class="{ 'active': program.active }"
+          @click="switchProgram(program.name)"
+        >
+          {{ program.name }}
+        </v-chip>
+      </div>
+      <!-- /Passport Program Member -->
+      <!-- All filters -->
+      <div>
+        <p class="px-2 pt-4 mb-2">All filters</p>
+        <v-chip
+          v-for="tag in tagList"
+          :key="tag.id"
+          :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+          @click="switchTag(tag.name)"
+        >
+          {{ tag.name }}
+        </v-chip>
+      </div>
+      <!-- /All filters -->
     </div>
     <!-- /Open filters -->
 
