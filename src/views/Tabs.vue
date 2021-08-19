@@ -103,73 +103,41 @@
       </v-chip>
       </div>
       <!-- /Programs -->
-      <!-- Markets -->
-      <div v-if="hasProgram">
-        <p class="px-2 pt-4 mb-2">Markets</p>
-        <v-chip
-          v-for="program in programs"
-          :key="program.name"
-          :class="{ 'active': program.active }"
-          @click="switchProgram(program.name)"
+
+      <!-- Tag Categories -->
+      <div v-if="tagTab === 'startups' && tagCategories.length > 0">
+        <div
+          v-for="tagsCategory in tagCategories"
+          :key="tagsCategory.name"
         >
-          {{ program.name }}
-        </v-chip>
+          <p class="px-2 pt-4 mb-2">{{ tagsCategory.name }}</p>
+          <v-chip
+            v-for="tag in tagsCategory.tags"
+            :key="tag.id"
+            :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+            @click="switchTag(tag.name)"
+          >
+            {{ tag.name }}
+          </v-chip>
+          <!-- {{tagsCategory.tags}} -->
+        </div>
+
+        <div>
+          <p class="px-2 pt-4 mb-2">Tags</p>
+          <v-chip
+            v-for="tag in tagsByCategory('', true)"
+            :key="tag.id"
+            :class="{ 'active': tagFilter.indexOf(tag.name) > -1 }"
+            @click="switchTag(tag.name)"
+          >
+            {{ tag.name }}
+          </v-chip>
+        </div>
       </div>
-      <!-- /Markets -->
-      <!-- Verticals -->
-      <div v-if="hasProgram">
-        <p class="px-2 pt-4 mb-2">Verticals</p>
-        <v-chip
-          v-for="program in programs"
-          :key="program.name"
-          :class="{ 'active': program.active }"
-          @click="switchProgram(program.name)"
-        >
-          {{ program.name }}
-        </v-chip>
-      </div>
-      <!-- /Verticals -->
-      <!-- Startup Stages Supported -->
-      <div v-if="hasProgram">
-        <p class="px-2 pt-4 mb-2">Startup Stages Supported</p>
-        <v-chip
-          v-for="program in programs"
-          :key="program.name"
-          :class="{ 'active': program.active }"
-          @click="switchProgram(program.name)"
-        >
-          {{ program.name }}
-        </v-chip>
-      </div>
-      <!-- /Startup Stages Supported -->
-      <!-- Areas of Expertise -->
-      <div v-if="hasProgram">
-        <p class="px-2 pt-4 mb-2">Areas of Expertise</p>
-        <v-chip
-          v-for="program in programs"
-          :key="program.name"
-          :class="{ 'active': program.active }"
-          @click="switchProgram(program.name)"
-        >
-          {{ program.name }}
-        </v-chip>
-      </div>
-      <!-- /Areas of Expertise -->
-      <!-- Passport Program Member -->
-      <div v-if="hasProgram">
-        <p class="px-2 pt-4 mb-2">Passport Program Member</p>
-        <v-chip
-          v-for="program in programs"
-          :key="program.name"
-          :class="{ 'active': program.active }"
-          @click="switchProgram(program.name)"
-        >
-          {{ program.name }}
-        </v-chip>
-      </div>
-      <!-- /Passport Program Member -->
+      <!-- /Tag Categories -->
+
       <!-- All filters -->
-      <div>
+      <div v-else>
         <p class="px-2 pt-4 mb-2">All filters</p>
         <v-chip
           v-for="tag in tagList"
@@ -822,7 +790,26 @@
         }
 
         return [];
-      }
+      },
+      startupTagCategories() {
+        if (!this.config.startupTagCategories) {
+          return [];
+        }
+
+        return this.config.startupTagCategories.split(',');
+      },
+      tagCategories() {
+        if (!this.config.startupTagCategories || this.config.startupTagCategories.length === 0) {
+          return [];
+        }
+
+        let categories = this.config.startupTagCategories.split(',');
+
+        return categories.map((categoryName) => ({
+          name: categoryName,
+          tags: this.tagsByCategory(categoryName),
+        })).filter(category => category.tags.length > 0);
+      },
     },
     methods: {
       checkChildren,
@@ -910,6 +897,24 @@
         } else {
           this.activePrograms.push(program)
         }
+      },
+
+      tagsByCategory(category, onlyUncategorized) {
+        // Has no tags
+        if (!this.tagList) return [];
+
+        if (onlyUncategorized) {
+          return this.tagList.filter((tag) => !tag.category)
+        }
+
+        // No category defined, return all tags
+        if (!category) {
+          return this.tagList;
+        }
+
+        return this.tagList.filter((tag) => {
+          return tag.category && tag.category.toUpperCase() === category.toUpperCase();
+        });
       },
     },
 

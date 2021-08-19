@@ -96,21 +96,28 @@ export default {
     return {
       sort: 'new',
       selected: [],
-      options: [
+    };
+  },
+  computed: {
+    config() {
+      return this.$store.state.config.config;
+    },
+    options() {
+      return [
         {
           name: 'new',
-          text: 'Newest'
+          text: 'Newest',
         },
         {
           name: 'abc',
-          text: 'Alphabetical'
+          text: 'Alphabetical',
         },
         {
           name: 'startup',
-          text: 'By Startup'
+          text: `By ${this.config.startupsText || 'Teams'}`,
         },
-      ],
-    };
+      ];
+    },
   },
   watch: {
     sort: {
