@@ -43,6 +43,8 @@ export default new Router({
         },
       ],
     },
+
+    // Redirects for specific tabs
     {
       path: '/people',
       redirect: {
@@ -61,6 +63,17 @@ export default new Router({
         },
       },
     },
+    {
+      path: '/more',
+      redirect: {
+        path: '/directory',
+        query: {
+          tab: 'more',
+        },
+      },
+    },
+
+    // Other routes
     {
       path: '/about',
       name: 'about',
