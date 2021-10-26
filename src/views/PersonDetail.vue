@@ -118,7 +118,7 @@
             <!-- User info -->
             <div class="card-user-info">
               <!-- Tags and location -->
-              <h2 class="pb-1">Can help you with</h2>
+              <h2 class="pb-1">{{ config.skillsProfileText || 'Can help you with'}}</h2>
               <v-chip color="grey lighten-4" v-for="(ability, index) in skills" :key="ability.id">{{ (index !== 0) ? '' + ability.name : ability.name }}</v-chip>
               <!-- Tags and location -->
             </div>
@@ -129,7 +129,7 @@
           <v-card-title primary-title v-if="interests.length">
             <!-- User info -->
             <div class="card-user-info">
-              <h2 class="pb-1">Would like your help with</h2>
+              <h2 class="pb-1">{{ config.interestsProfileText || 'Would like your help with'}}</h2>
                 <v-chip color="grey lighten-4" v-for="(ability, index) in interests" :key="ability.id">{{ (index !== 0) ? '' + ability.name : ability.name }}</v-chip>
               <!-- Tags and location -->
             </div>
