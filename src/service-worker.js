@@ -5,7 +5,7 @@ importScripts('https://www.gstatic.com/firebasejs/8.3.0/firebase-messaging.js');
 workbox.core.setCacheNameDetails({ prefix: 'd4' });
 
 // Change this value every time before you build
-const LATEST_VERSION = 'v1.27.1';
+const LATEST_VERSION = 'v1.28.0';
 
 // Configure firebase
 const config = {

@@ -857,7 +857,9 @@
       },
 
       checkInitialTab() {
-        if (this.config.showHome === false) {
+        if (this.$route.query.tab) {
+          this.tabs = `tabs-${this.$route.query.tab}`;
+        } else if (this.config.showHome === false) {
           this.tabs = 'tabs-people';
         }
       },

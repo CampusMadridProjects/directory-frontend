@@ -44,6 +44,24 @@ export default new Router({
       ],
     },
     {
+      path: '/people',
+      redirect: {
+        path: '/directory',
+        query: {
+          tab: 'people',
+        },
+      },
+    },
+    {
+      path: '/groups',
+      redirect: {
+        path: '/directory',
+        query: {
+          tab: 'startups',
+        },
+      },
+    },
+    {
       path: '/about',
       name: 'about',
       component: About,
